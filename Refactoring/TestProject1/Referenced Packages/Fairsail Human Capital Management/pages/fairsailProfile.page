@@ -1,0 +1,68 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <script language="JavaScript">
+                jQuery.noConflict();
+                document.domain="force.com";
+                jQuery( function() {
+                    <apex:repeat value="{!FairsailProcesses}" var="process">
+                        jQuery('#{!process.id}').load('{!process.ProfilePageSection+viewer.teamMember.id} .pbBody');
+                    </apex:repeat>
+                });
+            </script>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.FairsailProfile}" title="{!$Label.fhcm2__Button_Profile}" noticePage="FairsailProfile" noticeLocation="header"/>
+
+            <c:TeamMemberFind />
+
+            <c:Notice viewer="{!viewer}" page="FairsailProfile" location="Subfooter"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!viewer.teamMember.name}" mode="view">
+            
+            <c:Notice viewer="{!viewer}" page="FairsailProfile" location="Header"/>
+
+                <c:FieldSetSection objectid="{!viewer.teamMember.id}" fields="{!FieldsetTeamMemberFairsailDetails}" title="{!$Label.fhcm2__Global_Details}" skipBlank="true">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:outputLink value="/apex/{!links.PersonalProfile}?id={!viewer.teamMember.Id}" target="_top" rendered="{!viewer.isTeamMemberOrManager}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.TeamMemberDetails}?id={!viewer.teamMember.Id}" target="_top" rendered="{!and(viewer.isTeamMemberOrManager,viewer.departmentPolicy.fHCM2__Modify_Personal_Details__c)}">{!$Label.fhcm2__Button_Edit}</apex:outputLink>
+                    </apex:outputPanel>
+                </c:FieldSetSection>
+                
+                <apex:repeat value="{!FairsailProcesses}" var="process">
+                    <apex:outputPanel layout="None" rendered="{!!isblank(process.ProfilePageSection)}">
+                        <div id="{!process.id}" style="width:100%;"><apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/></div>
+                    </apex:outputPanel>
+                </apex:repeat>               
+
+                <c:Notice viewer="{!viewer}" page="FairsailProfile" location="Footer"/>
+                
+             </apex:pageBlock>
+             
+        </apex:define>
+
+        <apex:define name="footer">
+            <apex:form rendered="{!language.hasOptions}">
+                <apex:actionFunction name="changeLanguage" action="{!changeLanguage}" />
+                <span style="font-size: 11px; margin-bottom: -32px; margin-left: 210px;">
+                {!$Label.Button_Language}:&nbsp;
+                <apex:selectList size="1" value="{!language.locale}" required="true" onchange="changeLanguage();" style="font-size: 11px;">
+                    <apex:selectOptions value="{!language.LanguageOptions}"/>
+                </apex:selectList>
+                </span>
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

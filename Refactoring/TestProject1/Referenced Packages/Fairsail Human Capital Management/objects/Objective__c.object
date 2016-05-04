@@ -1,0 +1,1954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Objective for a team member</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Additional_Attributes</fullName>
+        <description>Additional attributes linked to objectives</description>
+        <displayedFields>
+            <field>Who_else_needs_to_be_involved__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Probation_Objective__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>VSO_Strategic_Objective__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Additional Attributes</label>
+    </fieldSets>
+    <fields>
+        <fullName>Achievement__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage achieved by team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage achieved by team member</inlineHelpText>
+        <label>Achievement</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isnull(Manager_Action__c), if ( isnull(Team_Member_Action__c), null, Team_Member_Action_Date__c ) , Manager_Action_Date__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Combined Manager and Team Member Actions</description>
+        <externalId>false</externalId>
+        <formula>if ( Manager_Action__c = &apos;&apos;,  if ( Team_Member_Action__c = &apos;&apos;,  &apos;&apos;, &apos;Team Member: &apos;&amp;Team_Member_Action__c) , &apos;Manager: &apos;&amp;Manager_Action__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Combined Manager and Team Member Actions</inlineHelpText>
+        <label>Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approved_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date the manager approved the objective</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the manager approved the objective</inlineHelpText>
+        <label>Approved Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Bonus_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(  if(Team_Member__r.Policy__c==null, Team_Member__r.Department__r.Policy__r.Use_Objective_Weight__c==true, Team_Member__r.Policy__r.Use_Objective_Weight__c==true), 
+    if(isblank( Score__c ) || isblank( Weight__c ), null, Score__c * Weight__c )
+,
+    if(   if(Team_Member__r.Policy__c==null, Team_Member__r.Department__r.Policy__r.Use_Objective_Bonus__c==true, Team_Member__r.Policy__r.Use_Objective_Bonus__c==true), 
+        if(  Required_For_Bonus__c , Score__c, null ) 
+    ,
+         Score__c 
+    )     
+)</formula>
+        <label>Bonus Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collaboration__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Are others able to collaborate on this objective, and if so who is able to link to it.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are others able to collaborate on this objective, and if so who is able to link to it.</inlineHelpText>
+        <label>Collaboration</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Colleagues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Reports</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Reports</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Collaborative_Objective__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Collaborative Objective</label>
+        <referenceTo>Collaborative_Objective__c</referenceTo>
+        <relationshipLabel>Objectives</relationshipLabel>
+        <relationshipName>Objectives</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the team member confirmed the objective</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the team member confirmed the objective</inlineHelpText>
+        <label>Confirmed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contributes_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Manager&apos;s objective to which this team member&apos;s objective contributes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Manager&apos;s objective to which this team member&apos;s objective contributes</inlineHelpText>
+        <label>Contributes To</label>
+        <referenceTo>Objective__c</referenceTo>
+        <relationshipLabel>Contributing Objectives</relationshipLabel>
+        <relationshipName>Contributing_Objectives</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A description of what is to be achieved.  Objectives should be SMART: specific, measurable, achievable, realistic and over a specified timespan.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A description of what is to be achieved.  Objectives should be SMART: specific, measurable, achievable, realistic and time-bound..</inlineHelpText>
+        <label>Description</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The day on which this objective must be completed and will have a final review.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The day on which this objective must be completed and will have a final review.</inlineHelpText>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Is_Private__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked the objective will only be visible to the team member and management chain.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked the objective will only be visible to the team member and management chain.</inlineHelpText>
+        <label>Is Private</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Team_Member_Review_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Team Member Review Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( $RecordType.Name = &apos;Team Member Draft&apos;,datevalue(LastModifiedDate), if(and($RecordType.Name = &apos;Active&apos;,Next_Review_Date__c&lt;=today()), Next_Review_Date__c ,null) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Action to be done by manager</description>
+        <externalId>false</externalId>
+        <formula>if ( $RecordType.Name = &apos;Team Member Draft&apos;,&apos;Approve or Edit&apos;, if(and($RecordType.Name = &apos;Active&apos;,Next_Review_Date__c&lt;=today()),&apos;Review&apos;,null) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Action to be done by manager</inlineHelpText>
+        <label>Manager Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Manager&apos;s comments on how well this objective is being/has been achieved.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Manager&apos;s comments on how well this objective is being/has been achieved.</inlineHelpText>
+        <label>Manager Comments</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Measure__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A written description of how performance against the objective will be assessed. This must be something that can be measured with little room for uncertainty.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A written description of how performance against the objective will be assessed. This must be something that can be measured with little room for uncertainty.</inlineHelpText>
+        <label>Measure</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Next_Review_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date for next (or first) review of progress against this objective.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date for next (or first) review of progress against this objective. Unless the timespan is short an objective must be reviewed whilst in progress to give sufficient time to correct any issues.</inlineHelpText>
+        <label>Next Review Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Priority of this objective.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Priority of this objective.</inlineHelpText>
+        <label>Priority</label>
+        <picklist>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Progress__c</fullName>
+        <deprecated>false</deprecated>
+        <description>What progress is being made towards the objective?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What progress is being made towards the objective? Is it likely to be/has it been achieved?</inlineHelpText>
+        <label>Progress</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ongoing: Above Track</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ongoing: On Track</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ongoing: Below Track</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Exceeded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Achieved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Not Achieved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Canceled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Required_For_Bonus__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is this objective going to be considered when deciding a bonus.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this objective going to be considered when deciding a bonus.</inlineHelpText>
+        <label>Required For Bonus</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The date on which the objective starts.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date on which the objective starts. This is the first day that performance on this objective will be measured. Do not back-date unless the team member was fully aware of all aspects of the objective.</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Strategic_Objective__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Strategic objective to which this objective relates.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Strategic objective to which this objective relates.</inlineHelpText>
+        <label>Strategic Objective</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Impact 1. Operating as a global organisation delivering impact through a global portfolio of work, defined core programmes and country.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 2. Framing programming delivery in the Sustainable Development Goals (SDGs) .</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 3. Expanding our global footprint, considering more flexible arrangements to deliver programmes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 4. Defining our approach to working successfully in Low Income, Middle Income, or Fragile States to deliver global objectives. .</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 5. Responding to disasters and humanitarian crises in countries where we are already working.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 6. Developing thematic content in three thematic areas: education, health, and livelihoods.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 7. Developing systemic interventions in Gender, Youth, Inclusive Governance and Social Accountability across all our programmes.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 8. Delivering and maintaining core programmes areas content and collateral based on evidence and value we can deliver.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 9. Identifying and investing in areas of programme innovation for future growth with the potential to strengthen existing or new, core programmes.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 10. Clearly articulating how VSO makes a distinctive contribution to poverty reduction, focused on delivering transformational change using volunteers.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 11. Demonstrating the VSO distinctive contribution through an integration of the Programme Framework, and using volunteers in delivering transformational change.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 12. Demonstrating our volunteering methodology through quality and effectiveness of services, social inclusion, social innovation, collaboration, ownership and agency, participation, social action, inspiration.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Impact 13. Developing programmes with a range of volunteer interventions to deliver transformational change and team-based interventions combining community.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 14. Expanding our influence and reputation as an organisation that is innovative and that delivers significant and transformational impact.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 15. Influencing and advocating based on the evidence generated from our programmes.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 16. Building the evidence base for our work and demonstrating how our distinctive volunteering approach can deliver transformational change in delivering the SDGs .</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 17. Developing clear policy positions in our core programme areas.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 18. Programme delivery through influencing policy at national and international level.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 19. Seeking to influence civil society, private and public sector for scalability and replication and for policy development.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Influence 20. Taking opportunities to build the VSO brand globally.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 21. Gradually increasing our turnover to generate significant new restricted income to replace the strategic grant.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 22. Diversifying income from all sources with a clear focus on building our unrestricted income to 20% of income</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 23. Growing the cost recovery from grants and contracts.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 24. Using unrestricted income as investment to leverage additional resources or impact.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 25. Developing a clear criterion for evaluating investment opportunities to be allocated to opportunities that are most able to support our mission.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 26. Developing an effective pricing strategy and ensuring full cost recovery on all future grants and contracts to delivering sufficient unrestricted income to support organisational core costs.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 27. Enhancing our systems and processes to ensure we have current, insightful and relevant data which is accessible and utilised in measuring our performance.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 28. Maintaining overhead at XX% of our turnover.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 29. Maintaining unrestricted reserves at a level that is appropriate for the level of risk facing the organisation.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 30. Maintaining core costs (overhead plus investment in programme development and fundraising) of XXX% of our turnover.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 31. Working in a focused, collaborative and cross-functional way on knowledge management practice and tools to share content of our core programme areas.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 32. Determining volunteer demand for our programmes, designing roles to deliver strategic and transformational impact through our distinctive volunteering approach.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 33. Building capacity for high quality, global volunteer sourcing and recruitment to meet our programme demand, developing global strategic partnerships.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 34. Building capacity to develop a range of volunteer interventions as required by our programmes to deliver transformational change.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 35. Developing a whole-life relationship between volunteers and VSO where they are ambassadors, supporters and resource for the organisation for the long-term.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 36. Extending programme reach by joining consortia and becoming sub-contractors within larger programme interventions.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 37. Delivering programme operations at full cost recovery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 38. Developing country income of £2m with 80% from grant/contract - restricted sources with cost recovery at a rate of x%</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 39. Training employees and volunteers as appropriate for programme delivery requirements in accredited project management for development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacity 40. Training employees and volunteers in our distinctive approach to volunteering and development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( $RecordType.Name = &apos;Manager Draft&apos;,datevalue(LastModifiedDate), if(and($RecordType.Name = &apos;Active&apos;,Next_Review_Date__c&lt;=today(), Last_Team_Member_Review_Date__c!=Next_Review_Date__c), Next_Review_Date__c ,null) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team Member Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Action to be done by team member</description>
+        <externalId>false</externalId>
+        <formula>if ( $RecordType.Name = &apos;Manager Draft&apos;,&apos;Confirm or Edit&apos;, if(and($RecordType.Name = &apos;Active&apos;,Next_Review_Date__c&lt;=today(), Last_Team_Member_Review_Date__c!=Next_Review_Date__c ),&apos;Review&apos;,null) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Action to be done by team member</inlineHelpText>
+        <label>Team Member Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Team member&apos;s comments on how well this objective is being/has been achieved.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Team member&apos;s comments on how well this objective is being/has been achieved.</inlineHelpText>
+        <label>Team Member Comments</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The team member to which this objective relates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team member to which this objective relates</inlineHelpText>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipLabel>Objectives</relationshipLabel>
+        <relationshipName>Objective</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Weight__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>A percentage weighting to give the relative importance of this objective.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A percentage weighting to give the relative importance of this objective.  All objectives with a weighting should add up to 100%.  If this objective is part of a bonus then this weighting will be considered when assessing the overall bonus.</inlineHelpText>
+        <label>Weight</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>When__c</fullName>
+        <deprecated>false</deprecated>
+        <description>When the target is to be completed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When the target is to be completed</inlineHelpText>
+        <label>When</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>Objective</label>
+    <nameField>
+        <label>Objective Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Objectives</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Active</fullName>
+        <active>true</active>
+        <label>Active</label>
+        <picklistValues>
+            <picklist>Collaboration__c</picklist>
+            <values>
+                <fullName>All</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Colleagues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategic_Objective__c</picklist>
+            <values>
+                <fullName>Capacity 21%2E Gradually increasing our turnover to generate significant new restricted income to replace the strategic grant%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 22%2E Diversifying income from all sources with a clear focus on building our unrestricted income to 20%25 of income</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 23%2E Growing the cost recovery from grants and contracts%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 24%2E Using unrestricted income as investment to leverage additional resources or impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 25%2E Developing a clear criterion for evaluating investment opportunities to be allocated to opportunities that are most able to support our mission%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 26%2E Developing an effective pricing strategy and ensuring full cost recovery on all future grants and contracts to delivering sufficient unrestricted income to support organisational core costs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 27%2E Enhancing our systems and processes to ensure we have current%2C insightful and relevant data which is accessible and utilised in measuring our performance%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 28%2E Maintaining overhead at XX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 29%2E Maintaining unrestricted reserves at a level that is appropriate for the level of risk facing the organisation%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 30%2E Maintaining core costs %28overhead plus investment in programme development and fundraising%29 of XXX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 31%2E Working in a focused%2C collaborative and cross-functional way on knowledge management practice and tools to share content of our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 32%2E Determining volunteer demand for our programmes%2C designing roles to deliver strategic and transformational impact through our distinctive volunteering approach%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 33%2E Building capacity for high quality%2C global volunteer sourcing and recruitment to meet our programme demand%2C developing global strategic partnerships%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 34%2E Building capacity to develop a range of volunteer interventions as required by our programmes to deliver transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 35%2E Developing a whole-life relationship between volunteers and VSO where they are ambassadors%2C supporters and resource for the organisation for the long-term%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 36%2E Extending programme reach by joining consortia and becoming sub-contractors within larger programme interventions%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 37%2E Delivering programme operations at full cost recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 38%2E Developing country income of %C2%A32m with 80%25 from grant%2Fcontract - restricted sources with cost recovery at a rate of x%25</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 39%2E Training employees and volunteers as appropriate for programme delivery requirements in accredited project management for development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 40%2E Training employees and volunteers in our distinctive approach to volunteering and development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 1%2E Operating as a global organisation delivering impact through a global portfolio of work%2C defined core programmes and country%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 10%2E Clearly articulating how VSO makes a distinctive contribution to poverty reduction%2C focused on delivering transformational change using volunteers%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 11%2E Demonstrating the VSO distinctive contribution through an integration of the Programme Framework%2C and using volunteers in delivering transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 12%2E Demonstrating our volunteering methodology through quality and effectiveness of services%2C social inclusion%2C social innovation%2C collaboration%2C ownership and agency%2C participation%2C social action%2C inspiration%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 13%2E Developing programmes with a range of volunteer interventions to deliver transformational change and team-based interventions combining community%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 2%2E Framing programming delivery in the Sustainable Development Goals %28SDGs%29 %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 3%2E Expanding our global footprint%2C considering more flexible arrangements to deliver programmes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 4%2E Defining our approach to working successfully in Low Income%2C Middle Income%2C or Fragile States to deliver global objectives%2E %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 5%2E Responding to disasters and humanitarian crises in countries where we are already working%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 6%2E Developing thematic content in three thematic areas%3A education%2C health%2C and livelihoods%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 7%2E Developing systemic interventions in Gender%2C Youth%2C Inclusive Governance and Social Accountability across all our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 8%2E Delivering and maintaining core programmes areas content and collateral based on evidence and value we can deliver%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 9%2E Identifying and investing in areas of programme innovation for future growth with the potential to strengthen existing or new%2C core programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 14%2E Expanding our influence and reputation as an organisation that is innovative and that delivers significant and transformational impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 15%2E Influencing and advocating based on the evidence generated from our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 16%2E Building the evidence base for our work and demonstrating how our distinctive volunteering approach can deliver transformational change in delivering the SDGs %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 17%2E Developing clear policy positions in our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 18%2E Programme delivery through influencing policy at national and international level%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 19%2E Seeking to influence civil society%2C private and public sector for scalability and replication and for policy development%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 20%2E Taking opportunities to build the VSO brand globally%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Closed</fullName>
+        <active>true</active>
+        <label>Closed</label>
+        <picklistValues>
+            <picklist>Collaboration__c</picklist>
+            <values>
+                <fullName>All</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Colleagues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategic_Objective__c</picklist>
+            <values>
+                <fullName>Capacity 21%2E Gradually increasing our turnover to generate significant new restricted income to replace the strategic grant%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 22%2E Diversifying income from all sources with a clear focus on building our unrestricted income to 20%25 of income</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 23%2E Growing the cost recovery from grants and contracts%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 24%2E Using unrestricted income as investment to leverage additional resources or impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 25%2E Developing a clear criterion for evaluating investment opportunities to be allocated to opportunities that are most able to support our mission%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 26%2E Developing an effective pricing strategy and ensuring full cost recovery on all future grants and contracts to delivering sufficient unrestricted income to support organisational core costs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 27%2E Enhancing our systems and processes to ensure we have current%2C insightful and relevant data which is accessible and utilised in measuring our performance%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 28%2E Maintaining overhead at XX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 29%2E Maintaining unrestricted reserves at a level that is appropriate for the level of risk facing the organisation%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 30%2E Maintaining core costs %28overhead plus investment in programme development and fundraising%29 of XXX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 31%2E Working in a focused%2C collaborative and cross-functional way on knowledge management practice and tools to share content of our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 32%2E Determining volunteer demand for our programmes%2C designing roles to deliver strategic and transformational impact through our distinctive volunteering approach%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 33%2E Building capacity for high quality%2C global volunteer sourcing and recruitment to meet our programme demand%2C developing global strategic partnerships%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 34%2E Building capacity to develop a range of volunteer interventions as required by our programmes to deliver transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 35%2E Developing a whole-life relationship between volunteers and VSO where they are ambassadors%2C supporters and resource for the organisation for the long-term%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 36%2E Extending programme reach by joining consortia and becoming sub-contractors within larger programme interventions%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 37%2E Delivering programme operations at full cost recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 38%2E Developing country income of %C2%A32m with 80%25 from grant%2Fcontract - restricted sources with cost recovery at a rate of x%25</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 39%2E Training employees and volunteers as appropriate for programme delivery requirements in accredited project management for development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 40%2E Training employees and volunteers in our distinctive approach to volunteering and development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 1%2E Operating as a global organisation delivering impact through a global portfolio of work%2C defined core programmes and country%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 10%2E Clearly articulating how VSO makes a distinctive contribution to poverty reduction%2C focused on delivering transformational change using volunteers%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 11%2E Demonstrating the VSO distinctive contribution through an integration of the Programme Framework%2C and using volunteers in delivering transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 12%2E Demonstrating our volunteering methodology through quality and effectiveness of services%2C social inclusion%2C social innovation%2C collaboration%2C ownership and agency%2C participation%2C social action%2C inspiration%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 13%2E Developing programmes with a range of volunteer interventions to deliver transformational change and team-based interventions combining community%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 2%2E Framing programming delivery in the Sustainable Development Goals %28SDGs%29 %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 3%2E Expanding our global footprint%2C considering more flexible arrangements to deliver programmes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 4%2E Defining our approach to working successfully in Low Income%2C Middle Income%2C or Fragile States to deliver global objectives%2E %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 5%2E Responding to disasters and humanitarian crises in countries where we are already working%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 6%2E Developing thematic content in three thematic areas%3A education%2C health%2C and livelihoods%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 7%2E Developing systemic interventions in Gender%2C Youth%2C Inclusive Governance and Social Accountability across all our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 8%2E Delivering and maintaining core programmes areas content and collateral based on evidence and value we can deliver%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 9%2E Identifying and investing in areas of programme innovation for future growth with the potential to strengthen existing or new%2C core programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 14%2E Expanding our influence and reputation as an organisation that is innovative and that delivers significant and transformational impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 15%2E Influencing and advocating based on the evidence generated from our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 16%2E Building the evidence base for our work and demonstrating how our distinctive volunteering approach can deliver transformational change in delivering the SDGs %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 17%2E Developing clear policy positions in our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 18%2E Programme delivery through influencing policy at national and international level%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 19%2E Seeking to influence civil society%2C private and public sector for scalability and replication and for policy development%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 20%2E Taking opportunities to build the VSO brand globally%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ManagerDraft</fullName>
+        <active>true</active>
+        <label>Manager Draft</label>
+        <picklistValues>
+            <picklist>Collaboration__c</picklist>
+            <values>
+                <fullName>All</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Colleagues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategic_Objective__c</picklist>
+            <values>
+                <fullName>Capacity 21%2E Gradually increasing our turnover to generate significant new restricted income to replace the strategic grant%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 22%2E Diversifying income from all sources with a clear focus on building our unrestricted income to 20%25 of income</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 23%2E Growing the cost recovery from grants and contracts%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 24%2E Using unrestricted income as investment to leverage additional resources or impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 25%2E Developing a clear criterion for evaluating investment opportunities to be allocated to opportunities that are most able to support our mission%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 26%2E Developing an effective pricing strategy and ensuring full cost recovery on all future grants and contracts to delivering sufficient unrestricted income to support organisational core costs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 27%2E Enhancing our systems and processes to ensure we have current%2C insightful and relevant data which is accessible and utilised in measuring our performance%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 28%2E Maintaining overhead at XX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 29%2E Maintaining unrestricted reserves at a level that is appropriate for the level of risk facing the organisation%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 30%2E Maintaining core costs %28overhead plus investment in programme development and fundraising%29 of XXX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 31%2E Working in a focused%2C collaborative and cross-functional way on knowledge management practice and tools to share content of our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 32%2E Determining volunteer demand for our programmes%2C designing roles to deliver strategic and transformational impact through our distinctive volunteering approach%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 33%2E Building capacity for high quality%2C global volunteer sourcing and recruitment to meet our programme demand%2C developing global strategic partnerships%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 34%2E Building capacity to develop a range of volunteer interventions as required by our programmes to deliver transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 35%2E Developing a whole-life relationship between volunteers and VSO where they are ambassadors%2C supporters and resource for the organisation for the long-term%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 36%2E Extending programme reach by joining consortia and becoming sub-contractors within larger programme interventions%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 37%2E Delivering programme operations at full cost recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 38%2E Developing country income of %C2%A32m with 80%25 from grant%2Fcontract - restricted sources with cost recovery at a rate of x%25</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 39%2E Training employees and volunteers as appropriate for programme delivery requirements in accredited project management for development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 40%2E Training employees and volunteers in our distinctive approach to volunteering and development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 1%2E Operating as a global organisation delivering impact through a global portfolio of work%2C defined core programmes and country%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 10%2E Clearly articulating how VSO makes a distinctive contribution to poverty reduction%2C focused on delivering transformational change using volunteers%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 11%2E Demonstrating the VSO distinctive contribution through an integration of the Programme Framework%2C and using volunteers in delivering transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 12%2E Demonstrating our volunteering methodology through quality and effectiveness of services%2C social inclusion%2C social innovation%2C collaboration%2C ownership and agency%2C participation%2C social action%2C inspiration%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 13%2E Developing programmes with a range of volunteer interventions to deliver transformational change and team-based interventions combining community%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 2%2E Framing programming delivery in the Sustainable Development Goals %28SDGs%29 %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 3%2E Expanding our global footprint%2C considering more flexible arrangements to deliver programmes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 4%2E Defining our approach to working successfully in Low Income%2C Middle Income%2C or Fragile States to deliver global objectives%2E %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 5%2E Responding to disasters and humanitarian crises in countries where we are already working%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 6%2E Developing thematic content in three thematic areas%3A education%2C health%2C and livelihoods%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 7%2E Developing systemic interventions in Gender%2C Youth%2C Inclusive Governance and Social Accountability across all our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 8%2E Delivering and maintaining core programmes areas content and collateral based on evidence and value we can deliver%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 9%2E Identifying and investing in areas of programme innovation for future growth with the potential to strengthen existing or new%2C core programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 14%2E Expanding our influence and reputation as an organisation that is innovative and that delivers significant and transformational impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 15%2E Influencing and advocating based on the evidence generated from our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 16%2E Building the evidence base for our work and demonstrating how our distinctive volunteering approach can deliver transformational change in delivering the SDGs %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 17%2E Developing clear policy positions in our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 18%2E Programme delivery through influencing policy at national and international level%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 19%2E Seeking to influence civil society%2C private and public sector for scalability and replication and for policy development%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 20%2E Taking opportunities to build the VSO brand globally%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New</fullName>
+        <active>true</active>
+        <label>New</label>
+        <picklistValues>
+            <picklist>Collaboration__c</picklist>
+            <values>
+                <fullName>All</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Colleagues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategic_Objective__c</picklist>
+            <values>
+                <fullName>Capacity 21%2E Gradually increasing our turnover to generate significant new restricted income to replace the strategic grant%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 22%2E Diversifying income from all sources with a clear focus on building our unrestricted income to 20%25 of income</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 23%2E Growing the cost recovery from grants and contracts%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 24%2E Using unrestricted income as investment to leverage additional resources or impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 25%2E Developing a clear criterion for evaluating investment opportunities to be allocated to opportunities that are most able to support our mission%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 26%2E Developing an effective pricing strategy and ensuring full cost recovery on all future grants and contracts to delivering sufficient unrestricted income to support organisational core costs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 27%2E Enhancing our systems and processes to ensure we have current%2C insightful and relevant data which is accessible and utilised in measuring our performance%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 28%2E Maintaining overhead at XX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 29%2E Maintaining unrestricted reserves at a level that is appropriate for the level of risk facing the organisation%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 30%2E Maintaining core costs %28overhead plus investment in programme development and fundraising%29 of XXX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 31%2E Working in a focused%2C collaborative and cross-functional way on knowledge management practice and tools to share content of our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 32%2E Determining volunteer demand for our programmes%2C designing roles to deliver strategic and transformational impact through our distinctive volunteering approach%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 33%2E Building capacity for high quality%2C global volunteer sourcing and recruitment to meet our programme demand%2C developing global strategic partnerships%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 34%2E Building capacity to develop a range of volunteer interventions as required by our programmes to deliver transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 35%2E Developing a whole-life relationship between volunteers and VSO where they are ambassadors%2C supporters and resource for the organisation for the long-term%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 36%2E Extending programme reach by joining consortia and becoming sub-contractors within larger programme interventions%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 37%2E Delivering programme operations at full cost recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 38%2E Developing country income of %C2%A32m with 80%25 from grant%2Fcontract - restricted sources with cost recovery at a rate of x%25</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 39%2E Training employees and volunteers as appropriate for programme delivery requirements in accredited project management for development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 40%2E Training employees and volunteers in our distinctive approach to volunteering and development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 1%2E Operating as a global organisation delivering impact through a global portfolio of work%2C defined core programmes and country%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 10%2E Clearly articulating how VSO makes a distinctive contribution to poverty reduction%2C focused on delivering transformational change using volunteers%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 11%2E Demonstrating the VSO distinctive contribution through an integration of the Programme Framework%2C and using volunteers in delivering transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 12%2E Demonstrating our volunteering methodology through quality and effectiveness of services%2C social inclusion%2C social innovation%2C collaboration%2C ownership and agency%2C participation%2C social action%2C inspiration%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 13%2E Developing programmes with a range of volunteer interventions to deliver transformational change and team-based interventions combining community%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 2%2E Framing programming delivery in the Sustainable Development Goals %28SDGs%29 %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 3%2E Expanding our global footprint%2C considering more flexible arrangements to deliver programmes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 4%2E Defining our approach to working successfully in Low Income%2C Middle Income%2C or Fragile States to deliver global objectives%2E %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 5%2E Responding to disasters and humanitarian crises in countries where we are already working%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 6%2E Developing thematic content in three thematic areas%3A education%2C health%2C and livelihoods%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 7%2E Developing systemic interventions in Gender%2C Youth%2C Inclusive Governance and Social Accountability across all our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 8%2E Delivering and maintaining core programmes areas content and collateral based on evidence and value we can deliver%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 9%2E Identifying and investing in areas of programme innovation for future growth with the potential to strengthen existing or new%2C core programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 14%2E Expanding our influence and reputation as an organisation that is innovative and that delivers significant and transformational impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 15%2E Influencing and advocating based on the evidence generated from our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 16%2E Building the evidence base for our work and demonstrating how our distinctive volunteering approach can deliver transformational change in delivering the SDGs %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 17%2E Developing clear policy positions in our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 18%2E Programme delivery through influencing policy at national and international level%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 19%2E Seeking to influence civil society%2C private and public sector for scalability and replication and for policy development%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 20%2E Taking opportunities to build the VSO brand globally%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>TeamMemberDraft</fullName>
+        <active>true</active>
+        <label>Team Member Draft</label>
+        <picklistValues>
+            <picklist>Collaboration__c</picklist>
+            <values>
+                <fullName>All</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>All Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Colleagues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Reports</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invited</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Strategic_Objective__c</picklist>
+            <values>
+                <fullName>Capacity 21%2E Gradually increasing our turnover to generate significant new restricted income to replace the strategic grant%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 22%2E Diversifying income from all sources with a clear focus on building our unrestricted income to 20%25 of income</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 23%2E Growing the cost recovery from grants and contracts%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 24%2E Using unrestricted income as investment to leverage additional resources or impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 25%2E Developing a clear criterion for evaluating investment opportunities to be allocated to opportunities that are most able to support our mission%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 26%2E Developing an effective pricing strategy and ensuring full cost recovery on all future grants and contracts to delivering sufficient unrestricted income to support organisational core costs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 27%2E Enhancing our systems and processes to ensure we have current%2C insightful and relevant data which is accessible and utilised in measuring our performance%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 28%2E Maintaining overhead at XX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 29%2E Maintaining unrestricted reserves at a level that is appropriate for the level of risk facing the organisation%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 30%2E Maintaining core costs %28overhead plus investment in programme development and fundraising%29 of XXX%25 of our turnover%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 31%2E Working in a focused%2C collaborative and cross-functional way on knowledge management practice and tools to share content of our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 32%2E Determining volunteer demand for our programmes%2C designing roles to deliver strategic and transformational impact through our distinctive volunteering approach%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 33%2E Building capacity for high quality%2C global volunteer sourcing and recruitment to meet our programme demand%2C developing global strategic partnerships%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 34%2E Building capacity to develop a range of volunteer interventions as required by our programmes to deliver transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 35%2E Developing a whole-life relationship between volunteers and VSO where they are ambassadors%2C supporters and resource for the organisation for the long-term%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 36%2E Extending programme reach by joining consortia and becoming sub-contractors within larger programme interventions%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 37%2E Delivering programme operations at full cost recovery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 38%2E Developing country income of %C2%A32m with 80%25 from grant%2Fcontract - restricted sources with cost recovery at a rate of x%25</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 39%2E Training employees and volunteers as appropriate for programme delivery requirements in accredited project management for development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Capacity 40%2E Training employees and volunteers in our distinctive approach to volunteering and development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 1%2E Operating as a global organisation delivering impact through a global portfolio of work%2C defined core programmes and country%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 10%2E Clearly articulating how VSO makes a distinctive contribution to poverty reduction%2C focused on delivering transformational change using volunteers%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 11%2E Demonstrating the VSO distinctive contribution through an integration of the Programme Framework%2C and using volunteers in delivering transformational change%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 12%2E Demonstrating our volunteering methodology through quality and effectiveness of services%2C social inclusion%2C social innovation%2C collaboration%2C ownership and agency%2C participation%2C social action%2C inspiration%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 13%2E Developing programmes with a range of volunteer interventions to deliver transformational change and team-based interventions combining community%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 2%2E Framing programming delivery in the Sustainable Development Goals %28SDGs%29 %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 3%2E Expanding our global footprint%2C considering more flexible arrangements to deliver programmes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 4%2E Defining our approach to working successfully in Low Income%2C Middle Income%2C or Fragile States to deliver global objectives%2E %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 5%2E Responding to disasters and humanitarian crises in countries where we are already working%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 6%2E Developing thematic content in three thematic areas%3A education%2C health%2C and livelihoods%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 7%2E Developing systemic interventions in Gender%2C Youth%2C Inclusive Governance and Social Accountability across all our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 8%2E Delivering and maintaining core programmes areas content and collateral based on evidence and value we can deliver%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact 9%2E Identifying and investing in areas of programme innovation for future growth with the potential to strengthen existing or new%2C core programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 14%2E Expanding our influence and reputation as an organisation that is innovative and that delivers significant and transformational impact%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 15%2E Influencing and advocating based on the evidence generated from our programmes%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 16%2E Building the evidence base for our work and demonstrating how our distinctive volunteering approach can deliver transformational change in delivering the SDGs %2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 17%2E Developing clear policy positions in our core programme areas%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 18%2E Programme delivery through influencing policy at national and international level%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 19%2E Seeking to influence civil society%2C private and public sector for scalability and replication and for policy development%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Influence 20%2E Taking opportunities to build the VSO brand globally%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+    <validationRules>
+        <fullName>Next_Review_Date_After_Start_Date</fullName>
+        <active>true</active>
+        <description>Next Review Date must after the start date</description>
+        <errorConditionFormula>Next_Review_Date__c &lt; Start_Date__c</errorConditionFormula>
+        <errorDisplayField>Next_Review_Date__c</errorDisplayField>
+        <errorMessage>The Next Review Date must be after the Start Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Start_date_before_end_date</fullName>
+        <active>true</active>
+        <description>The Start Date must be before the End Date</description>
+        <errorConditionFormula>Start_Date__c  &gt;=  End_Date__c</errorConditionFormula>
+        <errorDisplayField>Start_Date__c</errorDisplayField>
+        <errorMessage>The Start Date must be before the End Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Weight_between_0_and_100</fullName>
+        <active>true</active>
+        <description>Weight between 0 and 100</description>
+        <errorConditionFormula>or(Weight__c &lt; 0 ,  Weight__c &gt; 100)</errorConditionFormula>
+        <errorDisplayField>Weight__c</errorDisplayField>
+        <errorMessage>Weight must be a percentage between 0 and 100</errorMessage>
+    </validationRules>
+</CustomObject>

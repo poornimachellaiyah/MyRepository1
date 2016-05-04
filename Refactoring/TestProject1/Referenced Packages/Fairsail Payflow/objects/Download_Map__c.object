@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Changes_Only__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Changes Only</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Character_Set__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If entered, only the characters in this list will be permitted in this field.  All others will be removed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If entered, only the characters in this list will be permitted in this field.  All others will be removed.</inlineHelpText>
+        <label>Character Set</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Default</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Download_File__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Download File</label>
+        <referenceTo>Download_File__c</referenceTo>
+        <relationshipLabel>Download Mapping</relationshipLabel>
+        <relationshipName>Download_Mapping</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Format__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Format</label>
+        <picklist>
+            <picklistValues>
+                <fullName>MM-dd-yyyy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>dd-MM-yyyy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>yyyy-MM-dd</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MM/dd/yyyy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>dd/MM/yyyy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>yyyy/MM/dd</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>yyyyMMdd</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MMddyyyy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ddMMyyyy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>0,1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>F,T</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>False,True</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Group__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Subgroup within the file</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Subgroup within the file</inlineHelpText>
+        <label>Subgroup</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benefit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beneficiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beneficiary Benefit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Absence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bonus</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HCM_Field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>HCM Field</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HCM_Object__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>HCM Object</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Salary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benefit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beneficiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dependant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Absence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bonus</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Left_Pad_Character__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Character to fill up the field on the left side if less than the length given.  If zero size then no padding is added.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Character to fill up the field on the left side if less than the length given.  If zero size then no padding is added.</inlineHelpText>
+        <label>Left Pad Character</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Length__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Length</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Loop_After__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>New Loop After</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>New_Record_After__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>New Record After</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Node_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Node Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Parent__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Node Parent</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Node_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>How to place this field into the XML DOM</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How to place this field into the XML DOM</inlineHelpText>
+        <label>Node Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Element</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Attribute</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CDATA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Order for fields.  Sorted by order and then position</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Order for fields.  Sorted by order and then position</inlineHelpText>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payroll_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payroll Service</label>
+        <referenceTo>Payroll_Service__c</referenceTo>
+        <relationshipLabel>Download Mapping</relationshipLabel>
+        <relationshipName>Download_Mapping</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Position__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Position</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Postfix__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Text added after data</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text added after data</inlineHelpText>
+        <label>Postfix</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prefix__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Text added before data</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text added before data</inlineHelpText>
+        <label>Prefix</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Loop_Counter__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Record/Loop Counter</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remove_Node_If__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Prune this node from XML if the selected condition is true</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Prune this node from XML if the selected condition is true</inlineHelpText>
+        <label>Remove Node If</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No Attributes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Child Elements</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Text</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Empty</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Repeat__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Repeat</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Scale__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of digits after the decimal place</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of digits after the decimal place</inlineHelpText>
+        <label>Scale</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Select_Field__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The field to select if this field is copied into download file</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The field to select if this field is copied into download file</inlineHelpText>
+        <label>Select Field</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Select_Object__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The object to select if this field is copied into download file</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The object to select if this field is copied into download file</inlineHelpText>
+        <label>Select Object</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Salary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Benefit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Beneficiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dependant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Absence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bonus</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Timesheet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TimeReport</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Select_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The value to select if this field is copied into download file</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The value to select if this field is copied into download file</inlineHelpText>
+        <label>Select Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Single_Space__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Remove more than one space between words</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Remove more than one space between words</inlineHelpText>
+        <label>Single Space</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>To_Upper__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Convert lower case characters to upper case</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Convert lower case characters to upper case</inlineHelpText>
+        <label>To Upper</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Translate_By_Substrings__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked translations are sub-strings that are replaced wherever they occur.  If not, the translated value makes up the entire string to be replaced.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked translations are sub-strings that are replaced wherever they occur.  If not, the translated value makes up the entire string to be replaced.</inlineHelpText>
+        <label>Translate By Substrings</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Validation__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If present, will generate a warning if this field does not match the regular expression.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If present, will generate a warning if this field does not match the regular expression.</inlineHelpText>
+        <label>Validation</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Download Map</label>
+    <nameField>
+        <label>Download Field Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Download Mapping</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

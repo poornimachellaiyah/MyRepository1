@@ -1,0 +1,483 @@
+<apex:page Controller="fHCM2.PerformanceReviewController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Performance Review" action="{!CompetencyAssessment}" rendered="{!subject.currentPerformanceReview.isUsing}">
+
+	<apex:include pageName="{!$Page.FairsailIncludes}"/>
+    <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    <apex:outputPanel id="pagePanel" layout="block" style="margin:0 auto;width:800px; position:relative; z-index:0">
+        <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody>
+            <tr><td valign="top" class="thinPanelTD">
+
+
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Performance_Review}" mode="view" rendered="{!viewer.isTeamMemberOrManager}">
+            	 <c:Notice viewer="{!viewer}" page="PerformanceReview" location="Subheader"/>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_History}" columns="1">
+                    <apex:repeat value="{!subject.currentPerformanceReview.history}" var="other">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.PerformanceReview}?id={!other.Id}" rendered="{!other.Id!=performanceReview.id}">
+                        </c:DetailListBar>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives}" columns="1" rendered="{!subject.objectives.isUsing}">
+                	<apex:outputPanel >
+                    <apex:repeat value="{!subject.objectives.review}" var="other">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}" warning="{!other.Action}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Status__c.label}" value="{!other.status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Description__c.label}" value="{!other.description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Measure__c.label}" value="{!other.measure}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!other.Achievement}" rendered="{!!isblank(other.Achievement)}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Progress__c.label}" value="{!other.progress}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Weight__c.label}" value="{!other.weight}" rendered="{!other.weight>0}"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Priority__c.label}" value="{!other.priority}" rendered="{!other.priority!=''}"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Required_For_Bonus__c.label}" value="{!other.requiredForBonus}" rendered="{!other.requiredForBonus==true}"/>
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    <apex:outputPanel styleClass="process-warning" rendered="{!viewer.isManager && !IsCompleted}">
+                    	<apex:outputText value="{!$Label.fhcm2__Process_Performance_Review_Objective_Review_Warning}" rendered="{!subject.objectives.ReviewDueSoon && viewer.departmentPolicy.fHCM2__Require_Objective_Review_On_Reveal__c!=true}"/>
+                    	<apex:outputText value="{!$Label.fhcm2__Process_Performance_Review_Objective_Review_Required}" rendered="{!subject.objectives.ReviewDue && viewer.departmentPolicy.fHCM2__Require_Objective_Review_On_Reveal__c==true}"/>
+                    	<apex:outputText value="{!$Label.fhcm2__Process_Performance_Review_Active_Objective_Required}" rendered="{!!subject.objectives.hasActive && viewer.departmentPolicy.fHCM2__Require_Objectives_On_Sign__c==true && canSign}"/>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+                
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Target}" columns="1" rendered="{!subject.targets.isUsing}">
+                    <apex:repeat value="{!subject.targets.review}" var="target">
+                        <c:DetailListBar title="{!target.Name}" value="/apex/{!links.Target}?id={!target.Id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}">
+                            <c:ChartPercentAxis width="180px" />
+                            <c:chartBar percent="{!target.percentage}"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Progress__c.label}" value="{!target.progress}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Target_YTD__c.label}" value="{!target.targetYTD}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Actual_YTD__c.label}" value="{!target.actualYTD}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+
+	             <apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Metrics_Review}" columns="1" rendered="{!subject.metrics.isUsing}">
+                	<apex:outputPanel >
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar2" style="background-color:#f0f0f0;" >
+						<apex:outputLink value="/apex/{!links.MetricsReview}?teamMemberId={!viewer.teamMember.Id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}" target="_top" rendered="{!and(or(subject.metrics.currentReview.isCompleted,!subject.metrics.has),viewer.isEdit,viewer.IsManager,subject.metrics.newMetricsReviewPermitted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+						<apex:outputLink value="/apex/{!links.MetricsReview}?id={!subject.metrics.currentReview.id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}" target="_top" rendered="{!subject.metrics.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+
+					<apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;" rendered="{!subject.metrics.has && !isblank(subject.metrics.CurrentReview)}">
+                     	<apex:repeat value="{!subject.metrics.CurrentReview.assessments}" var="assessment">
+                         <c:DetailListItem label="{!assessment.metric.name}">
+                         	{!assessment.value}{!assessment.level}<br/><c:TrafficLight status="{!assessment.color}"/>{!assessment.achievement}
+                         </c:DetailListItem>
+                        </apex:repeat>
+                     </apex:outputPanel>
+                     </apex:outputPanel>
+	             </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Competency_Assessment}" columns="1" rendered="{!!hasCompetencyAssessment && subject.currentCompetencyAssessment.isUsing}">
+
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar2" style="background-color:#f0f0f0;" >
+                        <apex:outputLink value="/apex/{!links.CompetencyAssessment}?id={!subject.currentCompetencyAssessment.id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}" rendered="{!and(subject.currentCompetencyAssessment.has)}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.CompetencyAssessment}?teamMemberId={!viewer.teamMember.Id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}" target="_top" rendered="{!and(or(!subject.currentCompetencyAssessment.has,subject.currentCompetencyAssessment.hasCompleted),viewer.isEdit,subject.currentCompetencyAssessment.newPermitted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;" rendered="{!and(subject.currentCompetencyAssessment.has,subject.currentCompetencyAssessment.hasCompleted)}">
+                        <c:ChartPercentAxis width="180px" rendered="{!subject.currentCompetencyAssessment.hasScores}" />
+                        <apex:repeat value="{!subject.currentCompetencyAssessment.competencies}" var="competency">
+                        {!competency.Name}<br />                    
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasSelf}" percent="{!competency.selfPercentage}" color="SelfColor" />
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasManager}" percent="{!competency.managerPercentage}" color="ManagerColor" />
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasMentor}" percent="{!competency.mentorPercentage}" color="MentorColor" />
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasDirectReport}" percent="{!competency.directReportPercentage}" color="DirectReportColor" />
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasColleague}" percent="{!competency.colleaguePercentage}" color="ColleagueColor" />
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasCustomer}" percent="{!competency.customerPercentage}" color="CustomerColor" />
+                        <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasOther}" percent="{!competency.otherPercentage}" color="OtherColor" />
+                        </apex:repeat>
+                        <c:ChartPercentAxis position="bottom" width="180px" rendered="{!subject.currentCompetencyAssessment.hasScores}" />
+                    </apex:outputPanel>
+
+                    <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.assessors}" var="assessor" rendered="{!and(subject.currentCompetencyAssessment.has,!subject.currentCompetencyAssessment.hasCompleted)}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Assessment__c.Fields.fHCM2__Assessor__c.label}" value="{!assessor.name} - {!assessor.reportingRelationship}" />
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Assessment__c.Fields.fHCM2__Status__c.label}">
+							{!assessor.status}
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Button_Actions}">
+                            <c:LinkButton url="/apex/{!links.Assessment}?id={!assessor.id}&retURL={!URLEncode('/apex/'+links.PerformanceReview+if(isblank(performanceReview.id),'?teamMemberId='+viewer.teamMember.id,'?id='+performanceReview.id))}" label="{!$Label.fhcm2__Button_Assess}" rendered="{!assessor.isActive && assessor.isViewer}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+
+                    <apex:outputPanel styleClass="process-warning" rendered="{!viewer.isManager && !IsCompleted}">
+                    	<apex:outputText value="{!$Label.fhcm2__Process_Performance_Review_Competency_Assessment_Required}" rendered="{!RequiresCompetencyAssessment}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+                <c:Notice viewer="{!viewer}" page="PerformanceReview" location="Subfooter"/>
+            </apex:pageBlock>
+            
+                </td>
+                <td class="gapPanelTD">&nbsp;</td>
+                <td valign="top" class="widePanelTD">
+
+            <script type="Text/JavaScript">
+function formChanged() {
+    enable("save");
+    if ({!!hasRevealPreconditions}) enable("submit");
+    if ({!!hasRevealPreconditions}) enable("reveal");
+    enable("selfsave");
+    enable("selfreveal");
+}
+</script>
+            <apex:form >
+                <apex:messages />
+                <apex:pageBlock title="{!$Label.fhcm2__Process_Performance_Review_By_Manager}" rendered="{!viewer.isManager}">
+                    <apex:pageBlockButtons >
+                        <apex:commandButton id="profile" action="{!cancel}" immediate="true" value="Profile" rendered="{!isCompleted}" styleClass="inputsubmit" />
+                        <apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!isEditable}" styleClass="inputsubmit" />
+                        <apex:commandButton id="submit" action="{!submit}" value="{!$Label.fhcm2__Button_Submit}" rendered="{!canSubmit}" styleClass="inputsubmit" disabled="{!!hasRevealPreconditions}" onclick="return confirm('{!JSINHTMLENCODE($Label.fhcm2__Process_Performance_Review_Freeze_Warning)}');"/>
+                        <apex:commandButton id="reject" action="{!reject}" value="{!$Label.fhcm2__Button_Reject}" rendered="{!canReject}" styleClass="inputsubmit" />
+                        <apex:commandButton id="approve" action="{!approve}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!canApprove}" disabled="{!!hasRevealPreconditions}" styleClass="inputsubmit" />
+                        <apex:commandButton id="reveal" action="{!reveal}" value="{!$Label.fhcm2__Button_Reveal_To_Team_Member}" rendered="{!canReveal}" disabled="{!!hasRevealPreconditions}" styleClass="inputsubmit" onclick="return {!isApproved || !revealSeals} || confirm('{!JSINHTMLENCODE($Label.fhcm2__Process_Performance_Review_Freeze_Warning)}');"/>
+                        <apex:commandButton id="sign" action="{!sign}" value="{!$Label.fhcm2__Button_Sign}" rendered="{!canSign}" styleClass="inputsubmit" disabled="{!!HasSignPreconditions}" onclick="return {!revealSeals} || confirm('{!JSINHTMLENCODE($Label.fhcm2__Process_Performance_Review_Freeze_Warning)}');"/>
+                        <apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!!isCompleted}" styleClass="inputsubmit" />
+                        <a href="/apex/{!links.PerformanceReviewPDF}?id={!performanceReview.Id}" target="_blank" rendered="{!IsCompleted || IsRevealed}"><image border="0" src="{!$Resource.FairsailIcon}/16x16/pdf.png" title="{!$Label.Global_Create_PDF}"/></a>
+                    </apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="PerformanceReview" location="Header"/>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                        <c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                                <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Status__c.label }" />
+                                <apex:outputText value="{!performanceReview.fHCM2__Status__c}" />
+                                <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Action__c.label }" for="Action__c" />
+                                <apex:outputText style="color:red;text-weight:bold;" value="{!performanceReview.fHCM2__Action__c}" id="Action__c" />
+                            </apex:panelGrid>
+                        </c:PersonSection>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Competency_Assessment}" columns="1" rendered="{!hasAssessment}">
+                        <c:Assessment questions="{!questions}" onChange="formChanged();"/>
+                    </apex:pageBlockSection>
+ 
+                    <c:CompetencyResults results="{!subject.currentCompetencyAssessment}" rendered="{!hasCompetencyAssessment}"/>
+
+	            	<c:FieldSetSection objectid="{!performanceReview.id}" fields="{!FieldsetPerformanceReviewAdditionalDetails}" title="{!$Label.fhcm2__Process_Performance_Review_Additional_Details}" rendered="{!FieldsetPerformanceReviewAdditionalDetails!='[]'}"/>
+               
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Self_Comments}" columns="1" rendered="{!or(isNew,hasSelf)}">
+                    	<apex:outputText value="{!$Label.fhcm2__Global_Not_Revealed}" rendered="{!!IsSelfRevealed}"/>
+                    	
+                        <apex:pageBlockSectionItem rendered="{!isNew && IsSelfRevealed}">
+                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Manager_Review_Only__c.label }" />
+                            <apex:inputCheckbox value="{!performanceReview.fHCM2__Manager_Review_Only__c}" onChange="formChanged();" />
+                        </apex:pageBlockSectionItem>
+
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed && viewer.departmentPolicy.fHCM2__Review_Training__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Training__c.label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Training__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed && FieldsetSelfPerformanceReviewSelfPerformanceReview.size==0}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Review__c.label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Review__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+						<apex:repeat value="{!FieldsetSelfPerformanceReviewSelfPerformanceReview}" var="f">
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields[f].label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r[f]}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>
+
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed && viewer.departmentPolicy.fHCM2__Review_Strengths__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Strengths__c.label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Strengths__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed && viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Development_Needs__c.label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Development_Needs__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed && viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Action_Plan__c.label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Action_Plan__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!hasSelf && IsSelfRevealed && viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Career_Aspirations__c.label }" />
+	                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Career_Aspirations__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+						
+                        <apex:pageBlockSectionItem rendered="{!and(hasSelf,performanceReview.Self_Performance_Review__r.fHCM2__Final_Comment__c!='')}">
+                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Final_Comment__c.label }" />
+                            <apex:outputText value="{!performanceReview.Self_Performance_Review__r.fHCM2__Final_Comment__c}" style="white-space:pre-wrap;"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Last_Review}" columns="1" rendered="{!isEditable && !isblank(subject.currentPerformanceReview.last)}">
+  	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Rating__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Rating__c.label }" />
+	                            <apex:outputText value="{!subject.currentPerformanceReview.last.rating}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+  	                        <apex:pageBlockSectionItem rendered="{!!isblank(subject.currentPerformanceReview.last.managerReview)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Review__c.label }" />
+	                            <apex:outputText value="{!subject.currentPerformanceReview.last.managerReview}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	                </apex:pageBlockSection>
+  
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Manager_Comments_And_Rating}" columns="1">
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && viewer.departmentPolicy.fHCM2__Review_Training__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Performance_Review__c.fields.Training__c }" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Training__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && viewer.departmentPolicy.fHCM2__Review_Training__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Training__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Training__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && viewer.departmentPolicy.fHCM2__Review_Rating__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Performance_Review__c.fields.Rating__c }" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Rating__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && viewer.departmentPolicy.fHCM2__Review_Rating__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Rating__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Rating__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && FieldsetPerformanceReviewPerformanceReview.size==0}">
+	                            <c:FieldLabel value="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Review__c}" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Review__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && FieldsetPerformanceReviewPerformanceReview.size==0}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Review__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Review__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+						<apex:repeat value="{!FieldsetPerformanceReviewPerformanceReview}" var="fieldname">
+	                        <apex:pageBlockSectionItem rendered="{!isEditable}">
+	                            <c:FieldLabel value="{!$ObjectType.fHCM2__Performance_Review__c.fields[fieldname]}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields[fieldname].label}" help="{!$ObjectType.fHCM2__Performance_Review__c.fields[fieldname].InlineHelpText}"/>
+	                            <apex:inputField value="{!performanceReview[fieldname]}" rendered="{!isEditable}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields[fieldname].label }" />
+	                            <apex:outputText value="{!performanceReview[fieldname]}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>
+
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && viewer.departmentPolicy.fHCM2__Review_Strengths__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Performance_Review__c.fields.Strengths__c }" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Strengths__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && viewer.departmentPolicy.fHCM2__Review_Strengths__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Strengths__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Strengths__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Performance_Review__c.fields.Development_Needs__c }" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Development_Needs__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Development_Needs__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Development_Needs__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Performance_Review__c.fields.Action_Plan__c }" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Action_Plan__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Action_Plan__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Action_Plan__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!isEditable && viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Performance_Review__c.fields.Career_Aspirations__c }" />
+	                            <apex:inputField value="{!performanceReview.fHCM2__Career_Aspirations__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!isEditable && viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Career_Aspirations__c.label }" />
+	                            <apex:outputText value="{!performanceReview.fHCM2__Career_Aspirations__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+						
+                    </apex:pageBlockSection>
+                    
+                    <apex:outputPanel style="color:red;text-weight:bold;" rendered="{!hasErrors}">Error: {!errors}</apex:outputPanel>
+					
+                </apex:pageBlock>
+
+                <apex:pageBlock title="{!$Label.fhcm2__Process_Performance_Review_By_Self}" rendered="{!viewer.isTeamMember}">
+                    <apex:pageBlockButtons >
+                        <apex:commandButton id="selfcancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!!isCompletedSelf}" styleClass="inputsubmit" />
+                        <apex:commandButton id="selfprofile" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Profile}" rendered="{!isCompletedSelf}" styleClass="inputsubmit" />
+                        <apex:commandButton id="selfsave" action="{!saveSelf}" value="{!$Label.fhcm2__Button_Save}" rendered="{!isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)}" styleClass="inputsubmit" />
+                        <apex:commandButton id="selfreveal" action="{!revealSelf}" value="{!$Label.fhcm2__Button_Reveal_To_Manager}" rendered="{!isDraftSelf}" styleClass="inputsubmit" onclick="return {!!RevealSealsSelf} || confirm('{!JSINHTMLENCODE($Label.fhcm2__Process_Performance_Review_Freeze_Warning)}');"/>
+                        <apex:commandButton id="selfsign" action="{!signSelf}" value="{!$Label.fhcm2__Button_Sign}" rendered="{!isBothRevealedSelf}" styleClass="inputsubmit" onclick="return {!RevealSealsSelf} || confirm('{!JSINHTMLENCODE($Label.fhcm2__Process_Performance_Review_Freeze_Warning)}');"/>
+                        <a href="/apex/{!links.PerformanceReviewPDF}?id={!performanceReview.Id}" target="_blank" rendered="{!IsCompletedSelf || isBothRevealedSelf}"><image border="0" src="{!$Resource.FairsailIcon}/16x16/pdf.png" title="{!$Label.Global_Create_PDF}"/></a>
+                    </apex:pageBlockButtons>
+                    <c:Notice viewer="{!viewer}" page="PerformanceReview" location="Header"/>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+
+                        <c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                                <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Status__c.label }" />
+                                <apex:outputText value="{!selfPerformanceReview.fHCM2__Status__c}" />
+                                <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Team_Member_Action__c.label }" />
+                                <apex:outputText style="color:red;text-weight:bold;" value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Team_Member_Action__c}" />
+                            </apex:panelGrid>
+                        </c:PersonSection>
+                    </apex:pageBlockSection>
+
+                    <c:CompetencyResults results="{!subject.currentCompetencyAssessment}" rendered="{!hasCompetencyAssessment}"/>
+
+	            	<c:FieldSetSection objectid="{!performanceReview.id}" fields="{!FieldsetPerformanceReviewAdditionalDetails}" title="{!$Label.fhcm2__Process_Performance_Review_Additional_Details}" rendered="{!FieldsetPerformanceReviewAdditionalDetails!='[]'}"/>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Manager_Comments_And_Rating}" columns="1">
+                    	<apex:outputText value="{!$Label.fhcm2__Global_Not_Revealed}" rendered="{!!(IsRevealed || IsCompleted)}"/>
+                    	
+	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Training__c && (IsRevealed || IsCompleted)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Training__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Training__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Rating__c && (IsRevealed || IsCompleted)}" >
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Rating__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Rating__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!(IsRevealed || IsCompleted) && FieldsetPerformanceReviewPerformanceReview.size==0}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Review__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Review__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+						<apex:repeat value="{!FieldsetPerformanceReviewPerformanceReview}" var="f">
+	                        <apex:pageBlockSectionItem rendered="{!(IsRevealed || IsCompleted)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields[f].label }" />
+	                            <apex:outputText value="{!performanceReview[f]}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>
+
+	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Strengths__c && (IsRevealed || IsCompleted)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Strengths__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Strengths__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Development_Needs__c && (IsRevealed || IsCompleted)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Development_Needs__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Development_Needs__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	                        
+	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Action_Plan__c && (IsRevealed || IsCompleted)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Action_Plan__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Action_Plan__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c && (IsRevealed || IsCompleted)}">
+	                            <apex:outputLabel value="{!$ObjectType.Performance_Review__c.fields.Career_Aspirations__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.Performance_Review__r.fHCM2__Career_Aspirations__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Competency_Assessment}" columns="1" rendered="{!hasAssessment}">
+                        <c:Assessment questions="{!questions}" onChange="formChanged();"/>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Last_Review}" columns="1" rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && !isblank(subject.currentPerformanceReview.last) && !isblank(subject.currentPerformanceReview.last.teamMemberReview)}">
+  	                        <apex:pageBlockSectionItem >
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Review__c.label }" />
+	                            <apex:outputText value="{!subject.currentPerformanceReview.last.teamMemberReview}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	                </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Your_Comments}" columns="1" rendered="{!hasSelf}">
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Training__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Training__c }" />
+	                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Training__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Training__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Training__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Training__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && FieldsetSelfPerformanceReviewSelfPerformanceReview.size==0}">
+	                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Review__c }" />
+	                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Review__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && FieldsetSelfPerformanceReviewSelfPerformanceReview.size==0}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Review__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Review__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+						<apex:repeat value="{!FieldsetSelfPerformanceReviewSelfPerformanceReview}" var="f">
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf))}">
+	                            <c:FieldLabel value="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields[f]}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields[f].label}" help="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields[f].InlineHelpText}"/>
+	                            <apex:inputField value="{!selfPerformanceReview[f]}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf))}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields[f].label }" />
+	                            <apex:outputText value="{!selfPerformanceReview[f]}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>
+
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Strengths__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Strengths__c }" />
+	                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Strengths__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Strengths__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Strengths__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Strengths__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Development_Needs__c }" />
+	                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Development_Needs__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Development_Needs__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Development_Needs__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Action_Plan__c }" />
+	                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Action_Plan__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Action_Plan__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Action_Plan__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+	                        <apex:pageBlockSectionItem rendered="{!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}">
+	                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Career_Aspirations__c }" />
+	                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Career_Aspirations__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraftSelf || (IsRevealedSelf && !RevealSealsSelf)) && viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}">
+	                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Career_Aspirations__c.label }" />
+	                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Career_Aspirations__c}" style="white-space:pre-wrap;"/>
+	                        </apex:pageBlockSectionItem>
+	
+                        <apex:pageBlockSectionItem rendered="{!isBothRevealedSelf && viewer.departmentPolicy.fHCM2__Disable_Self_Final_Comments__c!=true}">
+                            <c:FieldLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Final_Comment__c }" />
+                            <apex:inputField value="{!selfPerformanceReview.fHCM2__Final_Comment__c}" onKeyPress="formChanged();" onChange="formChanged();"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!isCompletedSelf && viewer.departmentPolicy.fHCM2__Disable_Self_Final_Comments__c!=true}">
+                            <apex:outputLabel value="{!$ObjectType.Self_Performance_Review__c.fields.Final_Comment__c.label }" />
+                            <apex:outputText value="{!selfPerformanceReview.fHCM2__Final_Comment__c}" style="white-space:pre-wrap;"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                    <apex:outputPanel style="color:red;text-weight:bold;" rendered="{!hasErrors}">{!$Label.fhcm2__Global_Error}: {!errors}</apex:outputPanel>
+                </apex:pageBlock>
+                
+            </apex:form>
+
+           	<c:ApprovalHistory objectId="{!performanceReview.Id}" page="/apex/{!links.FairsailProfile}" rendered="{!viewer.isManager && requiresSubmit}"/>
+
+			<c:Notice viewer="{!viewer}" page="PerformanceReview" location="Footer"/>
+<script type="Text/JavaScript">
+    if ({!!isNew}) disable("save");
+    disable("selfsave");
+    if ({!isNew}) {disable("submit");disable("reveal");disable("selfreveal");}
+    if ({!hasErrors}) formChanged();
+</script>
+
+                </td></tr>
+            </tbody>
+        </table>
+        <c:FairsailFooter />
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="imageLoader"/>
+</apex:page>

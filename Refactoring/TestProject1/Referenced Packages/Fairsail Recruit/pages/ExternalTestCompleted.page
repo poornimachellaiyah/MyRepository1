@@ -1,0 +1,17 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false">
+
+<apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+
+<apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
+
+<apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"/>
+
+<div class="container" style="text-align:center;padding:20px">
+    <img src="{!$Resource.fRecruit__logo}"/>
+    <h1>Test Completed</h1>
+    <p>Thank you for completing the test. Your recruiter will get in touch soon.</p>
+</div>
+
+  
+  
+</apex:page>

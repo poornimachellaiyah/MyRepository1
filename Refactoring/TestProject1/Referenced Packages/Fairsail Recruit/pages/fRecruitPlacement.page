@@ -1,0 +1,48 @@
+<apex:page standardController="fRecruit__Placement__c" extensions="fRecruit.PlacementControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Placement__c.label}" subtitle="{!fRecruit__Placement__c.Name}" help="http://recruit.help.fairsail.com/topics/EditPlacement.html"/>
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Placement__c.label}" mode="details">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!edit}" value="Edit"/>
+				<apex:commandButton action="{!delete}" value="Delete" onClick="return confirm('Are you sure you wish to delete this record?');"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Candidate"/>
+					<apex:outputLink value="/{!fRecruit__Placement__c.Application__r.fRecruit__Candidate__c}">{!fRecruit__Placement__c.Application__r.Candidate__r.Name}</apex:outputLink>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Application"/>
+					<apex:outputLink value="/{!fRecruit__Placement__c.fRecruit__Application__c}">{!fRecruit__Placement__c.Application__r.Name}</apex:outputLink>
+				</apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Workplace"/>
+					<apex:outputLink value="/{!fRecruit__Placement__c.fRecruit__Workplace__c}">{!fRecruit__Placement__c.Workplace__r.Name}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+ 			<apex:pageBlockSection title="Contact and Opportunity" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact"/>
+					<apex:outputLink value="/{!fRecruit__Placement__c.fRecruit__Contact__c}">{!fRecruit__Placement__c.Contact__r.Name}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity"/>
+					<apex:outputLink value="/{!fRecruit__Placement__c.fRecruit__Opportunity__c}">{!fRecruit__Placement__c.Opportunity__r.Name}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Current status" columns="1">
+				<apex:outputField value="{!fRecruit__Placement__c.fRecruit__Status__c}"/>
+				<apex:outputField value="{!fRecruit__Placement__c.fRecruit__Interview_Start__c}" rendered="{!fRecruit__Placement__c.fRecruit__Status__c=='Interview'}"/>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Result" columns="1" rendered="{!fRecruit__Placement__c.fRecruit__Status__c=='Reject' || fRecruit__Placement__c.fRecruit__Status__c=='Accept'}">
+				<apex:outputField value="{!fRecruit__Placement__c.fRecruit__Comments__c}"/>
+				<apex:outputField value="{!fRecruit__Placement__c.fRecruit__Strengths__c}"/>
+				<apex:outputField value="{!fRecruit__Placement__c.fRecruit__Weaknesses__c}"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page standardController="fDL__Data_Load__c" extensions="fDL.DataLoadNewExtension" action="{!redirect}" >
+
+</apex:page>

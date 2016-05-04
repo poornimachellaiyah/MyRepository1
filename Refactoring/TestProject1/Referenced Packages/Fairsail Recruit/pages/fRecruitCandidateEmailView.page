@@ -1,0 +1,24 @@
+<apex:page standardController="fRecruit__Candidate_Email__c">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Candidate_Email__c.label}" subtitle="{!fRecruit__Candidate_Email__c.Candidate__r.Name}" help="http://recruit.help.fairsail.com/topics/Candidate.html" />
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Candidate_Email__c.label}" mode="details">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!edit}" value="Edit" />
+				<apex:commandButton action="{!delete}" value="Delete" onClick="return confirm('Are you sure you wish to delete this record?');"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:outputField value="{!fRecruit__Candidate_Email__c.fRecruit__Candidate__c}" />
+				<apex:outputField value="{!fRecruit__Candidate_Email__c.fRecruit__To__c}" />
+				<apex:outputField value="{!fRecruit__Candidate_Email__c.fRecruit__Email__c}" />
+				<apex:outputField value="{!fRecruit__Candidate_Email__c.fRecruit__Attachment_Count__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="{!fRecruit__Candidate_Email__c.Name}" columns="1">
+				<apex:outputPanel >
+					<apex:outputText value="{!fRecruit__Candidate_Email__c.fRecruit__Content__c}" escape="{!!fRecruit__Candidate_Email__c.fRecruit__Is_HTML__c!=true}" style="{!if(fRecruit__Candidate_Email__c.fRecruit__Is_HTML__c!=true,'white-space: pre-wrap;','')}"/>
+				</apex:outputPanel>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,88 @@
+<apex:page controller="fHCM2.PassportController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.passports.isUsing}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Passports}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="Passport" location="Subheader"/>
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_Current}" columns="1">
+		            <apex:repeat value="{!subject.passports.current}" var="passport">
+    		            <c:DetailListBar title="{!passport.passportNumber}" value="/apex/{!links.Passport}?id={!passport.Id}">
+	            	        <c:DetailListItem label="{!$ObjectType.fHCM2__Passport__c.Fields.fHCM2__Country__c.label}" value="{!passport.country}" />
+	                	    <c:DetailListItem label="{!$ObjectType.fHCM2__Passport__c.Fields.fHCM2__Expiry_Date__c.label}">
+	                    	    <c:outputDate value="{!passport.expiryDate}" />
+	                    	</c:DetailListItem>
+                		</c:DetailListBar>
+            		</apex:repeat>
+	             </apex:pageBlockSection>
+    	        <c:Notice viewer="{!viewer}" page="Passport" location="Subfooter"/>
+        	</apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+        
+            <apex:form rendered="{!viewer.isTeamMemberOrManager && subject.passports.editPermitted}">
+                <apex:pageMessages />
+                <apex:pageBlock title="" mode="view" id="entireForm">
+                	<c:Notice viewer="{!viewer}" page="Passport" location="Header"/>
+                    <apex:outputPanel id="PassportSection">
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Passport__c.FieldSets.fHCM2__Passport_Details}" var="f">
+									<apex:pageBlockSectionItem >
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Passport__c.fields[f]}" label="{!$ObjectType.fHCM2__Passport__c.fields[f].label}" help="{!$ObjectType.fHCM2__Passport__c.fields[f].InlineHelpText}"/>
+				                        <apex:inputField value="{!PassportObject[f]}" required="{!OR(f.required, f.dbrequired)}"/>
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+					<c:FieldSetTable objectids="{!visaIds}" fields="{!$ObjectType.fHCM2__Visa__c.fieldsets.fHCM2__Visa_Details}" columns="1" title="{!$ObjectType.fHCM2__Visa__c.labelPlural}" rendered="{!visaIds.size>0}"/>
+                    <c:Notice viewer="{!viewer}" page="Passport" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+            <apex:form rendered="{!!viewer.isTeamMemberOrManager || !subject.passports.editPermitted}">
+                <apex:pageMessages />
+                <apex:pageBlock title="" mode="view" id="entireForm">
+                	<c:Notice viewer="{!viewer}" page="Passport" location="Header"/>
+                    <apex:outputPanel id="PassportSection">
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Passport__c.FieldSets.fHCM2__Passport_Details}" var="f">
+			                        <apex:outputField value="{!PassportObject[f]}" />
+			                    </apex:repeat>
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+					<c:FieldSetTable objectids="{!visaIds}" fields="{!$ObjectType.fHCM2__Visa__c.fieldsets.fHCM2__Visa_Details}" columns="1" title="{!$ObjectType.fHCM2__Visa__c.labelPlural}" rendered="{!visaIds.size>0}"/>
+                    <c:Notice viewer="{!viewer}" page="Passport" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+             <script type="text/javascript">
+                  
+                    function changeYears() {     
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-20; i < now.getFullYear()+20;i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+                     window.onload = changeYears;
+             </script>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

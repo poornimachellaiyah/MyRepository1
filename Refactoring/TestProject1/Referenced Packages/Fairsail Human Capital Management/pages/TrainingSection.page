@@ -1,0 +1,33 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!subject.training.isUsing}">
+                    <apex:facet name="header">
+                        <h3 class="process-training">{!$Label.fhcm2__Process_Training}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isTeamMemberOrManager && !viewer.departmentPolicy.fHCM2__Training_View_Only__c}">
+                        <apex:outputLink rendered="{!viewer.isTeamMemberOrManager && subject.training.editPermitted}" value="/apex/{!links.Training}?TeamMemberId={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.Training.all}" var="Training" rendered="{!subject.training.has}">
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.managerAction!=null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Performance_Review__c.Fields.fHCM2__Manager_Action__c.label}" />
+                        <apex:outputText style="color:red;text-weight:bold;" value="{!subject.currentPerformanceReview.managerAction}" />
+                    </apex:pageBlockSectionItem>
+
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Training__c.fields.fHCM2__Training_Name__c.label}">
+                            <apex:outputLink value="/apex/{!links.Training}?id={!Training.id}" style="font-weight:bold;text-decoration: none;" rendered="{!subject.training.editPermitted}">
+                              <apex:outputText value="{!Training.TrainingName}"/>
+                           </apex:outputLink>
+                           <apex:outputText value="{!Training.TrainingName}" rendered="{!!subject.training.editPermitted}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Training__c.Fields.fHCM2__Manager_Action__c.label}">
+                        	 <apex:outputText style="color:red;text-weight:bold;" value="{!Training.managerAction}" />
+						</apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Training__c.fields.fHCM2__Start_Date__c.label}">
+                           <c:outputDate dateValue="{!Training.StartDate}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

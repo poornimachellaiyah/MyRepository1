@@ -1,0 +1,5 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+		<c:FieldSetTable objectids="{!subject.stockOptions.currentIds}" fields="{!$ObjectType.fHCM2__Stock_Option__c.fieldsets.fHCM2__Team_Member_Details}" columns="1" title="{!$Label.fhcm2__Process_Stock_Options}" rendered="{!and(viewer.isTeamMemberOrManager, subject.stockOptions.isUsing)}"/>
+	</apex:pageBlock>
+</apex:page>

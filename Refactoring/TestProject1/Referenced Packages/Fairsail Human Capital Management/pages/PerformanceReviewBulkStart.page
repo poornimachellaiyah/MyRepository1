@@ -1,0 +1,21 @@
+<apex:page standardController="fHCM2__Team_Member__c" recordSetVar="apps" extensions="fHCM2.PerformanceReviewStartController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Team_Member__c.label}" subtitle="{!$Label.fhcm2__Process_Performance_Review_Start}" help="/apex/Help?obj=fHCM2__Performance_Review__c" />
+	<apex:form >
+		<apex:pageBlock title="{!$Label.fhcm2__Process_Performance_Review_Start}" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+				<apex:commandButton action="{!send}" value="{!$Label.fhcm2__Button_Initiate}" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.fhcm2__Process_Number_To_Start}"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:inputField value="{!template.fHCM2__Manager_Review_Only__c}"/>
+				<apex:inputField value="{!template.fHCM2__Mid_Year_Review__c}"/>
+				
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

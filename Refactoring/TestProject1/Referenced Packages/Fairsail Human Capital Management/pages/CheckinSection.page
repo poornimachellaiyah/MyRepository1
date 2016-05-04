@@ -1,0 +1,27 @@
+<apex:page controller="fHCM2.CheckinController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+        <apex:pageBlockSection columns="1" rendered="{!and(subject.checkIns.isUsing)}">
+			<apex:facet name="header">
+				<h3 class="process-checkin">{!$Label.fhcm2__Process_Checkin}</h3>
+			</apex:facet>
+			<apex:outputPanel layout="block" styleClass="wideButtonBar">
+				<apex:outputLink value="/apex/{!links.Checkin}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+			</apex:outputPanel>
+			<apex:pageBlockSectionItem >
+				<apex:outputLabel value="{!$Label.fhcm2__Global_Status}"/>
+				<apex:outputPanel >
+					<apex:outputLabel value="{!status}" rendered="{!isCheckedIn || workLocations.size<=2 || !viewer.isTeamMemberOrManager}"/>
+					<apex:outputPanel rendered="{!viewer.isTeamMemberOrManager}">
+						<apex:form rendered="{!!isCheckedIn && workLocations.size>2}">
+							<apex:selectList value="{!workLocationId}" size="1" onChange="window.location='/apex/{!links.Checkin}?id={!viewer.teamMember.Id}&action=in&workLocationId='+this.value+'&retURL={!urlencode(retURL)}'">
+								<apex:selectOptions value="{!workLocations}"/>
+                            </apex:selectList>
+                        </apex:form>
+						<c:LinkButton url="/apex/{!links.Checkin}?id={!viewer.teamMember.Id}&action=in&retURL={!urlencode(retURL)}" rendered="{!!isCheckedIn && workLocations.size<=2}" label="{!$Label.fhcm2__Button_Check_In}"/>
+						<c:LinkButton url="/apex/{!links.Checkin}?id={!viewer.teamMember.Id}&action=out&retURL={!urlencode(retURL)}" rendered="{!isCheckedIn}" label="{!$Label.fhcm2__Button_Check_Out}"/>
+		    		</apex:outputPanel>
+		    	</apex:outputPanel>
+    		</apex:pageBlockSectionItem>
+    	</apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

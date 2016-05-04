@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Adjustments to the accrual rates for absence and vacation for this Team Member.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Absence_Accrual_Rule__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Rule that is to be adjusted</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Rule that is to be adjusted</inlineHelpText>
+        <label>Absence Accrual Rule</label>
+        <referenceTo>Absence_Accrual_Rule__c</referenceTo>
+        <relationshipLabel>Absence Adjustments</relationshipLabel>
+        <relationshipName>Absence_Adjustments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Employment__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Adjustment to Absence Accrual rates for this Team Member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Adjustment to Absence Accrual rates for this Team Member</inlineHelpText>
+        <label>Employment Record</label>
+        <referenceTo>Employment__c</referenceTo>
+        <relationshipLabel>Absence Adjustments</relationshipLabel>
+        <relationshipName>Absence_Adjustments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the rate adjustment ends.  If null then the rate does not end.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the rate adjustment ends.  If null then the rate does not end.</inlineHelpText>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rate_Adjust__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Adjusts the rate for this Team Member.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Adjusts the rate for this Team Member.</inlineHelpText>
+        <label>Rate Adjust</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate_Rule__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Rule to use when adjusting the rate for this team member.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Rule to use when adjusting the rate for this team member.</inlineHelpText>
+        <label>Rate Rule</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Replace</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Add</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Multiply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cap</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seniority</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rationale__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Note on the reason for the rate adjustment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Note on the reason for the rate adjustment.</inlineHelpText>
+        <label>Rationale</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Absence_Accrual_Rule__r.Reason__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reason</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the rate adjustment starts.  If null then the rate starts on the seniority date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the rate adjustment starts.  If null then the rate starts on the seniority date.</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>text(Absence_Accrual_Rule__r.Type__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Absence Adjustment</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Absence Adjustment #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Absence Adjustments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

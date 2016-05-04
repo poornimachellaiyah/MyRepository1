@@ -1,0 +1,9 @@
+You are scheduled to interview {!Interviewer__c.Candidate_Name__c} for the role of  {!Interviewer__c.Vacancy_Name__c} on {!Interviewer__c.Interview_Date__c}.
+
+You will find the candidate details and a form for returning your view of the candidate at the following link:-
+
+https://login.salesforce.com/apex/fRecruit__fRecruitInterviewersAssessmentEdit?id={!CASESAFEID(Interviewer__c.Id)}
+
+
+Alternatively view all your scheduled interviews at the following link:
+https://login.salesforce.com/apex/fRecruit__fRecruitInterviewersAssessments

@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Monetary target for a team member</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Achieved_Chart__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Chart of amount achieved as a bar chart.</description>
+        <externalId>false</externalId>
+        <formula>if (Target_YTD__c&gt;=0, IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Barcolor.gif&quot;, &quot;&quot;, 10, 1)&amp;if(Achieved_YTD__c &gt;=1, IMAGE(&quot;/img/samples/color_green.gif&quot;, &quot;&quot;, 10, 150),
+IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Averagecolor.gif&quot;, &quot;Achieved_YTD__c &quot;, 10, round(Achieved_YTD__c * 150,0))&amp;IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Barcolor.gif&quot;, &quot;Self&quot;, 10, 150-round(Achieved_YTD__c * 150,0)))
+,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Chart of amount achieved as a bar chart.</inlineHelpText>
+        <label>Achieved Chart</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Achieved_Q1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage of target achieved in 1st quarter.  Calculated from entered actuals.</description>
+        <externalId>false</externalId>
+        <formula>if (Target_Q1__c&gt;0, round(Actual_Q1__c/ Target_Q1__c,2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Percentage of target achieved in 1st quarter.  Calculated from entered actuals.</inlineHelpText>
+        <label>Achieved Q1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Achieved_Q2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage of target achieved in 2nd quarter.  Calculated from entered actuals.</description>
+        <externalId>false</externalId>
+        <formula>if (Target_Q2__c&gt;0, round(Actual_Q2__c/ Target_Q2__c,2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Percentage of target achieved in 2nd quarter.  Calculated from entered actuals.</inlineHelpText>
+        <label>Achieved Q2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Achieved_Q3__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage of target achieved in 3rd quarter.  Calculated from entered actuals.</description>
+        <externalId>false</externalId>
+        <formula>if (Target_Q3__c&gt;0, round(Actual_Q3__c/ Target_Q3__c,2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Percentage of target achieved in 3rd quarter.  Calculated from entered actuals.</inlineHelpText>
+        <label>Achieved Q3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Achieved_Q4__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage of target achieved in 4th quarter.  Calculated from entered actuals.</description>
+        <externalId>false</externalId>
+        <formula>if (Target_Q4__c&gt;0, round(Actual_Q4__c/ Target_Q4__c,2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Percentage of target achieved in 4th quarter.  Calculated from entered actuals.</inlineHelpText>
+        <label>Achieved Q4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Achieved_YTD__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage of target achieved over year.  Calculated from entered actuals.</description>
+        <externalId>false</externalId>
+        <formula>if (Target_YTD__c&gt;0, round(Actual_YTD__c/ Target_YTD__c,2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Percentage of target achieved over year in reporting currency.  Calculated from entered actuals.</inlineHelpText>
+        <label>Achieved YTD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( Team_Member_Action__c = &apos;&apos;, null,  Team_Member_Action_Date__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Combined Manager and Team Member Actions</description>
+        <externalId>false</externalId>
+        <formula>if ( Team_Member_Action__c = &apos;&apos;, &apos;&apos;, &apos;Team Member: &apos;&amp;Team_Member_Action__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Combined Manager and Team Member Actions</inlineHelpText>
+        <label>Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_Q1_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 1</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 1 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q1 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 1</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 1.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q1</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q2_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 2.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 2 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q2 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 2.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 2.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q2</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q3_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 3.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 3 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q3 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q3__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 3.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 3.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q3</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q4_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 4.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 4 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q4 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Q4__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 4.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 4.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Actual Q4</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_YTD_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals full financial year. Computed sum of four quarters.</description>
+        <externalId>false</externalId>
+        <formula>Actual_Q1_Reporting__c + Actual_Q2_Reporting__c + Actual_Q3_Reporting__c + Actual_Q4_Reporting__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Actuals full financial year in reporting currency.  Computed sum of four quarters.</inlineHelpText>
+        <label>Actual YTD Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_YTD__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals full financial year. Computed sum of four quarters.</description>
+        <externalId>false</externalId>
+        <formula>Actual_Q1__c + Actual_Q2__c + Actual_Q3__c + Actual_Q4__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Actuals full financial year.  Computed sum of four quarters.</inlineHelpText>
+        <label>Actual YTD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Basis__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Basis for setting targets and comparing to actual</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Basis for setting targets and comparing to actual</inlineHelpText>
+        <label>Basis</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Calculate_Salesforce_Opportunities__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Calculate Salesforce Opportunities</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Most recent comments made by managering reviewing this target.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comments made by the manager entering their review of progress towards this target.  Do you think it will be achieved by the Team Member?  Do they need any additional support?</inlineHelpText>
+        <label>Manager Comments</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed_On__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the target was confirmed by the Team Member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the target was confirmed by the Team Member.</inlineHelpText>
+        <label>Confirmed On</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contributes_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Manager&apos;s target to which this team member&apos;s target contributes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Manager&apos;s target to which this team member&apos;s target contributes</inlineHelpText>
+        <label>Contributes To</label>
+        <referenceTo>Target__c</referenceTo>
+        <relationshipLabel>Contributing Targets</relationshipLabel>
+        <relationshipName>Contributing_Targets</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Currency</label>
+        <referenceTo>Exchange_Rate__c</referenceTo>
+        <relationshipLabel>Targets</relationshipLabel>
+        <relationshipName>Targets</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Is_Private__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked the target will only be visible to the team member and management chain</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked the target will only be visible to the team member and management chain</inlineHelpText>
+        <label>Is Private</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Currency_Recalculation__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Last date and time that the reporting targets and actuals were recalculated from Exchange Rates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last date and time that the reporting targets and actuals were recalculated from Exchange Rates</inlineHelpText>
+        <label>Last Currency Recalculation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Last_Salesforce_Recalculation__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Last date and time that the actuals were recalculated from Salesforce opportunites</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last date and time that the actuals were recalculated from Salesforce opportunites</inlineHelpText>
+        <label>Last Salesforce Recalculation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q1_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 1</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 1 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q1 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 1</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 1.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q1</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q2_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 2.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 2 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q2 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 2.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 2.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q2</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q3_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 3.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 3 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q3 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q3__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 3.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 3.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q3</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q4_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 4.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 4 in reporting currency.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q4 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_Q4__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals financial year quarter 4.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals financial year quarter 4.  Enter the amount made during this quarter.</inlineHelpText>
+        <label>Old-Actual Q4</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_YTD_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals full financial year. Computed sum of four quarters.</description>
+        <externalId>false</externalId>
+        <formula>Modified_Q1_Reporting__c + Modified_Q2_Reporting__c + Modified_Q3_Reporting__c + Modified_Q4_Reporting__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Actuals full financial year in reporting currency.  Computed sum of four quarters.</inlineHelpText>
+        <label>Old-Actual YTD Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Modified_YTD_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>substitute(substitute(text(round(Modified_YTD__c,0)),&quot;.00&quot;,&quot;&quot;),&quot;.0&quot;,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Old-Actual YTD Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Modified_YTD__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Entered actuals full financial year. Computed sum of four quarters.</description>
+        <externalId>false</externalId>
+        <formula>Modified_Q1__c + Modified_Q2__c + Modified_Q3__c + Modified_Q4__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Actuals full financial year.  Computed sum of four quarters.</inlineHelpText>
+        <label>Old-Actual YTD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Progress__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Status of the target.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Status of the target.</inlineHelpText>
+        <label>Progress</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ongoing: Above Track</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ongoing: On Track</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ongoing: Below Track</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Exceeded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Achieved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Not Achieved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed: Canceled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q1_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 1st quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 1st quarter in reporting currency.</inlineHelpText>
+        <label>Old-Salesforce Q1 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 1st quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 1st quarter.</inlineHelpText>
+        <label>Old-Salesforce Q1</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q2_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 2nd quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 2nd quarter in reporting currency.</inlineHelpText>
+        <label>Old-Salesforce Q2 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 2nd quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 2nd quarter.</inlineHelpText>
+        <label>Old-Salesforce Q2</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q3_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 3rd quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 3rd quarter in reporting currency.</inlineHelpText>
+        <label>Old-Salesforce Q3 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q3__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 3rd quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 3rd quarter.</inlineHelpText>
+        <label>Old-Salesforce Q3</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q4_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 4th quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 4th quarter in reporting currency.</inlineHelpText>
+        <label>Old-Salesforce Q4 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Q4__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 4th quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the 4th quarter.</inlineHelpText>
+        <label>Old-Salesforce Q4</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_YTD_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the year in reporting currency.</description>
+        <externalId>false</externalId>
+        <formula>Salesforce_Q1_Reporting__c + Salesforce_Q2_Reporting__c + Salesforce_Q3_Reporting__c + Salesforce_Q4_Reporting__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the year in reporting currency.</inlineHelpText>
+        <label>Old-Salesforce YTD Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_YTD_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>substitute(substitute(text(round(Salesforce_YTD__c,0)),&quot;.00&quot;,&quot;&quot;),&quot;.0&quot;,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Old-Salesforce YTD Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Salesforce_YTD__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Actuals calculated from all Salesforce opportunities closed by this Team Member during the year.</description>
+        <externalId>false</externalId>
+        <formula>Salesforce_Q1__c + Salesforce_Q2__c + Salesforce_Q3__c + Salesforce_Q4__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Actuals calculated from all Salesforce opportunities closed by this Team Member during the year.</inlineHelpText>
+        <label>Old-Salesforce YTD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The start date of this set of targets. Defaults to the start of the financial year.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The start date of this set of targets.  Defaults to the start of the financial year.</inlineHelpText>
+        <label>Start Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_Q1_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 1st quarter in reporting currency</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 1st quarter in reporting currency.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q1 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 1st quarter</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 1st quarter.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q1</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q2_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 2nd quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 2nd quarter in reporting currency.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q2 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 2nd quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 2nd quarter.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q2</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q3_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 3rd quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 3rd quarter in reporting currency.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q3 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q3__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 3rd quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 3rd quarter.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q3</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q4_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 4th quarter in reporting currency.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 4th quarter in reporting currency.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q4 Reporting</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_Q4__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member during 4th quarter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The target for sales by the Team Member during 4th quarter.  If you enter or change this the team member will be asked to confirm the new target.</inlineHelpText>
+        <label>Target Q4</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_YTD_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member for the whole year in reporting currency.</description>
+        <externalId>false</externalId>
+        <formula>Target_Q1_Reporting__c + Target_Q2_Reporting__c + Target_Q3_Reporting__c + Target_Q4_Reporting__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The target for sales by the Team Member for the whole year in reporting currency.  Computed as the sum of each quarter.</inlineHelpText>
+        <label>Target FY Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Target_YTD_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>substitute(substitute(text(round(Target_YTD__c,0)),&quot;.00&quot;,&quot;&quot;),&quot;.0&quot;,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Old-Target FY Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_YTD__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The target for sales by the Team Member for the whole year.</description>
+        <externalId>false</externalId>
+        <formula>Target_Q1__c + Target_Q2__c + Target_Q3__c + Target_Q4__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The target for sales by the Team Member for the whole year.  Computed as the sum of each quarter.</inlineHelpText>
+        <label>Target FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( $RecordType.Name = &apos;Draft&apos;,Datevalue(LastModifiedDate), null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team Member Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Action to be done by team member</description>
+        <externalId>false</externalId>
+        <formula>if ( $RecordType.Name = &apos;Draft&apos;,&apos;Confirm&apos;, null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Action to be done by team member</inlineHelpText>
+        <label>Team Member Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comments made by the team member.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comments made by the team member when reviewing the target.  Do you think you will achieve the target?  Do you need any additional support to achieve it?</inlineHelpText>
+        <label>Team Member Comments</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Team Member that must achieve this target.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Team Member that must achieve this target.</inlineHelpText>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipName>Target</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_Currency_Recalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Trigger recalculation of the reporting targets and actuals from the Exchange Rate</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Trigger recalculation of the reporting targets and actuals from the Exchange Rate</inlineHelpText>
+        <label>Trigger Currency Recalculation</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_Salesforce_Recalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Trigger recalculation of the actuals from Salesforce opportunities</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Trigger recalculation of the actuals from Salesforce opportunities</inlineHelpText>
+        <label>Trigger Salesforce Recalculation</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Target</label>
+    <nameField>
+        <label>Target</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Targets</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Active</fullName>
+        <active>true</active>
+        <label>Active</label>
+        <picklistValues>
+            <picklist>Basis__c</picklist>
+            <values>
+                <fullName>Month</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Closed</fullName>
+        <active>true</active>
+        <label>Closed</label>
+        <picklistValues>
+            <picklist>Basis__c</picklist>
+            <values>
+                <fullName>Month</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Closed%3A Achieved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Exceeded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed%3A Not Achieved</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Draft</fullName>
+        <active>true</active>
+        <label>Draft</label>
+        <picklistValues>
+            <picklist>Basis__c</picklist>
+            <values>
+                <fullName>Month</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New</fullName>
+        <active>true</active>
+        <label>New</label>
+        <picklistValues>
+            <picklist>Basis__c</picklist>
+            <values>
+                <fullName>Month</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Progress__c</picklist>
+            <values>
+                <fullName>Ongoing%3A Above Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A Below Track</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing%3A On Track</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+</CustomObject>

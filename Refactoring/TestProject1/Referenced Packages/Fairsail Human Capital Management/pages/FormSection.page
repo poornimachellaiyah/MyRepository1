@@ -1,0 +1,22 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+            <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Forms}" rendered="{!and(subject.forms.isUsing,viewer.isTeamMemberOrManager)}">
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!subject.forms.canStart}">
+                        <apex:outputLink value="/apex/fHCM2__formStart?teamMemberId={!viewer.teamMember.Id}&retURL={!urlencode(substitute($CurrentPage.URL,'FormSection','PersonalProfile'))}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.forms.current}" var="item" rendered="{!subject.forms.has}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Form__c.fields.fHCM2__Form_Definition_Name__c.label}">
+                        	<apex:outputLink value="{!item.url+'&retURL='+urlencode(substitute($CurrentPage.URL,'FormSection','PersonalProfile'))}">{!item.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Form__c.fields.CreatedDate.label}">
+                        	<c:outputDate dateValue="{!item.createdDate}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Form__c.fields.fHCM2__Completed_Date__c.label}">
+                        	<c:outputDate dateValue="{!item.completedDate}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:outputPanel>
+ 			</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

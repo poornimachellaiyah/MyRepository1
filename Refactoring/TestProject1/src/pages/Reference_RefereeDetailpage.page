@@ -1,0 +1,237 @@
+<apex:page controller="Reference_RefereeDetailController" tabstyle="Job__c" sidebar="false" showheader="false">
+<head>
+<style>
+body {
+    //font-family: 'Arial','Helvetica',sans-serif;
+    font-size: 75%;
+    width:752px;
+}.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+}.jobopp {
+   
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    border-top-color: #8ab64e; 
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+}
+.appheader{
+    padding-left:10px;
+  
+    width:730px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+}
+.message  {
+    margin-left: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<apex:form >
+    <apex:outputpanel rendered="{!($CurrentPage.parameters.rid<>null) && ($CurrentPage.parameters.rid<>'')}">
+    <table class="appheader">
+        <tr class="appheadercon">
+            <td class="jobopp" colspan="2" style="padding-top:10px;"><apex:outputtext value="Referee details form" /></td>
+        </tr>
+        <tr class="appheadercon">
+            <td colspan="2"></td>
+        </tr>
+        <tr class="appheadercon">
+            <td class="jobopp" colspan="2" style="padding-top:10px;"><apex:outputfield value="{!refereeDetails.Application__r.Job__r.Job_Title__c}" /></td>
+        </tr>
+        <tr class="appheadercon">
+            <td colspan="2"></td>
+        </tr>
+        <tr class="appheadercon">
+            <td  colspan="2" style="padding-top:10px;">Some detail text</td>
+        </tr>
+        <tr class="appheadercon">
+            <td colspan="2"></td>
+        </tr>
+   </table>
+   <br/> 
+   
+   <apex:outputpanel rendered="{!NOT(IsSubmitted)}">
+        
+            <apex:outputpanel rendered="{!if(refereeDetails.Status__c=='Referee Details Requested',true,false)}">
+            <div class="pdetails">
+            <!-- ---------Referee Details started----------------------------------------------------------- -->
+                <div class="jobopp" >Referee details</div> 
+                <br/> 
+                <div>
+                    <table>
+                        <tr>
+                            <td width="180px">Referee first name<font color="Red">*</font></td>
+                            <td width="180px">
+                                <apex:inputfield value="{!refereeDetails.Referee_First_Name__c}" required="true" style="width:100%;" taborderhint="1"/>
+                            </td>
+                            <td width="180px" style="padding-left:50px">Referee phone<font color="Red">*</font></td>
+                            <td width="180px"><apex:inputfield value="{!refereeDetails.Referee_Phone__c}" required="true" style="width:100%;" taborderhint="7"/></td>
+                        </tr>
+                        <tr>
+                            <td >Referee last name<font color="Red">*</font></td>
+                            <td ><apex:inputfield value="{!refereeDetails.Referee_Last_Name__c}"  required="true" style="width:100%;" taborderhint="2"/></td>
+                            <td style="padding-left:50px">Referee email</td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_Email__c}" style="width:100%;" taborderhint="8"/></td>
+                        </tr>
+                        <tr>
+                            <td >Referee job title<font color="Red">*</font></td>
+                            <td ><apex:inputfield value="{!refereeDetails.Referee_Job_Title__c}" required="true" style="width:100%;" taborderhint="3"/></td>
+                    
+                            <td style="padding-left:50px">Street</td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_Street__c}" style="width:100%;" taborderhint="9"/></td>
+                        </tr>
+                        <tr> 
+                            <td>Relationship to applicant <font color="Red">*</font></td>
+                            <td><apex:inputfield value="{!refereeDetails.Relationship_To_Applicant__c}" required="true" style="width:100%;" taborderhint="4"/> </td>   
+                            <td style="padding-left:50px">City</td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_City__c}" style="width:100%;" taborderhint="10"/></td>
+                        </tr>
+                         <tr>
+                            <td>Referee ok to approach before offer</td>
+                            <td align="left"><apex:inputfield value="{!refereeDetails.Referee_OK_To_Approach_Before_Offer__c}"   taborderhint="5"/></td>
+                            <td style="padding-left:50px">State/province</td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_State_Province__c}" taborderhint="11"/></td>
+                        </tr>
+                        <tr>
+                            <td >Referee ok to approach when</td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_OK_To_Approach_When__c}"  taborderhint="6"/></td>
+                            <td style="padding-left:50px">Zip/postal code </td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_Zip_Postal_Code__c}" taborderhint="12"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="padding-left:50px">Country</td>
+                            <td><apex:inputfield value="{!refereeDetails.Referee_Country__c}" style="width:100%;" taborderhint="13"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <br/> 
+                <div>
+                    <center>
+                        <apex:commandbutton value="Submit Reference Details" action="{!SubmitRefereeDetails}"/> 
+                    </center>
+                </div>
+                <!-- ---------Referee Details end----------------------------------------------------------- --> 
+            </div>
+            </apex:outputpanel> 
+            <!-- message to display when user already submitted the referee details and try reuse the link -->
+       
+            <br/>
+            <apex:outputpanel rendered="{!if(refereeDetails.Status__c<>'Referee Details Requested',true,false)}">
+                <apex:pagemessage title="Referee details are already submitted." severity="Info" strength="3"/>
+            </apex:outputpanel> 
+    </apex:outputpanel>
+    
+    <apex:outputpanel rendered="{!IsSubmitted}">
+        <apex:pagemessage title="Referee details have been successfully submitted." severity="Info" strength="3"/>
+        <br/>
+    </apex:outputpanel>
+    
+    </apex:outputpanel>
+    
+    
+    <apex:outputpanel rendered="{!($CurrentPage.parameters.rid==null) || ($CurrentPage.parameters.rid=='')}">
+        <br/>
+        <table class="appheader">
+        <tr class="appheadercon">
+            <td class="jobopp" colspan="2" style="padding-top:10px;"><apex:outputtext value="In Valid URL" /></td>
+        </tr>
+        
+        </table>
+        <br/>
+    </apex:outputpanel>
+</apex:form>
+
+<!-- 
+    <apex:form >
+
+        <div class="div-wrapper"> 
+            <table width="100%">
+                <tr> 
+                    <td>
+                        <div class="jobopp" ><apex:outputtext value="{!refereeDetails.refereeDetails__r.name}" /></div>
+                    </td>
+                
+                </tr>
+            </table>  
+        </div>
+        <br/>
+        
+        
+        <apex:outputpanel rendered="{!NOT(IsSubmitted)}">
+            <apex:outputpanel rendered="{!if(refereeDetails.Status__c=='Referee Details Requested',true,false)}">
+            <div class="pdetails">
+                
+                <div class="jobopp" style="margin-left: -10px;">Referee Details</div> 
+                <br/> 
+                <div>
+                <table>
+                    <tr>
+                        <td width="150px">First name</td>
+                        <td width="150px"><apex:inputfield value="{!refereeDetails.Referee_First_Name__c}"/></td>
+                        <td width="150px" style="padding-left:100px;">Last name</td>
+                        <td width="150px"><apex:inputfield value="{!refereeDetails.Referee_Last_Name__c}"/></td>
+                    
+                    </tr>
+                    <tr>
+                        <td width="150px">Email </td>
+                        <td width="150px"><apex:inputfield value="{!refereeDetails.Referee_Email__c}"/></td>
+                        <td width="150px" style="padding-left:100px;">Telephone</td>
+                        <td width="150px"><apex:inputfield value="{!refereeDetails.Referee_Phone__c}"/></td>
+                    </tr>
+                    <tr>    
+                        <td>Comments</td>
+                        <td colspan="3"><apex:inputtextarea /></td>
+                    </tr>
+                    <tr>    
+                        <td colspan="4" align="center"><apex:commandbutton value="Submit" action="{!SubmitRefereeDetails}"/></td>
+                        
+                    </tr>
+                
+                </table>
+                </div>
+             </div>
+            </apex:outputpanel>
+            <apex:outputpanel rendered="{!if(refereeDetails.Status__c<>'Referee Details Requested',true,false)}">
+                <div class="pdetails">
+                    <apex:outputtext value="Referee details are already submitted."/>
+                </div>
+            </apex:outputpanel>
+        </apex:outputpanel>
+        
+        <apex:outputpanel rendered="{!IsSubmitted}">
+            <div class="pdetails">
+                <apex:pagemessage title="Referee details have been successfully submitted." severity="Info" strength="3"/>
+            <br/>
+             </div>
+        </apex:outputpanel>
+       
+        
+        
+    </apex:form>  
+ -->
+
+
+</body>
+
+
+</apex:page>

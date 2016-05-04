@@ -1,0 +1,49 @@
+<apex:page standardController="fRecruit__Offer_Template__c" extensions="fRecruit.EditOfferController" tabStyle="fRecruit__Offer_Template__c">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Offer_Template__c.label}" subTitle="{!fRecruit__Offer_Template__c.Name}" help="http://recruit.help.fairsail.com" />
+	<apex:form >
+		<apex:pageBlock mode="view">
+			<apex:pageBlockButtons >
+				<c:fRecruitLinkButton label="Edit" url="/{!fRecruit__Offer_Template__c.Id}/e" />
+				<apex:commandButton action="{!delete}" value="Delete" onClick="return confirm('Are you sure you wish to delete this record?');"/>
+				<c:fRecruitLinkButton label="Clone" url="/apex/fRecruitOfferEdit?clone={!fRecruit__Offer_Template__c.Id}" />
+			</apex:pageBlockButtons>
+
+			<apex:pagemessages />
+
+			<apex:pageBlockSection title="Information" columns="2">
+				<apex:outputField value="{!fRecruit__Offer_Template__c.Name}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Margin_Top__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Active__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Margin_Left__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Page_Size__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Margin_Right__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Font_Size__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Margin_Bottom__c}" />
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Margin_Bottom__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Covering Email" />
+					<c:OutputEmailTemplate value="{!fRecruit__Offer_Template__c.fRecruit__Covering_Email__c}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Content" columns="1">
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Header__c}" />
+				<apex:repeat value="{!sections}" var="item">
+					<apex:pageBlockSectionItem >
+						<apex:outputPanel >Section&nbsp;<c:outputNumber value="{!item.section.fRecruit__Order__c}"/></apex:outputPanel>
+						<apex:outputPanel >
+							&nbsp;&nbsp;Layout:
+							<apex:outputField value="{!item.section.fRecruit__Layout__c}"/>
+							&nbsp;&nbsp;Condition:
+							<apex:outputField value="{!item.section.fRecruit__Condition__c}" style="width:300px;"/>
+							<br/>
+							<apex:outputField value="{!item.section.fRecruit__Body__c}" />
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:repeat>
+				<apex:outputField value="{!fRecruit__Offer_Template__c.fRecruit__Footer__c}" />
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,158 @@
+<apex:page controller="UploadMedicalFormController" showHeader="false" >
+<head>
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #b06397;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   color:#ad0075;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+body .bPageBlock .pbBody .vsopurple .pbSubheader{
+    background-color:#f8f8f8;
+    border-top-color: #ad0075;  
+}
+
+
+      #centre {
+  font-size:1em;
+  line-height:1.3;
+  margin:5px auto;
+  padding-top:10px;
+  position:relative;
+  width:962px;
+}
+       #main {
+  background-color:#FFFFFF;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  min-height:500px;
+  padding-top:40px;
+}
+
+.joboppTitle {  
+    font-size:20px;
+    color:#ad0075;
+    font-weight: normal;
+   margin-left:10px; 
+} 
+
+</style>
+</head>
+
+<body>
+<apex:form >
+<div class="div-wrapper"> 
+<!-- Medical Form Upload --> 
+ <apex:outputpanel id="opp1" rendered="{!if(uploadStatus=='Submitted',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+                <td class="jobopp" colspan="2" style="padding-top:10px;"><apex:outputtext id="otxt010" value="Application form" /></td>
+            </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxt020" value="Thank you – your application has been successfully submitted." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div> 
+    </apex:outputpanel>
+<apex:outputPanel id="opp2" rendered="{!NOT(if(uploadStatus=='Submitted',true,false))}">
+ <div class="joboppTitle"><apex:outputText id="PageTitle" value="Upload Your Medical Examination Form" /></div><br/>
+<apex:pageBlock id="MedicalForm">
+       <apex:pageBlockSection columns="1">
+                <apex:outputtext id="MedicalInfo">Please upload your scanned copy of the medical examination form. Note,the file size should not exceed 5MB.</apex:outputtext>
+           <apex:pageBlockSectionItem >
+                <apex:outputLabel id="olblApplID">Application RefNo</apex:outputLabel>                                                 
+                <apex:inputfield id="ifldRefNo" value="{!application.Name}"  />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel id="olblform">Upload Form</apex:outputLabel>
+                <apex:outputPanel styleClass="requiredInput" layout="block" >
+                <apex:outputPanel styleClass="requiredBlock" layout="block" /> 
+                    <apex:inputFile id="UploadMedForm" value="{!uploadedFile}" fileName="{!filename}" fileSize="{!filesize}" required="true"></apex:inputFile>
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+         <div align="right"><apex:commandbutton id="cbtnSubmitForm" value="Submit Form" action="{!FormSubmit}" /></div> 
+    </apex:pageBlock> 
+ </apex:outputPanel>
+ </div>
+    </apex:form>   
+</body>
+
+</apex:page>

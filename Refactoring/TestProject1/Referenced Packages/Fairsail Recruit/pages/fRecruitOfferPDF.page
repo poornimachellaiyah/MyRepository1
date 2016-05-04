@@ -1,0 +1,55 @@
+<apex:page controller="fRecruit.OfferController" cache="false" renderAs="pdf" standardStylesheets="false" showHeader="false" sidebar="false">
+<head>
+<style type="text/css" media="print">
+@page { 
+    size: {!template.Page_Size__c};
+    margin: {!template.Margin_Top__c} {!template.Margin_Right__c} {!template.Margin_Bottom__c} {!template.Margin_Left__c};
+    @top-center { content:element(header); }
+    @bottom-left { content: element(footer); }
+}
+div.header {
+    position: running(header);
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+div.footer {
+    display: block;
+    position: running(footer);
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+.body {
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+.content {
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+.content p {
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+.content li {
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+.content td {
+    font-family:'Arial','Helvetica',sans-serif;
+    font-size:{!template.Font_Size__c};
+}
+</style>
+</head>
+<body>
+<div class="header">
+<apex:outputText value="{!header}" escape="false"/>
+</div>
+
+<div class="footer">
+<apex:outputText value="{!footer}" escape="false"/>
+</div>
+
+<div class="content"><apex:outputText value="{!body}" escape="false"/></div>
+
+</body>
+</apex:page>

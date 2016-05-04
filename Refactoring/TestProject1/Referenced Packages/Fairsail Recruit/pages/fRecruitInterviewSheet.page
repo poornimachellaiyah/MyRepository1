@@ -1,0 +1,140 @@
+<apex:page standardController="fRecruit__Selection_Stage__c" showHeader="false" standardStylesheets="true">
+
+<style>
+	.bPageBlock {
+		clear:none;
+
+		background-color:#ffffff;
+		background-image:none;
+
+		border-top:0px;
+		margin:0pt 0pt 0pt 0px;
+		padding:0pt 0pt 0pt 0px;
+		padding-bottom:0px;
+	} 
+	.bPageBlock .pbTitle {
+		margin:0pt 0pt 0pt 0px;
+		padding:5pt 0pt 5pt 0px;
+		width 100%;
+	} 
+	.bPageBlock .pbHeader {
+		background-color:#e0e0e0;
+		background-image:none;
+		margin:0pt 0pt 0pt 0px;
+		padding:0pt 5pt 0pt 5px;
+		margin-top:20px;
+		orphans: 20;
+	} 
+	.bPageBlock .pbBody {
+		background-color:#ffffff;
+		background-image:none;
+		margin:0pt 0pt 0pt 0px;
+		padding:0pt 0pt 0pt 0px;
+	} 
+	.bPageBlock .pbFooter {
+		background-color:#ffffff;
+		background-image:none;
+		margin:0pt 0pt 0pt 0px;
+		padding:0pt 5pt 0pt 5px;
+	} 
+	.pbSubheader {
+		background-color:#a0a0a0;
+		padding:4pt 5px 2pt 10px;
+		margin:10px 0pt 0pt 0px;
+		orphans: 20;
+	}
+	.pbSubheader h3 {
+		color:#3B5998;
+	}
+	.mainTitle {
+		font-size:150%;
+	}
+	.bPageBlock .detailList .data2Col {
+		padding: 0px 0px 0px 0px;
+	}
+	@media print{
+	  .noPrint { display:none; }
+	}
+</style>
+
+
+    <input type="button" class="noPrint" value="Print Me" onclick="window.print();return false;"/>
+   	<apex:pageBlock title="{!fRecruit__Selection_Stage__c.Name}" mode="view">
+				<apex:pageBlockSection title="Interview details" columns="1">
+				   	<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Candidate Name:"/>
+						<apex:outputText ></apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Interviewer Name:"/>
+						<apex:outputText ></apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Date:"/>
+						<apex:outputText ></apex:outputText>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+		<apex:pageBlockSection title="Vacancy information" columns="1">
+		   	<apex:pageBlockSectionItem >
+				<apex:outputLabel value="{!$ObjectType.Selection_Stage__c.fields.Vacancy__c.label }"/>
+				<apex:outputText value="{!fRecruit__Selection_Stage__c.fRecruit__Vacancy__r.Name}" id="vacname"/>
+			</apex:pageBlockSectionItem>
+		   	<apex:pageBlockSectionItem rendered="{!fRecruit__Selection_Stage__c.fRecruit__Assessment_Notes__c!=null}">
+				<apex:outputLabel escape="false" value="{!$ObjectType.Selection_Stage__c.fields.Assessment_Notes__c.label }"/>
+				<apex:outputText value="{!fRecruit__Selection_Stage__c.fRecruit__Assessment_Notes__c}"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+		<apex:pageBlock title="Assessment of selection criteria" mode="detail">
+			<apex:repeat value="{!fRecruit__Selection_Stage__c.fRecruit__Stage_Criteria__r}" var="row">
+				<apex:pageBlockSection title="{!row.fRecruit__Selection_Criteria__r.Name}" columns="1">
+				   	<apex:pageBlockSectionItem rendered="{!row.fRecruit__Selection_Criteria__r.fRecruit__Criteria_Library_Item__r.fRecruit__Interview_Questions__c!=null}">
+						<apex:outputLabel value="{!$ObjectType.Criteria_Library_Item__c.fields.Interview_Questions__c.label }"/>
+						<apex:outputText escape="false" value="{!row.fRecruit__Selection_Criteria__r.fRecruit__Criteria_Library_Item__r.fRecruit__Interview_Questions__c}"/>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem rendered="{!row.fRecruit__Selection_Criteria__r.fRecruit__Measure__c!=null}">
+						<apex:outputLabel value="{!$ObjectType.Selection_Criteria__c.fields.Measure__c.label }"/>
+ 						<apex:outputText >{!row.fRecruit__Selection_Criteria__r.fRecruit__Measure__c}</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem rendered="{!row.fRecruit__Selection_Criteria__r.fRecruit__Required__c}">
+						<apex:outputLabel value="{!$ObjectType.Selection_Criteria__c.fields.Required__c.label }"/>
+ 						<apex:outputText >Yes</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem rendered="{!not(row.fRecruit__Selection_Criteria__r.fRecruit__Required__c)}">
+						<apex:outputLabel value="{!$ObjectType.Selection_Criteria__c.fields.Required__c.label }"/>
+ 						<apex:outputText >No</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Does candidate meet requirement:"/>
+						<apex:outputText >Exceeds / Fully Meets / Just Meets / Partly Meets / Not Met</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Reason for decision / Evidence:"/>
+						<apex:outputText ></apex:outputText>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+			</apex:repeat>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Overall assessment" mode="detail">
+				<apex:pageBlockSection title="Overall view of the candidate" columns="1">
+				   	<apex:pageBlockSectionItem dataStyle="height:100px;">
+						<apex:outputLabel value="Strengths:"/>
+						<apex:outputText >&nbsp;</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem dataStyle="height:100px;">
+						<apex:outputLabel value="Weaknesses:"/>
+						<apex:outputText >&nbsp;</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem rendered="{!isnull(fRecruit__Selection_Stage__c.fRecruit__Part_Of__c)}">
+						<apex:outputLabel value="Next step:"/>
+						<apex:outputText >Proceed to Next Stage / Place On Hold / Place Passive / Not This Vacancy / Reject / Withdrew</apex:outputText>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem dataStyle="height:100px;">
+						<apex:outputLabel value="Reason for decision / evidence:"/>
+						<apex:outputText >&nbsp;</apex:outputText>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+		</apex:pageBlock>
+
+</apex:page>

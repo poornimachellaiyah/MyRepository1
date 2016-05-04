@@ -1,0 +1,76 @@
+<apex:page controller="fRecruit.AssessmentEventBookingController">
+	<apex:form >
+        <apex:actionFunction name="eventChanged" immediate="true" action="{!refresh}" rerender="event"/>
+
+		<apex:pageBlock title="New Assessment Event" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Details" columns="1">
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Vacancy"/>
+					<apex:outputText value="{!vacancyName}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Candidate"/>
+					<apex:outputText value="{!candidateName}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Application"/>
+					<apex:outputText value="{!applicationName}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Assessment Event"/>
+                    <apex:selectList value="{!assessmentEventId}" size="1" onchange="eventChanged();" id="assessmentEventID">
+                        <apex:selectOptions value="{!availableAssessmentEvents}"/>
+                    </apex:selectList>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Request Confirmation"/>
+					<apex:outputText value="{!RequestConfirmation}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Is Confirmed"/>
+					<apex:outputText value="{!isConfirmed}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:outputPanel id="event" style="margin-top:20px;" layout="block">
+			<apex:pageBlockSection title="Assessment Event" columns="1">
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Location"/>
+					<apex:outputText value="{!assessmentEvent.fRecruit__Location__c}" rendered="{!!isnull(assessmentEvent)}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Start Date"/>
+					<c:outputDate stringValue="{!assessmentEvent.fRecruit__Start_Date__c}" rendered="{!!isnull(assessmentEvent)}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Maximum Places"/>
+					<c:outputNumber value="{!assessmentEvent.fRecruit__Maximum_Places__c}" rendered="{!!isnull(assessmentEvent)}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Confirmed Places"/>
+					<c:outputNumber value="{!assessmentEvent.fRecruit__Confirmed_Places__c}" rendered="{!!isnull(assessmentEvent)}"/>
+				</apex:pageBlockSectionItem>
+	        	<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Pending Places"/>
+					<c:outputNumber value="{!assessmentEvent.fRecruit__Pending_Places__c}" rendered="{!!isnull(assessmentEvent)}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Attendees" columns="1">
+				<apex:pageBlockTable value="{!assessmentEvent.fRecruit__Applications__r}" var="row" rendered="{!!isnull(assessmentEvent)}">
+					<apex:column headerValue="Candidate Name">
+						<apex:outputLink value="/{!row.Id}">{!row.fRecruit__Candidate_Name__c}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Booking Status">
+						<apex:outputLabel value="{!row.fRecruit__Interview_Status__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+			</apex:outputPanel>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

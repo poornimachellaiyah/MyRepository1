@@ -1,0 +1,1190 @@
+<apex:page id="PersonalHealthPage" controller="PersonalHealthForm_Controller" showHeader="false">
+<head>
+<apex:includeScript value="{!URLFOR($Resource.jQuery, '/jquery-ui-1.10.3/jquery-1.9.1.js')}"  />  
+  
+  
+  <script>
+    $j = jQuery.noConflict();
+    $j(function () {
+        // add more years to datepicker (note that same year range must be used for all date fields)
+        var currentYear = (new Date).getFullYear();
+        var startYear=currentYear-70;
+        var endYear=currentYear+5;
+        var htmlStr='';
+        for(i=startYear;i<endYear+1;i++){
+            htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+        }
+        $j('#calYearPicker').html(htmlStr);
+        
+    });
+    
+ //Script to implement top button
+ $j(document).ready(function() {
+       var offset = -220;
+       var duration = 500;                
+       $j(window).scroll(function() {
+           if ($j(this).scrollTop() > offset) {
+               $j('#goTop').fadeIn(duration);
+           } else {
+               $j('#goTop').fadeOut(duration);
+                  }
+         });
+    
+       $j('#goTop').click(function(event) {
+         event.preventDefault();
+         $j('html, body').animate({scrollTop: 0}, duration);
+         return false;
+         })
+     }); 
+  </script>
+  
+  
+<style>
+
+body{
+        font-size: 75%;        
+        width:100%;
+        font-family:calibri;
+}
+body,td{
+font-family: calibri;
+
+}
+
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #b06397;    
+}
+.bPageBlock .pbTitle {
+    width: 80%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+}
+ body .bPageBlock .pbBody .labelCol
+  {
+  color: #37424a;
+  font-weight:normal;
+  } 
+  
+  body .pbBody table.list th
+  {
+  text-align:center;
+  }  
+ 
+.radiostyling td, .radiostyling tr{  
+    padding-right:10px;
+    
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px; 
+    
+}   
+
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+body .bPageBlock .pbBody .vsopurple .pbSubheader{
+    background-color:#f8f8f8;
+    border-top-color: #ad0075;          
+}
+.requiredExample {
+background-color: #c00;
+//position: absolute;
+left: -4px;
+width: 2px;
+height: 18px;
+}
+
+
+#goTop {   
+    background:#E699CC;
+    border-radius: 30px 30px 30px 30px;    
+    color: #FFFFFF;
+    font-size: 14px;
+    font-style: italic;
+    height: 20px;
+    bottom: 20px;
+    right:15px;
+    padding: 10px 9px;
+    position: fixed;
+    text-decoration: none;
+    text-transform: lowercase;
+    width: 20px;
+     font-weight:bold;
+}
+/* ###### Header ######## */
+
+#header {
+  position: relative;
+}
+#header {
+  background: #ad0075;
+  z-index: 2;
+  -webkit-box-shadow: #37424a 0px 0px 20px;
+  -moz-box-shadow: #37424a 0px 0px 20px;
+  box-shadow: #37424a 0px 0px 20px;
+}
+#header {
+  height: 152px;
+  font: 12px/1.6em "Verdana", sans-serif;
+  letter-spacing:0.03em;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+#header #header-inner {
+  position: relative;
+}
+
+/* ###### header inner ######## */
+
+#top-bar {
+  padding: 10px 0;
+  font-size: 80%;
+  height: 40px;
+}
+#top-bar .block {
+  float: left;
+}
+#top-bar .block-menu {
+  width: 780px; /* today  */
+  padding: 0 10px;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ###### header : top-bar ul.menu ######## */
+
+#top-bar ul.menu {
+  margin: 0;
+  text-align: right;
+}
+#top-bar ul.menu li {
+  display: inline;
+  border-right: 1px solid #FFF;
+  margin: 0;
+  padding: 0 5px 0 2px;
+}
+#top-bar ul.menu li.last {
+  border-right: none;
+}
+#top-bar ul.menu a {
+  color: #FFF;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* ###### header - logo ######## */
+
+#header a {
+  color: white;
+}
+#header #logo {
+  float: left;
+  padding: 5px 0 0 10px;
+  width: 200px; /* today  */
+}
+
+/* ###### header - region ######## */
+#header #header-region {
+  float: left;
+  height: 112px;
+}
+#header-region {
+  overflow: hidden;
+}
+#header #block-menu-menu-super-navigation {
+  width: 580px;
+  margin-top: 41px;
+}
+#header .block-title {
+  display: none;
+}
+
+/* ###### header - supernavigation ######## */
+
+#header #supernav {
+  font-size: 110%;
+  float: left;
+  position: relative;
+  margin: 0;
+}
+#header #supernav ul {
+  padding: 0;
+}
+#header #supernav li {
+  display: block;
+}
+#header #supernav li a {
+  text-decoration: none;
+  font-size: 14px; /* today  */
+}
+#header #supernav li a em {
+  font-size: 16px;
+  display: block;
+  font-style: normal;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#header #supernav li.supernav_top_level_title {
+  width: 120px;
+  height: 45px;
+  float: left;
+  display: block;
+  padding: 8px 20px 14px 20px;
+  margin-top: 4px;
+}
+#header #supernav li.supernav_top_level_title a {
+  display: block;
+  border-left: 1px dotted #FFFFFF;
+  padding: 0 0 5px 5px;
+}
+
+#header #supernav li.supernav_top_level_title:hover a, #header #supernav li.supernav_top_level_title.active a {
+  border-color: black;
+  background: #FFF;
+}
+#header #supernav li:hover, #header #supernav li.active {
+  background-color: #FFF;
+}
+#header #supernav li:hover a, #header #supernav li.active a {
+  color: #000;
+}
+#top-bar .block-search {
+  width: 132px;
+}
+div.block {
+  position: relative;
+}
+#header #supernav li:hover, #header #supernav li.active {
+  background-color: #FFF;
+}
+   
+       /* ############################  footer css ############################# */
+
+#footer {
+font-size: 12px;
+font: 12px/1.6em "Verdana", sans-serif;
+letter-spacing: 0.03em;
+}
+#header, #footer {
+  width: 100%;
+}
+#footer {
+  position: absolute;
+  /* bottom: 0; */
+  background: #37424a;
+  height: 140px;
+  margin-top:15px;
+}
+
+/* ###### footer_Bottom ######## */
+
+#header,#footer,#footer_bottom,.mission,.breadcrumb,.node {
+  clear: both;
+}
+#footer #footer_bottom {
+  background: #ad0075;
+}
+#footer #footer_bottom .block-title {
+  display: none;
+}
+
+/* ###### footer_inner ######## */
+
+#header-inner, #footer-inner {
+  width: 992px; /* today  */
+  margin: 0 auto;
+  
+}
+#footer #footer-inner {
+  position: relative;
+}
+#footer .f-inner {
+  width: 992px;
+  margin: 0 auto;
+}
+
+/* ###### footer ul.menu  ######## */ 
+
+#footer #footer_bottom ul.menu {
+  padding: 10px 0;
+  margin: 0;
+  text-align: left;
+  margin-left:10px;
+}
+#footer #footer_bottom ul.menu li {
+  display: inline;
+  border-right: 1px solid #FFF;
+  margin: 0;
+  padding: 0 5px 0 2px;
+}
+#footer #footer_bottom ul.menu a {
+  color: #FFF;
+  text-decoration: none;
+}
+#footer #footer_bottom ul.menu li.last {
+border-right: none;
+}
+
+/* ###### footer_message  ######## */ 
+
+#footer #footer_message {
+  padding: 10px 0;
+  font-size: 90%;
+  color: #FFF;
+  margin-left:20px;
+}
+
+#footer #footer_message p 
+{
+     padding: 0px 10px 0px 10px;
+}
+
+::selection {
+  background: #ad0075;
+  color: white;
+  text-shadow: none;
+}
+    
+       #centre {
+  font-size:1.1em;
+  line-height:1.3;
+  margin:5px auto;
+  padding-top:10px;
+  position:relative;
+  width:962px;
+}
+       #main {
+  background-color:#FFFFFF;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  min-height:500px;
+  padding-top:40px;
+}
+    body {
+  background-color:#DBDBDB;
+  background-image:url({!URLFOR($Resource.MasterImages,'img/')}greytint_tcm79-30836.jpg);
+  background-position:0 0;
+  background-repeat:repeat no-repeat;
+  font-family:calibri, 'Gill Sans', 'Gill Sans MT', arial, verdana, helvetica, sans-serif;
+} 
+    
+  .joboppTitle {  
+    font-size:30px;    
+    color:#ad0075;
+    font-weight: normal;
+   margin-left:10px; 
+} 
+    
+    .jobopp {
+    font-size: 20px; 
+    font-weight:normal;   
+    color:#37424a;
+} 
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+}
+.tableContainer
+{
+    height:550px; 
+    width: 100%;
+    overflow: auto;
+}     
+
+body .pbBody table.HeaderTable tr.headerRow th{
+background: #FFFFFF;
+border-color: #FFFFFF;
+}
+
+</style>
+</head>
+<body>
+<div id="header">
+      <div id="header-inner" style="height:40px;">
+        <div id="top-bar" style="height:20px;">
+          <div class="region region-top-bar">
+            <div id="block-menu-menu-topnav" class="block block-menu block-odd clearfix">
+              <div class="block-inner">
+                <div class="content" >
+                   <ul class="menu">
+                      <li class="first leaf volzone mid-2997"><a href="http://volzone.vsoint.org/" title="" class="active">Volzone</a></li>
+                      <li class="leaf contact mid-2998"><a href="http://vso.org.uk/about/contact" title="">Contact</a></li>
+                      <li class="leaf press-office mid-2999"><a href="http://vso.org.uk/press-releases" title="">Press
+                       office</a></li>
+                      <li class="leaf careers mid-3000"><a href="http://www.vsointernational.org/careers" title="">Careers</a></li>
+                      <li class="last leaf events mid-1646"><a href="http://vso.org.uk/events" title="">Events</a></li>
+                    </ul>                                        
+                   </div>
+                  </div>
+                 </div>
+                <div id="block-search-form" class="block block-search block-even clearfix"><p></p>
+               </div>
+              </div>
+             </div>
+             <a href="http://vso.org.uk" title="Home" rel="home" id="logo">
+             <apex:image id="logo" url="{!URLFOR($Resource.MasterImages, 'img/logo.png')}"/>                
+             </a>               
+            <div id="header-region">
+               <div class="region region-header" style="height:71px;">
+                  <section id="block-menu-menu-super-navigation" class="block block-menu block-odd clearfix" style="height:71px;">
+                    <div class="block-inner">
+                       <h3 class="block-title">Super navigation</h3>
+                        <div class="content" >
+                           <ul id="supernav" class="menu" style="width:540px; height:71px; padding-left:26px;">
+                              <li class="first expanded supernav_top_level_title become-a-em-volunteer-em- mid-2256"
+                               title=""><a href="http://vso.org.uk/volunteer" title="">Become a <em>volunteer</em></a>
+                              </li>
+                              <li class="last expanded supernav_top_level_title get-em-involved-em- mid-1416" title="">
+                              <a href="http://vso.org.uk/get-involved" title="">Get <em>involved</em></a>
+                              </li>
+                            <li class="expanded supernav_top_level_title find-out-em-about-vso-em- mid-1417"
+                                        title=""><a href="http://vso.org.uk/about" title="">Find out <em>about VSO</em></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            </div>
+        </div>
+      
+      <div id="centre">
+        <div id="main">
+        <apex:form id="frmPersonalHealth">
+        <div class="div-wrapper"> 
+
+<apex:outputpanel id="opp1" rendered="{!if(formSubmissionStatus=='Submitted',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+                <td class="jobopp" colspan="2" style="padding-top:10px;">
+                <apex:outputtext id="otxt010" value="Personal Health form" /></td>
+            </tr>
+       </table>
+      
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;">
+                    <apex:outputtext id="otxt020" value="Thank you – your Personal Health Form has been successfully submitted." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <apex:commandbutton id="cmdCloseWindow" value="Close window" onclick="window.close()"/>
+</apex:outputpanel>        
+        
+        
+<apex:outputpanel id="opp2" rendered="{!NOT(if(formSubmissionStatus=='Submitted',true,false))}">
+    <div class="joboppTitle"><apex:outputText id="PageTitle" value="Personal Health Form" /></div><br/>
+    <table class="appheader">
+    <tr class="appheadercon">
+                <td style="font-size:12px;padding-left:10px;">
+                 <ul>
+                    <li>Only once all relevant fields been completed, click the “Submit Form” button.</li>
+                    <br/>
+                    <li>Fields marked with red <span class="requiredExample">&nbsp;</span> are mandatory fields.</li>
+                </ul>   
+                </td>
+    </tr>
+    </table>
+    <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+        <br/>
+<!--Personal Details-->        
+<apex:pageBlock title="Personal details" id="personal_details"> 
+ <apex:pageBlockSection id="pbs001" columns="2">
+            <apex:pageBlockSectionItem id="pbsi001">
+               <apex:outputLabel id="olblName" value="Name"/>
+               <apex:outputLabel id="olbvolname" value="{!volOrEmpName}"></apex:outputLabel>
+            </apex:pageBlockSectionItem>   
+           <apex:pageBlockSectionItem id="pbsi002">
+               <apex:outputLabel id="olblRefNo" value="Volunteer/Employee reference no:"/>
+               <apex:inputfield id="ifldRefNo" value="{!application.Name}"  />
+            </apex:pageBlockSectionItem> 
+            <apex:pageBlockSectionItem id="pbsi003">
+               <apex:outputLabel id="olblDob" value="Date of birth"/>
+               <apex:inputfield id="ifldDob" required="true" value="{!PersonalHealthInfo.Date_Of_Birth__c}" />
+            </apex:pageBlockSectionItem>               
+            <apex:pageBlockSectionItem id="pbsi004">
+               <apex:outputLabel id="olblOccupation" value="Current Occupation"/>
+               <apex:inputfield id="ifldOccupation" required="true" value="{!PersonalHealthInfo.Current_Occupation__c}" />
+            </apex:pageBlockSectionItem>   
+            <apex:pageBlockSectionItem id="pbsi005">
+               <apex:outputLabel id="olblCurrAddress" value="Current address"/>
+               <apex:inputfield id="ifldCurrAddress" required="true" value="{!PersonalHealthInfo.Current_Address__c}"  style="width:150px;height:50px" />
+             </apex:pageBlockSectionItem> 
+             <apex:pageBlockSectionItem id="pbsi0051">
+               <apex:outputLabel id="olblemail1" value="Email Id"/>
+               <apex:inputfield id="ifldemail2" required="true" value="{!PersonalHealthInfo.Email_Id__c}" />
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem id="pbsi007">
+               <apex:outputLabel id="olblPostCode" value="Post code/Zip code"/>
+               <apex:inputfield id="ifldPostCode" value="{!PersonalHealthInfo.PostCode__c}" />
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem id="pbsi006">
+               <apex:outputLabel id="olblTelNo" value="Tel number"/>
+               <apex:inputfield id="ifldTelNo" required="true" value="{!PersonalHealthInfo.Telephone_No__c}" />
+             </apex:pageBlockSectionItem> 
+             
+ </apex:pageBlockSection> 
+  <apex:outputLabel id="otxtConDetails" value="The International Medical Team may need to communicate with you about personal health issues, and will use the above contact details unless you state otherwise."/>
+        <br/>
+        <hr/>
+        <apex:pageBlockSection id="pbs002">
+        <apex:pageBlockSectionItem id="pbsi008">        
+        <apex:outputLabel id="olblDoctorContactDetails" value="Name and address of GP/family doctor or the doctor who holds your medical records"/>
+        <apex:inputfield id="ifldDoctorContactDetails" required="true" value="{!PersonalHealthInfo.Doctor_Contact_Details__c}"  style="width:150px;height:50px" />  
+        </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs003" columns="2">         
+            <apex:pageBlockSectionItem id="pbsi009">
+              <apex:outputLabel id="olblDoctorEmail" value="Email (if known)"/>
+              <apex:inputfield id="ifldDoctorEmail" value="{!PersonalHealthInfo.Doctor_Email_Id__c}"  />  
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsi010">
+              <apex:outputLabel id="olblDoctorTelNo" value="Tel number"/>
+              <apex:inputfield id="ifldDoctorTelNo" required="true" value="{!PersonalHealthInfo.Doctor_Telephone_No__c}" />  
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <br/>
+        <apex:outputText id="otxt001" value="The International Medical Team may need to obtain further medical information from your doctor. Your permission for this will always be asked, unless in a medical emergency."/>
+ </apex:pageblock>
+ 
+ <!--VSO work placement details-->
+<apex:pageBlock title="VSO work placement details" id="placement_details"> 
+ 
+  <apex:outputLabel id="olblVolorEmp" value="Are you a volunteer or employee?"/>
+  <apex:pageBlockSection id="pbs004" columns="2">     
+      <apex:pageBlockSectionItem id="pbsi011"> 
+       <apex:outputPanel id="opnl1" styleClass="requiredInput" layout="block" >
+       <apex:outputPanel id="opnl2" styleClass="requiredBlock" layout="block" />                         
+        <apex:selectRadio styleClass="radiostyling" value="{!PersonalHealthInfo.Volunteer_Or_Employee__c}">        
+           <apex:selectOptions value="{!VolOrEmpOptions}"></apex:selectOptions>
+         </apex:selectRadio>        
+   </apex:outputPanel>      
+      </apex:pageBlockSectionItem> 
+  </apex:pageBlockSection>
+     <hr/>
+     
+  <apex:outputLabel id="olblAnticipate" value="How long do you anticipate you will be working overseas with VSO?"/> 
+  <apex:pageBlockSection id="pbs005" columns="2">     
+      <apex:pageBlockSectionItem id="pbsi013">  
+      <apex:outputPanel id="opnl3" styleClass="requiredInput" layout="block" >
+      <apex:outputPanel id="opnl4" styleClass="requiredBlock" layout="block" />                         
+         <apex:selectRadio value="{!PersonalHealthInfo.How_Long_Working_Overseas_With_VSO__c}" style="width:350px">
+           <apex:selectOptions value="{!WorkingWithVSOOptions}"></apex:selectOptions>
+         </apex:selectRadio>  
+      </apex:outputPanel>
+      </apex:pageBlockSectionItem> 
+  </apex:pageBlockSection>
+    
+   
+     <hr/>
+  <apex:outputLabel id="olblcountryandcity" value="Country and city/region of proposed placement (if known)?"/>  
+  <apex:pageBlockSection id="pbs007" columns="2">
+       <apex:pageBlockSectionItem id="pbsi017">
+           <apex:outputLabel id="olblCountry" value="Country"/>                  
+           <apex:inputfield id="ifldCountry" value="{!PersonalHealthInfo.Proposed_Placement_Country__c}"/>         
+       </apex:pageBlockSectionItem>
+       <apex:pageBlockSectionItem id="pbsi018">
+           <apex:outputLabel id="olblRegionOrTown" value="Region/Town"/>                  
+           <apex:inputfield id="ifldRegionOrTown" value="{!PersonalHealthInfo.Proposed_Placement_Region__c}"/>         
+       </apex:pageBlockSectionItem>
+  </apex:pageBlockSection>
+     <hr/>
+                           
+  <apex:outputLabel id="olblUrbanRural" value="Will you be living in an urban, rural or mixed environment?"/>  
+   <apex:pageBlockSection id="pbs008" columns="2">
+       <apex:pageBlockSectionItem id="pbsi019">
+          <apex:selectRadio value="{!PersonalHealthInfo.Will_you_be_living_in_an_urban_rural_or__c}" style="width:350px">
+           <apex:selectOptions value="{!RuralOrUrbanOptions}"></apex:selectOptions>
+         </apex:selectRadio>  
+       </apex:pageBlockSectionItem>
+   </apex:pageBlockSection>
+   <hr/>
+   
+   <apex:pageBlockSection id="pbs009" columns="2">
+       <apex:pageBlockSectionItem id="pbsi022">
+           <apex:outputLabel id="olblSod" value="Planned start date of placement(if known)"/>   
+           <apex:inputfield id="ifldSod" value="{!PersonalHealthInfo.Planned_Start_Date__c}"/>
+       </apex:pageBlockSectionItem>
+       <apex:pageBlockSectionItem id="pbsi0221">
+           <apex:outputLabel id="olblPlacementOffer" value="don’t know/ no placement offer yet"/>                  
+           <apex:inputfield id="ifldPlacementOffer" value="{!PersonalHealthInfo.Dont_Know_about_Placement_Offered__c}"/>         
+       </apex:pageBlockSectionItem>            
+   </apex:pageBlockSection>   
+</apex:pageBlock>
+
+<!--Details of your current health -->
+<apex:pageBlock title="Details of your current health " id="CurrentHealthDetails"> 
+(indicate yes or no, and give further details where asked) <br/><br/>
+   
+   <apex:pageBlockSection id="pbs010" columns="2">      
+       <apex:pageBlockSectionItem id="pbsi023">         
+         <apex:outputLabel id="olblHealthProblem" value="Do you have any significant health problems at present?"/>
+         <apex:outputPanel id="opnl7" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl8" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Do_you_have_any_significant_health_probl__c}" >
+           <apex:selectOptions value="{!SignificantHealthProblemOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+
+       <apex:pageBlockSectionItem id="pbsi0231">
+             <apex:outputLabel id="olblHealthProblemDetails" value="If yes, please specify" />
+             <apex:inputfield id="ifldHealthProblemDetails" value="{!PersonalHealthInfo.Significant_Health_Problem_Details__c}" />
+       </apex:pageBlockSectionItem>    
+        
+       <apex:pageBlockSectionItem id="pbsi024">         
+         <apex:outputLabel id="olblMedicalCondt" value="Do you have a current medical condition for which you are seeking treatment?"/>       
+         <apex:outputPanel id="opnl9" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl10" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Do_you_have_a_current_medical_condition__c}" >
+           <apex:selectOptions value="{!CurrentMedicalCondtOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+       
+       <apex:pageBlockSectionItem id="pbsi0241">
+             <apex:outputLabel id="olblMedicalCondtDetails" value="If yes, please give details"/>  
+             <apex:inputfield id="ifldMedicalCondtDetails" value="{!PersonalHealthInfo.Current_Medical_Condition_Details__c}"/>
+       </apex:pageBlockSectionItem>                          
+  
+       <apex:pageBlockSectionItem id="pbsi025">
+         <apex:outputLabel id="olblDentalTreat" value="Are you currently receiving any dental treatment?"/>
+         <apex:outputPanel id="opnl11" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl12" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Are_you_currently_receiving_any_dental_t__c}" >
+           <apex:selectOptions value="{!DentalTandCOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem>  
+       
+       <apex:pageBlockSectionItem id="pbsi0251">
+             <apex:outputLabel id="olblDentalTreatDetails" value="Please give details"/>  
+             <apex:inputfield id="ifldDentalTreatDetails" value="{!PersonalHealthInfo.Current_Dental_Treatment_Details__c}"/>
+       </apex:pageBlockSectionItem>                        
+     
+       <apex:pageBlockSectionItem id="pbsi026">        
+         <apex:outputLabel id="olblRegPres" value="Are you taking any regular prescription medication?"/>
+         <apex:outputPanel id="opnl13" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl14" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Are_you_taking_any_regular_prescription__c}" >
+           <apex:selectOptions value="{!RegularPrescriptionOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+       
+       <apex:pageBlockSectionItem id="pbsi0261">
+             <apex:outputLabel id="olblDentalTreatDetails" value="Please give details"/>  
+             <apex:inputfield id="ifldDentalTreatDetails" value="{!PersonalHealthInfo.Regular_Prescription_Details__c}"/>
+       </apex:pageBlockSectionItem>
+                                
+   </apex:pageBlockSection> 
+  
+   <hr/>
+   <apex:outputLabel id="olblSigAllergies" value="Do you have any significant allergies?"/> 
+   <apex:pageBlockSection id="pbs014" columns="2">
+        <apex:pageBlockSectionItem id="pbsi027">
+        <apex:outputPanel id="opnl13" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl14" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Do_you_have_any_significant_allergies__c}" style="width:350px">
+           <apex:selectOptions value="{!SignificantAllergiesOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem id="pbsi031">
+             <apex:outputLabel id="olblMoreDetails" value="If yes, please give details"/>  
+             <apex:inputfield id="ifldMoreDetails" value="{!PersonalHealthInfo.Significant_Allergy_Details__c}"/>
+        </apex:pageBlockSectionItem>
+  </apex:pageBlockSection> 
+ 
+ <hr/>  
+   <apex:pageBlockSection id="pbs015" columns="1">      
+       <apex:pageBlockSectionItem id="pbsi032">         
+         <apex:outputLabel id="olblAdrenalin" value="Do you carry an adrenalin pen (epipen) for emergency treatment of severe allergies?"/>         
+         <apex:selectRadio value="{!PersonalHealthInfo.Do_you_carry_an_adrenalin_pen__c}" >
+           <apex:selectOptions value="{!AdrenalinPenOptions}"></apex:selectOptions>
+         </apex:selectRadio>         
+       </apex:pageBlockSectionItem>                          
+   </apex:pageBlockSection> 
+<hr/>
+   
+   <apex:pageBlockSection id="pbs016" columns="2">      
+       <apex:pageBlockSectionItem id="pbsi033">
+         <apex:outputLabel id="olblDietary" value="Any special dietary requirements?"/>  
+         <apex:outputPanel id="opnl17" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl18" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Any_special_dietary_requirements__c}" >
+           <apex:selectOptions value="{!SpecialDietaryOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+       
+       <apex:pageBlockSectionItem id="pbsi034">
+           <apex:outputLabel id="olblDietaryDetails" value="If yes, please give details"/>  
+           <apex:inputfield id="ifldDietaryDetails" value="{!PersonalHealthInfo.Special_Dietary_Details__c}"/>
+       </apex:pageBlockSectionItem> 
+
+       <apex:pageBlockSectionItem id="pbsi035">
+           <apex:outputLabel id="olblCurrWeight" value="What is your current weight?"/> 
+           <apex:inputfield id="ifldCurrWeight" required="true" value="{!PersonalHealthInfo.What_is_your_current_weight__c}"/>
+       </apex:pageBlockSectionItem>  
+       
+       <apex:pageBlockSectionItem id="pbsi036">
+           <apex:outputLabel id="olblCurrHeight" value="What is your height?"/>  
+           <apex:inputfield id="ifldCurrHeight" required="true" value="{!PersonalHealthInfo.What_is_your_Height__c}"/>
+       </apex:pageBlockSectionItem> 
+
+       <apex:pageBlockSectionItem id="pbsi037">        
+         <apex:outputLabel id="olblSmoke" value="Do you smoke tobacco?"/>
+         <apex:outputPanel id="opnl19" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl20" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Do_you_smoke_tobacco__c}" >
+           <apex:selectOptions value="{!SmokeTobaccoOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+       
+       <apex:pageBlockSectionItem id="pbsi038">
+           <apex:outputLabel id="olblSmokeDetails" value="If yes, how much per day"/>  
+           <apex:inputfield id="ifldSmokeDetails" value="{!PersonalHealthInfo.Smoke_Tobacco_Details__c}"/>
+       </apex:pageBlockSectionItem> 
+  
+       <apex:pageBlockSectionItem id="pbsi039">
+         <apex:outputLabel id="olblDrink" value="Do you drink alcohol?"/> 
+         <apex:outputPanel id="opnl21" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl22" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Do_you_drink_alcohol__c}" >
+           <apex:selectOptions value="{!DrinkAlcoholOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem>
+        
+       <apex:pageBlockSectionItem id="pbsi040">
+           <apex:outputLabel id="olblDrinkDetails" value="If yes, how much do you drink per week"/> 
+           <apex:inputfield id="ifldDrinkDetails" value="{!PersonalHealthInfo.Drink_Alcohol_Details__c}"/>
+       </apex:pageBlockSectionItem> 
+    
+       <apex:pageBlockSectionItem id="pbsi041">         
+         <apex:outputLabel id="olblDrinkHabits" value="Have you ever had a problem controlling your drinking habits?"/> 
+         <apex:outputPanel id="opnl23" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl24" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Problem_controlling_drinking_habits__c}" >
+           <apex:selectOptions value="{!ControllingDrinkingOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+       
+       <apex:pageBlockSectionItem id="pbsi042">
+           <apex:outputLabel id="olblDrinkHabitDetails" value="If yes, please give details"/>   
+           <apex:inputfield id="ifldDrinkHabitDetails" value="{!PersonalHealthInfo.Drinking_Habits_Details__c}"/>
+       </apex:pageBlockSectionItem> 
+ 
+       <apex:pageBlockSectionItem id="pbsi043">
+         <apex:outputLabel id="olblRecDrugs" value="Have you ever had a problem controlling your use of recreational drugs?"/>
+         <apex:outputPanel id="opnl25" styleClass="requiredInput" layout="block" >
+         <apex:outputPanel id="opnl26" styleClass="requiredBlock" layout="block" />
+         <apex:selectRadio value="{!PersonalHealthInfo.Problem_Controlling_Recreational_Drugs__c}" >
+           <apex:selectOptions value="{!ControllingDrugsOptions}"></apex:selectOptions>
+         </apex:selectRadio>
+         </apex:outputPanel>
+       </apex:pageBlockSectionItem> 
+       
+       <apex:pageBlockSectionItem id="pbsi044">
+           <apex:outputLabel id="olblRecDrugsDetails" value="If yes, please give details"/> 
+           <apex:inputfield id="ifldRecDrugsDetails" value="{!PersonalHealthInfo.Recreational_Drugs_Details__c}"/>
+       </apex:pageBlockSectionItem> 
+   </apex:pageBlockSection>   
+  
+</apex:pageBlock>
+
+<!--Your family history -->
+<apex:pageBlock title="Your family history" id="FamilyHistory"> 
+ <apex:outputLabel id="olblSigAllergies" value="Is there a history of any of the following conditions in your family (parents or siblings)? Select any conditions from the box on the left that apply, and click the arrow to move them to the Chosen box. You can remove anything you have accidentally selected from the chosen box by selecting it and using the left arrow."/>  
+   <br/> <apex:pageBlockSection id="pbs017" columns="1">         
+         <apex:pageBlockSectionItem id="pbsi045">            
+             <apex:inputfield id="ifldHeart" value="{!PersonalHealthInfo.Family_Health_History__c}"/>         
+         </apex:pageBlockSectionItem>
+       
+         <apex:pageBlockSectionItem id="pbsi054">
+           <apex:outputLabel id="olblFmailyHistoryDet" value="Details of other"/>  
+           <apex:inputfield id="ifldFmailyHistoryDet" value="{!PersonalHealthInfo.Family_Health_History_Details__c}"/>
+         </apex:pageBlockSectionItem> 
+     </apex:pageBlockSection>     
+</apex:pageBlock>
+
+<!--Your past health -->
+ <apex:pageblock title="Your health (please provide further information in boxes below)" id="PastHealth">
+
+<apex:variable var="sr" value="{!0}"/>
+<apex:pageblockTable value="{!HeaderList}" var="Healthprob" columnsWidth="2px,60px,140px"> 
+   <apex:column >
+   <apex:facet name="header">
+          S.<br/>No.
+        </apex:facet>
+   </apex:column>
+    <apex:column >
+        <apex:facet name="header">
+           Have you ever suffered  <br/> from any of the following?<br/>If yes, please give further details<br/> in the box ‘additional information’<br/>below:
+        </apex:facet>
+    </apex:column>   
+    <apex:column >
+    <apex:facet name="header">Yes/No
+    
+    </apex:facet>
+    </apex:column>    
+    <apex:column >  
+          <apex:facet name="header">Approx Date<br/>(DD/MM/YYYY) </apex:facet>
+    </apex:column>
+    <apex:column >
+       <apex:facet name="header">
+          Did you see your GP?<br/> &nbsp;&nbsp;Yes/No &nbsp;&nbsp;
+       </apex:facet>
+    </apex:column>
+    <apex:column >
+          <apex:facet name="header" >
+              Did you see a specialist?<br/> Yes/No 
+          </apex:facet>
+    </apex:column>          
+   </apex:pageblockTable>
+   
+      <!--Table for Question 1 to 50 --> 
+      <apex:outputPanel styleClass="tableContainer" layout="block">
+       <apex:pageBlockTable id="PbtQuestion1To50" styleclass="HeaderTable" value="{!HealthProblemList1}" var="prob">
+                <apex:column >
+                <apex:variable var="sr" value="{!sr+1}"/>
+                 {!sr}.
+                </apex:column>
+                
+                <apex:column width="26%">                    
+                       <apex:outputLabel value="{!prob.HealthProblem1.Health_Problem__c }" ></apex:outputLabel>
+                </apex:column>
+                 
+                 <apex:column >
+                 <apex:outputPanel id="opnlHealth1" styleClass="requiredInput" layout="block" >
+                 <apex:outputPanel id="opnlHealth2" styleClass="requiredBlock" layout="block" />                               
+                 <apex:selectradio tabindex="280" value="{!prob.Healthresponse1}"  >                 
+                            <apex:selectOptions value="{!HealthOptions}" />
+                 </apex:selectradio>
+                 </apex:outputPanel>  
+                 </apex:column>                 
+                 
+                 <apex:column >                   
+                 <apex:inputText id="iptxtapprxDate" value="{!prob.ApproximateDateresponse1}" style="width:70px"/>                                 
+                 </apex:column>  
+                 
+                 <apex:column >                 
+                 <apex:selectradio tabindex="280" value="{!prob.GPresponse1}">
+                            <apex:selectOptions value="{!GPOptions}" />
+                 </apex:selectradio>
+                 </apex:column>
+                 
+                 <apex:column >                 
+                 <apex:selectradio tabindex="280" value="{!prob.Specialistresponse1}"> 
+                            <apex:selectOptions value="{!SpecialistOptions}" />
+                 </apex:selectradio>
+                 </apex:column>                            
+       </apex:pageBlockTable>
+       </apex:outputPanel>
+  <br/>
+ 
+       <!--Table for Question 51 to 56 --> 
+       <h4>For Women Only (if not applicable please select 'NA')</h4><br/><br/>      
+       <apex:pageBlockTable id="PbtQuestion51To56" columnsWidth="2px,60px,140px" value="{!HealthProblemList6}" var="prob">
+                <apex:column >
+                <apex:facet name="header"> S.<br/>No.
+                </apex:facet>
+                <apex:variable var="sr" value="{!sr+1}"/>
+                 {!sr}.
+                </apex:column>
+                <apex:column >
+                   <apex:facet name="header">
+                     Have you ever suffered  <br/> from any of the following?<br/>
+                     If yes, please give further details<br/> in the box ‘additional
+                      information’<br/>below:
+                   </apex:facet>
+                       <apex:outputLabel value="{!prob.HealthProblem6.Health_Problem__c }"></apex:outputLabel>
+                 </apex:column>
+                
+                 <apex:column headerValue="Yes/No" >
+                 <apex:outputPanel id="opnlHealth11" styleClass="requiredInput" layout="block" >
+                 <apex:outputPanel id="opnlHealth12" styleClass="requiredBlock" layout="block" /> 
+                 <apex:selectradio tabindex="280" value="{!prob.Healthresponse6}">
+                            <apex:selectOptions value="{!womenhealthOptions}"/>                            
+                 </apex:selectradio>
+                 </apex:outputPanel>
+                 </apex:column>                 
+                 
+                 <apex:column >  
+                 <apex:facet name="header">Approx Date<br/>(DD/MM/YYYY) </apex:facet>
+                 <apex:inputText id="iptxtapprxDate" value="{!prob.ApproximateDateresponse6}" style="width:70px"/>                                 
+                 </apex:column>  
+                 
+                 <apex:column >
+                 <apex:facet name="header">
+                        Did you see your GP?<br/> Yes/No 
+                    </apex:facet>
+                 <apex:selectradio tabindex="280" value="{!prob.GPresponse6}">
+                            <apex:selectOptions value="{!GPOptions}" />
+                 </apex:selectradio>
+                 </apex:column>
+                 
+                 <apex:column >
+                 <apex:facet name="header" >
+                        Did you see a specialist?<br/> Yes/No 
+                    </apex:facet>
+                 <apex:selectradio tabindex="280" value="{!prob.Specialistresponse6}"> 
+                            <apex:selectOptions value="{!SpecialistOptions}" />
+                 </apex:selectradio>
+                 </apex:column>                 
+           
+       </apex:pageBlockTable>
+       <br/>      
+       Additional information about your past health. If you have ticked yes to any of the above 56 questions this box must be completed. You will not be able to submit the form unless you have done this.
+        <br/>        
+           <apex:inputfield id="ifldAddInfo" value="{!PersonalHealthInfo.Past_Health_Additional_Information__c}" style="width:625px;height:70px"/>            
+</apex:pageblock>
+
+
+ <!--Travel History-->
+ <apex:pageblock title="Travel History" id="TvlHistory">
+ If you have travelled outside of your home country to places other than Europe and North America in the last 10 years, please give brief details in space below (eg: Uganda March-April 2002). If you require more space please use an additional sheet
+ <br/><br/>
+Travel 1
+      <apex:pageBlockSection columns="2" >  
+              
+         <apex:pageBlockSectionItem >         
+           <apex:outputLabel id="Country1" value="Country"/>
+             <apex:selectList id="slstCountry" size="1" value="{!PersonalHealthInfo.Country_Travelled_1__c}" style="width:85%" >
+             <apex:selectOptions value="{!CountryList}"/></apex:selectList>                    
+          </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="Date1" value="From"/>                 
+             <apex:inputfield value="{!PersonalHealthInfo.Travelled_Date_1__c}"/>         
+         </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="info1" value="Health Problems during stay"/>                  
+             <apex:inputField id="ipfldHp1" style="width:175px;height:40px" value="{!PersonalHealthInfo.Health_Problem_During_Stay_1__c}"/>            
+         </apex:pageBlockSectionItem> 
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="lblTravelDuration1" value="Duration"/>                  
+             <apex:inputField id="ipfldTravelDuration1" value="{!PersonalHealthInfo.Duration_for_Travel1__c}"/>            
+         </apex:pageBlockSectionItem>       
+       
+     </apex:pageBlockSection> 
+<hr/>     
+Travel 2
+    <apex:pageBlockSection columns="2" >  
+              
+         <apex:pageBlockSectionItem >
+           <apex:outputLabel id="Country2" value="Country"/>                               
+             <apex:selectList id="slstCountry2" size="1" value="{!PersonalHealthInfo.Country_Travelled_2__c}" style="width:85%">
+             <apex:selectOptions value="{!CountryList}"/></apex:selectList>                     
+          </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="Date2" value="From"/>                 
+             <apex:inputfield value="{!PersonalHealthInfo.Travelled_Date_2__c}"/>         
+         </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="info2" value="Health Problems during stay"/>                  
+             <apex:inputField id="ipfldHp2" style="width:175px;height:40px" value="{!PersonalHealthInfo.Health_Problem_During_Stay_2__c}"/>
+         </apex:pageBlockSectionItem>  
+         
+          <apex:pageBlockSectionItem >
+             <apex:outputLabel id="lblTravelDuration2" value="Duration"/>                  
+             <apex:inputField id="ipfldTravelDuration2" value="{!PersonalHealthInfo.Duration_for_Travel2__c}"/>            
+         </apex:pageBlockSectionItem>      
+       
+     </apex:pageBlockSection> 
+<hr/>  
+Travel 3
+     <apex:pageBlockSection columns="2" >  
+              
+         <apex:pageBlockSectionItem >
+           <apex:outputLabel id="Country3" value="Country"/>                  
+             <apex:selectList id="slstCountry3" size="1" value="{!PersonalHealthInfo.Country_Travelled_3__c}" style="width:85%">
+             <apex:selectOptions value="{!CountryList}"/></apex:selectList>         
+          </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="Date3" value="From"/>                 
+             <apex:inputfield value="{!PersonalHealthInfo.Travelled_Date_3__c}"/>         
+         </apex:pageBlockSectionItem>
+         
+         <apex:pageBlockSectionItem >
+             <apex:outputLabel id="info3" value="Health Problems during stay"/>                  
+             <apex:inputField id="ipfldHp3" style="width:175px;height:40px" value="{!PersonalHealthInfo.Health_Problem_During_Stay_3__c}"/>
+         </apex:pageBlockSectionItem>    
+         
+          <apex:pageBlockSectionItem >
+             <apex:outputLabel id="lblTravelDuration3" value="Duration"/>                  
+             <apex:inputField id="ipfldTravelDuration3" value="{!PersonalHealthInfo.Duration_for_Travel3__c}"/>            
+         </apex:pageBlockSectionItem>    
+       
+     </apex:pageBlockSection> 
+       
+     </apex:pageBlock>
+     
+<!--Summary -->
+<apex:pageblock title="Summary" id="Summary">
+ <apex:outputLabel id="Summaryoutput" value="Is there any other medical information you would like to give which you have not included already? "/> <br/>                
+ <apex:inputField id="inpfldPHI" style="width:100%;height:100px" value="{!PersonalHealthInfo.Other_Medical_Informations__c}"/>
+  <br/> <br/>
+ <apex:outputLabel id="Summaryoutput1" value="Please document any particular concerns you may have related to your health while a volunteer or staff member working overseas. Please discuss these with the doctor during your medical examination, or contact the VSO International Medical Team,"/><a href="mailto:medical@vsoint.org">medical@vsoint.org</a>
+ <apex:inputField id="inpfldHealthConcerns" style="width:100%;height:100px" value="{!PersonalHealthInfo.Health_Concerns__c}"/>
+</apex:pageBlock>
+<!--Declaration-->
+ <apex:pageblock title="Declaration" id="Declaration">
+ <apex:outputLabel value="VSO Health and Security Statement :  to be signed by all VSO volunteers and international employers"/>
+    <ul>
+<li>I have answered all the questions and provided accurate information. I am happy for the VSO International Medical Team to contact my doctor for further information if required.</li>
+
+<li>  I understand that all information provided on this form will remain completely confidential to the VSO International Medical team, and will not be disclosed to any third party or anyone else within VSO, without my permission.</li>
+
+<li>  I understand that neither VSO personnel dealing with my recruitment, placement or pre-departure training, nor VSO country office staff will be aware of my medical history, unless I choose to disclose it to them.</li>
+
+<li>   I understand that should an extreme emergency arise overseas, it may be necessary to breach my confidentiality in order that I can be transferred quickly and safely for urgent medical treatment.</li>
+
+<li>  I understand that VSO’s international medical team may need to share information with VSO’s medical insurance company, and in emergency situations this may have to take place without my express permission.</li>
+
+<li>  I understand that I am obliged to inform VSO about any circumstances change with my health,  both before and during my placement/employment with VSO </li>
+
+<li> I understand that the medical clearance decision of VSO’s designated medical adviser is final.</li>
+
+<li>  I confirm that I have accessed, read and will act upon the recommended immunisation and antimalarial information as outlined on the VSO Learning Hub </li>
+</ul>
+
+<apex:pageblockSection id="pbsDeclare" columns="2">
+  <apex:pageblocksectionItem id="pbsiDeclare">
+    <apex:outputLabel id="declarecheck" value="I Agree"/>                 
+    <apex:inputfield id="declare" required="true" value="{!PersonalHealthInfo.Declaration__c}"/> 
+  </apex:pageblocksectionItem>
+  <apex:pageblockSectionItem id="pbsiDate">
+    <apex:outputLabel id="declaredate" value="Date"/>  
+    <apex:inputfield id="declareinput" required="true" value="{!PersonalHealthInfo.Declaration_Date__c}"/>   
+  </apex:pageblockSectionItem>
+</apex:pageblockSection>
+
+
+<br/> 
+ <div align="right"><apex:commandbutton id="SubmitAppln" value="Submit Form" action="{!PersonalHealthFormSubmit}" /></div>       
+ 
+
+ </apex:pageblock>
+ </apex:outputpanel>
+
+ 
+ </div>  
+        </apex:form>
+         </div>          
+      </div>
+      
+       <div id="footer">
+            <div id="footer_bottom" style="margin-top:25px;">
+                <div class="f-inner">
+                    <div class="region region-footer-bottom">
+                        <section id="block-menu-menu-footer-menu" class="block block-menu block-even clearfix">
+                            <div class="block-inner">
+                                <h3 class="block-title">Footer Menu</h3>
+                                <div class="content">
+                                    <ul class="menu">
+                                        <li class="first leaf work-for-vso mid-3000"><a href="http://www.vsointernational.org/careers" title="" class="active">Careers</a></li>
+                                        <li class="leaf contact-us mid-3001"><a href="http://vso.org.uk/about/contact" title="">Contact us</a></li>
+                                        <li class="leaf legal mid-3002"><a href="http://vso.org.uk/about/data-protection-and-privacy" title="" class="active">Legal</a></li>
+                                        <li class="leaf accesibility mid-3003"><a href=" http://vso.org.uk/about/accessibility" title="" class="active">Accessibility</a></li>
+                                        <li class="leaf other-vso-websites mid-3004"><a href="http://vso.org.uk/about/contact/other-vso-websites" title="" class="active">Other
+                                            VSO websites</a></li>
+                                        <li class="leaf sitemap mid-3005"><a href="http://vso.org.uk/sitemap" title="" class="active">Sitemap</a></li>
+                                        <li class="last leaf about mid-3026"><a href="http://vso.org.uk/about/where-we-work" title="">About</a></li>                                        
+                                    </ul>
+                                
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div><!-- /footer_bottom -->
+            <div id="footer_message">
+                <div class="f-inner">
+                    <p>
+                        VSO is a company limited by guarantee. Registered in London number: 703059. Registered
+                        charity number: England and Wales 313757, and Scotland SCO39117. Copyright &copy;
+                        2010-2012 VSO unless otherwise stated.</p>
+                </div>
+            </div> <!-- /footer_message -->
+            </div>
+         <a id="goTop">Top</a>
+        </body>
+
+</apex:page>

@@ -1,0 +1,95 @@
+<apex:page controller="fDL.DataDeletionController">
+	<apex:includeScript value="{!URLFOR($Resource.fDL__fieldSelector, 'jquery-1.9.1.min.js')}" />
+	<script>
+	$j = jQuery.noConflict();
+	$j(document).ready(function(){
+		$j('.team').click(function () {
+			if ($j('.team').is(':checked')) {
+				$j('.t').prop('checked', 'checked');
+				$j('.t').prop('disabled', true);
+		} else {
+				$j('.emp').prop('disabled', false);
+				$j('.teamc').prop('disabled', false);
+		}
+		})
+		$j('.emp').click(function () {
+			if ($j('.emp').is(':checked')) {
+				$j('.e').prop('checked', true);
+				$j('.e').prop('disabled', true);
+			} else {
+				$j('.e').prop('disabled', false);
+			}
+		})
+	});
+
+</script>
+	<style>
+ol {
+	list-style: none;
+}
+
+#list {
+	font-size: 150%;
+}
+
+:checked+span {
+	color: red;
+}
+h1 {
+	font-size: 125%;
+	}
+</style>
+<h1>Mass Data Deletion</h1><br/>
+<p>
+Warning: Deletion is permanent and items will <em>NOT</em> be sent to the recycle bin.</p>
+	<apex:form >
+		<apex:pageBlock rendered="{!step1}">
+			<ol id="list">
+				<li><label><apex:inputCheckbox styleClass="team"
+					value="{!teamMember}" /><span>Team Member</span></label>
+				<ol>
+					<li><label><apex:inputCheckbox styleClass="emp t"
+						value="{!employmentRecord}" /><span>Employment Record</span></label>
+
+					<ol>
+						<li><label><apex:inputCheckbox styleClass="e t"
+							value="{!salary}" /><span>Salary</span></label></li>
+						<li><label><apex:inputCheckbox styleClass="e t"
+							value="{!absence}" /><span>Absence</span></label></li>
+						<li><label><apex:inputCheckbox styleClass="e t"
+							value="{!benefit}" /><span>Benefit</span></label></li>
+						<li><label><apex:inputCheckbox styleClass="e t"
+							value="{!bonus}" /><span>Bonus</span></label></li>
+						<li><label><apex:inputCheckbox styleClass="e t"
+							value="{!jobHistory}" /><span>Job History</span></label></li>
+					</ol>
+					</li>
+					<li><label><apex:inputCheckbox styleClass="teamc t"
+						value="{!education}" /><span>Education</span></label></li>
+					<li><label><apex:inputCheckbox styleClass="teamc t"
+						value="{!skill}" /><span>Skill</span></label></li>
+					<li><label><apex:inputCheckbox styleClass="teamc t"
+						value="{!emergencyContact}" /><span>Emergency Contact</span></label></li>
+					<li><label><apex:inputCheckbox styleClass="teamc t"
+						value="{!experience}" /><span>Experience</span></label></li>
+					<li><label><apex:inputCheckbox styleClass="teamc t"
+						value="{!performanceReview}" /><span>Performance Review</span></label></li>
+					<li><label><apex:inputCheckbox styleClass="teamc t"
+						value="{!dependant}" /><span>Dependant</span></label></li>
+				</ol>
+				</li>
+				<li><label><apex:inputCheckbox value="{!importrow}" /><span>Import Row</span></label></li>
+			</ol>
+		</apex:pageBlock>
+		<apex:outputText value="{!objsToDelete}" rendered="{!step2}"
+			escape="false" />
+		<br />
+		<apex:commandButton value="Delete" action="{!showButton}"
+			rendered="{!step1}" />
+		<apex:commandButton value="Abort" action="{!abort}"
+		rendered="{!step2}" /><br/><br/>
+		<apex:commandButton value="I understand that this will permanently delete ALL rows for the selected objects"
+			style="background: #ff0000; background-image: none; color: white; border-color: black; background: linear-gradient(to bottom, #ff7777 0%,#ff0000 100%);"
+			action="{!deleteObjects}" onclick="return confirm('Are you sure?');" rendered="{!step2}" />
+	</apex:form>
+</apex:page>

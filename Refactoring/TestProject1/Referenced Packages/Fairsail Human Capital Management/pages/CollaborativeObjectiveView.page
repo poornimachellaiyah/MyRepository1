@@ -1,0 +1,3 @@
+<apex:page standardController="fHCM2__Collaborative_Objective__c" action="{!'/apex/ObjectiveCollaboration?id='+fHCM2__Collaborative_Objective__c.fHCM2__Objective__c}">
+	<apex:outputLink value="{!'/apex/ObjectiveCollaboration?id='+fHCM2__Collaborative_Objective__c.fHCM2__Objective__c}">View</apex:outputLink>
+</apex:page>

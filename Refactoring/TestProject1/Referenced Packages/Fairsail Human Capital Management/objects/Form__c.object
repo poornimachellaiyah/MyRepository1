@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>FormView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Form that is sent to a person participating in an HR process</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>HCM_Form_Details</fullName>
+        <description>Displayed fields on the HCM detail view</description>
+        <displayedFields>
+            <field>Subject__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Start_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Completed_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Form_Definition_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>HCM Form Details</label>
+    </fieldSets>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Checked if this form is available for data entry.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Checked if this form is available for data entry.</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Actor_Salutation__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Salutation of person who is sent the request to complete the form</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Salutation of person who is sent the request to complete the form</inlineHelpText>
+        <label>Actor Salutation</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actor__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of person who is sent the form to complete</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of person who is sent the form to complete</inlineHelpText>
+        <label>Actor</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Assessment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Assessment</label>
+        <referenceTo>Assessment__c</referenceTo>
+        <relationshipLabel>HCM Forms</relationshipLabel>
+        <relationshipName>HCM_Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Close_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Latest acceptable date that the responder can complete the form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Latest acceptable date that the responder can complete the form.</inlineHelpText>
+        <label>Close Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Competency_Assessment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Competency Assessment</label>
+        <referenceTo>Competency_Assessment__c</referenceTo>
+        <relationshipLabel>HCM Forms</relationshipLabel>
+        <relationshipName>HCM_Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Completed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the form was submitted and marked complete.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the form was submitted and marked complete.</inlineHelpText>
+        <label>Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Concerning__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Concerning</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Link to contact if the form is sent to a contact.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link to contact if the form is sent to a contact.</inlineHelpText>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Forms</relationshipLabel>
+        <relationshipName>Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Current_Page__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The page that the form is currently on.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The page that the form is currently on.</inlineHelpText>
+        <label>Current Page</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Data__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Data</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>20</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Email address of person that is to complete the form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Email address of person that is to complete the form.</inlineHelpText>
+        <label>Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Employment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employment</label>
+        <referenceTo>Employment__c</referenceTo>
+        <relationshipLabel>HCM Forms</relationshipLabel>
+        <relationshipName>HCM_Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EncodeId__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Encrypted unique id of this form.  Part of the URL link to complete the form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Encrypted unique id of this form.  Part of the URL link to complete the form.</inlineHelpText>
+        <label>EncodeId</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Form_Definition_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of form definition linked to this form</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of form definition linked to this form</inlineHelpText>
+        <label>Form Definition Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Link to the form definition for this form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link to the form definition for this form.</inlineHelpText>
+        <label>Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Forms</relationshipLabel>
+        <relationshipName>Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Last_View_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that data was last saved whilst completing the form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that data was last saved whilst completing the form.</inlineHelpText>
+        <label>Last View Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_View_IP__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last View IP</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( Manager_Approves__c &amp;&amp; isblank( Approval_Date__c ) &amp;&amp; isblank( Rejected_Date__c ) &amp;&amp; !isblank(Completed_Date__c),  Completed_Date__c, null )</formula>
+        <label>Manager Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( Manager_Approves__c &amp;&amp; isblank( Approval_Date__c ) &amp;&amp; isblank( Rejected_Date__c ) &amp;&amp; !isblank(Completed_Date__c),  &apos;Approve&apos;, null )</formula>
+        <label>Manager Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Approves__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Manager Approves</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Object_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Link to the object that is tied to this form and will (optionally) receive its data.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link to the object that is tied to this form and will (optionally) receive its data.</inlineHelpText>
+        <label>Object ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rejected_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Rejected Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Relates_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form that this form releates to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form that this form releates to</inlineHelpText>
+        <label>Relates To</label>
+        <referenceTo>Form__c</referenceTo>
+        <relationshipLabel>Related Forms</relationshipLabel>
+        <relationshipName>HCM_Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reminder_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the responder was last reminded to complete the form.  Set by workflow.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the responder was last reminded to complete the form.  Set by workflow.</inlineHelpText>
+        <label>Reminder Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Request_By_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the responder is asked to complete the form by.  Must be before the close date.  Set by workflow if null.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the responder is asked to complete the form by.  Must be before the close date.  Set by workflow if null.</inlineHelpText>
+        <label>Request By Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Request_Prefix__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Start of URL</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Start of URL</inlineHelpText>
+        <label>Request Prefix</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Request_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>URL to include in request emails</description>
+        <externalId>false</externalId>
+        <formula>Request_Prefix__c+ if(isnull(VisualForce_Page__c ),&apos;form&apos;,VisualForce_Page__c) + &apos;?id=&apos; +  EncodeId__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>URL to include in request emails</inlineHelpText>
+        <label>Request URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Salutation__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Salutation or actor name for email</description>
+        <externalId>false</externalId>
+        <formula>if(Actor_Salutation__c==&apos;&apos;,Actor__c,Actor_Salutation__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Salutation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the responder is sent the form request.  This field being null triggers workflow to send the request.  Set by workflow.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the responder is sent the form request.  This field being null triggers workflow to send the request.  Set by workflow.</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Subject__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subject</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Team Member that is the subject of this form</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Team Member that is the subject of this form</inlineHelpText>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipLabel>HCM Forms</relationshipLabel>
+        <relationshipName>HCM_Forms</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_Send_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set by code when wanting workflow to send an email to complete the form.</description>
+        <externalId>false</externalId>
+        <label>Trigger Send Email</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>VisualForce_Page__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Visualforce page that displays the form</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Visualforce page that displays the form</inlineHelpText>
+        <label>VisualForce Page</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VisualForce_Submit__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Final VisualForce page on completion</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Final VisualForce page on completion</inlineHelpText>
+        <label>VisualForce Submit</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>HCM Form</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Form_Definition__c</columns>
+        <columns>Actor__c</columns>
+        <columns>Email__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Request_By_Date__c</columns>
+        <columns>Reminder_Date__c</columns>
+        <columns>Completed_Date__c</columns>
+        <columns>Request_URL__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <columns>Form_Definition_Name__c</columns>
+        <columns>Team_Member__c</columns>
+        <columns>HR_Manager_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>F{000000}</displayFormat>
+        <label>Form Reference</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>HCM Forms</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Form_Definition__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Actor__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Actor_Salutation__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Salutation__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Request_By_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Reminder_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Completed_Date__c</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>Bulk_Email</listViewButtons>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+    <webLinks>
+        <fullName>Bulk_Email</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Bulk Email</masterLabel>
+        <openType>noSidebar</openType>
+        <page>FormBulkEmail</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

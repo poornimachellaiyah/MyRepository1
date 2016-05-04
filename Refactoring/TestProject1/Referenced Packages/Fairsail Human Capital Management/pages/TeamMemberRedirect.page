@@ -1,0 +1,2 @@
+<apex:page standardController="fHCM2__Team_Member__c" extensions="fHCM2.TeamMemberRedirect" action="{!doredirect}" standardStylesheets="false" showHeader="false" sidebar="false" title="Team Member">
+</apex:page>

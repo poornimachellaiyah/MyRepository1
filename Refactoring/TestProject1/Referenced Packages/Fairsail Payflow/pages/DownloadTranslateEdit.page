@@ -1,0 +1,18 @@
+<apex:page standardController="fpay__Download_Translate__c" extensions="fpay.DownloadTranslateExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Download Map Configure">
+	<apex:form >
+		<apex:variable value="{!fpay__Download_Translate__c.Id}" var="id"/>
+
+		<apex:pageBlock title="{!fpay__Download_Translate__c.Download_Map__r.Payroll_Service__r.Name} Configure" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+				<apex:commandButton action="{!xdelete}" value="Delete" rendered="{!id!=null}"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Translation" columns="1">
+				<apex:inputField value="{!fpay__Download_Translate__c.Name}" required="true"/>
+				<apex:inputField value="{!fpay__Download_Translate__c.fpay__Replacement__c}"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

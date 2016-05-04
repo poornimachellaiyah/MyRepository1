@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A set of job needs that define the requirements of a job within the organisation.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked this profile is shown when people start a competency assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked this profile is shown when people start a competency assessment</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Assessment_Layout__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Assessment Layout</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One indicator per page</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One competency per page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All on one page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Colleague_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for Colleague assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for Colleague assessment</inlineHelpText>
+        <label>Colleague Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Colleague Form Definition)</relationshipLabel>
+        <relationshipName>Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for Customer assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for Customer assessment</inlineHelpText>
+        <label>Customer Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Customer Form Definition)</relationshipLabel>
+        <relationshipName>Customer_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Direct_Report_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for Direct Report assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for Direct Report assessment</inlineHelpText>
+        <label>Direct Report Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Direct Report Form Definition)</relationshipLabel>
+        <relationshipName>Direct_Report_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Family__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Job family for the role</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Job family for the role</inlineHelpText>
+        <label>Family</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Level of the role within a job family model</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Level of the role within a job family model</inlineHelpText>
+        <label>Level</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for manager assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for manager assessment</inlineHelpText>
+        <label>Manager Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Manager Form Definition)</relationshipLabel>
+        <relationshipName>Manager_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Mentor_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for mentor assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for mentor assessment</inlineHelpText>
+        <label>Mentor Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Mentor Form Definition)</relationshipLabel>
+        <relationshipName>Mentor_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for Other assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for Other assessment</inlineHelpText>
+        <label>Other Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Other Form Definition)</relationshipLabel>
+        <relationshipName>Other_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Self_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used for self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used for self assessment</inlineHelpText>
+        <label>Self Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles (Self Form Definition)</relationshipLabel>
+        <relationshipName>Self_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Show_Averages_To_Manager_On_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Show Averages To Manager On Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form used to gather assessors before starting an assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form used to gather assessors before starting an assessment</inlineHelpText>
+        <label>Start Form Definition</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Job Profiles</relationshipLabel>
+        <relationshipName>Start_Job_Profiles</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Job Profile</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Job Profile Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Job Profiles</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

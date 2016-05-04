@@ -1,0 +1,4 @@
+<apex:page controller="testDineshDev" renderAs="pdf">
+
+{!MyData}
+</apex:page>

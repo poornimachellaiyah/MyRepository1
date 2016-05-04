@@ -1,0 +1,29 @@
+<apex:page showHeader="true" sidebar="true" controller="cftsys.AuditController">
+	
+	<apex:sectionHeader subtitle="{!$Label.Audit}" title="{!$Label.APP_NAME}"/>
+	
+	<apex:pageMessages />
+
+	<apex:form >				
+		<apex:pageBlock >			
+			<apex:pageBlockSection columns="1" title="{!$Label.Audit_overview}">
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="{!$Label.Audit_summary}" />
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection columns="1" title="{!$Label.Audit_manually}">
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="{!$Label.Audit_manually_summary}" />
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!audit_accounts}" value="Audit Accounts only"/>
+				<apex:commandButton action="{!audit_contacts}" value="Audit Contacts only"/>
+				<apex:commandButton action="{!audit_both}" value="Audit Accounts and Contacts"/>				
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+
+</apex:page>

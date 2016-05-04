@@ -1,0 +1,163 @@
+<apex:page controller="fHCM2.TeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <style>
+            .pbBody a, .lbBody a {
+                font-weight:bold;text-decoration: none;color: #0e52a1;
+            }
+            .dr-tbpnl-cntnt {
+                background-color:#ffffff;
+            }       
+        </style>
+            <apex:pageBlock title="{!$Label.fhcm2__Global_Team}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="FairsailTeam" location="Subheader"/>
+                <c:teamMemberPicture picture="{!viewer.teamMember.pictureUrl}" width="190" />
+                <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                    <apex:outputLink style="padding-left: 5px;padding-right: 5px;" value="/apex/{!links.FairsailProfile}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Profile}</apex:outputLink>
+                    <apex:outputLink style="padding-left: 5px;padding-right: 5px;" value="/apex/{!links.FairsailTeam}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                    <apex:outputLink style="padding-left: 5px;padding-right: 5px;" value="/apex/{!links.Actions}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Actions}</apex:outputLink>
+                    <apex:outputLink style="padding-left: 5px;padding-right: 5px;" value="/apex/{!links.OrgChart}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Org_Chart}</apex:outputLink>
+                </apex:outputPanel>
+                <p>&nbsp;</p>
+                
+            </apex:pageBlock>
+
+            <c:TeamMemberFind />
+            <c:Notice viewer="{!viewer}" page="FairsailTeam" location="Subfooter"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <style>
+                    .pbSubheader {
+                        margin-top:0px;
+                    }
+                    .pbBody a, .lbBody a {
+                        font-weight:bold;text-decoration: none;color: #0e52a1;
+                    }
+                    </style>
+
+            <apex:pageBlock title="{!viewer.teamMember.Name}" mode="view">
+				<c:Notice viewer="{!viewer}" page="FairsailTeam" location="Header"/>
+                <c:TeamPersonDetails record="{!viewer.teamMember.records['Team_Member__c']}"/>
+
+                <p>&nbsp;</p>
+
+                <apex:tabPanel switchType="client" id="theTabPanel" selectedTab="reports">
+                    <apex:tab label="{!$Label.fhcm2__Global_Managers}" name="managers">
+
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Global_Manager}" columns="1" collapsible="false" rendered="{!viewer.hasPrimaryManager}">
+
+                            <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!viewer.primaryManager.pictureUrl!=null}">
+                                    <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!viewer.primaryManager.Id}" target="_top" style="font-size: 80%;text-decoration: none;color: #0e52a1;text-align: center;">
+                                        <apex:image value="{!viewer.primaryManager.pictureUrl}" width="60" height="80" style="display: block; margin-left: auto; margin-right: auto" />
+                                    </apex:outputLink>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!viewer.primaryManager.records['Team_Member__c']}" name="{!viewer.primaryManager.Name}" TeamMemberId="{!viewer.primaryManager.Id}" links="{!links}"/>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Global_Cross_Reporting_Managers}" columns="1" collapsible="false" rendered="{!viewer.hasCrossReportManagers}">
+
+                            <apex:repeat value="{!viewer.crossReportManagers}" var="crossManager">
+                                <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!crossManager.pictureUrl!=null}">
+                                        <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!crossManager.Id}" target="_top">
+                                            <apex:image value="{!crossManager.pictureUrl}" width="60" height="80" />
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!crossManager.records['Team_Member__c']}" name="{!crossManager.Name}" TeamMemberId="{!crossManager.Id}" links="{!links}"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+
+                        </apex:pageBlockSection>
+                    </apex:tab>
+
+                    <apex:tab label="{!$Label.fhcm2__Global_Direct_Reports}" name="reports">
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Global_Direct_Reports}" columns="1" collapsible="false">
+
+                            <apex:repeat value="{!viewer.directReports}" var="direct">
+                                <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!direct.pictureUrl!=null}">
+                                        <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!direct.Id}" target="_top">
+                                            <apex:image value="{!direct.pictureUrl}" width="60" height="80" />
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!direct.records['Team_Member__c']}" name="{!direct.Name}" TeamMemberId="{!direct.Id}" links="{!links}"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Global_Cross_Reports}" columns="1" collapsible="false" rendered="{!viewer.hasCrossReports}">
+
+                            <apex:repeat value="{!viewer.crossReports}" var="cross">
+                                <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!cross.pictureUrl!=null}">
+                                        <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!cross.Id}" target="_top">
+                                            <apex:image value="{!cross.pictureUrl}" width="60" height="80" />
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!cross.records['Team_Member__c']}" name="{!cross.Name}" TeamMemberId="{!cross.Id}" links="{!links}"/>
+	                                </apex:outputPanel>
+	                            </apex:outputPanel>
+                            </apex:repeat>
+
+                        </apex:pageBlockSection>
+                    </apex:tab>
+
+                    <apex:tab label="{!$Label.fhcm2__Global_Colleagues}" name="colleagues">
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Global_Colleagues}" columns="1" collapsible="false">
+                            <apex:repeat value="{!viewer.colleagues}" var="person">
+                                <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!person.pictureUrl!=null}">
+                                        <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!person.Id}" target="_top">
+                                            <apex:image value="{!person.pictureUrl}" width="60" height="80" />
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!person.records['Team_Member__c']}" name="{!person.Name}" TeamMemberId="{!person.Id}" links="{!links}"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:pageBlockSection>
+                    </apex:tab>
+
+                    <apex:tab label="{!$Label.fhcm2__Global_All}" name="alltab">
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Global_All}" columns="1" collapsible="false">
+                            <apex:repeat value="{!viewer.allRelated}" var="person">
+                                <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!person.pictureUrl!=null}">
+                                        <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!person.Id}" target="_top">
+                                            <apex:image value="{!person.pictureUrl}" width="60" height="80" />
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!person.records['Team_Member__c']}" name="{!person.Name}" TeamMemberId="{!person.Id}" links="{!links}"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:pageBlockSection>
+                    </apex:tab>
+                </apex:tabPanel>
+                <c:Notice viewer="{!viewer}" page="FairsailTeam" location="Footer"/>
+            </apex:pageBlock>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

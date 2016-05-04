@@ -1,0 +1,79 @@
+<apex:page standardStylesheets="true" cache="false" showHeader="false" sidebar="false" title="Login">
+    <apex:composition template="fHCM2__FairsailTemplate">
+        <apex:define name="widePanel">
+            <script>
+                function retrieveName(objId, remObjId){
+                    var username = getCookie("username");
+                    var remember = getCookie("remember");
+                    if (username && username != "null" && remember == "true")
+                        document.getElementById(objId).value = username;
+                    if (remember == "true"){
+                        document.getElementById(remObjId).checked = true;
+                    }else 
+                        document.getElementById(remObjId).checked = false;
+                }
+                
+                function setName(objId, remObjId){
+                    var now= new Date();
+                    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+                    var username = document.getElementById(objId).value;
+                    var remember = (document.getElementById(remObjId).checked) ? 'true' : 'false';
+                    if(remember == "false")username = "null";
+                    if((username && username.length > 0) || remember == "false"){
+                        document.cookie = "username=" + username;
+                    }
+                    document.cookie = "remember=" + remember;
+                }
+                
+                function getCookie(c_name){
+                    if (document.cookie.length>0){
+                        c_start=document.cookie.indexOf(c_name + "=");
+                        if (c_start!=-1){
+                            c_start=c_start + c_name.length+1;
+                            c_end=document.cookie.indexOf(";",c_start);
+                            if (c_end==-1) c_end=document.cookie.length;
+                            return unescape(document.cookie.substring(c_start,c_end));
+                        }
+                    }
+                    return "";
+                }
+            </script>
+
+            <script type="text/javascript">
+                window.onload = function(){
+                    retrieveName('un', 'chkb');
+                }
+            </script>
+        
+        
+            <form method="post" action="https://login.salesforce.com?logoutURL={!urlencode($Site.CurrentSiteUrl)}&ssoStartPage={!urlencode($Site.CurrentSiteUrl)}&startURL={!urlencode($CurrentPage.parameters.startURL)}"
+                onsubmit="setName('un', 'chkb');"
+                name="login">
+            <table class="loginTable" cellspacing="5" cellpadding="0">
+                <tr>
+                    <td text-align="right">
+                        <img class="bannerIcon" src="/s.gif"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>User name:</td>
+                    <td><input name="un" id="un" type="text" style="width: 180px" /></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input name="pw" type="password" style="width: 180px" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input name="chkb" id="chkb" type="checkbox"/> Remember the user name</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value='Login'/>
+        </td>
+                </tr>
+            </table>
+            </form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,1087 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Active_On_Submit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Activate benefit when benefit set submitted to HR</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Activate benefit when benefit set submitted to HR</inlineHelpText>
+        <label>Active On Submit</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If selected, create benefit records already active.  Otherwise create them inactive.</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Fieldset__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Additional fields asked of team member during enrollment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Additional fields asked of team member during enrollment</inlineHelpText>
+        <label>Additional Fieldset</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_Determination_Base_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Age Determination Base Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Age_Determination_Method__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Age Determination Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Start Date</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period Start Date From Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period End Date From Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period Start Date From Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period End Date From Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Age_Determination_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Age Determination Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Age_Maximum__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum age to be eligible</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum age to be eligible</inlineHelpText>
+        <label>Age Maximum</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_Minimum__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Minimum age to be eligible</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum age to be eligible</inlineHelpText>
+        <label>Age Minimum</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Benefit_Supplier__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Benefit Supplier</label>
+        <referenceTo>Benefit_Supplier__c</referenceTo>
+        <relationshipLabel>Benefit Plans</relationshipLabel>
+        <relationshipName>Benefit_Plans</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Benefit_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Benefit Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Car Allowance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Car Parking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Company car</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Computer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dental Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disability Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health Savings Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Life Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medical Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Benefit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pension</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Private Fuel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stock Option</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vision Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Times_Employee_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Cap on amount of cover for insurance or annual savings for a savings plan.  For cap multiply employee amount for same type of benefit by this amount.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cap on amount of cover for insurance or annual savings for a savings plan.  For cap multiply employee amount for same type of benefit by this amount.</inlineHelpText>
+        <label>Cap Times Employee Amount</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cap_Times_Salary__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Cap on amount of cover for insurance or annual savings for a savings plan.  For cap multiply current salary by this amount.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cap on amount of cover for insurance or annual savings for a savings plan.  For cap multiply current salary by this amount.</inlineHelpText>
+        <label>Cap Times Salary</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cap__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Cap on amount of cover for insurance or annual savings for a savings plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cap on amount of cover for insurance or annual savings for a savings plan</inlineHelpText>
+        <label>Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cost_Per__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Cost expressed as amount per x of cover</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cost expressed as amount per x of cover</inlineHelpText>
+        <label>Cost Per</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cost_Selector_Calculation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Benefit Calculation that determines between the values in the cost table for this plan.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Benefit Calculation that determines between the values in the cost table for this plan.</inlineHelpText>
+        <label>Cost Selector Calculation</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Benefit_Calculation__c.Benefit_Plan__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Benefit_Calculation__c</referenceTo>
+        <relationshipLabel>Benefit Plans</relationshipLabel>
+        <relationshipName>Benefit_Plans</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Cover_Base_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Base date for the cover periods</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Base date for the cover periods</inlineHelpText>
+        <label>Cover Base Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Cover_Ending__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Cover Ending</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employment End Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cover Period End Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cover_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Minimum period of cover</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum period of cover</inlineHelpText>
+        <label>Cover Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Cover_Starting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Cover Starting</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cover Period Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Next Cover Period Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Deduction_Code_With_Salary_Sacriifice__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deduction Code With Salary Sacriifice</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deduction_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The deduction code within benefits for this plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The deduction code within benefits for this plan</inlineHelpText>
+        <label>Deduction Code</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deduction_End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>End date for benefit deductions..  If left blank the date defaults to the end date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>End date for benefit deductions..  If left blank the date defaults to the end date.</inlineHelpText>
+        <label>Deduction End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deduction_Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Start date for benefit deductions..  If left blank the date defaults to the start date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Start date for benefit deductions..  If left blank the date defaults to the start date.</inlineHelpText>
+        <label>Deduction Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deductions_Per_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of payrolls per month that the</description>
+        <externalId>false</externalId>
+        <label>Deductions Per Month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>All Payrolls</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Eligibiltiy_Calculation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Calculation to see if Team Member is eligible for this benefit plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Calculation to see if Team Member is eligible for this benefit plan</inlineHelpText>
+        <label>Eligibility Calculation</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Benefit_Calculation__c.Benefit_Plan__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Benefit_Calculation__c</referenceTo>
+        <relationshipLabel>Benefit Plans (Eligibiltiy Calculation)</relationshipLabel>
+        <relationshipName>Eligibiltiy_Calculations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Eligibiltiy_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Value that must match the Eligibility Calculation for the Team Member to be eligible for the Benefit Plan.  Enter multiple possibilities with commas between.  Enter negative values prefixed with an &quot;!&quot;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Value that must match the Eligibility Calculation for the Team Member to be eligible for the Benefit Plan.  Enter multiple possibilities with commas between.  Enter negative values prefixed with an &quot;!&quot;.</inlineHelpText>
+        <label>Eligibility Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Employer_Contribution_Code_With_Sal_Sac__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employer Contribution Code With Sal Sac</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Employer_Contribution_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employer Contribution Code</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>End date for benefits.  If left blank the date defaults to the end date for the benefit set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>End date for benefits.  If left blank the date defaults to the end date for the benefit set.</inlineHelpText>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Enrollment_Instructions__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Details on signing up a new person to this plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Details on signing up a new person to this plan</inlineHelpText>
+        <label>Enrollment Instructions</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Has_Beneficiaries__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Ask for a list of beneficiaries for this plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ask for a list of beneficiaries for this plan</inlineHelpText>
+        <label>Has Beneficiaries</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Life_Cover_Additional__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Has Life Cover Additional</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Life_Cover__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Ask for amount of life cover required.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ask for amount of life cover required.</inlineHelpText>
+        <label>Has Life Cover</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Percentage_Contribution__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Ask for a percentage of salary contribution</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ask for a percentage of salary contribution</inlineHelpText>
+        <label>Has Percentage Contribution</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Savings_Plan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Ask for an amount to save in the saving plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ask for an amount to save in the saving plan</inlineHelpText>
+        <label>Has Savings Plan</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hours_Worked_Minimum__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Hours Worked Minimum</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Declined__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set coverage to declined</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set coverage to declined</inlineHelpText>
+        <label>Is Declined</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Life_Cover_Approval_Method__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Life Cover Approval Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fixed Amount then Previous Amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Previous Amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fixed Amount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Matching_Employer_Contribution__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Multiply employee percentage  contribution by this multiplier to get the employer percentage contribution.  This total is capped by the maximum employee percentage contribution</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Multiply employee percentage  contribution by this multiplier to get the employer percentage contribution.  This total is capped by the maximum employee percentage contribution</inlineHelpText>
+        <label>Matching Employer Contribution Multiple</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Additional_Life_Calculation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Additional Life Calculation</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Benefit_Calculation__c.Benefit_Plan__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Benefit_Calculation__c</referenceTo>
+        <relationshipLabel>Benefit Plans (Maximum Additional Cover Calculation)</relationshipLabel>
+        <relationshipName>Benefit_Plans_Additional</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Additional_Life_Cover__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total maximum life cover</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total maximum life cover</inlineHelpText>
+        <label>Maximum Additional Life Cover</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Approved_Life_Calculation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Approved Life Calculation</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Benefit_Calculation__c.Benefit_Plan__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Benefit_Calculation__c</referenceTo>
+        <relationshipLabel>Benefit Plans (Maximum Approved Life Cover Calculation)</relationshipLabel>
+        <relationshipName>Benefit_Plans_Approval</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Approved_Life_Cover__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Approved Life Cover</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Child_Age__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum age permitted to be covered under this plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum age permitted to be covered under this plan</inlineHelpText>
+        <label>Maximum Child Age</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Employer_Percentage_Contribution__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Employer Percentage Contribution</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Percentage_Contribution__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum value for percentage of salary contribution</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum value for percentage of salary contribution</inlineHelpText>
+        <label>Maximum Percentage Contribution</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Policy_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Policy Number</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Prior_Plan__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Plan from previous enrollment that carries over to this enrollment.  Used to set the previous values for this enrollment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Plan from previous enrollment that carries over to this enrollment.  Used to set the previous values for this enrollment.</inlineHelpText>
+        <label>Prior Plan</label>
+        <referenceTo>Benefit_Plan__c</referenceTo>
+        <relationshipLabel>Benefit Plans</relationshipLabel>
+        <relationshipName>Next_Plans</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Savings_Plan_Enter_Annual_Amount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enter the annual amount for savings plans.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the annual amount for savings plans.</inlineHelpText>
+        <label>Savings Plan Enter Annual Amount</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Savings_Plan_Entry_Method__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Savings Plan Entry Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pay Period</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Service_Determination_Base_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Determination Base Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Service_Determination_Method__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Determination Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period Start Date From Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period End Date From Start Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period Start Date From Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Period End Date From Effective Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Service_Determination_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Determination Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Service_Minimum_Months__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Minimum Months</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Start date for benefits.  If left blank the date defaults to the start date for the benefit set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Start date for benefits.  If left blank the date defaults to the start date for the benefit set.</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_First_of_Month__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Always start the benefit on the first day of a month.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Always start the benefit on the first day of a month.</inlineHelpText>
+        <label>Start First of Month</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Version of the same plan for each enrollment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Version of the same plan for each enrollment</inlineHelpText>
+        <label>Version</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Website__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Website</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <label>Benefit Plan</label>
+    <nameField>
+        <label>Benefit Plan Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Benefit Plans</pluralLabel>
+    <searchLayouts>
+        <listViewButtons>Import</listViewButtons>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Export</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Export</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/fpay__DataPacket?id={!Benefit_Plan__c.Id}&amp;parent=BenefitPlan</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Import</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Import</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/apex/fpay__DataPacketImport</url>
+    </webLinks>
+</CustomObject>

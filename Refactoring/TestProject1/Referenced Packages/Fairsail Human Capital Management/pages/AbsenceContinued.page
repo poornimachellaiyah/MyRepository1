@@ -1,0 +1,63 @@
+<apex:page controller="fHCM2.AbsenceController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!(isVacation && subject.absences.isUsingVacation) || (!isVacation && subject.absences.isUsingAbsence)}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!if(isVacation,$Label.fhcm2__Process_Vacations,$Label.fhcm2__Process_Absences)}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="AbsenceContinued" location="Subheader"/>
+                <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Absences_Recent_absences}" rendered="{!!isVacation}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                        <apex:outputLink value="/apex/{!links.AbsenceProfile}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Profile}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.Absence}?teamMemberId={!viewer.teamMember.Id}&request=Absence" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:repeat value="{!subject.absences.recentAbsences}" var="absence">
+                        <c:DetailListBar title="{!absence.Title}"
+                            value="/apex/{!links.Absence}?id={!absence.id}"
+                            sub_title="{!absence.TeamMemberName}"
+                            sub_value="/apex/{!links.FairsailProfile}?id={!absence.TeamMemberId}">
+                            <c:DetailListItem label="{!$Label.fhcm2__Status_Approved}">
+                                <apex:image value="/img/checkbox_checked.gif" rendered="{!absence.Approved}"/>
+                                <apex:image value="/img/checkbox_unchecked.gif" rendered="{!!absence.Approved}"/>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Work_Days}" value="{!text(absence.Days)}" />
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Type}" value="{!absence.Reason}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <c:Notice viewer="{!viewer}" page="AbsenceContinued" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:form rendered="{!viewer.isTeamMemberOrManager}">
+                <apex:pageMessages />
+                <apex:pageBlock mode="edit" id="datesSection" title="{!AbsenceObject.RecordType.Name}">
+                	<c:Notice viewer="{!viewer}" page="AbsenceContinued" location="Header"/>
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absence_Supporting_Evidence}" columns="1">
+                            <apex:pageBlockSectionItem >
+                                    <apex:outputText value="{!$Label.fhcm2__Global_Attached_File}"/>
+                                    <apex:outputPanel >
+                                        <apex:inputFile value="{!uploadBody}" fileName="{!uploadName}"/>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+					<c:Notice viewer="{!viewer}" page="AbsenceContinued" location="Footer"/>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!if(viewer.isManager, $Label.fhcm2__Button_Save_And_Approve, $Label.fhcm2__Button_Save)}"/>
+                        <apex:commandButton action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

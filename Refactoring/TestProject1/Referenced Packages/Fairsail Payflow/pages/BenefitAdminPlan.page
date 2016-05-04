@@ -1,0 +1,291 @@
+<apex:page controller="fpay.BenefitPlanController" standardStylesheets="true" showHeader="true" sidebar="true" title="Benefit Admin">
+
+	<apex:sectionHeader title="Benefit {!if(cloneMode,'Clone','Edit')}" subtitle="{!viewer.teamMember.Name}"/>
+
+
+			    <apex:form >
+			        <apex:pageMessages />
+			        <apex:pageBlock title="{!factory.enrollment.currentType.Name}" mode="view">
+						<apex:pageBlockButtons location="bottom">
+							<apex:commandButton action="{!cancel}" value="Cancel"/>
+							<apex:commandButton action="{!CalculateSelected}" value="Recalculate Cost" rendered="{!factory.enrollment.currentPlan.hasCoverage || factory.enrollment.currentPlan.hasLifeCover || factory.enrollment.currentPlan.hasPercentageContribution || (factory.enrollment.currentPlan.hasSavingsPlan && !isblank(factory.enrollment.currentType.deductionsInYear)) || cloneMode}"/>
+							<apex:commandButton action="{!toggleCloneMode}" value="Clone" rendered="{!!cloneMode && factory.enrollment.currentType.isDone}"/>
+							<apex:commandButton action="{!SelectPlan}" disabled="{!factory.enrollment.currentType.isReadOnly}" value="Save"/>
+						</apex:pageBlockButtons>
+
+		        		<apex:pageBlockSection title="Benefit Calculations" columns="1" rendered="{!factory.enrollment.currentPlan.hasShownCalculations}">
+		                    <apex:pageBlockTable value="{!factory.enrollment.currentPlan.shownCalculations}" var="row">
+		                        <apex:column headerValue="Item">
+		                        	<apex:outputText value="{!row.name}" />
+		                        </apex:column>
+		                        <apex:column headerValue="Value">
+		                        	<apex:outputText value="{!row.value}" />
+		                        </apex:column>
+		                        <apex:column headerValue="Details">
+		                        	<apex:outputText value="{!row.description}" escape="false"/>
+		                        </apex:column>
+		                    </apex:pageBlockTable>
+		        		</apex:pageBlockSection>
+
+		        		<apex:pageBlockSection title="Dependants - option to include in plan" columns="1" rendered="{!factory.enrollment.currentPlan.hasCoverage}">
+		                    <apex:pageBlockTable value="{!factory.dependants}" var="row">
+		                        <apex:column headerValue="Dependant">
+		                        	<a href="{!IF(viewer.WXIsActive,'',links.dependant+'?id='+row.id)}"><apex:outputText value="{!row.name}" /></a>
+		                        </apex:column>
+		                        <apex:column headerValue="Relation">
+		                        	<apex:outputText value="{!row.relation}" />
+		                        </apex:column>
+		                        <apex:column headerValue="Include in Coverage">
+		                        	<apex:inputCheckbox value="{!row.selected}" disabled="{!!row.canSelect}"/>
+		                        </apex:column>
+		                    </apex:pageBlockTable>
+<!-- 						<input type="button" value="New Dependant" class="btn" onClick="navigateToUrl('{!URLFOR($Action.fHCM2__Dependant__c.New)}?retURL=%2Fapex%2Ffpay__BenefitAdminPlan%3FteamMemberId%3D{!JSENCODE(subject.teamMember.Id)}%26type%3D{!JSENCODE(factory.enrollment.currentType.id)}%26plan%3D{!JSENCODE($CurrentPage.parameters.plan)}'); return false;" hidden="{!viewer.WXIsActive}"/> -->	
+		        		</apex:pageBlockSection>
+
+		        		<apex:pageBlockSection title="Options" columns="1" rendered="{!factory.enrollment.currentPlan.hasPercentageContribution || factory.enrollment.currentPlan.hasLifeCover || factory.enrollment.currentPlan.hasSavingsPlan}">
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasPercentageContribution}">
+		        				<apex:outputLabel value="Percentage of Salary Contributed"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentPercentageContribution}"/>%
+									<apex:outputText value=" Maximum contribution {!factory.enrollment.currentPlan.maximumPercentageContribution}%" rendered="{!!isblank(factory.enrollment.currentPlan.maximumPercentageContribution) && factory.enrollment.currentPlan.maximumPercentageContribution>0}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasLifeCover && !factory.enrollment.currentPlan.hasLifeCoverAdditional}">
+		        				<apex:outputLabel value="Life Insurance Approved"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentLifeCoverText}"/>
+									<apex:outputPanel layout="none" rendered="{!!isblank(factory.enrollment.currentPlan.maximumApprovedLifeCover) && factory.enrollment.currentPlan.maximumApprovedLifeCover>0}">
+										 Maximum approved cover&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!factory.enrollment.currentPlan.maximumApprovedLifeCover}"/>.
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!!isblank(factory.enrollment.currentPlan.maximumAdditionalLifeCover) && factory.enrollment.currentPlan.maximumAdditionalLifeCover>0}">
+										 Maximum total cover&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!factory.enrollment.currentPlan.maximumAdditionalLifeCover}"/>.
+									</apex:outputPanel>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+
+			      			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasLifeCover && factory.enrollment.currentPlan.hasLifeCoverAdditional && !cloneMode}">
+		        				<apex:outputLabel value="Life Insurance Requested"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentLifeCoverRequestedText}"/>
+									<apex:outputPanel layout="none" rendered="{!!isblank(factory.enrollment.currentPlan.maximumApprovedLifeCover) && factory.enrollment.currentPlan.maximumApprovedLifeCover>0}">
+										 Maximum approved cover&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!factory.enrollment.currentPlan.maximumApprovedLifeCover}"/>.
+									</apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!!isblank(factory.enrollment.currentPlan.maximumAdditionalLifeCover) && factory.enrollment.currentPlan.maximumAdditionalLifeCover>0}">
+										 Maximum total cover&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!factory.enrollment.currentPlan.maximumAdditionalLifeCover}"/>.
+									</apex:outputPanel>
+			        			</apex:outputPanel>
+			      			</apex:pageBlockSectionItem>
+			      			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasLifeCover && factory.enrollment.currentPlan.hasLifeCoverAdditional && !cloneMode}">
+		        				<apex:outputLabel value="Life Insurance Approved"/>
+		        				<apex:outputText value="{!factory.enrollment.currentType.currentLifeCoverText}"/>
+			      			</apex:pageBlockSectionItem>
+			      			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasLifeCover && factory.enrollment.currentPlan.hasLifeCoverAdditional && !cloneMode}">
+		        				<apex:outputLabel value="Life Insurance Additional"/>
+		        				<apex:outputText value="{!factory.enrollment.currentType.currentLifeCoverAdditionalText}"/>
+			      			</apex:pageBlockSectionItem>
+		  
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasLifeCover && factory.enrollment.currentPlan.hasLifeCoverAdditional && cloneMode}">
+		        				<apex:outputLabel value="Life Insurance Approved"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentLifeCoverText}"/>
+									<apex:outputPanel layout="none" rendered="{!!isblank(factory.enrollment.currentPlan.maximumApprovedLifeCover) && factory.enrollment.currentPlan.maximumApprovedLifeCover>0}">
+										 Pre-approved cover&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!factory.enrollment.currentPlan.maximumApprovedLifeCover}"/>.
+									</apex:outputPanel>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasLifeCover && factory.enrollment.currentPlan.hasLifeCoverAdditional && cloneMode}">
+		        				<apex:outputLabel value="Life Insurance Additional Requested"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentLifeCoverAdditionalText}"/>
+									<apex:outputPanel layout="none" rendered="{!!isblank(factory.enrollment.currentPlan.maximumAdditionalLifeCover) && factory.enrollment.currentPlan.maximumAdditionalLifeCover>0}">
+										 Maximum total cover&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!factory.enrollment.currentPlan.maximumAdditionalLifeCover}"/>.
+									</apex:outputPanel>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Pay Period'}">
+		        				<apex:outputLabel value="Amount to be Saved (per pay period)"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentSavingsAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Pay Period' && !isblank(factory.enrollment.currentType.deductionsInYear)}">
+		        				<apex:outputLabel value="Pay Periods (over enrollment year)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.deductionsInYear}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Pay Period' && !isblank(factory.enrollment.currentType.deductionsInYear)}">
+		        				<apex:outputLabel value="Amount to be Saved (over enrollment year)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.currentSavingsAnnualAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Monthly'}">
+		        				<apex:outputLabel value="Amount to be Saved (per month)"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentSavingsMonthlyAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Monthly'}">
+		        				<apex:outputLabel value="Pay Periods (over enrollment year)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.deductionsInYear}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Monthly'}">
+		        				<apex:outputLabel value="Amount to be Saved (per pay period)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.currentSavingsAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Monthly'}">
+		        				<apex:outputLabel value="Amount to be Saved (over enrollment year)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.currentSavingsAnnualAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Yearly'}">
+		        				<apex:outputLabel value="Amount to be Saved (over enrollment year)"/>
+		        				<apex:outputPanel >
+			        				<apex:inputText value="{!factory.enrollment.currentType.currentSavingsAnnualAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Yearly'}">
+		        				<apex:outputLabel value="Pay Periods (over enrollment year)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.deductionsInYear}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!factory.enrollment.currentPlan.hasSavingsPlan && factory.enrollment.currentPlan.savingsPlanEntryMethod=='Yearly'}">
+		        				<apex:outputLabel value="Amount to be Saved (per pay period)"/>
+		        				<apex:outputPanel >
+			        				<apex:outputText value="{!factory.enrollment.currentType.currentSavingsAmountText}"/>
+		        				</apex:outputPanel>
+		        			</apex:pageBlockSectionItem>
+		        			
+		        		</apex:pageBlockSection>
+		        		<apex:pageBlockSection title="Additional" columns="1" rendered="{!factory.enrollment.currentPlan.additionalFieldset!=null}">
+		        			<apex:repeat value="{!factory.enrollment.currentPlan.additionFieldSetFields}" var="f">
+		        				<apex:inputField value="{!additionalFields[f]}" required="{!additionalFields[f].required}"/>
+		        			</apex:repeat>
+						</apex:pageBlockSection>
+		        		<apex:pageBlockSection title="Estimated Cost" columns="1" rendered="{!!factory.enrollment.currentPlan.hasSavingsPlan}">
+		        			<apex:pageBlockSectionItem rendered="{!!isblank(factory.selectedCoverage)}">
+		        				<apex:outputLabel value="Coverage"/>
+		        				<apex:outputText value="{!factory.selectedCoverage}"/>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem >
+		        				<apex:outputLabel value="Estimated Cost"/>
+		        				<fHCM2:outputNumber decimalPlaces="2" value="{!zeroedSelectedEmployeeDeduction}"/>
+		        			</apex:pageBlockSectionItem>
+		        		</apex:pageBlockSection>
+		        		<apex:pageBlockSection title="Beneficiaries - allocate totalling 100% primary (and optionally 100% contingent)"  rendered="{!factory.enrollment.currentPlan.hasBeneficiaries}" columns="1">
+		                    <apex:pageBlockTable value="{!factory.dependantBeneficiaries}" var="row" rendered="{!factory.dependantBeneficiaries.size>0}">
+		                        <apex:column headerValue="Dependant Beneficiary" width="300">
+		                        	<apex:outputText value="{!row.name}" />
+		                        </apex:column>
+		                        <apex:column headerValue="Relation" width="100">
+		                        	<apex:outputText value="{!row.relation}" />
+		                        </apex:column>
+		                        <apex:column headerValue="Percentage" width="100">
+		                        	<apex:selectList value="{!row.PercentageBenefitText}" size="1">
+	                        			<apex:selectOptions value="{!zeroToOneHundred}"/>
+		                        	</apex:selectList>
+		                        </apex:column>
+		                        <apex:column headerValue="Priority" width="100">
+		                        	<apex:selectList value="{!row.priority}" size="1">
+	                        			<apex:selectOption itemValue="Primary" itemLabel="Primary"/>
+	                        			<apex:selectOption itemValue="Contingent" itemLabel="Contingent"/>
+		                        	</apex:selectList>
+		                        </apex:column>
+		                    </apex:pageBlockTable>
+		                    <apex:pageBlockTable value="{!factory.otherBeneficiaries}" var="row">
+		                        <apex:column headerValue="Other Beneficiary"  width="400">
+					        		<apex:pageBlockSection columns="1">
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="First Name"/>
+					                        <apex:inputText value="{!row.firstName}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Middle Name"/>
+				                        	<apex:inputText value="{!row.middleName}"/>
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Last Name"/>
+				                        	<apex:inputText value="{!row.surname}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Street 1"/>
+				                        	<apex:inputText value="{!row.address1}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Street 2"/>
+				                        	<apex:inputText value="{!row.address2}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="City"/>
+				                        	<apex:inputText value="{!row.city}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="State/Region"/>
+				                        	<apex:inputText value="{!row.region}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Zipcode"/>
+				                        	<apex:inputText value="{!row.postalCode}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Country"/>
+				                        	<apex:inputText value="{!row.country}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Phone"/>
+				                        	<apex:inputText value="{!row.phone}" />
+					                    </apex:pageBlockSectionItem>
+					        			<apex:pageBlockSectionItem >
+					        				<apex:outputLabel value="Email"/>
+				                        	<apex:inputText value="{!row.email}" />
+					                    </apex:pageBlockSectionItem>
+				                    </apex:pageBlockSection>
+		                        </apex:column>
+		                        <apex:column headerValue="Percentage" width="100">
+		                        	<apex:selectList value="{!row.PercentageBenefitText}" size="1">
+	                        			<apex:selectOptions value="{!zeroToOneHundred}"/>
+		                        	</apex:selectList>
+		                        </apex:column>
+		                        <apex:column headerValue="Priority" width="100">
+		                        	<apex:selectList value="{!row.priority}" size="1">
+	                        			<apex:selectOption itemValue="Primary" itemLabel="Primary"/>
+	                        			<apex:selectOption itemValue="Contingent" itemLabel="Contingent"/>
+		                        	</apex:selectList>
+		                        </apex:column>
+		                    </apex:pageBlockTable>
+		                    <apex:commandButton action="{!AddBeneficiary}" value="Add Other Beneficiary" rendered="{!factory.enrollment.currentPlan.hasBeneficiaries}"/>
+
+
+		        		</apex:pageBlockSection>
+		        		
+		        		<apex:pageBlockSection title="Benefit Dates" columns="1" >
+		        			<apex:inputField value="{!factory.additionalFields.fHCM2__Effective_Date__c}" rendered="{!cloneMode}"/>
+		        			<apex:pageBlockSectionItem rendered="{!!cloneMode}">
+		        				<apex:outputLabel value="Effective Date"/>
+		        				<fHCM2:outputDate dateValue="{!factory.additionalFields.fHCM2__Effective_Date__c}"/>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem >
+		        				<apex:outputLabel value="Start Date"/>
+		        				<fHCM2:outputDate dateValue="{!CalculatedStartDate}"/>
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem >
+		        				<apex:outputLabel value="End Date"/>
+		        				<fHCM2:outputDate dateValue="{!CalculatedEndDate}"/>
+		        			</apex:pageBlockSectionItem>
+						</apex:pageBlockSection>
+
+		        		</apex:pageBlock>
+			    </apex:form>
+
+</apex:page>

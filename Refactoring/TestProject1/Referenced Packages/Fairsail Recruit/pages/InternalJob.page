@@ -1,0 +1,63 @@
+<apex:page controller="fRecruit.InternalJobController" cache="false" showHeader="false" sidebar="false" standardStylesheets="true" title="{!SocialNetworkMessage}" language="{!languageSetter.locale}">
+<script  type='text/javascript'>
+window.onload = function (){
+			 parent.postMessage('ResizeHeight-'+document.getElementById('internalJobListContainer').offsetHeight,"*");
+}
+   				
+</script>  
+<div id="internalJobListContainer">
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+	<style>
+		.leftColumn { width:0px;}
+		.bodyColumn { width:800px; }
+		.rightColumn { width:0px;}
+		.mainPageDiv { width:800px; }
+	</style>
+</apex:define>
+
+<apex:define name="header">
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJob" location="Header" portal="Internal"/>
+</apex:define>
+
+<apex:define name="body">
+	<apex:sectionHeader title="{!$Label.frecruit__Internal_Portal+Name}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Internal_Job}: {!vacancyRecord.Name}" rendered="{!if($CurrentPage.parameters.isWX=='true',false,true)}"/>
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJob" location="Top" portal="Internal"/>
+	<p>{!$Label.frecruit__Internal_Job_Top}</p>
+	<apex:pageMessages />
+	<apex:form >
+				<apex:pageBlock rendered="{!hasVacancy}">
+					<apex:pageBlockButtons >
+						<c:fRecruitLinkButton label="{!$Label.frecruit__Apply_Apply_Button}" url="{!ApplyURL}" style="border:2px solid blue;" disabled="{!(hasAppliedStop || isActiveStop || isArchivedStop)}"/>
+						<c:fRecruitLinkButton label="{!$Label.frecruit__Apply_Nominate_Button}" url="{!NominateURL}" rendered="{!$Setup.Apply_Portal__c.Use_Internal_Nomination__c}"/>
+
+						<a title="{!$Label.Apply_Email}" alt="{!$Label.Apply_Email}" href="{!EmailURL}"><img style="vertical-align:middle;width:19px;height:19px;" src="{!$Resource.RecruitImages}/email.jpg"/></a>
+						<a title="{!$Label.Apply_Add_Facebook}" alt="{!$Label.Apply_Add_Facebook}" href="{!FacebookURL}" target="_blank"><img style="vertical-align:middle;width:19px;height:19px;" src="{!$Resource.RecruitImages}/facebook.jpg"/></a>
+						<a title="{!$Label.Apply_Add_Twitter}" alt="{!$Label.Apply_Add_Twitter}" href="{!TwitterURL}" target="_blank"><img style="vertical-align:middle;width:19px;height:19px;" src="{!$Resource.RecruitImages}/twitter.jpg"/></a>
+						<a title="{!$Label.Apply_Add_LinkedIn}" alt="{!$Label.Apply_Add_LinkedIn}" href="{!LinkedinURL}" target="_blank"><img style="vertical-align:middle;width:19px;height:19px;" src="{!$Resource.RecruitImages}/linkedin.jpg"/></a>
+					</apex:pageBlockButtons>
+					<apex:pageBlockSection columns="1">
+							<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets[JobApplyFieldSet]}" var="f">
+								<apex:pageBlockSectionItem >
+								<apex:outputLabel value="{!f.label}"/>
+								<apex:outputPanel >
+									<c:outputDate value="{!vacancyRecord[f]}" rendered="{!f.type=='date'}"/>
+									<apex:outputfield value="{!vacancyRecord[f]}" rendered="{!(f.type!='Text' || !contains(vacancyRecord[f],'<img')) && f.type!='date'}"/>
+									<apex:outputText value="{!vacancyRecord[f]}" escape="false" rendered="{!f.type=='Text' && contains(vacancyRecord[f] && f.type!='date','<img')}"/>
+								</apex:outputPanel>
+								</apex:pageBlockSectionItem>
+			                </apex:repeat>
+			        </apex:pageBlockSection>
+			    </apex:pageBlock>
+	</apex:form>
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJob" location="Bottom" portal="Internal"/>
+</apex:define>
+
+<apex:define name="footer">
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJob" location="Footer" portal="Internal"/>
+</apex:define>
+
+</apex:composition>
+</div>
+</apex:page>

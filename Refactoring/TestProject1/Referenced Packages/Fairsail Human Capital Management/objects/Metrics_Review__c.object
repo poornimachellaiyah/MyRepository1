@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A review of performance of a team member against their current metrics</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Manager_Review</fullName>
+        <description>When the manager reviews the metrics</description>
+        <displayedFields>
+            <field>Overall_Comment__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Manager Review</label>
+    </fieldSets>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isnull(Manager_Action__c), if ( isnull(Team_Member_Action__c), null, Team_Member_Action_Date__c ) , Manager_Action_Date__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( Manager_Action__c = &apos;&apos;, if ( Team_Member_Action__c = &apos;&apos;, &apos;&apos;, &apos;Team Member: &apos;&amp;Team_Member_Action__c) , &apos;Manager: &apos;&amp;Manager_Action__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Profile__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Job Profile</label>
+        <referenceTo>Job_Profile__c</referenceTo>
+        <relationshipLabel>Metrics Reviews</relationshipLabel>
+        <relationshipName>Metrics_Reviews</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( isblank( Signed_Date__c ),  Review_Date__c , 
+if( !isblank( Next_Follow_Up_Date__c) &amp;&amp; Next_Follow_Up_Date__c&lt;=today(),  Next_Follow_Up_Date__c, null )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( (isblank( Review_Date__c ) || Review_Date__c&lt;=today()) &amp;&amp; isblank( Signed_Date__c ), &apos;Complete&apos;, 
+if( !isblank( Next_Follow_Up_Date__c) &amp;&amp; Next_Follow_Up_Date__c&lt;=today(), &apos;Follow Up&apos;, null )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Metrics_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Metrics Library Item</label>
+        <referenceTo>Metrics_Library_Item__c</referenceTo>
+        <relationshipLabel>Metrics Reviews</relationshipLabel>
+        <relationshipName>Metrics_Reviews</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Next_Follow_Up_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Next Follow Up Date</label>
+        <summarizedField>Metric_Assessment__c.Follow_Up_Date__c</summarizedField>
+        <summaryFilterItems>
+            <field>Metric_Assessment__c.Follow_Up_Date__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Metric_Assessment__c.Action_Outcome__c</field>
+            <operation>equals</operation>
+            <value></value>
+        </summaryFilterItems>
+        <summaryForeignKey>Metric_Assessment__c.Metrics_Review__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Overall_Comment__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Overall Comment</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Review_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Review Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Signed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Signed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (  ((Team_Member__r.Policy__c!=null &amp;&amp;   Team_Member__r.Policy__r.Team_Member_Signs_Metrics_Review__c ) ||  ( Team_Member__r.Policy__c==null &amp;&amp; Team_Member__r.Department__r.Policy__r.Team_Member_Signs_Metrics_Review__c)) &amp;&amp;  Team_Member_Signed_Date__c == null,  CreatedDate , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team Member Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (  ((Team_Member__r.Policy__c!=null &amp;&amp;   Team_Member__r.Policy__r.Team_Member_Signs_Metrics_Review__c ) ||  ( Team_Member__r.Policy__c==null &amp;&amp; Team_Member__r.Department__r.Policy__r.Team_Member_Signs_Metrics_Review__c)) &amp;&amp;  Team_Member_Signed_Date__c == null, &apos;Sign&apos;, null )</formula>
+        <label>Team Member Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Signed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Team Member Signed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipLabel>Metrics Reviews</relationshipLabel>
+        <relationshipName>Metrics_Review</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Metrics Review</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Metrics Review</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Metrics Reviews</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+</CustomObject>

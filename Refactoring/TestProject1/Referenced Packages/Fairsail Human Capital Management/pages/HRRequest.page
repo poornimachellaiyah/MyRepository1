@@ -1,0 +1,314 @@
+<apex:page controller="fHCM2.HRRequestControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!(isUsing && viewer.isManager) || pendingUserApproval}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+		    <script type="text/javascript">
+		        jQuery.noConflict();
+				var decimalPlace = "{!decimalPlace}";
+				var thousandsSeperator = "{!thousandsSeperator}";
+		        var currentSalary={!currentSalary.fHCM2__Amount__c};
+		        var currentAnnualSalary={!currentSalary.Annual_Amount__c};
+                String.prototype.replaceAll = function(s, r) {
+                	var res = this;
+                	while (res!=null && s!=r && res.indexOf(s)>0) res = res.replace(s,r);
+                	return res;
+                }
+                String.prototype.numberValue = function(d, t){
+                	var s = this==null ? '' : this.trim().replaceAll(t,'').replace(d,'.');
+                	return s == '' ? 0 : Number(s);
+                }
+                Number.prototype.formatMoney = function(c, d, t){
+					var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+					   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ 				};
+		    </script>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            
+            <apex:pageBlock title="{!$Label.fhcm2__Process_HR_Requests}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="HRRequest" location="Subheader"/>
+
+                <apex:pageBlockSection title="Request History" columns="1" rendered="{!subject.HRRequests.HRRequests.size>0}">
+        
+            
+            <apex:repeat value="{!subject.HRRequests.HRRequests}" var="HRRequest">
+                <c:DetailListBar title="{!HRRequest.Name}" value="/apex/{!links.HRRequest}?id={!HRRequest.id}" rendered="{!currentHRRequest.id != HRRequest.id}">
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__HR_Request__c.Fields.fHCM2__Field_Name__c.label}">
+                        {!HRRequest.FieldLabel}
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__HR_Request__c.Fields.fHCM2__Status__c.label}">
+                        {!HRRequest.Status}
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__HR_Request__c.Fields.fHCM2__Submitted_Date__c.label}">
+                        <c:outputDate dateValue="{!HRRequest.SubmittedDate}"/>
+                    </c:DetailListItem>
+                </c:DetailListBar>
+            </apex:repeat>
+            
+             </apex:pageBlockSection>
+            
+             <apex:pageBlockSection title="Job History" columns="1" rendered="{!subject.Jobs.isUsing && subject.Jobs.History.size>0}">
+                 <apex:repeat value="{!subject.Jobs.History}" var="Job">
+					<c:DetailListBar title="{!Job.Name}">
+                            <apex:repeat value="{!subject.Jobs.fieldNames}" var="f">
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Job_History__c.Fields[f].label}" rendered="{!!isblank(Job.values[f])}">
+	                                <apex:outputText value="{!Job.values[f]}"/>
+	                            </c:DetailListItem>
+	                        </apex:repeat>
+                    	</c:DetailListBar>
+                    </apex:repeat>
+                 </apex:pageBlockSection>
+                 
+                <apex:pageBlockSection title="Salary History" columns="1" rendered="{!subject.Salaries.History.size>0 && FieldsetSalaryHRRequest.size>0}">
+                 <apex:repeat value="{!subject.Salaries.History}" var="Salary">
+
+						<c:DetailListBar title="{!Salary.Name}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Salary__c.Fields.fHCM2__Amount__c.label}">
+                                <c:OutputCurrency value="{!Salary.Amount}"/>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Salary__c.Fields.fHCM2__Period__c.label}">
+                                {!Salary.PeriodType}
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Salary__c.Fields.fHCM2__Annual_Amount__c.label}" rendered="{!Salary.AnnualAmount!=Salary.Amount}">
+                                <c:OutputCurrency value="{!Salary.AnnualAmount}"/>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$Label.fhcm2__Global_Percentage}" rendered="{!!isblank(Salary.Percentage)}">
+                                <c:outputNumber value="{!Salary.Percentage}" decimalPlaces="2" fixed="false" />%
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Salary__c.Fields.fHCM2__Change_Reason__c.label}">
+                                {!Salary.ChangeReason}
+                            </c:DetailListItem>
+                       </c:DetailListBar>
+                    </apex:repeat>
+                 </apex:pageBlockSection>
+                 
+                 
+                <apex:pageBlockSection title="Bonus History" columns="1" rendered="{!subject.Bonuses.History.size>0} && FieldsetBonusHRRequest.size>0">
+                   <apex:repeat value="{!subject.Bonuses.History}" var="Bonus">
+                        <c:DetailListBar title="{!Bonus.Name}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Bonus__c.Fields.fHCM2__Award_Date__c.label}">
+                                <c:outputDate dateValue="{!Bonus.AwardDate}"/>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Bonus__c.Fields.fHCM2__Amount__c.label}">
+                                <c:OutputCurrency value="{!Bonus.Amount}"/>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Bonus__c.Fields.fHCM2__Reason__c.label}">
+                                {!Bonus.Reason}
+                            </c:DetailListItem>
+                       </c:DetailListBar>
+                    </apex:repeat>
+                 </apex:pageBlockSection>
+                 
+            <c:Notice viewer="{!viewer}" page="HRRequest" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:form rendered="{!viewer.isManager}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!currentHRRequest.Name}" mode="edit">
+                	<c:Notice viewer="{!viewer}" page="HRRequest" location="Header"/>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                        <c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!TeamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                            </apex:panelGrid>
+                        </c:PersonSection>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="Requested changes" columns="1">
+						<apex:outputpanel rendered="{!isNew}">
+                    	<table style="width:100%;">
+                    			<tr>
+									<th class="labelCol first"></th>
+									<td><apex:outputLabel value="Current value" style="font-weight: bold;"/></td>
+									<td><apex:outputLabel value="New value (leave blank if no change)" style="font-weight: bold;"/></td>
+								</tr>
+                    		<apex:repeat value="{!FieldsetTeamMemberHRRequest}" var="f">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<td>
+										<apex:outputLabel value="{!TeamMember.Manager__r.Name}" rendered="{!contains(f,'fHCM2__Manager__c')}"/>
+										<apex:outputLabel value="{!TeamMember[f]}" rendered="{!!contains(f,'fHCM2__Manager__c')}"/>
+									</td>
+									<td>
+										<c:ProxyFieldInput proxyname="{!if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Manager__c#fHCM2__Team__c#fHCM2__Employment_Status__c#fHCM2__Job_Title__c#fHCM2__Location__c#fHCM2__Grade__c',f),'fHCM2__T_','T_')),'T_'+f)}" proxyobject="{!currentHRRequest}" object="{!TeamMember}" name="{!f}" original="fHCM2__Manager__c" rendered="{!!contains(f,'fHCM2__Manager__c')}"/>
+										<c:AutoCompleteRemote objectname="fHCM2__Team_Member__c" primaryField="Name" additionalfield="fHCM2__Team__c" rendered="{!contains(f,'fHCM2__Manager__c')}">
+											<apex:inputText id="myInputField" value="{!newManagerName}" />
+											<apex:inputHidden id="managerId" value="{!newManagerId}" />
+										</c:AutoCompleteRemote>
+									</td>
+								</tr>
+                    		</apex:repeat>
+                    	
+                    		<apex:repeat value="{!FieldsetEmploymentHRRequest}" var="f">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<td>
+										<apex:outputLabel value="{!CurrentJob}"  rendered="{!contains(f,'fHCM2__Job_Library_Item__c')}"/>
+										<apex:outputLabel value="{!CurrentWorkLocation}"  rendered="{!contains(f,'fHCM2__Work_Location__c')}"/>
+										<apex:outputLabel value="{!EmploymentRecord[f]}" rendered="{!!contains(f,'fHCM2__Job_Library_Item__c') && !contains(f,'fHCM2__Work_Location__c')}"/>
+									</td>
+									<td>
+										<c:ProxyFieldInput proxyname="{!if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Basis__c#fHCM2__Hours_Worked__c#fHCM2__Job_Library_Item__c',f),'fHCM2__E_','E_')),'E_'+f)}" proxyobject="{!currentHRRequest}" object="{!EmploymentRecord}" name="{!f}" original="fHCM2__Job_Library_Item__c"/>
+									</td>
+								</tr>
+                    		</apex:repeat>
+
+                    		<apex:repeat value="{!FieldsetSalaryHRRequest}" var="f">
+                    			<apex:outputPanel layout="none" rendered="{!f=='fHCM2__Amount__c'}">
+	                   			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!$ObjectType.fHCM2__Salary__c.label+': '+$ObjectType.fHCM2__Salary__c.fields.fHCM2__Amount__c.label}"/></td>
+									<td> <c:OutputCurrency value="{!currentSalary.fHCM2__Amount__c}"/></td>
+									<td><apex:inputField value="{!currentHRRequest.fHCM2__S_Amount__c}" styleClass="salaryAmount" onKeyUp="if (this.value==null || this.value=='') jQuery('.salaryPercent').val(''); else jQuery('.salaryPercent').val(String(Math.round((this.value.numberValue(decimalPlace,thousandsSeperator)-currentSalary)/currentSalary*10000)/100).replace('.',decimalPlace));"/>
+									&nbsp;=&nbsp;
+									<apex:inputField value="{!currentHRRequest.fHCM2__Salary_Percent__c}" styleClass="salaryPercent" style="width:30px;" onKeyUp="if (this.value==null || this.value==''|| this.value==0) jQuery('.salaryAmount').val(''); else jQuery('.salaryAmount').val((Math.round(((this.value.numberValue(decimalPlace,thousandsSeperator))/100+1)*currentSalary*100)/100).formatMoney(2, decimalPlace, thousandsSeperator));"/>% increase</td>
+								</tr>
+                    			</apex:outputPanel>
+                    			<apex:outputPanel layout="none" rendered="{!f!='fHCM2__Amount__c'}">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<td>
+										<apex:outputLabel value="{!currentSalary[f]}"/>
+									</td>
+									<td>
+										<c:ProxyFieldInput proxyname="{!if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Period__c#fHCM2__Annual_Multiplier__c',f),'fHCM2__S_','S_')),'S_'+f)}" proxyobject="{!currentHRRequest}" object="{!currentSalary}" name="{!f}" />
+									</td>
+								</tr>
+								</apex:outputPanel>
+                    		</apex:repeat>
+                    		<apex:repeat value="{!FieldsetBonusHRRequest}" var="f">
+                    			<apex:outputPanel layout="none" rendered="{!f=='fHCM2__Amount__c'}">
+									<td class="labelCol first"><apex:outputLabel value="{!$ObjectType.fHCM2__Bonus__c.label+': '+$ObjectType.fHCM2__Bonus__c.fields.fHCM2__Amount__c.label}"/></td>
+									<td><apex:outputLabel value="-"/></td>
+									<td><apex:inputField value="{!currentHRRequest.fHCM2__B_Amount__c}" styleClass="bonusAmount" onKeyUp="if (this.value==null || this.value=='') jQuery('.bonusPercent').val(''); else jQuery('.bonusPercent').val(String(Math.round(this.value.numberValue(decimalPlace,thousandsSeperator)/currentAnnualSalary*10000)/100).replace('.',decimalPlace));"/>
+									&nbsp;=&nbsp;
+									<apex:inputField value="{!currentHRRequest.fHCM2__Bonus_Percent__c}" styleClass="bonusPercent" style="width:30px;" onKeyUp="if (this.value==null || this.value==''|| this.value==0) jQuery('.bonusAmount').val(''); else jQuery('.bonusAmount').val((Math.round(((this.value.numberValue(decimalPlace,thousandsSeperator))/100)*currentAnnualSalary*100)/100).formatMoney(2, decimalPlace, thousandsSeperator));"/>% of annual salary</td>
+                    			</apex:outputPanel>
+                    			<apex:outputPanel layout="none" rendered="{!f!='fHCM2__Amount__c'}">
+	                   			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<td>
+										&nbsp;
+									</td>
+									<td>
+										<c:ProxyFieldInput proxyname="{!if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('',f),'fHCM2__B_','B_')),'B_'+f)}" proxyobject="{!currentHRRequest}" object="{!currentBonus}" name="{!f}" />
+									</td>
+								</tr>
+								</apex:outputPanel>	
+							</apex:repeat>						
+                    	</table>
+                    	</apex:outputpanel>
+
+                    	<apex:outputpanel rendered="{!!isNew}">
+                    	<table style="width:100%;">
+                    			<tr>
+									<th class="labelCol first"></th>
+									<apex:outputPanel layout="none" rendered="{!pendingApproval}"><td><apex:outputLabel value="Current value" style="font-weight: bold;"/></td></apex:outputPanel>
+									<td><apex:outputLabel value="New value" style="font-weight: bold;"/></td>
+								</tr>
+                    		<apex:repeat value="{!FieldsetTeamMemberHRRequest}" var="f">
+								<apex:outputPanel layout="none" rendered="{!!isblank(currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Manager__c#fHCM2__Team__c#fHCM2__Employment_Status__c#fHCM2__Job_Title__c#fHCM2__Location__c#fHCM2__Grade__c',f),'fHCM2__T_','T_')),'T_'+f)])}">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<apex:outputPanel layout="none" rendered="{!pendingApproval}"><td>
+										<apex:outputLabel value="{!TeamMember.Manager__r.Name}" rendered="{!contains(f,'fHCM2__Manager__c')}"/>
+										<apex:outputLabel value="{!TeamMember[f]}" rendered="{!!contains(f,'fHCM2__Manager__c')}"/>
+									</td></apex:outputPanel>
+									<td>
+										<apex:outputLabel value="{!currentHRRequest.T_Manager__r.Name}" rendered="{!contains(f,'fHCM2__Manager__c')}"/>
+										<apex:outputField value="{!currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Team__c#fHCM2__Employment_Status__c#fHCM2__Job_Title__c#fHCM2__Location__c#fHCM2__Grade__c',f),'fHCM2__T_','T_')),'T_'+f)]}" rendered="{!!contains(f,'fHCM2__Manager__c')}"/>
+									</td>
+								</tr>
+	                    		</apex:outputPanel>
+                    		</apex:repeat>
+                    		<apex:repeat value="{!FieldsetEmploymentHRRequest}" var="f">
+	                    		<apex:outputPanel layout="none" rendered="{!!isblank(currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Basis__c#fHCM2__Hours_Worked__c#fHCM2__Job_Library_Item__c',f),'fHCM2__E_','E_')),'E_'+f)])}">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<apex:outputPanel layout="none" rendered="{!pendingApproval}"><td>
+										<apex:outputLabel value="{!CurrentJob}" rendered="{!contains(f,'fHCM2__Job_Library_Item__c')}"/>
+										<apex:outputLabel value="{!EmploymentRecord[f]}" rendered="{!!contains(f,'fHCM2__Job_Library_Item__c')}"/>
+									</td></apex:outputPanel>
+									<td>
+										<apex:outputLabel value="{!NewJob}" rendered="{!contains(f,'fHCM2__Job_Library_Item__c')}"/>
+										<apex:outputField value="{!currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Basis__c#fHCM2__Hours_Worked__c',f),'fHCM2__E_','E_')),'E_'+f)]}" rendered="{!!contains(f,'fHCM2__Job_Library_Item__c')}"/>
+									</td>
+								</tr>
+	                    		</apex:outputPanel>
+                    		</apex:repeat>
+                    		<apex:repeat value="{!FieldsetSalaryHRRequest}" var="f">
+	                    		<apex:outputPanel layout="none" rendered="{!!isblank(currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Period__c#fHCM2__Annual_Multiplier__c',f),'fHCM2__S_','S_')),'S_'+f)])}">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<apex:outputPanel layout="none" rendered="{!pendingApproval}"><td>
+										<apex:outputLabel value="{!currentSalary[f]}"/>
+									</td></apex:outputPanel>
+									<td>
+										<apex:outputField value="{!currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('fHCM2__Period__c#fHCM2__Annual_Multiplier__c',f),'fHCM2__S_','S_')),'S_'+f)]}"/>
+									</td>
+								</tr>
+	                    		</apex:outputPanel>
+                    		</apex:repeat>
+                    		<apex:repeat value="{!FieldsetBonusHRRequest}" var="f">
+	                    		<apex:outputPanel layout="none" rendered="{!!isblank(currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('',f),'fHCM2__B_','B_')),'B_'+f)])}">
+                    			<tr>
+									<td class="labelCol first"><apex:outputLabel value="{!f.label}"/></td>
+									<apex:outputPanel layout="none" rendered="{!pendingApproval}"><td>
+										<apex:outputLabel value="{!currentBonus[f]}"/>
+									</td></apex:outputPanel>
+									<td>
+										<apex:outputField value="{!currentHRRequest[if(contains(f,'fHCM2__'),substitute(f,'fHCM2__',if(contains('',f),'fHCM2__B_','B_')),'B_'+f)]}"/>
+									</td>
+								</tr>
+	                    		</apex:outputPanel>
+                    		</apex:repeat>
+                    	</table>
+                   	</apex:outputpanel>
+					</apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Change}" columns="1" id="out">
+                        <apex:repeat value="{!FieldsetHRRequestAdditionalInformation}" var="f">
+	                        <apex:inputField value="{!currentHRRequest[f]}" rendered="{!isNew}" required="{!f.required}"/>
+	                        <apex:outputField value="{!currentHRRequest[f]}" rendered="{!!isNew}" />
+						</apex:repeat>
+                        <apex:outputField value="{!currentHRRequest.fHCM2__Approved_Date__c}" rendered="{!and(!isNew, !(currentHRRequest.fHCM2__Approved_Date__c != null))}"/>
+                        <apex:outputField value="{!currentHRRequest.fHCM2__Status__c}"  rendered="{!!isNew}"/>
+                        <apex:pageBlockSectionItem rendered="{!pendingUserApproval}">
+                            <apex:outputLabel value="{!$Label.fhcm2__Global_Comments}"/>
+                            <apex:inputTextarea value="{!Comments}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+					<apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Global_Attachment}" rendered="{!isNew}">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Attached_File}" />
+							<apex:inputFile value="{!content}" filename="{!filename}" contentType="{!contentType}"/>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!approve}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!pendingUserApproval}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <!--<apex:commandButton action="{!recall}" value="{!$Label.Button_Recall}" rendered="{!pendingUserApproval}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>-->
+                        <apex:commandButton action="{!reject}" value="{!$Label.fhcm2__Button_Reject}" rendered="{!pendingUserApproval}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!isNew}"/>
+                        <apex:commandButton action="{!saveNew}" value="Save and New" rendered="{!isNew}"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+            
+            	<c:ApprovalHistory objectId="{!currentHRRequest.Id}" page="/apex/{!links.FairsailProfile}"/>
+            
+                <c:Notice viewer="{!viewer}" page="HRRequest" location="Footer"/>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

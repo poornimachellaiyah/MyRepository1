@@ -1,0 +1,176 @@
+<apex:page controller="fHCM2.JobDescriptionControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Target" rendered="{!subject.currentJobDescription.isUsing}">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="Job Description" mode="view">
+			<c:Notice viewer="{!viewer}" page="JobDescription" location="Subheader"/>
+			<apex:outputPanel layout="block" rendered="{!isNew}">
+				<apex:form >
+					<p>Copy job description from:</p>
+					<apex:selectList value="{!copyJobDescription}" id="copyJobDescription" size="1">
+						<apex:selectOptions value="{!copyJobDescriptions}"/>
+					</apex:selectList>
+					<apex:commandButton value="Copy" action="{!copyChanged}" onComplete="formChanged();" immediate="true"/>
+				</apex:form>
+			</apex:outputPanel>
+			<c:Notice viewer="{!viewer}" page="JobDescription" location="Subfooter"/>
+			</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+<script type="Text/JavaScript">
+		        jQuery.noConflict();
+function formChanged() {
+	enable("save");
+	enable("activate");
+	enab;e("popupSave");
+	if ({!viewer.isOwnManager}) enable("confirm"); else disable("confirm");
+	disable("approve");
+	disable("popupApprove");
+}
+</script>
+			<apex:form id="description">
+
+
+
+				<!-- User verification section -->
+				<apex:outputPanel id="verifyUser">
+			          <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!verifyUser.displayPopup}"/>
+			          <apex:outputPanel styleClass="modalPopup" layout="block" rendered="{!verifyUser.displayPopup }">
+			              I would like to know if you are really whom you claim to be.<br /><br />
+			              Provide your Fairsail username and password respectively in the boxes below.  <br /><br />
+			              
+			              <apex:outputLabel value="Username:" for="username"/> (required) <br />
+			              <apex:inputText value="{!verifyUser.username}" id="username" size="50"/>
+			              <apex:outputLabel value="{!verifyUser.invalidUsernameMessage}" rendered="{!verifyUser.invalidUsername}"/><br /><br />
+			              
+			              <apex:outputLabel value="Password:" for="password"/> (required)<br />
+			              <apex:inputSecret value="{!verifyUser.password }" id="password" maxlength="23" size="50"/>
+			              <apex:outputLabel value="{!verifyUser.invalidPasswordMessage}" rendered="{!verifyUser.invalidPassword}"/> <br /><br />
+			              
+			              <apex:commandButton value="Authenticate" action="{!authenticate}"/>
+			              <apex:commandButton value="Cancel" action="{!verifyUser.closePopup}"/>
+			              <apex:commandLink value="Forgot Password?" action="{!forogtPassword}"/>
+			           </apex:outputPanel>
+			      </apex:outputPanel>
+					
+					
+					  <style type="text/css">
+		  
+					      .modalPopup{
+					        background-color: white;
+					        border-width: 2px;
+					        border-style: solid;
+					        z-index: 9999;
+					        left: 50%;
+					        padding:10px;
+					        position: absolute;
+					        width: 500px;
+					        margin-left: -250px;
+					        top:100px;
+					      }
+					  
+					  
+					      .popupBackground{
+					        background-color:black;
+					        opacity: 0.20;
+					        filter: alpha(opacity = 20);
+					        position: absolute;
+					        width: 100%;
+					        height: 100%;
+					        top: 0;
+					        left: 0;
+					        z-index: 9998;
+					        }
+					      
+					  </style>
+				<!-- End user verification section -->
+
+
+
+				<apex:pageBlock title="Current" id="myform">
+					<apex:pageBlockButtons rendered="{!viewer.isTeamMemberOrManager}">
+						<apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and(viewer.isEdit,isDraft,!authenticateJobDesc)}" styleClass="inputsubmit" />
+						<apex:commandButton id="popupSave" action="{!popup}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and(viewer.isEdit,isDraft,authenticateJobDesc,viewer.isTeamMember)}" styleClass="inputsubmit" />
+						<apex:commandButton id="activate" action="{!force}" value="Activate Without Confirm" rendered="{!and(viewer.isManager,isDraft,viewer.isEdit)}" styleClass="inputsubmit" />
+						<apex:commandButton id="confirm" action="{!confirm}" value="Confirm Draft" rendered="{!and(viewer.isTeamMember,isManagerDraft) || and(viewer.isOwnManager,isDraft)}" styleClass="inputsubmit" />
+						<apex:commandButton id="approve" action="{!approve}" value="Approve Draft" rendered="{!and(viewer.isManager,isTeamMemberDraft,viewer.isEdit,!authenticateJobDesc)}" styleClass="inputsubmit" />
+						<apex:commandButton id="popupApprove" action="{!popup}" value="Approve Draft" rendered="{!and(viewer.isManager,isTeamMemberDraft,viewer.isEdit,authenticateJobDesc)}" styleClass="inputsubmit" />
+						<apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" styleClass="inputsubmit" />
+						<apex:outputPanel rendered="{!!isblank(currentJob.id)}">
+                        <a href="/apex/{!links.JobDescriptionPDF}?id={!currentJob.id}" target="_blank">
+                            <image border="0" src="{!$Resource.fHCM2__FairsailIcon}/16x16/pdf.png" title="{!$Label.fhcm2__Global_Create_PDF}"/>
+                        </a>
+                        </apex:outputPanel>
+					</apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="JobDescription" location="Header"/>
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!currentJob.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+							<apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Status__c.label}" for="Status__c" />
+								<apex:outputText value="{!currentJob.fHCM2__Status__c}" id="Status__c" />
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Action__c.label}" for="Action__c" />
+								<apex:outputText style="color:red;text-weight:bold;" value="{!currentJob.fHCM2__Action__c}" id="Action__c" />
+							</apex:panelGrid>
+						</c:PersonSection>
+					</apex:pageBlockSection>
+					
+					<apex:pageBlockSection title="Current Job Description" columns="1" rendered="{!viewer.isTeamMemberOrManager}">
+						<apex:repeat value="{!$ObjectType.fHCM2__Job_Description__c.FieldSets.fHCM2__Job_Description}" var="f">
+							<apex:pageBlockSectionItem rendered="{!f.type!='textarea' && (isDraft && viewer.departmentPolicy.fHCM2__Permit_Job_Description_Changes__c==true)}">
+								<apex:outputLabel value="{!f.label}" />
+								<apex:inputField value="{!currentJob[f]}" required="{!f.required}" onKeyPress="formChanged();" onChange="formChanged();" style="{!if(f.type=='Text','width:400px;','')}"/>
+							</apex:pageBlockSectionItem>
+							<apex:pageBlockSectionItem rendered="{!f.type!='textarea' && (!isDraft || viewer.departmentPolicy.fHCM2__Permit_Job_Description_Changes__c!=true)}">
+								<apex:outputLabel value="{!f.label}"/>
+								<apex:outputField value="{!currentJob[f]}"/>
+							</apex:pageBlockSectionItem>
+							<apex:pageBlockSectionItem rendered="{!f.type=='textarea' && (isDraft && viewer.departmentPolicy.fHCM2__Permit_Job_Description_Changes__c==true)}">
+								<apex:outputLabel value="{!f.label}" />
+								<apex:inputTextarea styleClass="richTextArea" richText="true" rows="15"  required="{!f.required}" value="{!currentJob[f]}" onselect="formChanged();" onkeyup="formChanged();" onChange="alert('x');"/>
+							</apex:pageBlockSectionItem>
+							<apex:pageBlockSectionItem rendered="{!f.type=='textarea' && (!isDraft || viewer.departmentPolicy.fHCM2__Permit_Job_Description_Changes__c!=true)}">
+								<apex:outputLabel value="{!f.label}"/>
+								<apex:outputText escape="false" value="{!currentJob[f]}"/>
+							</apex:pageBlockSectionItem>
+						</apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="Current Job Description" columns="1" rendered="{!!viewer.isTeamMemberOrManager}">
+						<apex:repeat value="{!$ObjectType.fHCM2__Job_Description__c.FieldSets.fHCM2__Job_Description}" var="f">
+							<apex:pageBlockSectionItem rendered="{!f.type!='textarea'}">
+								<apex:outputLabel value="{!f.label}"/>
+								<apex:outputField value="{!currentJob[f]}"/>
+							</apex:pageBlockSectionItem>
+							<apex:pageBlockSectionItem rendered="{!f.type=='textarea'}">
+								<apex:outputLabel value="{!f.label}"/>
+								<apex:outputText escape="false" value="{!currentJob[f]}"/>
+							</apex:pageBlockSectionItem>
+						</apex:repeat>
+					</apex:pageBlockSection>
+					<c:Notice viewer="{!viewer}" page="JobDescription" location="Footer"/>
+				</apex:pageBlock>
+			</apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!currentJob}" page="{!links.FairsailProfile}" rendered="{!viewer.isTeamMemberOrManager}"/>
+<script type="Text/JavaScript">
+	if ({!!isChanged}){ disable("save"); disable("popupSave");}
+	if ({!viewer.isOwnManager && isNew && !isChanged}) disable("confirm");
+	if ({!(isNew || isTeamMemberDraft) && !isChanged}) disable("activate");
+	if ({!hasErrors}) formChanged();
+for (var i in CKEDITOR.instances) {
+    CKEDITOR.instances[i].on('focus', function() {formChanged();});
+}
+</script>
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

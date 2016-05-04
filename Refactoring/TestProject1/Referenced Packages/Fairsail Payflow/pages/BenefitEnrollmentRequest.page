@@ -1,0 +1,43 @@
+<apex:page controller="fpay.BenefitEnrollmentRequestController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Benefit Enrollment Request">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+ 
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <fHCM2:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+			<fHCM2:Notice viewer="{!viewer}" page="BenefitEnrollmentRequest" location="Subheader"/>
+			<fHCM2:Notice viewer="{!viewer}" page="BenefitEnrollmentRequest" location="Subfooter"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+	       	<apex:outputPanel layout="None">
+			    <apex:form >
+			        <apex:pageMessages />
+			        <apex:pageBlock title="Benefit Enrollment Request" mode="edit">
+						<apex:pageBlockButtons >
+							<apex:commandButton action="{!cancel}" value="{!$Label.fHCM2__Button_Cancel}" immediate="true"/>
+							<apex:commandButton action="{!save}" value="{!$Label.fHCM2__Button_Submit}"/>
+						</apex:pageBlockButtons>
+						<fHCM2:Notice viewer="{!viewer}" page="BenefitEnrollmentRequest" location="Header"/>
+		        		<apex:pageBlockSection columns="1">
+							<apex:repeat value="{!$ObjectType.fHCM2__Employment__c.FieldSets.fpay__Benefit_Enrollment_Request}" var="f">
+	        					<apex:inputField value="{!employmentRecord[f]}"/>
+	        				</apex:repeat>
+	        				<apex:pageBlockSectionItem >
+	        					<apex:outputLabel value="Supporting document"/>
+	        					<apex:inputFile value="{!filebody}" filename="{!filename}"/>
+	        				</apex:pageBlockSectionItem>
+		        		</apex:pageBlockSection>
+						<fHCM2:Notice viewer="{!viewer}" page="BenefitEnrollmentRequest" location="Footer"/>
+				    </apex:pageBlock>
+			    </apex:form>
+        	</apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+</apex:page>

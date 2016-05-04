@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Base_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date in the past the start the timesheet sequence.   A new timesheet will always start on an exact number of timespans from the base date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date in the past the start the timesheet sequence.   A new timesheet will always start on an exact number of timespans from the base date.</inlineHelpText>
+        <label>Base Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Entry_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Entry Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pay Code</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Start-End Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Work Allocation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Layout__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Position of calendar on timesheet</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Position of calendar on timesheet</inlineHelpText>
+        <label>Layout</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Left</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Top</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Overtime_Rule__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Overtime rules used to calculate overtime and to link a set of pay codes to the timesheet.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Overtime rules used to calculate overtime and to link a set of pay codes to the timesheet.</inlineHelpText>
+        <label>Overtime Rule</label>
+        <referenceTo>Overtime_Rule__c</referenceTo>
+        <relationshipLabel>Timesheet Patterns</relationshipLabel>
+        <relationshipName>Timesheet_Patterns</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Timespan__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deprecated</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Day</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweek</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Show_Active_Work_Allocation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Permit the team member or manager to add any active work allocation to the timesheet.  These will be in addition to any specifically assigned to the timesheet pattern.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Permit the team member or manager to add any active work allocation to the timesheet.  These will be in addition to any specifically assigned to the timesheet pattern.</inlineHelpText>
+        <label>Show Active Work Allocation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Overtime_Calculations__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Who can see the overtime calculation results.  If Team Member then all can see them, if Manager than just the Manager and HR, and if HR then only HR.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Who can see the overtime calculation results.  If Team Member then all can see them, if Manager than just the Manager and HR, and if HR then only HR.</inlineHelpText>
+        <label>Show Overtime Calculations</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Snap_To_Step_Time__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Snaps to nearest Start-End time Step time.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Snaps to nearest Start-End time Step time.</inlineHelpText>
+        <label>Snap To Step Time</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Step_Time_Minutes__c</fullName>
+        <defaultValue>5</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of minutes between steps in the Start-End time entry.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of minutes between steps in the Start-End time entry.</inlineHelpText>
+        <label>Step Time Minutes</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_Periods__c</fullName>
+        <defaultValue>1</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of time periods when entering start-end times</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of time periods when entering start-end times</inlineHelpText>
+        <label>Time Periods</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Timespan__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Length of time that is reported in a single timesheet</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Length of time that is reported in a single timesheet</inlineHelpText>
+        <label>Timespan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweek</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Timesheet Pattern</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Timesheet Pattern</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Timesheet Patterns</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

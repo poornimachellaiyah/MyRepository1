@@ -1,0 +1,79 @@
+<apex:page controller="fHCM2.FormManagerController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!viewer.isTeamMemberOrManager}">
+
+<script type="text/javascript">
+	function doClick(sAction){
+		if(true){
+			parent.postMessage(sAction, "*");
+		}
+	}
+</script>
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <style>
+	            .thinPanelTD {display: none;}
+	            .gapPanelTD {display: none;}
+			</style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}" rendered="{!!viewer.WXIsActive}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+        
+            <apex:form rendered="{!viewer.isTeamMemberOrManager}">
+                <apex:pageMessages />
+
+                <apex:pageBlock title="{!$Label.fhcm2__Process_Forms}" mode="view">
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!approve}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!viewer.isManager && isblank(form.fHCM2__Approval_Date__c) && isblank(form.fHCM2__Rejected_Date__c) && form.fHCM2__Manager_Approves__c==true}" />
+                        <apex:commandButton action="{!reject}" value="{!$Label.fhcm2__Button_Reject}" rendered="{!viewer.isManager && isblank(form.fHCM2__Approval_Date__c) && isblank(form.fHCM2__Rejected_Date__c) && form.fHCM2__Manager_Approves__c==true}" />
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" onclick="doClick('wxClose');"/>
+                    </apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="FormManager" location="Header"  />
+					<c:Notice viewer="{!viewer}" page="FormManager" location="Footer"  />
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<apex:outputField value="{!form.fHCM2__Start_Date__c}" />
+						<apex:outputField value="{!form.fHCM2__Completed_Date__c}" />
+						<apex:outputField value="{!form.fHCM2__Approval_Date__c}" rendered="{!!isblank(form.fHCM2__Approval_Date__c)}"/>
+						<apex:outputField value="{!form.fHCM2__Rejected_Date__c}" rendered="{!!isblank(form.fHCM2__Rejected_Date__c)}" />
+					</apex:pageBlockSection>
+		
+					<apex:pageBlockSection title="{!DefinitionName}" columns="1">
+					<table style="width: 100%; empty-cells: show;">
+						<apex:repeat value="{!pages}" var="page">
+							<apex:outputPanel layout="none" rendered="{!page.hasQuestions}">
+							<tr>
+								<td colspan="2" valign="top" class="formViewPageTitle pbHeader tertiaryPalette"><apex:outputText value="{!nullvalue(page.definition.title,page.definition.buttonText)}" />&nbsp;</td>
+							</tr>
+							<apex:repeat value="{!page.QuestionLines}" var="question">
+								<apex:outputPanel layout="none" rendered="{!question.definition.title!=''}">
+								<tr>
+									<td colspan="2" valign="top" class="formViewQuestionTitle pbTitle"><apex:outputText value="{!question.definition.title}"/></td>
+								</tr>
+								</apex:outputPanel>
+								<tr>
+									<td style="border-top: 1px solid #E3DEB8" valign="top"><apex:outputText value="{!nullvalue(question.definition.prompt,nullvalue(question.definition.preText,question.definition.postText))}"/>&nbsp;</td>
+									<td style="border-top: 1px solid #E3DEB8" valign="top"><apex:outputText value="{!question.DataItem}"/>&nbsp;</td>
+								</tr>
+							</apex:repeat>
+							</apex:outputPanel> 
+						</apex:repeat>
+					</table>
+					</apex:pageBlockSection>
+
+
+                </apex:pageBlock>
+            </apex:form>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

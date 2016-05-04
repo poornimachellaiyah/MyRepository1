@@ -1,0 +1,81 @@
+<apex:page controller="fRecruit.FormViewController" renderAs="pdf" standardStylesheets="false" showHeader="false" sidebar="false" >
+
+<apex:composition template="fRecruit__FormTemplate">
+
+<apex:define name="header">
+<style>
+body {width:701px;}
+.mainPageDiv {width:701px;}
+<apex:outputText value="{!definition.style}" escape="false" rendered="{!!hasError}"/>
+</style>
+</apex:define>
+
+<apex:define name="body">
+        <h1>{!definition.title}</h1>
+        <h2>{!definition.subTitle}</h2>
+
+        <apex:pageBlock mode="details">
+
+            <table style="width:700px;">
+                <tr>
+                    <td style="width:33%; padding-right: 10px:" align="right" valign="top">Name</td>
+                    <td style="width:67%; font-weight:bold;" align="left" valign="top">{!actor}</td>
+                </tr>
+                <tr>
+                    <td style="width:33%;" align="right" valign="top">Email</td>
+                    <td style="width:67%; font-weight:bold;" align="left" valign="top">{!email}</td>
+                </tr>
+                <tr>
+                    <td style="width:33%;" align="right" valign="top">Completed Date</td>
+                    <td style="width:67%; font-weight:bold;" align="left" valign="top">{!completedDate}</td>
+                </tr>
+                <tr>
+                    <td style="width:33%;" align="right" valign="top">Reference</td>
+                    <td style="width:67%; font-weight:bold;" align="left" valign="top">{!name}</td>
+                </tr>
+            </table>
+
+            <apex:repeat value="{!pages}" var="page">
+                <apex:pageBlockSection columns="1">
+                    <table style="width:700px;">
+                        <tr>
+                            <td colspan="2"><apex:outputText styleClass="pbTitle" value="{!page.definition.buttonText}" escape="false" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><apex:outputText styleClass="pagePreText" value="{!page.definition.preText}" escape="false" /></td>
+                        </tr>
+                        <apex:repeat value="{!page.QuestionLines}" var="question">
+                            <tr>
+                                <td colspan="2"><apex:outputText styleClass="questionTitle" value="{!question.definition.title}" escape="false" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><apex:outputText styleClass="questionSubTitle" value="{!question.definition.subTitle}" escape="false" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><apex:outputText styleClass="questionPreText" value="{!question.definition.preText}" escape="false" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width:33%;" align="right" valign="top"><apex:outputText styleClass="questionPrompt{!if(question.definition.required,'Required','')}" value="{!question.definition.prompt}" escape="false" /></td>
+                                <td style="width:67%;" align="left" valign="top" class="questionResponse{!if(question.definition.required,'Required','')}">
+                                    <table style="width:{!if(isnull(question.definition.widthpx),160,question.definition.widthpx)}px;"><tr style="height:{!if(isnull(question.definition.heightpx),16,question.definition.heightpx)}px;"><td style="background-color:white; color:black;">
+                                        <apex:outputText value="{!question.htmlDataItem}" escape="false" />&nbsp;
+                                    </td></tr></table>
+                                </td>
+                            </tr>
+                           <tr>
+                                <td></td>
+                                <td><apex:outputText styleClass="questionPostText" value="{!question.definition.postText}" escape="false" /></td>
+                            </tr>
+                        </apex:repeat>
+                        <tr>
+                            <td colspan="2"><apex:outputText styleClass="pagePostText" value="{!page.definition.preText}" escape="false" /></td>
+                        </tr>
+                    </table>
+                </apex:pageBlockSection>
+            </apex:repeat>
+        </apex:pageBlock>
+        
+</apex:define>
+</apex:composition>
+</apex:page>

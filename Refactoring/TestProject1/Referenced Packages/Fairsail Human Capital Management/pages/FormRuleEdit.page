@@ -1,0 +1,36 @@
+<apex:page standardController="fHCM2__Form_Rule__c" extensions="fHCM2.FormRuleControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Form_Rule__c.label}" subtitle="{!fHCM2__Form_Rule__c.Name}" help="/apex/Help?obj=fHCM2__Form_Rule__c" />
+	<apex:form >
+		<apex:actionFunction action="{!toggleAdvanced}" name="toggleAdvanced" immediate="true">
+		</apex:actionFunction>
+		<apex:pageBlock title="{!$ObjectType.fHCM2__Form_Rule__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+				<apex:commandButton action="{!xDelete}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!fHCM2__Form_Rule__c.Id!=null}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Form Rule Details" columns="1">
+				<apex:inputHidden value="{!fHCM2__Form_Rule__c.fHCM2__Form_Definition__c}" />
+				<apex:inputField value="{!fHCM2__Form_Rule__c.Name}" Id="fieldName" required="true" style="width:400px;" rendered="{!advanced}"/>
+				<apex:pageBlockSectionItem rendered="{!!advanced}">
+					<apex:outputLabel value="Form Field" />
+					<apex:selectList value="{!fHCM2__Form_Rule__c.Name}" Id="fieldName" size="1" required="true">
+						<apex:selectOptions value="{!formFields}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fHCM2__Form_Rule__c.fHCM2__Direction__c}" Id="direction" required="true" />
+				<apex:inputField value="{!fHCM2__Form_Rule__c.fHCM2__Field_Name__c}" Id="fieldMap" style="width:400px;"  required="true" rendered="{!advanced}"/>
+				<apex:pageBlockSectionItem rendered="{!!advanced}">
+					<apex:outputLabel value="Data Field" />
+					<apex:selectList value="{!fHCM2__Form_Rule__c.fHCM2__Field_Name__c}" Id="fieldMap" size="1" required="true">
+						<apex:selectOptions value="{!currentFields}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fHCM2__Form_Rule__c.fHCM2__Condition__c}" style="width:400px;"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Advanced rule" />
+					<apex:inputCheckbox value="{!advanced}" immediate="true" onclick="toggleAdvanced();"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

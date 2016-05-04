@@ -1,0 +1,82 @@
+<apex:page controller="fRecruit.InternalJobController" cache="false" showHeader="false" sidebar="false" standardStylesheets="true" language="{!languageSetter.locale}">
+<script  type='text/javascript'>
+window.onload = function (){
+			 parent.postMessage('ResizeHeight-'+document.getElementById('internalApplyContainer').offsetHeight,"*");
+}
+   				
+</script>  
+
+<div id="internalApplyContainer">
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+	<style>
+		.leftColumn { width:0px;}
+		.bodyColumn { width:800px; }
+		.rightColumn { width:0px;}
+		.mainPageDiv { width:800px; }
+	</style>
+</apex:define>
+
+<apex:define name="header">
+	<c:Notice locale="{!languageSetter.locale}" page="InternalApply" location="Header" portal="Internal"/>
+</apex:define>
+
+<apex:define name="body">
+
+	<script type='text/javascript'>
+		function doWXclick(sAction){
+		   	parent.postMessage(sAction,"*");
+		}
+	</script>
+    
+	<apex:sectionHeader title="{!$Label.frecruit__Internal_Portal+Name}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Apply_Apply}" rendered="{!if($CurrentPage.parameters.isWX=='true',false,true)}"/>
+	<c:Notice locale="{!languageSetter.locale}" page="InternalApply" location="Top" portal="Internal"/>
+	<p>{!$Label.frecruit__Apply_Apply_Top}</p>
+	<apex:pageMessages />
+	<apex:form >
+				<apex:pageBlock rendered="{!canApply}">
+					<apex:pageBlockButtons location="bottom">
+						<apex:commandButton action="{!apply}" value="{!$Label.frecruit__Apply_Submit_Application_Button}" disabled="{!hasApplied}" onclick="doWXclick('wxRefreshOnClose');"/>
+					</apex:pageBlockButtons>
+					<apex:pageBlockSection title="{!$Label.frecruit__Apply_Apply_Job}" columns="1" rendered="{!($ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Apply_Job.size>0 || $Setup.Apply_Portal__c.Use_Resume_On_Apply__c)}">
+							<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Apply_Job}" var="f">
+								<apex:pageBlockSectionItem labelStyle="font-size: 90%;width:40%;" dataStyle="vertical-align: bottom;width:60%;">
+									<c:FieldLabelHelp field="{!$ObjectType.fRecruit__Application__c.Fields[f]}"/>
+			                    	<apex:inputField value="{!application[f]}" required="{!f.required}"/>
+			                    </apex:pageBlockSectionItem>
+			                </apex:repeat>
+						<apex:pageBlockSectionItem rendered="{!$Setup.Apply_Portal__c.Use_Resume_On_Internal_Apply__c}">
+							<apex:outputLabel value="{!$Label.frecruit__Apply_Attach_Resume}"/>
+							<apex:outputPanel layout="block" styleClass="{!if(requireResume,'requiredInput','')}">
+		                    	<apex:outputPanel layout="block" styleClass="requiredBlock" rendered="{!requireResume}"></apex:outputPanel>
+								<apex:inputFile value="{!fileContent}" filename="{!fileName}" contentType="{!contentType}"/>
+							</apex:outputPanel>
+				        </apex:pageBlockSectionItem>
+			        </apex:pageBlockSection>
+					<apex:pageBlockSection title="{!$Label.frecruit__Apply_Apply_Qualification}" columns="1" rendered="{!(qualifiers.size>0)}">
+							<apex:repeat value="{!qualifiers}" var="qualifier">
+								<apex:pageBlockSectionItem labelStyle="font-size: 90%;width:40%;" dataStyle="vertical-align: bottom;width:60%;">
+									<apex:outputlabel styleClass="qualificationQuestion" value="{!qualifier.prompt}"/>
+				                    <apex:outputPanel layout="block" styleClass="requiredInput">
+				                    	<apex:outputPanel layout="block" styleClass="requiredBlock"></apex:outputPanel>
+										<apex:selectList value="{!qualifier.responseId}" size="1" >
+											<apex:selectOptions value="{!qualifier.selectOptions}"/>
+										</apex:selectList>
+										<apex:outputText style="color:red;" value=" - {!$Label.frecruit__Apply_Qualification_Not_Met}" rendered="{!qualifier.reject}"/>
+									</apex:outputPanel>
+								</apex:pageBlockSectionItem>
+			                </apex:repeat>
+			        </apex:pageBlockSection>
+				</apex:pageBlock>
+	</apex:form>
+	<c:Notice locale="{!languageSetter.locale}" page="InternalApply" location="Bottom" portal="Internal"/>
+</apex:define>
+
+<apex:define name="footer">
+	<c:Notice locale="{!languageSetter.locale}" page="InternalApply" location="Footer" portal="Internal"/>
+</apex:define>
+
+</apex:composition>
+</div>
+</apex:page>

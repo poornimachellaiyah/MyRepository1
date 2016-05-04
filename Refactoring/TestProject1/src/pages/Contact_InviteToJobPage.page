@@ -1,0 +1,117 @@
+<apex:page controller="Contact_SearchTalentController" tabstyle="Talent_Search__tab"  action="{!intializeVariables}">
+<head>  
+<style>
+.conheader{
+    
+    font-size: 1.1em;
+}
+body {
+    //font-family: 'Arial','Helvetica',sans-serif;
+    font-size: 75%;
+}
+.Custom11Tab .pageTitleIcon, .individualPalette .Custom11Block .pageTitleIcon{
+    background-image: url("/img/sprites/master.png");
+    background-position: 0 -1022px;
+    height: 32px; 
+    width: 32px;
+}
+
+.dataCell {
+    margin-left: 10px;
+}
+.centeralign{
+     padding-left: 200px;
+    // font-weight: bold;
+    // height:40px;
+}
+body .bPageBlock .pbTitle h2, body .bPageBlock .pbTitle h3{
+font-size: 1.2em;
+font-color:#000000;
+}
+
+    .errorM2 .msgIcon, .errorLarge {
+    background-image: none;
+    background-position: 0 0;
+    width: 32px;
+    height: 32px;
+}
+
+    .message .messageText h4 {
+    font-weight: bold;
+    display: block;
+    
+    }
+
+</style>
+</head>
+    <apex:form >
+        <div class="bPageTitle">
+            <div class="ptBody secondaryPalette brandSecondaryBrd">
+                <div class="content">
+                    <img src="/s.gif" class="pageTitleIcon" title="Contact" alt="Contact" />
+                    <h1 class="pageType">Talent Search</h1>
+                    <span class="titleSeparatingColon">:</span>
+                    <h2 class="pageDescription">Invite Contacts to A Job</h2>
+                    <div class="blank"></div>
+                </div>
+            </div>
+        </div>
+        <apex:pagemessages />
+        <apex:outputpanel rendered="{!Issuccess}"  id="succmesspanel">
+            <apex:pagemessage title="Your email(s) have been successfully sent. Please, click on [Go To Talent Search] to navigate to the Talent Search page." severity="Error" strength="3"/>
+            <br/>
+             
+            <apex:outputlink value="/apex/Contact_SearchTalentPage"  style="font-weight: bold;padding-left:25px;">Go To Talent Search</apex:outputlink>
+            
+        </apex:outputpanel>
+                
+        <apex:actionStatus id="savingStatus">
+             <apex:facet name="start" >                
+                  <img src="/img/loading.gif" />Processing..
+             </apex:facet>           
+             <apex:facet name="stop"/>                  
+        </apex:actionStatus>
+        <apex:outputpanel rendered="{!NOT(Issuccess)}">
+        <div>
+            <apex:image value="{!$Resource.InfoIcon}"  width="15px" height="15px"/> &nbsp; <apex:outputtext value="Number of contacts selected : {!countSelectedContacts}"/>
+            <br/>
+            
+        </div>
+        <br/>
+        </apex:outputpanel>
+        
+        <apex:outputpanel rendered="{!NOT(Issuccess)}" id="jobsearchpanel"> 
+        <apex:pageblock id="pb1" title="Step 1. Select a Job" >
+                
+                <apex:pageblocksection collapsible="false" columns="1"> 
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Job Name" for="appjob"/>
+                        <apex:inputfield value="{!application.Job__c}" label="Job Name" id="appjob">
+                            <apex:actionSupport event="onchange" action="{!findSelectedJob}" rerender="jobsearchpanel" status="savingStatus"/>
+                        </apex:inputfield>
+                    </apex:pageblocksectionitem>
+                    <br/>      
+                </apex:pageblocksection>
+        </apex:pageblock>
+        
+        <apex:pageblock title="Step 2. Review and Confirm" id="pb2"> 
+                <apex:pageblockbuttons location="Bottom">
+                        <apex:commandbutton value="Invite" action="{!InviteSelectedContactsForJob}" />
+                        <apex:commandbutton value="Cancel" action="{!BackToTalentSearch}" immediate="true"/>
+                </apex:pageblockbuttons>
+                <apex:pageblocksection id="pb2" collapsible="false" columns="1">
+                    <apex:pageblocksectionitem >
+                        <apex:outputpanel >
+                        <div class="centeralign"> 
+                        <apex:outputlabel value="Invite {!countSelectedContacts} Contact(s) For Job: {!selectedJobName}"/>
+                    
+                        </div>
+                        </apex:outputpanel>
+                    </apex:pageblocksectionitem>
+                </apex:pageblocksection>
+        </apex:pageblock>
+        </apex:outputpanel>
+        
+    </apex:form>
+    
+</apex:page>

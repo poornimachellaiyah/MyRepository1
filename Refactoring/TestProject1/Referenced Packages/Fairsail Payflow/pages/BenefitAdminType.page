@@ -1,0 +1,29 @@
+<apex:page controller="fpay.BenefitTypeController" standardStylesheets="true" showHeader="true" sidebar="true" title="Benefit Enrollment">
+
+	<apex:sectionHeader title="Benefits Admin" subtitle="{!viewer.teamMember.Name}"/>
+
+			    <apex:form >
+			        <apex:pageMessages />
+			        <apex:pageBlock title="{!enrollment.currentType.Name}" mode="view">
+						<apex:pageBlockButtons >
+							<input type="button" value="Cancel" class="btn" onClick="navigateToUrl('/apex/BenefitAdmin?teamMemberId={!subject.teamMember.Id}'); return false;"/>
+						</apex:pageBlockButtons>
+		        		<apex:outputText escape="false" value="{!enrollment.currentType.description}"/>
+	                    <apex:pageBlockTable value="{!enrollment.currentType.plans}" var="row">
+	                        <apex:column headerValue="Benefits on Offer">
+					     		<a href="{!row.adminLink}&RETurl={!urlencode(enrollment.adminLink)}">{!row.name}</a>
+   	                        </apex:column>
+	                        <apex:column headerValue="Details" rendered="{!enrollment.currentType.HasPlanDescriptions}">
+	                        	<apex:outputText escape="false" value="{!row.description}" />
+	                        </apex:column>
+	                        <apex:column headerValue="Previous" rendered="{!!isblank(lastBenefitPlanId)}">
+	                        	<fHCM2:outputCheckbox value="{!row.id==lastBenefitPlanId}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="Selected">
+	                        	<fHCM2:outputCheckbox value="{!row.inBenefits}"/>
+	                        </apex:column>
+	                    </apex:pageBlockTable>
+				    </apex:pageBlock>
+			    </apex:form>
+
+</apex:page>

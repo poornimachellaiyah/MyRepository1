@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, keep this need filled.   If there is no current team ember then seek new hire.  If not checked allow a vacant position to remain unfilled.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, keep this need filled.   If there is no current team ember then seek new hire.  If not checked allow a vacant position to remain unfilled.</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Annual_Salary_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isblank(Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Current_Salary__r.fHCM2__Annual_Amount_Reporting__c) || Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Current_Salary__r.fHCM2__Annual_Amount_Reporting__c=0.0, null, Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Current_Salary__r.fHCM2__Annual_Amount_Reporting__c )</formula>
+        <label>Actual Annual Salary Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Annual_Salary__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Annual_Salary__c</formula>
+        <label>Actual Annual Salary</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_FTE__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (!isblank(Team_Member__c) &amp;&amp;  Team_Member__r.fHCM2__Has_Left__c == &apos;False&apos;,  Team_Member__r.fHCM2__Current_Employment__r.fHCM2__FTE__c*blankvalue( Utilisation__c ,1.0),0.0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual FTE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_Job_Title__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue( Job_Title__c ,  blankvalue(Team_Member__r.fHCM2__Job_Title__c,Job_Library_Item__r.fHCM2__Job_Title__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Job Title</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_Salary_Amount_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Current_Salary__r.fHCM2__Amount_Reporting__c</formula>
+        <label>Actual Salary Amount Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Salary_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Current_Salary__r.fHCM2__Amount__c</formula>
+        <label>Actual Salary Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Variance_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(isblank(Actual_Annual_Salary_Reporting__c) || isblank(Budget_Annual_Salary_Reporting__c), null, Actual_Annual_Salary_Reporting__c - Budget_Annual_Salary_Reporting__c)</formula>
+        <label>Annual Variance Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Budget_Annual_Salary_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isblank(Budget_Salary_Amount_Reporting__c) || Budget_Salary_Amount_Reporting__c=0.0, null,  Budget_Salary_Amount_Reporting__c *  blankvalue(Salary_Annual_Multiplier__c,1.0) )</formula>
+        <label>Budget Annual Salary Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Budget_Annual_Salary__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Budget_Salary_Amount__c *  blankvalue(Salary_Annual_Multiplier__c,1.0)</formula>
+        <label>Budget Annual Salary</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Budget_FTE__c</fullName>
+        <defaultValue>1.0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget FTE</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Budget_Salary_Amount_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Salary Amount Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Budget_Salary_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Salary Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Business__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(  Team_Member__r.fHCM2__Business__c ,  Manager__r.fHCM2__Business__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Comment</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(  Team_Member__r.fHCM2__Country__c,  Manager__r.fHCM2__Country__c )</formula>
+        <label>Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Currency</label>
+        <referenceTo>fHCM2__Exchange_Rate__c</referenceTo>
+        <relationshipLabel>Resource Needs</relationshipLabel>
+        <relationshipName>Resource_Needs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Division__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(  Team_Member__r.fHCM2__Division__c ,  Manager__r.fHCM2__Division__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Division</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Current_Employment__r.fHCM2__End_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FTE__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (!isblank(Team_Member__c) &amp;&amp; Team_Member__r.fHCM2__Has_Left__c == &apos;False&apos;, Team_Member__r.fHCM2__Current_Employment__r.fHCM2__FTE__c*blankvalue( Utilisation__c , 1.0), Budget_FTE__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FTE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HR_Department__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(  Team_Member__r.fHCM2__Department__r.Name ,  Manager__r.fHCM2__Department__r.Name )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HR Department</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Job Library Item</label>
+        <referenceTo>fHCM2__Job_Library_Item__c</referenceTo>
+        <relationshipLabel>Resource Needs</relationshipLabel>
+        <relationshipName>Resource_Needs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Job_Title__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Job Title for this resource need.  If left blank this will be taken from either the Team Member, Vacancy or Job (in that order of precedence).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Job Title for this resource need.  If left blank this will be taken from either the Team Member, Vacancy or Job (in that order of precedence).</inlineHelpText>
+        <label>Budget Job Title</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Currency_Recalculation__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Currency Recalculation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue( Team_Member__r.fHCM2__Location__c ,  Manager__r.fHCM2__Location__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Location</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Manager responsible for this resource need.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Manager responsible for this resource need.</inlineHelpText>
+        <label>Manager</label>
+        <referenceTo>fHCM2__Team_Member__c</referenceTo>
+        <relationshipLabel>Resource Needs (Manager)</relationshipLabel>
+        <relationshipName>Resource_Needs1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Months_Since_End__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Months_Since_End__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Months Since End</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Months_Since_Start__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Current_Employment__r.fHCM2__Months_Since_Start__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Months Since Start</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Resource_Plan__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Resource Plan</label>
+        <referenceTo>Resource_Plan__c</referenceTo>
+        <relationshipLabel>Resource Needs</relationshipLabel>
+        <relationshipName>Resource_Needs</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Salary_Annual_Multiplier__c</fullName>
+        <defaultValue>1</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Salary Annual Multiplier</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Salary_Variance__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( isblank( Budget_Annual_Salary_Reporting__c) || isblank(Annual_Variance_Reporting__c) || Budget_Annual_Salary_Reporting__c=0.0, null, Annual_Variance_Reporting__c /  Budget_Annual_Salary_Reporting__c )</formula>
+        <label>Salary Variance %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Team_Member__r.fHCM2__Hire_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(  isblank(Team_Member__c) || Team_Member__r.fHCM2__Has_Left__c == &apos;True&apos; ,
+  if(  isblank(Team_Member__c),
+    if( isblank( Vacancy__c ) &amp;&amp; Vacancy_Advertised__c!=true , if(  Active__c ,&apos;Hire&apos;,&apos;Open&apos;), &apos;Hiring&apos;),
+    if( isblank( Vacancy__c ) || Vacancy_Advertised__c==true, if(  Active__c ,&apos;Rehire&apos;,&apos;Left&apos;), &apos;Rehiring&apos;))
+,
+  if ( isblank( Team_Member__r.fHCM2__Current_Employment__r.fHCM2__End_Date__c ), &apos;Filled&apos;, &apos;Leaving&apos; )
+)</formula>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isblank(Team_Member__c ) , &apos;Open&apos;, if ( Team_Member__r.fHCM2__Has_Left__c ==&apos;True&apos;, &apos;Left&apos;, if (isblank( Team_Member__r.fHCM2__Current_Employment__r.fHCM2__End_Date__c ),&apos;Active&apos;,&apos;Leaving&apos;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team Member Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Team Member</label>
+        <referenceTo>fHCM2__Team_Member__c</referenceTo>
+        <relationshipLabel>Resource Needs</relationshipLabel>
+        <relationshipName>Resource_Needs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Team__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Blankvalue(  Team_Member__r.fHCM2__Team__c ,  Manager__r.fHCM2__Team__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Trigger_Currency_Recalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Trigger Currency Recalculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Utilisation__c</fullName>
+        <defaultValue>1</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Percentage the team member is utilized by this position.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage the team member is utilized by this position.</inlineHelpText>
+        <label>Utilisation</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Vacancy_Advertised__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, the vacancy has been advertised.  If you are using Fairsail Recruit this check-box is not needed and ignored.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the vacancy has been advertised.  If you are using Fairsail Recruit this check-box is not needed and ignored.</inlineHelpText>
+        <label>Vacancy Advertised</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacancy_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isnull(	 Vacancy__c), if(Vacancy_Advertised__c,&apos;Advertised&apos;,&apos;Not Advertised&apos;), text( Vacancy__r.fRecruit__Status__c ))</formula>
+        <label>Vacancy Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vacancy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Vacancy</label>
+        <referenceTo>fRecruit__Vacancy__c</referenceTo>
+        <relationshipLabel>Resource Needs</relationshipLabel>
+        <relationshipName>Resource_Needs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Resource Need</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Resource_Plan__c</columns>
+        <columns>NAME</columns>
+        <columns>Actual_Job_Title__c</columns>
+        <columns>Active__c</columns>
+        <columns>Status__c</columns>
+        <columns>Manager__c</columns>
+        <columns>Team_Member__c</columns>
+        <columns>Country__c</columns>
+        <columns>Team__c</columns>
+        <columns>HR_Department__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>RN{000000}</displayFormat>
+        <label>Resource Need #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Resource Needs</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Resource_Plan__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Actual_Job_Title__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Active__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Manager__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Team_Member__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Vacancy__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Country__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Team__c</customTabListAdditionalFields>
+        <listViewButtons>New_Resource_Plan</listViewButtons>
+        <lookupDialogsAdditionalFields>Actual_Job_Title__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Manager__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Team_Member__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Vacancy__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Country__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Team__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Actual_Job_Title__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Manager__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Team_Member__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Vacancy__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Country__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Team__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Existing_Resource_Need</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Existing Resource Need</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/fResource__ResourceNeedLink?teamMemberId={!fHCM2__Team_Member__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Resource_Plan</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Resource Plan</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!URLFOR($Action.Resource_Plan__c.New,null) }</url>
+    </webLinks>
+</CustomObject>

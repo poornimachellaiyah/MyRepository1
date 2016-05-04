@@ -1,0 +1,336 @@
+<apex:page contentType="text/html" applyHtmlTag="false" sidebar="false" standardStylesheets="false" showHeader="false" controller="fHCM2.CollaborationPortalIndexController" action="{!goToHomeOrToNewWX}" docType="html-5.0">
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="{!URLFOR($Resource.collaborationportal, 'images/icons/fairsailfavicon.ico')}" />
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'></link>
+<!--    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" /> --> 
+    <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /> 
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" /> 
+    
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes"/>
+    
+    <link rel="icon" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon.png')}" />
+    <link rel="icon" sizes="57x57" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-57x57.png')}" />
+    <link rel="icon" sizes="72x72" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-72x72.png')}" />
+    <link rel="icon" sizes="76x76" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-76x76.png')}" />
+    <link rel="icon" sizes="114x114" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-114x114.png')}" />
+    <link rel="icon" sizes="120x120" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-120x120.png')}" />
+    <link rel="icon" sizes="144x144" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-144x144.png')}" />
+    <link rel="icon" sizes="152x152" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-152x152.png')}" />
+    <link rel="manifest" href="{!URLFOR($Resource.collaborationportal, 'manifest.json')}"/> <!-- only supported by Chrome M39+ -->
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="apple-touch-icon" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon.png')}" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-57x57.png')}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-72x72.png')}" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-76x76.png')}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-114x114.png')}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-120x120.png')}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-144x144.png')}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{!URLFOR($Resource.collaborationportal, 'images/icons/apple-touch-icon-152x152.png')}" />
+    <!-- end mobile app support -->
+    
+    <title>{!title}</title>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/jquery/jquery.js')}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular/angular.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__wxi18n, '/')}{!localeScriptURL}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/angular-touch.js')}"/>
+
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/bootstrap/dist/css/bootstrap.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/css/jquery.mmenu.main.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/css/jquery.mmenu.all.css')}" />
+    <apex:stylesheet value="{!cssPath}" />
+
+   <apex:repeat value="{!moduleStyleSheets}" var="styleSheet">
+        <apex:stylesheet value="{!styleSheet}" />
+    </apex:repeat>        
+
+    <!-- load bootstrap slider -->
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css')}" />
+    
+    <!-- load tinyMCE -->
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__tinymce, 'tinymce.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-ui-tinymce/src/tinymce.js')}"/>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/angular-chart.js/dist/angular-chart.css')}" />
+    
+    <style type="text/css">
+        .mm-page {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body ng-app="fairsailWX" ng-cloak="ng-cloak">
+<script type="text/javascript">
+    var isAdmin = {!viewer.isSalesforceAccess};     
+    var teamMemberId = '{!teamMemberId}';     
+    var resourcePath = '{!resourcePath}';
+    var userViewport ={!viewportJS};     
+    var userCategories ={!categoriesJS};     
+    var userTeamCategories ={!teamCategoriesJS};     
+    var showSearch ={!showSearch};     
+    var contacts ={!contacts}; 
+    
+    window.wxDependencies = [
+   <apex:variable value="{!1}" var="rowNum"/>
+   <apex:repeat value="{!moduleNames}" var="module" id="moduleRepeat">
+        '{!module}'{!IF(rowNum == moduleNamesLength,"",",")}
+        <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+    </apex:repeat>        
+        ];
+</script>
+
+<c:CollaborationPortalRAComponent ></c:CollaborationPortalRAComponent>
+<div id="outer" class="container-fluid" >
+<div ng-controller="UserCtrl" class="row full-height table-row">
+
+<!-- MOBILE NAVIGATION -->
+<!-- Uses jQuery mmenu plugin -->
+    <div id="nav-left-mobile" class="col-md-2">
+    <div navigation-directive="navigation-directive" ng-cloak="ng-cloak"></div>
+    </div>
+
+<!-- NORMAL NAVIGATION -->
+    <div class="col-lg-2 visible-lg custom" id="nav-left-normal">
+        <div navigation-directive="navigation-directive" ng-cloak="ng-cloak"></div>
+    </div>
+
+<div id="main" class="col-lg-10 col-md-12">
+
+    <div class="row spacer">
+         <div class="mobile-wrapper fixed-top">    
+            <div class="header visible-xs visible-sm visible-md nav-left-mobile"  >
+                <a href="#nav-left-mobile"></a>
+                <div id="client-logo-mobile" class="visible-xs visible-sm">
+                    <img ng-src="{!logoUrl}" />
+                </div>
+            </div>        
+
+            <div id="client-logo" class="col-md-9 col-xs-6 hidden-xs hidden-sm">
+                <img ng-src="{!logoUrl}" class="pull-left img-responsive" />
+                <div id="portaltitle" class="hidden-xs hidden-sm visible-md visible-lg">
+                    <span>{!title}</span>
+                </div>
+    
+            </div>
+    
+            <div id="banner-info" class="col-md-3 col-sm-3">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12"><a href="#" class="loginBtn">{!$Label.fHCM2__Global_Logged_In_As} {{user.teamMember.teamMember.name}} &nbsp;<span class="glyphicon glyphicon-lock"></span></a></div>
+                </div>
+                <div class="row adminOption" ng-show="isAdmin">
+                    <div class="col-md-4 col-xs-4 colLogOut"><apex:outputLink value="/secur/logout.jsp" target="_top" styleClass="logoutBtn">{!$Label.Button_Logout} &nbsp;<span class="glyphicon glyphicon-log-out"></span></apex:outputLink></div>
+                    <div class="col-md-5 col-xs-5 colAdmin"><apex:outputLink value="/home/home.jsp" target="_top" styleClass="adminBtn">{!$Label.Button_Administration} &nbsp;<span class="glyphicon glyphicon-cog"></span></apex:outputLink></div>
+                    <div class="col-md-3 col-xs-3 colHelp"><a href="http://help.fairsail.com" target="help" class="helpBtn">{!$Label.Button_Help} &nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></div>
+                </div>
+                <div class="row" ng-hide="isAdmin">
+                    <div class="col-md-6 col-xs-6 colLogOut"><apex:outputLink value="/secur/logout.jsp" target="_top" styleClass="logoutBtn">{!$Label.Button_Logout} &nbsp;<span class="glyphicon glyphicon-log-out"></span></apex:outputLink></div>
+                    <div class="col-md-6 col-xs-6 colHelp"><a href="http://help.fairsail.com" target="help" class="helpBtn">{!$Label.Button_Help} &nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></div>
+                </div>
+            </div>
+    
+            <div class="visible-xs visible-sm" id="header"> <!-- icon for org menu on smaller screens -->
+                <div id="cat-menu-icon" class="glyphicon glyphicon-user">
+                    <a href="#menu-right" ></a></div>
+            </div>
+            <div class="visible-xs visible-sm">
+                <progressbar class="progress-striped active loadingBarSpacer" max="100" value="100" ng-show="loading"></progressbar>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="row loadingBarSpacer">
+         <progressbar class="progress-striped active loadingBarSpacer hidden-xs hidden-sm" max="100" value="100" ng-show="loading"></progressbar>
+    </div>
+       
+    <div id="section" class="row">
+        <div id="sub-section" class="col-md-9">
+            <div id="service-bar" ng-controller="ServiceBarCtrl">
+                <div class="visible-xs hidden-sm hidden-md hidden-lg" mobile-service-bar="mobile-service-bar" ng-cloak="ng-cloak"></div>
+                <div class="hidden-xs visible-sm visible-md visible-lg" ng-include="'{!URLFOR($Resource.collaborationportal, 'views/servicebar.html')}'" ng-cloak="ng-cloak"></div>
+            </div>
+
+            <div id="process-views" ng-view="ng-view" ng-cloak="ng-cloak"></div>
+        </div>
+  
+
+<!-- NORMAL ORG MENU - ON CANVAS -->
+           <!-- <div id="org-menu" class="col-md-3">-->
+
+                <div id="organization-right" class="organization-right col-md-3 visible-lg visible-md">
+                    <div class="list-group search-container">
+                        <div search-directive="search-directive" ng-cloak="ng-cloak" ></div>
+
+                    </div>
+                    <div team-hierarchy-directive="team-hierarchy-directive" ng-cloak="ng-cloak"></div>
+                </div>
+
+<!-- MOBILE ORG MENU -->
+<!-- Uses jQuery mmenu plugin -->
+            <div id="menu-right">
+                <div class="well_REMOVE sidebar-nav1">
+                <div class="bs-example1">
+                    <div class="org-menu-header-mobile"><span>Close menu</span>
+                        <a onClick="closeOrg()" class="org-menu-close pull-right"><img ng-src="{{AppConstants.CLOSEMENUWHITEIMGSRC}}"/></a>
+                    </div>
+                    <div class="list-group search-container">
+                            <div search-directive="search-directive" ng-cloak="ng-cloak"></div>
+                    </div>
+                    <div team-hierarchy-directive="team-hierarchy-directive" ng-cloak="ng-cloak"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                <div class="row">
+                    <div ng-show="isAdmin">
+                        <div class="col-md-4 col-xs-4 colLogOut"><apex:outputLink value="/secur/logout.jsp" target="_top" styleClass="logoutBtn">{!$Label.Button_Logout} &nbsp;<span class="glyphicon glyphicon-log-out"></span></apex:outputLink></div>
+                        <div class="col-md-5 col-xs-5 colHelp"><apex:outputLink value="/home/home.jsp" target="_top" styleClass="helpBtn">{!$Label.Button_Administration} &nbsp;<span class="glyphicon glyphicon-cog"></span></apex:outputLink></div>
+                        <div class="col-md-3 col-xs-3 colHelp"><a href="http://help.fairsail.com" target="help" class="helpBtn">{!$Label.Button_Help} &nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></div>
+                    </div>
+                    <div ng-hide="isAdmin">
+                        <div class="col-md-6 col-xs-6 colLogOut"><apex:outputLink value="/secur/logout.jsp" target="_top" styleClass="logoutBtn">{!$Label.Button_Logout} &nbsp;<span class="glyphicon glyphicon-log-out"></span></apex:outputLink></div>
+                        <div class="col-md-6 col-xs-6 colHelp"><a href="http://help.fairsail.com" target="help" class="helpBtn">{!$Label.Button_Help} &nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></div>
+                    </div>
+                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                        <div class="separator"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-include="'{!URLFOR($Resource.collaborationportal, 'views/footer.html')}'"></div>
+        </div>
+    </div>
+<div id="printOrgChart"></div>
+</div>
+
+
+<!--[if lt IE 9]>
+<apex:includeScript value="{!URLFOR($Resource.collaborationportal, 'bower_components/es5-shim/es5-shim.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.collaborationportal, 'bower_components/json3/lib/json3.min.js')}"/>
+<![endif]-->
+
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/jquery.ba-throttle-debounce.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/jquery.hammer.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/jquery.mmenu.min.all.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/rss-feed.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/modernizr.custom.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/moment.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/underscore.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/js/angucomplete-alt.js')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/bootstrap/dist/js/bootstrap.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/bootstrap/js/tab.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/bootstrap/js/collapse.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/bootstrap/js/transition.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/angular-bootstrap/ui-bootstrap-tpls.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/angular-bootstrap/custompopup.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/bootstrap/js/ui-bootstrap-tpls-custom-accordion.js')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-resource/angular-resource.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-cookies/angular-cookies.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-sanitize/angular-sanitize.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-route/angular-route.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-translate/angular-translate.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'bower_components/angular-scroll/angular-scroll.js')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/Chart.js/Chart.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__collaborationportal, 'custom/angular-chart.js/angular-chart.js')}"/>
+
+<apex:repeat value="{!moduleJavascriptResources}" var="javascriptResource">
+<apex:includeScript value="{!javascriptResource}"/>
+</apex:repeat>        
+
+<script src="{!URLFOR($Resource.fairsailmin)}" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+       $("#nav-left-mobile").mmenu()
+               .on("opening.mm", function() {
+                   $("div.mobile-wrapper").addClass("absolute-menu");
+               })
+               .on("closing.mm", function() {
+                   $("div.mobile-wrapper").removeClass("absolute-menu");
+               })
+    });
+
+    $(document).on("click", ".list-group-item-text", function() {
+        //alert($(this));
+        toggle: false
+
+    });
+
+function closeNav() {
+    $("#nav-left-mobile").trigger("close.mm");
+}
+
+
+    //  The menu on the right
+    $(function() {
+        var $menu = $('div#menu-right');
+        $menu.mmenu({
+            position    : 'right',
+            classes     : 'mm-light',
+            dragOpen    : false,
+            counters    : false,
+            searchfield : false,
+            labels      : {
+                fixed       : !$.mmenu.support.touch
+            },
+            header      : {
+                add         : true,
+                update      : true,
+                title       : ''
+            }
+        })
+                .on("opening.mm", function() {
+                    $("div.mobile-wrapper").addClass("absolute-menu");
+                })
+                .on("closing.mm", function() {
+                    $("div.mobile-wrapper").removeClass("absolute-menu");
+                })
+        ;
+        //  Click a menu-item
+        var $confirm = $('#confirmation');
+        $menu.find( 'li a' ).not( '.mm-subopen' ).not( '.mm-subclose' ).bind(
+                'click.example',
+                function( e )
+                {
+                    e.preventDefault();
+                    $confirm.show().text( 'You clicked "' + $.trim( $(this).text() ) + '"' );
+                    $('#menu-right').trigger( 'close' );
+                }
+        );
+    });
+
+    function closeOrg() {
+        $('#menu-right').trigger( 'close' );
+    }
+
+
+ $( window ).resize(function() {
+if ($('#nav-left-normal').is(':visible')) {
+$('#nav-left-mobile').trigger( 'close' );
+}
+
+if ($('#organization-right').is(':visible')) {
+$('#menu-right').trigger( 'close' );
+}
+});
+
+
+</script>
+</div>
+</body>
+</html>
+</apex:page>

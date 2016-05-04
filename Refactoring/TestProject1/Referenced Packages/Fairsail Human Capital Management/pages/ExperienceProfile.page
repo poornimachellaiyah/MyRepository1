@@ -1,0 +1,44 @@
+<apex:page controller="fHCM2.ExperienceProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.experience.isUsing}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!viewer.teamMember.name}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="ExperienceProfile" location="Subheader"/>
+                <apex:image value="{!viewer.teamMember.PictureUrl}" width="190" rendered="{!viewer.teamMember.PictureUrl!=null}" />
+                <c:Notice viewer="{!viewer}" page="ExperienceProfile" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Work_History}" mode="view">
+                    <apex:pageBlockButtons location="top">
+                        <a href="/apex/{!links.ExperienceProfilePDF}?TeamMemberId={!viewer.teamMember.Id}" target="_blank">
+                            <image border="0" src="{!$Resource.fHCM2__FairsailIcon}/16x16/pdf.png" title="{!$Label.fhcm2__Global_Create_PDF}"/>
+                        </a>
+                    </apex:pageBlockButtons>
+				<c:Notice viewer="{!viewer}" page="ExperienceProfile" location="Header"/>
+        
+            
+            <apex:repeat value="{!history}" var="Experience">
+                <apex:pageBlockSection title="{!Experience.fHCM2__Title__c}" columns="1">
+					<apex:repeat value="{!$ObjectType.fHCM2__Experience__c.FieldSets.fHCM2__Experience_Details}" var="f">
+                        <apex:outputField value="{!Experience[f]}" rendered="{!!contains(f,'Title__c')}"/>
+                    </apex:repeat>
+             </apex:pageBlockSection>
+            </apex:repeat>
+            	<c:Notice viewer="{!viewer}" page="ExperienceProfile" location="Footer"/>
+             </apex:pageBlock>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

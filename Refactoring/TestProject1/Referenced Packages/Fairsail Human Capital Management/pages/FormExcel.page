@@ -1,0 +1,16 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="fHCM2.FormExcelController" cache="true" contenttype="application/vnd.ms-excel#FormData.xls">
+<table>
+	<tr>
+	<apex:repeat value="{!fields}" var="field">
+		<td>{!field}</td>
+	</apex:repeat>
+	</tr>
+	<apex:repeat value="{!values}" var="record">
+		<tr>
+		<apex:repeat value="{!record}" var="data">
+			<td>{!data}</td>
+		</apex:repeat>
+		</tr>
+	</apex:repeat>
+</table>
+</apex:page>

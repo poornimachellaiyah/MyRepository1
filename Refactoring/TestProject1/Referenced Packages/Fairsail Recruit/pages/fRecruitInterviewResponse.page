@@ -1,0 +1,48 @@
+<apex:page standardStylesheets="false" showHeader="false"
+	sidebar="false" controller="fRecruit.InterviewResponseController">
+
+	<apex:stylesheet value="{!URLFOR($Resource.fRecruit__Form_zip,'Form/form.css')}" />
+
+	<apex:outputPanel layout="block" rendered="{!hasError}"
+		styleClass="mainPageDiv" style="margin-top: 20px;">
+		<apex:sectionHeader title="Invalid Link" subTitle="Event Confirmation" />
+				<apex:outputPanel layout="block" style="padding: 0px 10px;">
+		<p>That link is invalid. Please check it has been transfered
+		correctly into your browser address from the email.</p>
+				</apex:outputPanel>
+	</apex:outputPanel>
+
+	<apex:outputPanel layout="block" rendered="{!hasBeenDone && !hasError}"
+		styleClass="mainPageDiv" style="margin-top: 20px;">
+		<apex:sectionHeader title="{!name}" subTitle="Event Confirmation" />
+				<apex:outputPanel layout="block" style="padding: 0px 10px;">
+		<p>Thank you. Your response has been noted.</p>
+				</apex:outputPanel>
+	</apex:outputPanel>
+
+	<apex:outputPanel id="pagePanel" layout="block"
+		rendered="{!!hasError && !hasBeenDone}" styleClass="mainPageDiv" style="margin-top: 20px;">
+		<apex:sectionHeader title="{!name}" subTitle="Event Confirmation" />
+		<apex:form >
+			<apex:pageBlock title="Select Accept or Decline" mode="edit">
+				<apex:pageBlockButtons >
+					<apex:commandButton styleClass="pageButton" action="{!accept}"
+						value="Accept" />
+					<apex:commandButton styleClass="pageButton" action="{!decline}"
+						value="Decline" />
+				</apex:pageBlockButtons>
+				<apex:outputPanel layout="block" style="padding: 0px 10px;">
+					<p><b>Event:</b> {!name}</p>
+					<p><b>Location:</b> {!location}</p>
+					<p><b>Start:</b> <c:outputDate stringValue="{!dateTime}" format="dd MMM yyyy HH:mm"/></p>
+					<p><b>Duration:</b> {!durationHours}hr {!durationMins}mins</p>
+					<p>The full details of this event are in the accompanying
+					email. Please click on "Accept" or "Decline". Your response will be
+					communicated to us immediately and you do not need to reply to the
+					email.</p>
+				</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:form>
+	</apex:outputPanel>
+
+</apex:page>

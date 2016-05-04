@@ -1,0 +1,96 @@
+<apex:page standardController="fHCM2__Action_Email__c" extensions="fHCM2.ActionEmailExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Policy">
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+	<script>
+		jQuery.noConflict();
+		function toggleWhenSection() {
+			var current = jQuery('#eventSection input:hidden').val();
+			jQuery('#customSection').hide();
+			jQuery('#whenSection').hide();
+			if (current.indexOf(' Date')>0) {
+				jQuery('#whenSection').show();
+			} else if (current.indexOf(':?')>0) {
+				jQuery('#customSection').show();
+			}
+		}
+        jQuery(document).ready(function(){
+        	toggleWhenSection();
+		});
+	</script>
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Action_Email__c.label}" subtitle="{!fHCM2__Action_Email__c.Name}" help="/apex/Help?obj=fHCM2__Action_Email__c" />
+    <apex:form >
+        <apex:pageBlock title="" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+            </apex:pageBlockButtons>
+
+			<div id="eventSection">
+            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fHCM2__Action_Email__c.fields.fHCM2__Event__c.label}" />
+					<apex:outputPanel >
+						<c:InputSelectPair valueMap="{!currentEvents}" onChange="toggleWhenSection();">
+							<apex:inputHidden value="{!fHCM2__Action_Email__c.fHCM2__Event__c}" />
+						</c:InputSelectPair>
+						<span id="customSection">
+							&nbsp;
+			            	<apex:inputText value="{!customEvent}"/>
+						</span>
+						<span id="whenSection">
+							&nbsp;{!$ObjectType.Action_Email__c.fields.Offset__c.label}&nbsp;
+			            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Offset__c}" style="width:50px;"/>
+			            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Offset_Unit__c}"/>
+						</span>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fHCM2__Action_Email__c.fields.fHCM2__Email_Template__c.label}" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fHCM2__Action_Email__c.fHCM2__Email_Template__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__PDF_Template__c}"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__HCM_Form_Definition__c}"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Description__c}" style="width:500px;"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Overrides__c}"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Push_Notification_Alert_Message__c}"/>
+            </apex:pageBlockSection>
+            </div>
+
+            <apex:pageBlockSection title="Conditional Upon" columns="1">
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__If_Triggered_By_Team_Member__c}"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__If_Triggered_By_Primary_Manager__c}"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__If_Triggered_By_HR__c}"/>
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__If_Triggered_By_Any_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Condition__c}" style="width:600px;"/>
+			</apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Recipients" columns="2">
+            	<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__No_Email_To_User_Triggering_Event__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Top_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Team_Member__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_One_Down_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Two_Down_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Cross_Report_Managers__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Three_Down_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Direct_Reports__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Three_Up_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Cross_Reports__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Two_Up_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Colleagues__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Process_Approver__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_One_Up_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Department_Approver__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Work_Location_Manager__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Created_By__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Team_Member_Home__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_User__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Email_Addresses__c}"/>
+				<apex:inputField value="{!fHCM2__Action_Email__c.fHCM2__Send_To_Action_Roles__c}"/>
+            </apex:pageBlockSection>
+
+			
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

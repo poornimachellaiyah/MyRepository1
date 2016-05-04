@@ -1,0 +1,33 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!subject.currentJobDescription.isUsing}">
+                    <apex:facet name="header">
+                        <h3 class="process-job-description">{!$Label.fhcm2__Process_Job_Description}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.JobDescription}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(viewer.isEdit,or(!subject.currentJobDescription.has,subject.currentJobDescription.status='Active'),subject.currentJobDescription.newPermitted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.JobDescription}?id={!subject.currentJobDescription.id}" target="_top" rendered="{!subject.currentJobDescription.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentJobDescription.managerAction!=null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Manager_Action__c.label}" />
+                        <apex:outputText style="color:red;text-weight:bold;" value="{!subject.currentJobDescription.managerAction}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentJobDescription.teamMemberAction!=null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Team_Member_Action__c.label}" />
+                        <apex:outputText style="color:red;text-weight:bold;" value="{!subject.currentJobDescription.teamMemberAction}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentJobDescription.has}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Status__c.label}" />
+                        <apex:outputText value="{!subject.currentJobDescription.status}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentJobDescription.has}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Title__c.label}" />
+                        <apex:outputText value="{!subject.currentJobDescription.title}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentJobDescription.has && !isblank(subject.currentJobDescription.grade)}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Job_Description__c.fields.fHCM2__Grade__c.label}" />
+                        <apex:outputText value="{!subject.currentJobDescription.grade}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

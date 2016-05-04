@@ -1,0 +1,68 @@
+<apex:page title="{!$Label.fhcm2__Button_Help}" standardStylesheets="true" controller="fHCM2.HelpController" action="{!getRefer}" showHeader="false" sidebar="false">
+<head>
+	<title>{!$Label.fhcm2__Button_Help}</title>
+</head>
+<a name="top" style="position:absolute; top:0px"/>
+<apex:stylesheet value="{!URLFOR($Resource.fHCM2__Help_Page_Files, 'help.css')}" />
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__Help_Page_Files, 'search.js')}" />
+<script type="text/javascript">
+var documents = [
+	{name: "{!hrManagersGuide}", resource:"Help_HCM_HRManager", pdf:"Help_HCM_PDF_HRManager"},
+	{name: "{!hrCPUserGuide}", resource:"Help_HCM_CP_User", pdf:"Help_HCM_PDF_CP_User"}
+];
+
+function getLinks() {
+    var list = document.getElementById('links');
+    for(var i = 0; i < documents.length; i++) {
+        var pdfLink = ' ]';
+        if(documents[i].pdf) {
+            pdfLink = " | <a href='/resource/"+new Date().getTime()+"000/fHCM2__"+documents[i].pdf+"' target='_blank'>PDF</a> ]";
+        }
+        list.innerHTML += "<li>"+documents[i].name+" [ <a href='/resource/"+new Date().getTime()+"000/fHCM2__"+documents[i].resource+"/"+indexFile+"' target='_blank'>HTML</a>"+pdfLink+"</li>";
+    }
+}
+var previousOnload = window.onload;
+window.onload = function() {
+    if (previousOnload) { 
+        previousOnload();
+    }
+    getLinks();
+};
+</script>
+	<div id="helpHeader">
+		<div id="helpContent">
+			<h1><apex:outputLink value="/apex/{!links.FairsailProfile}">{!$Label.fhcm2__Button_Profile}</apex:outputLink></h1>
+			<h1><apex:outputLink value="/secur/logout.jsp" target="_top">{!$Label.fhcm2__Button_Logout}</apex:outputLink></h1>
+		</div>
+	</div>
+	<div id="content">
+		<div id="side">
+			<img src="http://www.fairsail.com/fairsail.png" />
+		</div> <!--  div #side -->
+		<div id="main">
+			<apex:pageBlock title="{!$Label.fhcm2__Button_Help}">
+				<c:Notice page="Help" location="Header" />
+				<p>{!$Label.Help_Links}</p>
+				<!-- Area where links to documentation will be added dynamically //-->
+				<ul id='links'></ul>
+				<p>{!$Label.Help_Salesforce} <a	href="https://help.salesforce.com/" target="_blank" class="brandZeronaryFgr" title="Help (New Window)">{!$Label.Link_Here}</a>.</p>
+				<c:Notice page="Help" location="Subheader" />
+			</apex:pageBlock>
+			<apex:pageBlock title="{!$Label.fhcm2__Button_Search}">
+				<apex:form >
+					<apex:inputText id="searchField" onkeypress="return noenter(event,'{!$Component.searchField}', '{!$Component.searchOutput}')" />
+					<apex:commandButton id="searchButton" onclick="search('{!$Component.searchField}', '{!$Component.searchOutput}')" value="{!$Label.fhcm2__Button_Search}" reRender="{!$Component.searchOutput}" />
+				</apex:form>
+				<br />
+				<apex:outputText id="searchOutput"></apex:outputText>
+			</apex:pageBlock>
+			<apex:pageBlock id="support" title="{!$Label.fhcm2__Button_Support}">
+				<a name='support' /> <c:Notice page="Help" location="Subfooter" />
+				<p>{!$Label.fhcm2__Help_Support_Internal}.</p>
+				<p>{!$Label.fhcm2__Help_No_Contact}.</p>
+				<c:Notice page="Help" location="Footer" />
+			</apex:pageBlock>
+			<c:FairsailFooter />
+		</div><!--  div #main -->
+	</div><!-- div #content -->
+</apex:page>

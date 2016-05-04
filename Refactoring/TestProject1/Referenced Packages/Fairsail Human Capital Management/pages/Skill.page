@@ -1,0 +1,335 @@
+<apex:page controller="fHCM2.SkillControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Target" rendered="{!subject.skills.isUsing}" action="{!selectUI}">
+
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="{!$Label.fhcm2__Process_Skills}" mode="view">
+				<c:Notice viewer="{!viewer}" page="Skill" location="Subheader" />
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Skill_Other_Skills}" columns="1">
+					<apex:outputPanel layout="block" styleClass="thinButtonBar" rendered="{!viewer.isEdit}">
+						<apex:outputLink value="/apex/{!links.Skill}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!!isNew}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.JobProfileMatch}?teamMemberId={!viewer.teamMember.Id}" rendered="{!!isNew}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+					</apex:outputPanel>
+					<apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;" rendered="{!subject.skills.has}">
+						<c:ChartPercentAxis width="180px" />
+						<apex:repeat value="{!subject.skills.current}" var="skill">
+						<apex:outputPanel layout="block" rendered="{!not(skill.id=currentSkill.Id)}">
+	                    	<apex:outputLink value="/apex/{!links.Skill}?id={!skill.id}" target="_top">{!skill.area}: {!skill.name}</apex:outputLink>
+	                    	<c:ChartRow height="5px" width="100%" color="#e0e0e0">
+		                    	<c:ChartBlock percent="{!skill.percentage}" color="green"/>
+	                    	</c:ChartRow>
+						</apex:outputPanel>
+						</apex:repeat>
+						<c:ChartPercentAxis position="bottom" width="180px" />
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+				<p>&nbsp;</p>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Skill_Others_With_Same_Skill}" columns="1">
+					<apex:outputPanel layout="block" styleClass="thinButtonBar">
+						<apex:outputLink value="/apex/SkillCollaboration?id={!currentSkill.Id}" target="_top" rendered="{!currentSkill.Id!=''}">Collaboration</apex:outputLink>
+						<apex:outputLink value="/apex/{!links.SkillFind}?id={!viewer.teamMember.id}&skillId={!currentSkill.fHCM2__Skill_Library_Item__c}" target="_top" rendered="{!currentSkill.fHCM2__Skill_Library_Item__c!=''}">Find</apex:outputLink>
+					</apex:outputPanel>
+					<apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;" id="teamAnalysis">
+						<c:ChartPercentAxis width="180px" />
+						<apex:repeat value="{!analysis.teamMemberSkills}" var="teamMemberSkill">
+						<apex:outputPanel layout="block" rendered="{!not(teamMemberSkill.teamMember.id=viewer.teamMember.id)}">
+	                    	<apex:outputLink value="/apex/{!links.FairsailProfile}?id={!teamMemberSkill.teamMember.id}">{!teamMemberSkill.teamMember.name}</apex:outputLink>
+	                    	<c:ChartRow height="5px" width="100%" color="#e0e0e0">
+		                    	<c:ChartBlock percent="{!teamMemberSkill.percentage}" color="green"/>
+	                    	</c:ChartRow>
+						</apex:outputPanel>
+						</apex:repeat>
+						<c:ChartPercentAxis position="bottom" width="180px" />
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+				<p>&nbsp;</p>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Skill_Development_Options}" columns="1" rendered="{!(!isnull(trainingOptions)) && trainingOptions.has}">
+					<apex:repeat value="{!trainingOptions.current}" var="option">
+                        <c:DetailListBar title="{!option.Name}" value="{!option.link+'&teamMemberId='+viewer.teamMember.id}">
+							<c:DetailListItem label="{!$ObjectType.Training_Library__c.fields.Type__c.label }" value="{!option.trainingType}"/>
+							<c:DetailListItem label="{!$ObjectType.Training_Library__c.fields.Supplier__c.label }" value="{!option.supplier}" rendered="{!option.supplier!=''}"/>
+							<c:DetailListItem label="{!$ObjectType.Training_Library__c.fields.Description__c.label }" value="{!option.description}"/>
+						</c:DetailListBar>
+					</apex:repeat>
+				</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="Skill" location="Subfooter" />
+			</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+			<apex:form >
+				<apex:pageBlock title="Current" id="myform" >
+				
+				
+				<!-- User verification section -->
+				<apex:outputPanel id="verifyUser">
+			          <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!verifyUser.displayPopup}"/>
+			          <apex:outputPanel styleClass="modalPopup" layout="block" rendered="{!verifyUser.displayPopup }">
+			              I would like to know if you are really whom you claim to be.<br /><br />
+			              Provide your Fairsail username and password respectively in the boxes below.  <br /><br />
+			              
+			              <apex:outputLabel value="Username:" for="username"/> (required) <br />
+			              <apex:inputText value="{!verifyUser.username}" id="username" size="50"/>
+			              <apex:outputLabel value="{!verifyUser.invalidUsernameMessage}" rendered="{!verifyUser.invalidUsername}"/><br /><br />
+			              
+			              <apex:outputLabel value="Password:" for="password"/> (required)<br />
+			              <apex:inputSecret value="{!verifyUser.password }" id="password" maxlength="23" size="50"/>
+			              <apex:outputLabel value="{!verifyUser.invalidPasswordMessage}" rendered="{!verifyUser.invalidPassword}"/> <br /><br />
+			              
+			              <apex:commandButton value="Authenticate" action="{!authenticate}"/>
+			              <apex:commandButton value="Cancel" action="{!verifyUser.closePopup}"/>
+			              <apex:commandLink value="Forgot Password?" action="{!forogtPassword}"/>
+			           </apex:outputPanel>
+			      </apex:outputPanel>
+					
+					
+					  <style type="text/css">
+		  
+					      .modalPopup{
+					        background-color: white;
+					        border-width: 2px;
+					        border-style: solid;
+					        z-index: 9999;
+					        left: 50%;
+					        padding:10px;
+					        position: absolute;
+					        width: 500px;
+					        margin-left: -250px;
+					        top:100px;
+					      }
+					  
+					  
+					      .popupBackground{
+					        background-color:black;
+					        opacity: 0.20;
+					        filter: alpha(opacity = 20);
+					        position: absolute;
+					        width: 100%;
+					        height: 100%;
+					        top: 0;
+					        left: 0;
+					        z-index: 9998;
+					        }
+					      
+					  </style>
+				<!-- End user verification section -->
+				
+				
+				<!-- ,!and(reauthenticate,isManagerOrApprover,IF(currentSkill!=null,currentSkill.Approved_Date__c==null,true) -->
+				<!-- ,!and(reauthenticate,isManagerOrApprover,IF(currentSkill.Approved_Date__c!=null,false,true)) -->
+					<apex:pageBlockButtons >
+						<apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and(viewer.isEdit)}" styleClass="inputsubmit" />
+						<apex:commandButton id="saveNew" action="{!saveNew}" value="Save and New" rendered="{!and(viewer.isEdit,isNew)}" styleClass="inputsubmit" />
+						<apex:commandButton id="eOAuth" action="{!popup}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!and(isManagerOrApprover,hasApproval,reauthenticate,currentSkill.fHCM2__Action__c!=null)}" styleClass="inputsubmit" />
+						<apex:commandButton id="approve" action="{!approve}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!isManagerOrApprover && hasApproval && !reauthenticate}" styleClass="inputsubmit" />
+						 <apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" styleClass="inputsubmit" />
+						<apex:commandButton id="delete" action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!and(viewer.isEdit,!isNew)}" styleClass="inputsubmit" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+					</apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="Skill" location="Header"  />
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!currentSkill.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+							<apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+								<apex:outputLabel value="{!$ObjectType.Skill__c.fields.Action__c.label }" for="Action__c" />
+								<apex:outputText style="color:red;text-weight:bold;" value="{!currentSkill.fHCM2__Action__c}" id="Action__c" />
+							</apex:panelGrid>
+						</c:PersonSection>
+					</apex:pageBlockSection>
+
+					<apex:actionRegion >
+					<apex:actionFunction name="areaChanged" action="{!areaChanged}" immediate="true" onComplete="setDevelopment();" reRender="skillList,skillApproverList,scales,experience,filein,teamAnalysis,hasDevelopmentNeed,requiredScales" status="loadStatus"/>
+					<apex:actionFunction name="skillChanged" action="{!skillChanged}" immediate="true" onComplete="setDevelopment();" reRender="scales,skillApproverList,experience,filein,teamAnalysis,hasDevelopmentNeed,requiredScales" status="scaleLoadStatus"/>
+					<apex:actionFunction name="skillApproverChanged" action="{!skillApproverChanged}" immediate="true"/>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Skill}" columns="1">
+						<apex:pageBlockSectionItem rendered="{!isNew}">
+							<apex:outputLabel value="{!$ObjectType.Skill_Library_Item__c.fields.Area__c.label }" />
+							<apex:selectList id="area" value="{!area}" size="1" onchange="areaChanged();" required="true">
+								<apex:selectOptions value="{!areas}" />
+							</apex:selectList>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem rendered="{!!isNew}">
+							<apex:outputLabel value="{!$ObjectType.Skill_Library_Item__c.fields.Area__c.label }" />
+							<apex:outputText value="{!currentSkill.Skill_Library_Item__r.fHCM2__Area__c}"/>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem rendered="{!isNew}">
+							<apex:outputLabel value="{!$ObjectType.Skill__c.fields.Name.label }"/>
+							<apex:actionStatus id="loadStatus">
+								<apex:facet name="start" >
+									<apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+								</apex:facet>
+								<apex:facet name="stop">
+									<apex:selectList id="skillList" value="{!currentSkill.fHCM2__Skill_Library_Item__c}" size="1" onchange="skillChanged();" required="true" disabled="{!area=null}">
+										<apex:selectOptions value="{!skills}"/>									
+									</apex:selectList>
+								</apex:facet>
+							</apex:actionStatus>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem rendered="{!!isNew}">
+							<apex:outputLabel value="{!$ObjectType.Skill__c.fields.Name.label }" />
+							<apex:outputText value="{!currentSkill.Name}" />
+						</apex:pageBlockSectionItem>
+						
+						
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Current_Level}" columns="1" rendered="{!isTeammemberOrManagerOrApprover}">
+						
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Skill__c.Fields.fHCM2__Scale_Response__c.label}"/>
+								<apex:actionStatus id="scaleLoadStatus">
+									<apex:facet name="start" >
+										<apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+									</apex:facet>
+									<apex:facet name="stop">
+										<apex:outputPanel id="scales">
+										<apex:selectList id="scaleResponse-1" value="{!currentSkill.fHCM2__Scale_Response__c}" size="1" required="true" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" rendered="{!format='Drop Down Menu'}" onChange="setDevelopment();">
+											<apex:selectOptions value="{!scale}"/>
+										</apex:selectList>
+										<apex:selectRadio id="scaleResponse-2" value="{!currentSkill.fHCM2__Scale_Response__c}" layout="pageDirection" required="true" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" rendered="{!format='Vertical Radio Buttons'}" onChange="setDevelopment();">
+											<apex:selectOptions value="{!scale}" />
+										</apex:selectRadio>
+										<apex:selectRadio id="scaleResponse-3" value="{!currentSkill.fHCM2__Scale_Response__c}" layout="lineDirection" required="true" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" rendered="{!format='Horizontal Radio Buttons'}" onChange="setDevelopment();">
+											<apex:selectOptions value="{!scale}" />
+										</apex:selectRadio>
+										</apex:outputPanel>
+									</apex:facet>
+								</apex:actionStatus>
+						</apex:pageBlockSectionItem>
+
+					</apex:pageBlockSection>
+					
+					
+						<!-- If the skill is new or if it the skill is not new and has not been approved and the viewer is the skill owner -->
+						<apex:pageBlockSectionItem rendered="{!isNew && reauthenticate || (!isManagerOrApprover && currentSkill.Action__c!=null && currentSkill.Approver__c!=null) }">
+							<apex:outputLabel value="Approver"/>
+							<apex:actionStatus id="skillApproverStatus">
+								<apex:facet name="start">
+									<apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+								</apex:facet>
+								<apex:facet name="stop">
+								<apex:selectList id="skillApproverList" value="{!currentSkill.fHCM2__Approver__c}" size="1" onchange="skillApproverChanged();" required="{!approvalNeeded}" disabled="{!!approvalNeeded}">
+									<apex:selectOptions value="{!skillApprovers}"/>
+								</apex:selectList>
+								</apex:facet>
+							</apex:actionStatus>
+						</apex:pageBlockSectionItem>
+						<!-- If the skill is not new and the viewer is the manager or approver or if the skill has been approved -->
+						<apex:pageBlockSectionItem rendered="{!!isNew && reauthenticate && (currentSkill.Action__c=null || isManagerOrApprover || currentSkill.Approver__c=null) }">
+							<apex:outputLabel value="Approver"/>
+							<apex:outputLink value="{!skillApproverProfileUrl}" id="theLink">{!skillApproverName}</apex:outputLink>
+						</apex:pageBlockSectionItem>
+						
+					
+						
+						<apex:inputField id="expiryDate" value="{!currentSkill.fHCM2__Expiry_Date__c}"/>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.Skill__c.fields.Experience__c.label }" />
+							<apex:inputTextArea id="experience" value="{!currentSkill.fHCM2__Experience__c}" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}"/>
+						</apex:pageBlockSectionItem>						
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Current_Level}" columns="1" rendered="{!!viewer.isTeamMemberOrManager}">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Skill__c.Fields.fHCM2__Scale_Response__c.label}" />
+							<apex:outputText value="{!currentSkill.Scale_Response__r.fHCM2__Label__c}" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Skill__c.Fields.fHCM2__Experience__c.label}" />
+							<apex:outputText value="{!currentSkill.fHCM2__Experience__c}" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Required_Level}" columns="1" rendered="{!viewer.isTeamMemberOrManager && viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c}">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Needs_Development}" />
+							<apex:inputCheckbox id="hasDevelopmentNeed" value="{!hasNeed}" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" onChange="setDevelopment();"/>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Scale_Response__c.label}" />
+							<apex:outputPanel id="requiredScales">
+							<apex:selectList id="requiredScaleResponse-1" value="{!need.fHCM2__Scale_Response__c}" size="1" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" rendered="{!format='Drop Down Menu'}">
+								<apex:selectOptions value="{!scale}"/>
+							</apex:selectList>
+							<apex:selectRadio id="requiredScaleResponse-2" value="{!need.fHCM2__Scale_Response__c}" layout="pageDirection" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" rendered="{!format='Vertical Radio Buttons'}">
+								<apex:selectOptions value="{!scale}" />
+							</apex:selectRadio>
+							<apex:selectRadio id="requiredScaleResponse-3" value="{!need.fHCM2__Scale_Response__c}" layout="lineDirection" disabled="{!currentSkill.fHCM2__Skill_Library_Item__c=null}" rendered="{!format='Horizontal Radio Buttons'}">
+								<apex:selectOptions value="{!scale}" />
+							</apex:selectRadio>
+							</apex:outputPanel>
+						</apex:pageBlockSectionItem>
+						<apex:repeat value="{!$ObjectType.fHCM2__Development_Need__c.FieldSets.fHCM2__Development_Need}" var="f">
+	                        <apex:inputField id="developmentNeed" value="{!need[f]}" rendered="{!f!='fHCM2__Objective__c'}"/>
+							<apex:pageBlockSectionItem rendered="{!f=='fHCM2__Objective__c'}">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Objective__c.label}" />
+								<apex:selectList id="developmentNeedObjective"  value="{!need.fHCM2__Objective__c}" size="1" >
+									<apex:selectOptions value="{!objectives}"/>
+								</apex:selectList>
+							</apex:pageBlockSectionItem>
+	                    </apex:repeat>
+						<script type="Text/JavaScript">
+						function checkedHasDevelopmentNeed() {
+							var elements = getElementsByNameAndId("input","hasDevelopmentNeed");
+							for (var i=0; i<elements.length; i++)
+								if (elements[i].checked)
+									return true;
+							return false;
+						}
+
+						function currentScore() {
+							var elements = getElementsByNameAndId("input","scaleResponse");
+							for (var i=0; i<elements.length; i++)
+								if (elements[i].checked)
+									return i;
+							return -1;
+						}
+						
+						function disableSkillApprover(){
+							disable("skillApproverList");
+						}
+						
+						function setDevelopment() {
+							if (checkedHasDevelopmentNeed()) {
+								enableElements("requiredScaleResponse",currentScore());
+								enable("developmentNeed");
+								enable("developmentNeedObjective");
+							} else {
+								disable("requiredScaleResponse");
+								disable("developmentNeed");
+								disable("developmentNeedObjective");
+							}
+						}
+						setDevelopment();
+						</script>
+					</apex:pageBlockSection>
+					</apex:actionRegion>
+					
+					
+
+					<apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Global_Attachment}">
+						<apex:pageBlockSectionItem rendered="{!!isblank(filename)}">
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Attached_File}" />
+							<apex:outputLink value="{!fileurl}" >{!filename}</apex:outputLink>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!if(isblank(filename),$Label.fhcm2__Global_Attached_File,$Label.fhcm2__Button_Replace)}" />
+							<apex:inputFile value="{!content}" filename="{!filename}" contentType="{!contentType}"/>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+					<c:Notice viewer="{!viewer}" page="Skill" location="Footer"  />
+				</apex:pageBlock>
+			</apex:form>
+
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!currentSkill}" page="{!links.FairsailProfile}" rendered="{!viewer.isTeamMemberOrManager}"/>
+	
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

@@ -1,0 +1,225 @@
+<apex:page controller="fHCM2.SalaryPlanningTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!viewer.departmentPolicy.fHCM2__Salary_Plan_Is_Active__c==true && (viewer.isTeamMember || viewer.isHigherManager || viewer.isHR)}">
+  <script  type='text/javascript'>
+	window.onload = function (){
+				 parent.postMessage('ResizeHeight-'+document.getElementById('salaryPlanTeamContainer').offsetHeight,"*");
+	}
+   				
+</script>  
+<div id="salaryPlanTeamContainer">
+    <apex:composition template="fHCM2__FairsailTemplateOptionalFooter">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <style>
+            	.pbBody td.subBlockLabel {
+				    padding-bottom: 1px;
+				    padding-top: 1px;
+				    border-bottom-width: 0;
+				    color: #4A4A56;
+				    font-size: 75%;
+    				font-weight: bold;
+    				text-align: right;
+    				vertical-align: top;
+    				padding-right: 10px;
+				    width:67%;
+                }
+                .pbBody td.subBlockData {
+				    font-size: 75%;
+				    padding-bottom: 1px;
+				    padding-top: 1px;
+				    border-bottom-width: 0;
+				    text-align: left;
+				    vertical-align: top;
+				    color: #000000;
+				    width:33%;
+                }
+            </style>
+            
+   
+            
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/autoresize.jquery.js')}"/>
+		    <script type="text/javascript">
+		        jQuery.noConflict();
+				jQuery(document).ready(function(){
+					jQuery('.autoResize').autoResize({}).trigger('change');
+			        if ({!viewer.WXIsActive}){
+			        	jQuery(".thinPanelTD").hide();
+			        }
+					Recalc();
+				});
+				var decimalPlace = "{!decimalPlace}";
+				var thousandsSeperator = "{!thousandsSeperator}";
+		        var salary = new Array();
+                <apex:repeat value="{!activeReports}" var="person">
+                	salary["{!person.id}"] = new Object();
+                	salary["{!person.id}"].suggestedPercentage = {!blankvalue(table.rows[person.id].suggestedPercentage,0)};
+                	salary["{!person.id}"].annualCurrentReporting = {!blankvalue(table.rows[person.id].annualCurrentReporting,0)};
+                	salary["{!person.id}"].approved = {!salaryPlans[person.id].approved};
+                </apex:repeat>
+                String.prototype.replaceAll = function(s, r) {
+                	var res = this;
+                	while (res!=null && s!=r && res.indexOf(s)>0) res = res.replace(s,r);
+                	return res;
+                }
+                String.prototype.numberValue = function(d, t){
+                	var s = this==null ? '' : this.trim().replaceAll(t,'').replace(d,'.');
+                	return s == '' ? 0 : Number(s);
+                }
+                Number.prototype.formatMoney = function(c, d, t){
+					var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+					   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ 				};
+                function Recalc() {
+                	var totalAnnualReporting = 0.0;
+                	var totalSuggestedAnnualReporting = 0.0;
+                	var totalProposedAnnualReporting = 0.0;
+                	for(personid in salary) {
+                		totalAnnualReporting += salary[personid].annualCurrentReporting;
+                		totalSuggestedAnnualReporting += salary[personid].annualCurrentReporting + (salary[personid].annualCurrentReporting*salary[personid].suggestedPercentage/100);
+                		var recommendedPercentageString = jQuery('#'+personid+' .salaryPercent').val();
+                		var color = '#66CC00';
+                		if (recommendedPercentageString!=null && recommendedPercentageString!='') {
+                			if (salary[personid].suggestedPercentage>recommendedPercentageString.numberValue(decimalPlace, thousandsSeperator)) color = '';
+                			else if (salary[personid].suggestedPercentage<recommendedPercentageString.numberValue(decimalPlace, thousandsSeperator)) color = '#FF9999';
+//                			else color = '#66CC00';
+	                		totalProposedAnnualReporting += salary[personid].annualCurrentReporting + (salary[personid].annualCurrentReporting*recommendedPercentageString.numberValue(decimalPlace, thousandsSeperator)/100);
+                		} else {
+                 			if (salary[personid].suggestedPercentage>0) color = '';
+                			totalProposedAnnualReporting += salary[personid].annualCurrentReporting;
+                		}
+	               		if (salary[personid].approved) {
+		               		jQuery('#'+personid+' .salaryPercent').attr("disabled",true);
+		               		jQuery('#'+personid+' .salaryAmount').attr("disabled",true);
+	               		}
+	               		jQuery('#'+personid+' .salaryPercent').css('background-color',color);
+	               		jQuery('#'+personid+' .salaryAmount').css('background-color',color);
+                	}
+               		jQuery('#totalAnnualReporting').html(totalAnnualReporting.formatMoney(2, decimalPlace, thousandsSeperator));
+               		jQuery('#totalSuggestedIncreaseReporting').html((totalSuggestedAnnualReporting-totalAnnualReporting).formatMoney(2, decimalPlace, thousandsSeperator)+' or '+String(Math.round((totalSuggestedAnnualReporting-totalAnnualReporting)*10000/totalAnnualReporting)/100).replace('.',decimalPlace)+'%');
+               		jQuery('#totalProposedIncreaseReporting').html((totalProposedAnnualReporting-totalAnnualReporting).formatMoney(2, decimalPlace, thousandsSeperator)+' or '+String(Math.round((totalProposedAnnualReporting-totalAnnualReporting)*10000/totalAnnualReporting)/100).replace('.',decimalPlace)+'%');
+                	var color = '#66CC00';
+                	if (totalSuggestedAnnualReporting>totalProposedAnnualReporting) color = '';
+                	else if (totalSuggestedAnnualReporting<totalProposedAnnualReporting) color = '#FF9999';
+               		jQuery('#totalProposedIncreaseReporting').css('background-color',color);
+                }
+		    </script>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.SalaryPlanTeam}" title="{!$Label.fhcm2__Process_Salary_Plan}" noticePage="SalaryPlanTeam"/>
+         </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:form >
+                <apex:pageBlock title="{!viewer.teamMember.name}" mode="edit">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" >
+                        <apex:outputLink value="/apex/{!links.SalaryPlan}" target="{!if(viewer.WXIsActive,'_self','_top')}">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                    </apex:outputPanel>
+
+                	<c:Notice viewer="{!viewer}" page="SalaryPlanTeam" location="Header"/>
+	                <apex:pageMessages />
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Salary_Plan}" columns="1">
+                    	<apex:pageBlock >
+                    	<style>
+                    		.bPageBlock .detailList .labelCol {
+							    width: 50%;
+							}
+                    	</style>
+                        <c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                            	<apex:outputPanel >{!$Label.fhcm2__Global_Reporting_Currency}</apex:outputPanel>
+                            	<apex:outputPanel >{!reportingCurrency}</apex:outputPanel>
+                            	<apex:outputPanel >{!$Label.fhcm2__Global_Current_Total}</apex:outputPanel>
+                            	<apex:outputPanel ><span id="totalAnnualReporting"></span></apex:outputPanel>
+                            	<apex:outputPanel >{!$Label.fhcm2__Process_Salary_Plan_Suggested_Team_Increase}</apex:outputPanel>
+                            	<apex:outputPanel ><span id="totalSuggestedIncreaseReporting"></span></apex:outputPanel>
+                            	<apex:outputPanel >{!$Label.fhcm2__Process_Salary_Plan_Proposed_Team_Increase}</apex:outputPanel>
+                            	<apex:outputPanel ><span id="totalProposedIncreaseReporting"></span></apex:outputPanel>
+                            </apex:panelGrid>
+                        </c:PersonSection>
+                        </apex:pageBlock>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Direct_Reports}" columns="1">
+                    <apex:repeat value="{!activeReports}" var="person">
+	                        <c:PersonSection page="{!links.FairsailProfile}" name="->{!person.name}" value="{!person.id}" picture="{!person.pictureUrl}">
+	                        	<table style="width:500px;"><tr>
+	                        	<td  style="width:50%;vertical-align: top;">
+	                        	<table class="detailList" style="width:100%;">
+					            	<apex:repeat value="{!table.columns}" var="f">
+		                        		<tr>
+											<td class="subBlockLabel"><apex:outputLabel value="{!f.name}" /></td>
+											<td class="subBlockData"><apex:outputText value="{!table.rows[person.id].attributes[f.name].currentString}"/></td>
+		                            	</tr>
+									</apex:repeat>
+	                            </table>
+	                            </td>
+	                        	<td style="width:50%;vertical-align: top;">
+	                        	<table class="detailList" style="width:100%;">
+	                        		<tr>
+										<td class="subBlockLabel">
+											{!$Label.fhcm2__Process_Salary_Plan_Current}
+										</td>
+										<td class="subBlockData">
+											<apex:outputText value="{!table.rows[person.id].currentString}"/>
+										</td>
+	                            	</tr>
+	                        		<tr>
+										<td class="subBlockLabel">
+											{!$Label.fhcm2__Process_Salary_Plan_Suggested}
+										</td>
+										<td class="subBlockData">
+											<apex:outputText value="{!table.rows[person.id].suggestedString}"/>
+											&nbsp;or&nbsp;
+											<apex:outputText value="{!table.rows[person.id].suggestedPercentageString}"/>% increase
+										</td>
+	                            	</tr>
+	                        		<tr>
+										<td class="subBlockLabel">
+											{!$Label.fhcm2__Process_Salary_Plan_Proposed}
+										</td>
+										<td class="subBlockData" id="{!person.id}">
+											<apex:inputText value="{!salaryPlans[person.id].SalaryAmount}" styleClass="salaryAmount" onKeyUp="if (this.value==null || this.value=='') jQuery('#{!person.id} .salaryPercent').val(''); else jQuery('#{!person.id} .salaryPercent').val(String(Math.round((this.value.numberValue(decimalPlace, thousandsSeperator)-{!table.rows[person.id].current})/{!table.rows[person.id].current}*10000)/100).replaceAll('.',decimalPlace));Recalc();"/>
+											&nbsp;or&nbsp;
+											<apex:inputText value="{!salaryPlans[person.id].SalaryPercent}" styleClass="salaryPercent" style="width:50px;" onKeyUp="if (this.value==null || this.value==''|| this.value==0) jQuery('#{!person.id} .salaryAmount').val(''); else jQuery('#{!person.id} .salaryAmount').val((Math.round(((this.value.numberValue(decimalPlace, thousandsSeperator))/100+1)*{!table.rows[person.id].current}*100)/100).formatMoney(2, decimalPlace, thousandsSeperator));Recalc();"/>% increase
+										</td>
+	                            	</tr>
+	                            </table>
+	                            </td>
+	                            </tr></table>
+	                            <apex:pageBlockSection columns="1" rendered="{!salaryPlans[person.id].approved}">
+	                            	<apex:outputField value="{!salaryPlans[person.id].HRRequest.Status__c}" />
+	                            	<apex:outputField value="{!salaryPlans[person.id].HRRequest.Effective_Date__c}" />
+	                            	<apex:outputField value="{!salaryPlans[person.id].HRRequest.Rationale__c}"/>
+								</apex:pageBlockSection>
+	                            <apex:pageBlockSection columns="1" rendered="{!!salaryPlans[person.id].approved}">
+	                            	<apex:inputField value="{!salaryPlans[person.id].HRRequest.Effective_Date__c}" />
+	                            	<apex:inputField value="{!salaryPlans[person.id].HRRequest.Rationale__c}" styleClass="autoResize" />
+	                            </apex:pageBlockSection>
+	                        </c:PersonSection>
+	                </apex:repeat>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+            
+         
+            <c:Notice viewer="{!viewer}" page="SalaryPlanTeam" location="Footer"/>
+        </apex:define>
+
+        <apex:define name="footerPanel">
+        	<c:FairsailFooter viewer="{!viewer}" />
+        </apex:define>
+
+    </apex:composition>
+    </div>
+</apex:page>

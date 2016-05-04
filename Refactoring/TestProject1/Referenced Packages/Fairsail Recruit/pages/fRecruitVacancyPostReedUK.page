@@ -1,0 +1,1185 @@
+<apex:page standardController="fRecruit__Vacancy__c" extensions="fRecruit.PostReedControllerExtension">
+
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label} Post to Job Board" subTitle="{!fRecruit__Vacancy__c.Name}" help="http://recruit.help.fairsail.com/topics/PostToJobBoard.html" />
+
+	<apex:form >
+		<apex:pageBlock title="Post to Job Board" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!Post}" value="Post"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pageBlock title="Before you can post" rendered="{!hasRequirements}">
+				<ul>
+					<apex:repeat value="{!requirements}" var="requirement">
+						<li>{!requirement}</li>
+					</apex:repeat>
+				</ul>
+			</apex:pageBlock>
+
+			<apex:outputPanel >{!message}</apex:outputPanel>
+
+			<apex:pageBlockSection title="Job board login details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="User Name" for="name"/>
+					<apex:inputText id="name" value="{!userName}" required="true" size="20" maxlength="128"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Password" for="password"/>
+					<apex:inputSecret id="password" value="{!password}" required="true" size="20" maxlength="32"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Information" columns="1">
+				<apex:outputField value="{!fRecruit__Vacancy__c.Name}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Vacancy_No__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Job Board Specific Job Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Job Sector" />
+					<apex:selectList id="sector" value="{!fRecruit__Vacancy__c.fRecruit__Job_Sector__c}" size="1" required="true">
+						<apex:selectOption itemValue="2" itemLabel="Accountancy" />
+						<apex:selectOption itemValue="174" itemLabel="-- Accounts Admin" />
+						<apex:selectOption itemValue="1921" itemLabel="-- Accounts Assistant" />
+						<apex:selectOption itemValue="1756" itemLabel="-- Accounts Manager" />
+						<apex:selectOption itemValue="1559" itemLabel="-- Analyst" />
+						<apex:selectOption itemValue="4" itemLabel="-- Assistant Accountant" />
+						<apex:selectOption itemValue="1556" itemLabel="-- Auditor" />
+						<apex:selectOption itemValue="1757" itemLabel="-- Bookkeeper" />
+						<apex:selectOption itemValue="9" itemLabel="-- Credit Controller" />
+						<apex:selectOption itemValue="1558" itemLabel="-- External Auditor (Non-Qual.)" />
+						<apex:selectOption itemValue="1918" itemLabel="-- Finance Manager" />
+						<apex:selectOption itemValue="175" itemLabel="-- Graduate Trainee" />
+						<apex:selectOption itemValue="864" itemLabel="-- Insolvency" />
+						<apex:selectOption itemValue="1557" itemLabel="-- Internal Auditor (Non-Qual.)" />
+						<apex:selectOption itemValue="808" itemLabel="-- Legal Cashier" />
+						<apex:selectOption itemValue="1560" itemLabel="-- Management Accountant (Part-Qual.)" />
+						<apex:selectOption itemValue="22" itemLabel="-- Part-Qualified Acc." />
+						<apex:selectOption itemValue="23" itemLabel="-- Payroll" />
+						<apex:selectOption itemValue="176" itemLabel="-- Practice (Non-Qual.)" />
+						<apex:selectOption itemValue="1758" itemLabel="-- Project Accountant" />
+						<apex:selectOption itemValue="1919" itemLabel="-- Public Sector" />
+						<apex:selectOption itemValue="1561" itemLabel="-- Purchase Ledger Clerk" />
+						<apex:selectOption itemValue="28" itemLabel="-- Qualified by Experience" />
+						<apex:selectOption itemValue="1562" itemLabel="-- Sales Ledger Clerk" />
+						<apex:selectOption itemValue="1920" itemLabel="-- Treasury" />
+						<apex:selectOption itemValue="15" itemLabel="-- Other Accountancy" />
+						<apex:selectOption itemValue="100" itemLabel="Accountancy (Qualified)" />
+						<apex:selectOption itemValue="1667" itemLabel="-- Accountancy Practice" />
+						<apex:selectOption itemValue="841" itemLabel="-- Analyst" />
+						<apex:selectOption itemValue="1668" itemLabel="-- Banking Accounting Roles" />
+						<apex:selectOption itemValue="1759" itemLabel="-- Corporate Finance" />
+						<apex:selectOption itemValue="843" itemLabel="-- Cost Accounting" />
+						<apex:selectOption itemValue="1760" itemLabel="-- Executive Level" />
+						<apex:selectOption itemValue="1669" itemLabel="-- External Auditor" />
+						<apex:selectOption itemValue="844" itemLabel="-- Finance Director" />
+						<apex:selectOption itemValue="846" itemLabel="-- Finance Manager" />
+						<apex:selectOption itemValue="860" itemLabel="-- Financial Accountant" />
+						<apex:selectOption itemValue="845" itemLabel="-- Financial Controller" />
+						<apex:selectOption itemValue="1670" itemLabel="-- Financial Services Accounting" />
+						<apex:selectOption itemValue="847" itemLabel="-- Forensic & Fraud" />
+						<apex:selectOption itemValue="1922" itemLabel="-- Group Accountant" />
+						<apex:selectOption itemValue="1671" itemLabel="-- IAS/SOX/IFRS" />
+						<apex:selectOption itemValue="848" itemLabel="-- Interim Manager" />
+						<apex:selectOption itemValue="1672" itemLabel="-- Internal Auditor" />
+						<apex:selectOption itemValue="850" itemLabel="-- Management Accountant" />
+						<apex:selectOption itemValue="853" itemLabel="-- Project Accountant" />
+						<apex:selectOption itemValue="1673" itemLabel="-- Public Sector Finance" />
+						<apex:selectOption itemValue="854" itemLabel="-- Qualified by Experience" />
+						<apex:selectOption itemValue="1675" itemLabel="-- Risk & Compliance" />
+						<apex:selectOption itemValue="856" itemLabel="-- Systems Accountant" />
+						<apex:selectOption itemValue="857" itemLabel="-- Tax Accountant" />
+						<apex:selectOption itemValue="1676" itemLabel="-- Treasury" />
+						<apex:selectOption itemValue="859" itemLabel="-- Other Accountancy Qualified" />
+						<apex:selectOption itemValue="3" itemLabel="Admin, Secretarial & PA" />
+						<apex:selectOption itemValue="177" itemLabel="-- Administrator" />
+						<apex:selectOption itemValue="1958" itemLabel="-- Bilingual/Multilingual" />
+						<apex:selectOption itemValue="178" itemLabel="-- Data Entry" />
+						<apex:selectOption itemValue="1960" itemLabel="-- DTP/Graphics" />
+						<apex:selectOption itemValue="1959" itemLabel="-- Executive Assistant" />
+						<apex:selectOption itemValue="1761" itemLabel="-- Executive PA" />
+						<apex:selectOption itemValue="457" itemLabel="-- HR Administrator" />
+						<apex:selectOption itemValue="334" itemLabel="-- Legal Secretary" />
+						<apex:selectOption itemValue="180" itemLabel="-- Medical Secretary" />
+						<apex:selectOption itemValue="868" itemLabel="-- Office Assistant" />
+						<apex:selectOption itemValue="181" itemLabel="-- Office Manager" />
+						<apex:selectOption itemValue="14" itemLabel="-- PA" />
+						<apex:selectOption itemValue="1762" itemLabel="-- Post Room Operative" />
+						<apex:selectOption itemValue="1924" itemLabel="-- Project Support" />
+						<apex:selectOption itemValue="166" itemLabel="-- Receptionist" />
+						<apex:selectOption itemValue="1923" itemLabel="-- Sales Administrator" />
+						<apex:selectOption itemValue="32" itemLabel="-- Secretary" />
+						<apex:selectOption itemValue="1563" itemLabel="-- Team Secretary" />
+						<apex:selectOption itemValue="869" itemLabel="-- Typist" />
+						<apex:selectOption itemValue="38" itemLabel="-- Other Admin & Secretarial" />
+						<apex:selectOption itemValue="5" itemLabel="Banking" />
+						<apex:selectOption itemValue="1740" itemLabel="-- Agribusiness" />
+						<apex:selectOption itemValue="497" itemLabel="-- Analyst" />
+						<apex:selectOption itemValue="1741" itemLabel="-- Asset Finance Sales" />
+						<apex:selectOption itemValue="291" itemLabel="-- Back Office" />
+						<apex:selectOption itemValue="1764" itemLabel="-- Business Banking Sales" />
+						<apex:selectOption itemValue="1765" itemLabel="-- Client Services" />
+						<apex:selectOption itemValue="345" itemLabel="-- Compliance" />
+						<apex:selectOption itemValue="292" itemLabel="-- Corp Actions/Divs" />
+						<apex:selectOption itemValue="1742" itemLabel="-- Corporate Business Sales" />
+						<apex:selectOption itemValue="301" itemLabel="-- Credit/Risk Management" />
+						<apex:selectOption itemValue="293" itemLabel="-- Derivatives" />
+						<apex:selectOption itemValue="1743" itemLabel="-- Director/Senior Management" />
+						<apex:selectOption itemValue="294" itemLabel="-- Equity" />
+						<apex:selectOption itemValue="295" itemLabel="-- Fixed Income" />
+						<apex:selectOption itemValue="499" itemLabel="-- Front Office/Trading" />
+						<apex:selectOption itemValue="296" itemLabel="-- Fund Administration" />
+						<apex:selectOption itemValue="297" itemLabel="-- Fund Management" />
+						<apex:selectOption itemValue="298" itemLabel="-- FX/MM" />
+						<apex:selectOption itemValue="1744" itemLabel="-- High Net Worth" />
+						<apex:selectOption itemValue="1766" itemLabel="-- Loans Administration" />
+						<apex:selectOption itemValue="1750" itemLabel="-- Offshore Banking" />
+						<apex:selectOption itemValue="498" itemLabel="-- Private Banking" />
+						<apex:selectOption itemValue="300" itemLabel="-- Project Management" />
+						<apex:selectOption itemValue="1767" itemLabel="-- Reconciliations" />
+						<apex:selectOption itemValue="161" itemLabel="-- Retail Banking" />
+						<apex:selectOption itemValue="1768" itemLabel="-- Securities Lending/Collateral" />
+						<apex:selectOption itemValue="302" itemLabel="-- Settlements" />
+						<apex:selectOption itemValue="1769" itemLabel="-- Static Data" />
+						<apex:selectOption itemValue="1770" itemLabel="-- Trade Finance" />
+						<apex:selectOption itemValue="303" itemLabel="-- Trade Support" />
+						<apex:selectOption itemValue="304" itemLabel="-- Trainee" />
+						<apex:selectOption itemValue="305" itemLabel="-- Treasury/Payments" />
+						<apex:selectOption itemValue="42" itemLabel="-- Other Banking" />
+						<apex:selectOption itemValue="500" itemLabel="Charity & Voluntary" />
+						<apex:selectOption itemValue="1771" itemLabel="-- Administration/Secretarial" />
+						<apex:selectOption itemValue="1712" itemLabel="-- Advice & Counselling" />
+						<apex:selectOption itemValue="1713" itemLabel="-- Campaigning" />
+						<apex:selectOption itemValue="1772" itemLabel="-- Community Support" />
+						<apex:selectOption itemValue="1773" itemLabel="-- Events" />
+						<apex:selectOption itemValue="1714" itemLabel="-- Finance" />
+						<apex:selectOption itemValue="1715" itemLabel="-- Fundraising" />
+						<apex:selectOption itemValue="1716" itemLabel="-- International Development" />
+						<apex:selectOption itemValue="1717" itemLabel="-- Marketing & PR" />
+						<apex:selectOption itemValue="1774" itemLabel="-- Office Management" />
+						<apex:selectOption itemValue="1718" itemLabel="-- Policy & Research" />
+						<apex:selectOption itemValue="1719" itemLabel="-- Project Management" />
+						<apex:selectOption itemValue="1720" itemLabel="-- Senior Management" />
+						<apex:selectOption itemValue="1721" itemLabel="-- Other Charity & Voluntary" />
+						<apex:selectOption itemValue="146" itemLabel="Construction & Property" />
+						<apex:selectOption itemValue="803" itemLabel="-- Architecture" />
+						<apex:selectOption itemValue="1775" itemLabel="-- Bid Manager" />
+						<apex:selectOption itemValue="1687" itemLabel="-- Building Services Maintenance" />
+						<apex:selectOption itemValue="1777" itemLabel="-- Building Surveying" />
+						<apex:selectOption itemValue="1776" itemLabel="-- Business Development" />
+						<apex:selectOption itemValue="1778" itemLabel="-- Buyer" />
+						<apex:selectOption itemValue="1686" itemLabel="-- CAD Technician" />
+						<apex:selectOption itemValue="802" itemLabel="-- Commercial Manager" />
+						<apex:selectOption itemValue="1779" itemLabel="-- Contracts Manager" />
+						<apex:selectOption itemValue="1780" itemLabel="-- D&B Co-ordinator" />
+						<apex:selectOption itemValue="1781" itemLabel="-- Development Manager" />
+						<apex:selectOption itemValue="1685" itemLabel="-- Estimator" />
+						<apex:selectOption itemValue="1689" itemLabel="-- Facilities Management" />
+						<apex:selectOption itemValue="876" itemLabel="-- Foreman" />
+						<apex:selectOption itemValue="329" itemLabel="-- General Practice Surveying" />
+						<apex:selectOption itemValue="1690" itemLabel="-- Health & Safety Manager/SHEQ Advisor" />
+						<apex:selectOption itemValue="1782" itemLabel="-- Highways & Transportation" />
+						<apex:selectOption itemValue="1691" itemLabel="-- Interior Design & Space Planning" />
+						<apex:selectOption itemValue="1783" itemLabel="-- Land Management/Acquisition" />
+						<apex:selectOption itemValue="1927" itemLabel="-- Logistics Coordinator" />
+						<apex:selectOption itemValue="1692" itemLabel="-- M&E Co-ordinator" />
+						<apex:selectOption itemValue="1784" itemLabel="-- Materials Controller" />
+						<apex:selectOption itemValue="1926" itemLabel="-- Operations Manager" />
+						<apex:selectOption itemValue="325" itemLabel="-- Planner" />
+						<apex:selectOption itemValue="1785" itemLabel="-- Planning Manager" />
+						<apex:selectOption itemValue="805" itemLabel="-- Project Manager" />
+						<apex:selectOption itemValue="1786" itemLabel="-- Property Sales" />
+						<apex:selectOption itemValue="328" itemLabel="-- Quantity Surveyor/PQS" />
+						<apex:selectOption itemValue="1925" itemLabel="-- Rail" />
+						<apex:selectOption itemValue="1787" itemLabel="-- Reinstatement Manager" />
+						<apex:selectOption itemValue="1693" itemLabel="-- Site Engineer" />
+						<apex:selectOption itemValue="1688" itemLabel="-- Site Management" />
+						<apex:selectOption itemValue="1788" itemLabel="-- Technical Co-ordinator" />
+						<apex:selectOption itemValue="1695" itemLabel="-- Town Planning" />
+						<apex:selectOption itemValue="883" itemLabel="-- Trades & Labour" />
+						<apex:selectOption itemValue="1696" itemLabel="-- Utilities" />
+						<apex:selectOption itemValue="1789" itemLabel="-- Water & Environmental Consultancy" />
+						<apex:selectOption itemValue="331" itemLabel="-- Other Construction & Property" />
+						<apex:selectOption itemValue="66" itemLabel="Customer Service" />
+						<apex:selectOption itemValue="458" itemLabel="-- Account Manager" />
+						<apex:selectOption itemValue="1931" itemLabel="-- Call Centre - Inbound" />
+						<apex:selectOption itemValue="1932" itemLabel="-- Call Centre - Outbound" />
+						<apex:selectOption itemValue="190" itemLabel="-- Contact Centre Manager" />
+						<apex:selectOption itemValue="192" itemLabel="-- Customer Service Advisor" />
+						<apex:selectOption itemValue="1791" itemLabel="-- Customer Service Assistant" />
+						<apex:selectOption itemValue="193" itemLabel="-- Customer Services Manager" />
+						<apex:selectOption itemValue="1648" itemLabel="-- Helpdesk" />
+						<apex:selectOption itemValue="1933" itemLabel="-- Switchboard" />
+						<apex:selectOption itemValue="191" itemLabel="-- Team Leader" />
+						<apex:selectOption itemValue="197" itemLabel="-- Other Customer Service" />
+						<apex:selectOption itemValue="68" itemLabel="Education" />
+						<apex:selectOption itemValue="993" itemLabel="-- Adult Education" />
+						<apex:selectOption itemValue="463" itemLabel="-- Assessor/Verifier" />
+						<apex:selectOption itemValue="1792" itemLabel="-- Basic Skills" />
+						<apex:selectOption itemValue="1793" itemLabel="-- Bursar/Business Manager" />
+						<apex:selectOption itemValue="1794" itemLabel="-- Education Administration" />
+						<apex:selectOption itemValue="1935" itemLabel="-- Education Senior Management" />
+						<apex:selectOption itemValue="1795" itemLabel="-- ESOL Tutor" />
+						<apex:selectOption itemValue="153" itemLabel="-- Further Education" />
+						<apex:selectOption itemValue="1796" itemLabel="-- Head Teacher/Deputy Head Teacher" />
+						<apex:selectOption itemValue="309" itemLabel="-- Higher Education" />
+						<apex:selectOption itemValue="1934" itemLabel="-- Invigilator" />
+						<apex:selectOption itemValue="1797" itemLabel="-- Key Skills" />
+						<apex:selectOption itemValue="148" itemLabel="-- Key Stage 1" />
+						<apex:selectOption itemValue="149" itemLabel="-- Key Stage 2" />
+						<apex:selectOption itemValue="150" itemLabel="-- Key Stage 3 & 4" />
+						<apex:selectOption itemValue="1798" itemLabel="-- Key Stage 5" />
+						<apex:selectOption itemValue="1799" itemLabel="-- Lecturer" />
+						<apex:selectOption itemValue="885" itemLabel="-- Nursery" />
+						<apex:selectOption itemValue="157" itemLabel="-- Primary School" />
+						<apex:selectOption itemValue="152" itemLabel="-- Secondary School" />
+						<apex:selectOption itemValue="310" itemLabel="-- Special Needs" />
+						<apex:selectOption itemValue="886" itemLabel="-- Supply Teacher" />
+						<apex:selectOption itemValue="311" itemLabel="-- Teaching Assistants/ Learning Support Assistants" />
+						<apex:selectOption itemValue="160" itemLabel="-- Other Education" />
+						<apex:selectOption itemValue="12" itemLabel="Engineering" />
+						<apex:selectOption itemValue="198" itemLabel="-- Aeronautical" />
+						<apex:selectOption itemValue="1800" itemLabel="-- Applications" />
+						<apex:selectOption itemValue="1801" itemLabel="-- ARM" />
+						<apex:selectOption itemValue="318" itemLabel="-- Automotive" />
+						<apex:selectOption itemValue="1802" itemLabel="-- Aviation" />
+						<apex:selectOption itemValue="199" itemLabel="-- Chemical/Process" />
+						<apex:selectOption itemValue="200" itemLabel="-- Civil" />
+						<apex:selectOption itemValue="1803" itemLabel="-- CNC Programming" />
+						<apex:selectOption itemValue="1804" itemLabel="-- Composite" />
+						<apex:selectOption itemValue="1805" itemLabel="-- Draughts" />
+						<apex:selectOption itemValue="201" itemLabel="-- Electrical" />
+						<apex:selectOption itemValue="316" itemLabel="-- Electronic" />
+						<apex:selectOption itemValue="1806" itemLabel="-- Environmental" />
+						<apex:selectOption itemValue="202" itemLabel="-- Field" />
+						<apex:selectOption itemValue="348" itemLabel="-- Geotechnical" />
+						<apex:selectOption itemValue="1807" itemLabel="-- Health & Safety" />
+						<apex:selectOption itemValue="1808" itemLabel="-- Human Factors" />
+						<apex:selectOption itemValue="1809" itemLabel="-- Industrial" />
+						<apex:selectOption itemValue="1810" itemLabel="-- Instrumentation" />
+						<apex:selectOption itemValue="1811" itemLabel="-- Lift/Escalator Engineer" />
+						<apex:selectOption itemValue="203" itemLabel="-- Maintenance" />
+						<apex:selectOption itemValue="204" itemLabel="-- Manufacturing" />
+						<apex:selectOption itemValue="205" itemLabel="-- Marine" />
+						<apex:selectOption itemValue="206" itemLabel="-- Materials" />
+						<apex:selectOption itemValue="1812" itemLabel="-- Mathematical Modelling" />
+						<apex:selectOption itemValue="207" itemLabel="-- Mechanical" />
+						<apex:selectOption itemValue="1813" itemLabel="-- Metallurgy" />
+						<apex:selectOption itemValue="1814" itemLabel="-- Military/Defence" />
+						<apex:selectOption itemValue="1573" itemLabel="-- Nuclear" />
+						<apex:selectOption itemValue="1574" itemLabel="-- Oil/Gas" />
+						<apex:selectOption itemValue="1815" itemLabel="-- Operations Management" />
+						<apex:selectOption itemValue="1816" itemLabel="-- Power Supply/Generation" />
+						<apex:selectOption itemValue="209" itemLabel="-- Project Manager" />
+						<apex:selectOption itemValue="1817" itemLabel="-- Quality Control" />
+						<apex:selectOption itemValue="1818" itemLabel="-- Research & Development" />
+						<apex:selectOption itemValue="1819" itemLabel="-- Semiconductors" />
+						<apex:selectOption itemValue="210" itemLabel="-- Structural" />
+						<apex:selectOption itemValue="211" itemLabel="-- Systems" />
+						<apex:selectOption itemValue="1820" itemLabel="-- Technical Author" />
+						<apex:selectOption itemValue="1821" itemLabel="-- Technical Management" />
+						<apex:selectOption itemValue="1822" itemLabel="-- Technical Sales" />
+						<apex:selectOption itemValue="1823" itemLabel="-- Technical Support" />
+						<apex:selectOption itemValue="1824" itemLabel="-- Technical Training" />
+						<apex:selectOption itemValue="1825" itemLabel="-- Welding/Plating/Pipefitting" />
+						<apex:selectOption itemValue="495" itemLabel="-- Other Engineering" />
+						<apex:selectOption itemValue="117" itemLabel="Financial Services" />
+						<apex:selectOption itemValue="220" itemLabel="-- Actuarial" />
+						<apex:selectOption itemValue="1677" itemLabel="-- Bancassurance" />
+						<apex:selectOption itemValue="1826" itemLabel="-- Business Development Manager" />
+						<apex:selectOption itemValue="224" itemLabel="-- Compliance" />
+						<apex:selectOption itemValue="1678" itemLabel="-- Consultancy" />
+						<apex:selectOption itemValue="1679" itemLabel="-- Employee Benefits" />
+						<apex:selectOption itemValue="1681" itemLabel="-- General Management" />
+						<apex:selectOption itemValue="1827" itemLabel="-- Group Risk Advisor" />
+						<apex:selectOption itemValue="937" itemLabel="-- Independent Financial Advisor" />
+						<apex:selectOption itemValue="1834" itemLabel="-- Independent Financial Advisor - Trainee" />
+						<apex:selectOption itemValue="1828" itemLabel="-- Insolvency Advisor" />
+						<apex:selectOption itemValue="226" itemLabel="-- Investments" />
+						<apex:selectOption itemValue="1682" itemLabel="-- Life" />
+						<apex:selectOption itemValue="1829" itemLabel="-- Loans Advisor" />
+						<apex:selectOption itemValue="1830" itemLabel="-- Loans - Other" />
+						<apex:selectOption itemValue="1831" itemLabel="-- Loans Underwriter" />
+						<apex:selectOption itemValue="1832" itemLabel="-- Mortgage Administrator" />
+						<apex:selectOption itemValue="934" itemLabel="-- Mortgage Advisor" />
+						<apex:selectOption itemValue="935" itemLabel="-- Mortgage Underwriter" />
+						<apex:selectOption itemValue="936" itemLabel="-- Mortgages - Other" />
+						<apex:selectOption itemValue="887" itemLabel="-- Paraplanning" />
+						<apex:selectOption itemValue="230" itemLabel="-- Pensions" />
+						<apex:selectOption itemValue="938" itemLabel="-- Retail Financial Advisor" />
+						<apex:selectOption itemValue="1683" itemLabel="-- Sales & Business Development" />
+						<apex:selectOption itemValue="233" itemLabel="-- Sales Support" />
+						<apex:selectOption itemValue="1833" itemLabel="-- Stockbroker" />
+						<apex:selectOption itemValue="314" itemLabel="-- Other Financial Services" />
+						<apex:selectOption itemValue="1722" itemLabel="FMCG" />
+						<apex:selectOption itemValue="1723" itemLabel="-- Buying" />
+						<apex:selectOption itemValue="1724" itemLabel="-- Engineering" />
+						<apex:selectOption itemValue="1726" itemLabel="-- Manufacturing" />
+						<apex:selectOption itemValue="1727" itemLabel="-- Marketing" />
+						<apex:selectOption itemValue="1729" itemLabel="-- National Accounts" />
+						<apex:selectOption itemValue="1730" itemLabel="-- Operations" />
+						<apex:selectOption itemValue="1731" itemLabel="-- Production" />
+						<apex:selectOption itemValue="1733" itemLabel="-- Sales" />
+						<apex:selectOption itemValue="1734" itemLabel="-- Supply Chain" />
+						<apex:selectOption itemValue="1735" itemLabel="-- Other FMCG" />
+						<apex:selectOption itemValue="16" itemLabel="General Insurance" />
+						<apex:selectOption itemValue="888" itemLabel="-- Account Executive" />
+						<apex:selectOption itemValue="889" itemLabel="-- Account Handler" />
+						<apex:selectOption itemValue="347" itemLabel="-- Actuarial" />
+						<apex:selectOption itemValue="221" itemLabel="-- Broker" />
+						<apex:selectOption itemValue="1835" itemLabel="-- Broker Technician" />
+						<apex:selectOption itemValue="222" itemLabel="-- Claims" />
+						<apex:selectOption itemValue="223" itemLabel="-- Commercial" />
+						<apex:selectOption itemValue="1576" itemLabel="-- Compliance & Regulatory" />
+						<apex:selectOption itemValue="1577" itemLabel="-- Consultancy" />
+						<apex:selectOption itemValue="1578" itemLabel="-- Credit Risk" />
+						<apex:selectOption itemValue="1580" itemLabel="-- General Management" />
+						<apex:selectOption itemValue="1582" itemLabel="-- Healthcare" />
+						<apex:selectOption itemValue="1585" itemLabel="-- Lloyds" />
+						<apex:selectOption itemValue="228" itemLabel="-- Loss Adjusting" />
+						<apex:selectOption itemValue="231" itemLabel="-- Personal Lines" />
+						<apex:selectOption itemValue="1586" itemLabel="-- Re-Insurance" />
+						<apex:selectOption itemValue="232" itemLabel="-- Risk Management" />
+						<apex:selectOption itemValue="1587" itemLabel="-- Sales & Business Development" />
+						<apex:selectOption itemValue="1588" itemLabel="-- Sales Support" />
+						<apex:selectOption itemValue="227" itemLabel="-- Underwriting" />
+						<apex:selectOption itemValue="1836" itemLabel="-- Wordings Technician" />
+						<apex:selectOption itemValue="315" itemLabel="-- Other General Insurance" />
+						<apex:selectOption itemValue="169" itemLabel="Graduate Roles" />
+						<apex:selectOption itemValue="1736" itemLabel="-- Graduate Training Schemes" />
+						<apex:selectOption itemValue="1737" itemLabel="-- Internships & Work Experience" />
+						<apex:selectOption itemValue="1837" itemLabel="-- Research" />
+						<apex:selectOption itemValue="36" itemLabel="Health & Medicine" />
+						<apex:selectOption itemValue="1608" itemLabel="-- Associate Specialist" />
+						<apex:selectOption itemValue="1609" itemLabel="-- Audiology" />
+						<apex:selectOption itemValue="1610" itemLabel="-- Biomedical Science" />
+						<apex:selectOption itemValue="263" itemLabel="-- Carer" />
+						<apex:selectOption itemValue="481" itemLabel="-- Chiropody & Podiatry" />
+						<apex:selectOption itemValue="1611" itemLabel="-- Clinical Assistant/Fellow" />
+						<apex:selectOption itemValue="482" itemLabel="-- Clinical Psychology" />
+						<apex:selectOption itemValue="1838" itemLabel="-- Community Practice Nurse" />
+						<apex:selectOption itemValue="1839" itemLabel="-- Community Psychiatric Nurse" />
+						<apex:selectOption itemValue="1612" itemLabel="-- Consultant" />
+						<apex:selectOption itemValue="484" itemLabel="-- Dentistry" />
+						<apex:selectOption itemValue="485" itemLabel="-- Dietetics" />
+						<apex:selectOption itemValue="1614" itemLabel="-- General Healthcare Assistant" />
+						<apex:selectOption itemValue="1613" itemLabel="-- General Practice" />
+						<apex:selectOption itemValue="486" itemLabel="-- Health Education/Promotion" />
+						<apex:selectOption itemValue="1615" itemLabel="-- House Officer & Senior House Officer" />
+						<apex:selectOption itemValue="820" itemLabel="-- Hospital Porter" />
+						<apex:selectOption itemValue="1840" itemLabel="-- Mental Healthcare Assistant" />
+						<apex:selectOption itemValue="488" itemLabel="-- Midwifery" />
+						<apex:selectOption itemValue="1616" itemLabel="-- Mortuary Technician" />
+						<apex:selectOption itemValue="1841" itemLabel="-- Nuclear Medicine Technician" />
+						<apex:selectOption itemValue="1617" itemLabel="-- Nurse - Grade D" />
+						<apex:selectOption itemValue="1618" itemLabel="-- Nurse - Grade E" />
+						<apex:selectOption itemValue="1619" itemLabel="-- Nurse - Grade F" />
+						<apex:selectOption itemValue="1620" itemLabel="-- Nurse - Grade G" />
+						<apex:selectOption itemValue="1621" itemLabel="-- Nurse - Grade H" />
+						<apex:selectOption itemValue="265" itemLabel="-- Occupational Therapy" />
+						<apex:selectOption itemValue="1622" itemLabel="-- ODAs/ODPs/Theatre Nurses" />
+						<apex:selectOption itemValue="266" itemLabel="-- Optometry" />
+						<apex:selectOption itemValue="1623" itemLabel="-- Orthopaedic Technician/Plaster Technician" />
+						<apex:selectOption itemValue="1842" itemLabel="-- Personal Assistant/Personal Aid" />
+						<apex:selectOption itemValue="1843" itemLabel="-- Pharmaceutical" />
+						<apex:selectOption itemValue="267" itemLabel="-- Pharmacy Technician" />
+						<apex:selectOption itemValue="491" itemLabel="-- Phlebotomy" />
+						<apex:selectOption itemValue="268" itemLabel="-- Physiotherapy" />
+						<apex:selectOption itemValue="1844" itemLabel="-- Practice Nurse" />
+						<apex:selectOption itemValue="493" itemLabel="-- Radiography & Sonography" />
+						<apex:selectOption itemValue="1845" itemLabel="-- Registered Mental Health Nurse" />
+						<apex:selectOption itemValue="1846" itemLabel="-- Registered Nurse Band 5" />
+						<apex:selectOption itemValue="1847" itemLabel="-- Registered Nurse Band 6" />
+						<apex:selectOption itemValue="1848" itemLabel="-- Registered Nurse Band 7" />
+						<apex:selectOption itemValue="1625" itemLabel="-- Resident Medical Officer" />
+						<apex:selectOption itemValue="1849" itemLabel="-- School Nurse" />
+						<apex:selectOption itemValue="1624" itemLabel="-- Specialist Registrar" />
+						<apex:selectOption itemValue="269" itemLabel="-- Speech & Language Therapy" />
+						<apex:selectOption itemValue="1626" itemLabel="-- Staff Grade" />
+						<apex:selectOption itemValue="1850" itemLabel="-- Substance Misuse Nurse" />
+						<apex:selectOption itemValue="1627" itemLabel="-- Trust Grade" />
+						<apex:selectOption itemValue="37" itemLabel="-- Other Health & Medicine" />
+						<apex:selectOption itemValue="6" itemLabel="Hospitality & Catering" />
+						<apex:selectOption itemValue="890" itemLabel="-- Assistant Manager" />
+						<apex:selectOption itemValue="182" itemLabel="-- Bar Management" />
+						<apex:selectOption itemValue="897" itemLabel="-- Barista" />
+						<apex:selectOption itemValue="893" itemLabel="-- Chef de Partie" />
+						<apex:selectOption itemValue="896" itemLabel="-- Chef Manager" />
+						<apex:selectOption itemValue="894" itemLabel="-- Commis-Chef" />
+						<apex:selectOption itemValue="1564" itemLabel="-- Conference & Banqueting Management" />
+						<apex:selectOption itemValue="1565" itemLabel="-- Contract Catering Management" />
+						<apex:selectOption itemValue="1936" itemLabel="-- Duty Manager" />
+						<apex:selectOption itemValue="461" itemLabel="-- Events Management" />
+						<apex:selectOption itemValue="891" itemLabel="-- Head/Executive Chef" />
+						<apex:selectOption itemValue="185" itemLabel="-- Hotel Management" />
+						<apex:selectOption itemValue="186" itemLabel="-- Housekeeper" />
+						<apex:selectOption itemValue="187" itemLabel="-- Kitchen Staff" />
+						<apex:selectOption itemValue="895" itemLabel="-- Pastry Chef" />
+						<apex:selectOption itemValue="317" itemLabel="-- Receptionist" />
+						<apex:selectOption itemValue="188" itemLabel="-- Restaurant Manager" />
+						<apex:selectOption itemValue="1851" itemLabel="-- Restaurant Deputy Manager" />
+						<apex:selectOption itemValue="892" itemLabel="-- Sous-Chef" />
+						<apex:selectOption itemValue="189" itemLabel="-- Waiting & Bar Staff" />
+						<apex:selectOption itemValue="167" itemLabel="-- Other Hospitality & Catering" />
+						<apex:selectOption itemValue="24" itemLabel="Human Resources" />
+						<apex:selectOption itemValue="1600" itemLabel="-- Change Management" />
+						<apex:selectOption itemValue="1601" itemLabel="-- Compensation & Benefits" />
+						<apex:selectOption itemValue="1940" itemLabel="-- Employee Relations" />
+						<apex:selectOption itemValue="1602" itemLabel="-- Head of HR" />
+						<apex:selectOption itemValue="1938" itemLabel="-- Health & Safety" />
+						<apex:selectOption itemValue="462" itemLabel="-- HR Administrator" />
+						<apex:selectOption itemValue="212" itemLabel="-- HR Advisor" />
+						<apex:selectOption itemValue="1937" itemLabel="-- HR Analyst" />
+						<apex:selectOption itemValue="1603" itemLabel="-- HR Assistant" />
+						<apex:selectOption itemValue="1604" itemLabel="-- HR Business Partner" />
+						<apex:selectOption itemValue="213" itemLabel="-- HR Consultant" />
+						<apex:selectOption itemValue="214" itemLabel="-- HR Director" />
+						<apex:selectOption itemValue="215" itemLabel="-- HR Manager" />
+						<apex:selectOption itemValue="1910" itemLabel="-- HR Officer" />
+						<apex:selectOption itemValue="1939" itemLabel="-- Learning & Development" />
+						<apex:selectOption itemValue="453" itemLabel="-- Recruitment & Resourcing" />
+						<apex:selectOption itemValue="219" itemLabel="-- Other Human Resources" />
+						<apex:selectOption itemValue="52" itemLabel="IT & Telecoms" />
+						<apex:selectOption itemValue="307" itemLabel="-- 1st Line Support/Helpdesk" />
+						<apex:selectOption itemValue="1628" itemLabel="-- 2nd Line Support" />
+						<apex:selectOption itemValue="1629" itemLabel="-- 3rd Line Support" />
+						<apex:selectOption itemValue="56" itemLabel="-- Analyst Prog/Dev" />
+						<apex:selectOption itemValue="121" itemLabel="-- Business Analyst" />
+						<apex:selectOption itemValue="1630" itemLabel="-- Cabling Engineer" />
+						<apex:selectOption itemValue="163" itemLabel="-- Consultant" />
+						<apex:selectOption itemValue="1631" itemLabel="-- CRM" />
+						<apex:selectOption itemValue="306" itemLabel="-- Database Developer" />
+						<apex:selectOption itemValue="136" itemLabel="-- Datacoms Engineer" />
+						<apex:selectOption itemValue="53" itemLabel="-- DBA" />
+						<apex:selectOption itemValue="55" itemLabel="-- Desktop Support" />
+						<apex:selectOption itemValue="1632" itemLabel="-- ERP" />
+						<apex:selectOption itemValue="1633" itemLabel="-- Field Service Engineer" />
+						<apex:selectOption itemValue="1634" itemLabel="-- Functional Consultant" />
+						<apex:selectOption itemValue="1852" itemLabel="-- GIS Roles" />
+						<apex:selectOption itemValue="1853" itemLabel="-- Hardware Engineer" />
+						<apex:selectOption itemValue="1635" itemLabel="-- Installation/Rollout Engineer" />
+						<apex:selectOption itemValue="332" itemLabel="-- IT Sales" />
+						<apex:selectOption itemValue="1854" itemLabel="-- IT Sales ï¿½ Pre Sales Support" />
+						<apex:selectOption itemValue="1855" itemLabel="-- IT Sales ï¿½ Post Sales Support" />
+						<apex:selectOption itemValue="54" itemLabel="-- IT Trainer" />
+						<apex:selectOption itemValue="64" itemLabel="-- IT/Systems Manager" />
+						<apex:selectOption itemValue="900" itemLabel="-- Middleware & EAI" />
+						<apex:selectOption itemValue="1636" itemLabel="-- Mobile Engineer" />
+						<apex:selectOption itemValue="1637" itemLabel="-- Network Administration" />
+						<apex:selectOption itemValue="899" itemLabel="-- Network Analyst" />
+						<apex:selectOption itemValue="1638" itemLabel="-- Network Manager" />
+						<apex:selectOption itemValue="165" itemLabel="-- Network Security" />
+						<apex:selectOption itemValue="1858" itemLabel="-- Operations Analyst" />
+						<apex:selectOption itemValue="1639" itemLabel="-- Programme Manager" />
+						<apex:selectOption itemValue="119" itemLabel="-- Project Manager" />
+						<apex:selectOption itemValue="1640" itemLabel="-- Project Office Support" />
+						<apex:selectOption itemValue="122" itemLabel="-- Quality Assurance" />
+						<apex:selectOption itemValue="1856" itemLabel="-- Service Delivery Roles" />
+						<apex:selectOption itemValue="1857" itemLabel="-- Service Desk Roles" />
+						<apex:selectOption itemValue="58" itemLabel="-- Software Developer" />
+						<apex:selectOption itemValue="138" itemLabel="-- Software Engineer" />
+						<apex:selectOption itemValue="60" itemLabel="-- Software Testing" />
+						<apex:selectOption itemValue="1642" itemLabel="-- Systems Admin" />
+						<apex:selectOption itemValue="1643" itemLabel="-- Systems Testing" />
+						<apex:selectOption itemValue="59" itemLabel="-- Systems/Network Admin" />
+						<apex:selectOption itemValue="1644" itemLabel="-- Systems/Support Analyst" />
+						<apex:selectOption itemValue="1859" itemLabel="-- Technical Architect" />
+						<apex:selectOption itemValue="123" itemLabel="-- Technical Author" />
+						<apex:selectOption itemValue="1645" itemLabel="-- Telecoms Consultant" />
+						<apex:selectOption itemValue="137" itemLabel="-- Telecoms Engineer" />
+						<apex:selectOption itemValue="1646" itemLabel="-- Test Manager" />
+						<apex:selectOption itemValue="1860" itemLabel="-- Tester/Test Analyst" />
+						<apex:selectOption itemValue="1647" itemLabel="-- UAT" />
+						<apex:selectOption itemValue="901" itemLabel="-- Web Design" />
+						<apex:selectOption itemValue="902" itemLabel="-- Web Developer" />
+						<apex:selectOption itemValue="65" itemLabel="-- Other IT & Telecoms" />
+						<apex:selectOption itemValue="101" itemLabel="Legal" />
+						<apex:selectOption itemValue="1861" itemLabel="-- Barrister" />
+						<apex:selectOption itemValue="1862" itemLabel="-- Barrister Clerk" />
+						<apex:selectOption itemValue="1863" itemLabel="-- Billing Co-ordinator" />
+						<apex:selectOption itemValue="386" itemLabel="-- Company Secretary" />
+						<apex:selectOption itemValue="903" itemLabel="-- Conveyancing" />
+						<apex:selectOption itemValue="1864" itemLabel="-- General Legal Support" />
+						<apex:selectOption itemValue="343" itemLabel="-- In House" />
+						<apex:selectOption itemValue="387" itemLabel="-- Law Graduate" />
+						<apex:selectOption itemValue="388" itemLabel="-- Legal Cashier" />
+						<apex:selectOption itemValue="235" itemLabel="-- Legal Executive" />
+						<apex:selectOption itemValue="335" itemLabel="-- Legal Secretary" />
+						<apex:selectOption itemValue="236" itemLabel="-- Paralegal" />
+						<apex:selectOption itemValue="389" itemLabel="-- Partner" />
+						<apex:selectOption itemValue="390" itemLabel="-- Partnership Secretary" />
+						<apex:selectOption itemValue="1865" itemLabel="-- Patent/Trademark" />
+						<apex:selectOption itemValue="1866" itemLabel="-- Practice Manager" />
+						<apex:selectOption itemValue="342" itemLabel="-- Private Practice" />
+						<apex:selectOption itemValue="1941" itemLabel="-- Probate" />
+						<apex:selectOption itemValue="238" itemLabel="-- Solicitor/Lawyer" />
+						<apex:selectOption itemValue="1867" itemLabel="-- Team Manager" />
+						<apex:selectOption itemValue="240" itemLabel="-- Other Legal" />
+						<apex:selectOption itemValue="92" itemLabel="Leisure & Tourism" />
+						<apex:selectOption itemValue="904" itemLabel="-- Airline" />
+						<apex:selectOption itemValue="905" itemLabel="-- Beauty & Spa" />
+						<apex:selectOption itemValue="906" itemLabel="-- Business Travel" />
+						<apex:selectOption itemValue="907" itemLabel="-- Health & Fitness" />
+						<apex:selectOption itemValue="909" itemLabel="-- Reservations" />
+						<apex:selectOption itemValue="910" itemLabel="-- Sports Coaching" />
+						<apex:selectOption itemValue="911" itemLabel="-- Travel Agent & Consultant" />
+						<apex:selectOption itemValue="908" itemLabel="-- Other Leisure & Tourism" />
+						<apex:selectOption itemValue="168" itemLabel="Manufacturing" />
+						<apex:selectOption itemValue="1868" itemLabel="-- Factory/Floor Manager" />
+						<apex:selectOption itemValue="465" itemLabel="-- Health and Safety" />
+						<apex:selectOption itemValue="1869" itemLabel="-- Maintenance Manager" />
+						<apex:selectOption itemValue="1870" itemLabel="-- Operations Manager" />
+						<apex:selectOption itemValue="466" itemLabel="-- Other Manager" />
+						<apex:selectOption itemValue="1871" itemLabel="-- Production Manager" />
+						<apex:selectOption itemValue="1872" itemLabel="-- Production Planning Manager" />
+						<apex:selectOption itemValue="467" itemLabel="-- Purchasing" />
+						<apex:selectOption itemValue="468" itemLabel="-- Quality Control" />
+						<apex:selectOption itemValue="469" itemLabel="-- Semi-skilled Operator" />
+						<apex:selectOption itemValue="470" itemLabel="-- Skilled Operator" />
+						<apex:selectOption itemValue="471" itemLabel="-- Supervisor" />
+						<apex:selectOption itemValue="1873" itemLabel="-- Waste Management" />
+						<apex:selectOption itemValue="1874" itemLabel="-- Workshop Manager" />
+						<apex:selectOption itemValue="996" itemLabel="-- Other Manufacturing" />
+						<apex:selectOption itemValue="18" itemLabel="Marketing & PR" />
+						<apex:selectOption itemValue="1875" itemLabel="-- Account Manager" />
+						<apex:selectOption itemValue="1589" itemLabel="-- Advertising/Sponsorship" />
+						<apex:selectOption itemValue="1590" itemLabel="-- Brand Management" />
+						<apex:selectOption itemValue="1944" itemLabel="-- Campaign Manager" />
+						<apex:selectOption itemValue="1942" itemLabel="-- Digital Marketing" />
+						<apex:selectOption itemValue="1591" itemLabel="-- Direct Marketing Executive" />
+						<apex:selectOption itemValue="1592" itemLabel="-- Direct Marketing Manager" />
+						<apex:selectOption itemValue="1945" itemLabel="-- Events Assistant" />
+						<apex:selectOption itemValue="382" itemLabel="-- Events Management" />
+						<apex:selectOption itemValue="1594" itemLabel="-- Internal Communications" />
+						<apex:selectOption itemValue="1876" itemLabel="-- Market Research - Analyst" />
+						<apex:selectOption itemValue="244" itemLabel="-- Market Research - Executive" />
+						<apex:selectOption itemValue="1877" itemLabel="-- Market Research - Manager" />
+						<apex:selectOption itemValue="1943" itemLabel="-- Marketing Analytics" />
+						<apex:selectOption itemValue="245" itemLabel="-- Marketing Assistant" />
+						<apex:selectOption itemValue="246" itemLabel="-- Marketing Director" />
+						<apex:selectOption itemValue="994" itemLabel="-- Marketing Executive" />
+						<apex:selectOption itemValue="247" itemLabel="-- Marketing Manager" />
+						<apex:selectOption itemValue="1595" itemLabel="-- Online Marketing Executive" />
+						<apex:selectOption itemValue="1596" itemLabel="-- Online Marketing Manager" />
+						<apex:selectOption itemValue="1597" itemLabel="-- PR Executive" />
+						<apex:selectOption itemValue="1598" itemLabel="-- PR Manager" />
+						<apex:selectOption itemValue="1599" itemLabel="-- Product Management" />
+						<apex:selectOption itemValue="173" itemLabel="-- Other Marketing & PR" />
+						<apex:selectOption itemValue="71" itemLabel="Media, Digital & Creative" />
+						<apex:selectOption itemValue="1649" itemLabel="-- Account Director" />
+						<apex:selectOption itemValue="1650" itemLabel="-- Account Executive" />
+						<apex:selectOption itemValue="1651" itemLabel="-- Account Manager" />
+						<apex:selectOption itemValue="1878" itemLabel="-- Animation" />
+						<apex:selectOption itemValue="940" itemLabel="-- Arts & Entertainment" />
+						<apex:selectOption itemValue="1652" itemLabel="-- Artworker" />
+						<apex:selectOption itemValue="1653" itemLabel="-- CAD Design" />
+						<apex:selectOption itemValue="1654" itemLabel="-- Copywriter" />
+						<apex:selectOption itemValue="1655" itemLabel="-- Creative Director" />
+						<apex:selectOption itemValue="1656" itemLabel="-- DTP Operator" />
+						<apex:selectOption itemValue="1657" itemLabel="-- Editorial" />
+						<apex:selectOption itemValue="1879" itemLabel="-- Events Design" />
+						<apex:selectOption itemValue="942" itemLabel="-- Fashion Design" />
+						<apex:selectOption itemValue="1658" itemLabel="-- Games" />
+						<apex:selectOption itemValue="944" itemLabel="-- Graphic Design" />
+						<apex:selectOption itemValue="945" itemLabel="-- Interior Design" />
+						<apex:selectOption itemValue="1659" itemLabel="-- Journalism" />
+						<apex:selectOption itemValue="1660" itemLabel="-- Media Sales" />
+						<apex:selectOption itemValue="1880" itemLabel="-- Music Industry" />
+						<apex:selectOption itemValue="946" itemLabel="-- New Media" />
+						<apex:selectOption itemValue="1881" itemLabel="-- Photography" />
+						<apex:selectOption itemValue="1661" itemLabel="-- Planner/Buyer" />
+						<apex:selectOption itemValue="1662" itemLabel="-- Print Room" />
+						<apex:selectOption itemValue="1882" itemLabel="-- Product Design" />
+						<apex:selectOption itemValue="1663" itemLabel="-- Project Manager" />
+						<apex:selectOption itemValue="949" itemLabel="-- Publishing" />
+						<apex:selectOption itemValue="950" itemLabel="-- Radio" />
+						<apex:selectOption itemValue="1664" itemLabel="-- Researcher" />
+						<apex:selectOption itemValue="1946" itemLabel="-- Search - SEO & PPC" />
+						<apex:selectOption itemValue="951" itemLabel="-- Television" />
+						<apex:selectOption itemValue="1665" itemLabel="-- Traffic Manager" />
+						<apex:selectOption itemValue="1666" itemLabel="-- Web Design" />
+						<apex:selectOption itemValue="947" itemLabel="-- Other Media & Creative" />
+						<apex:selectOption itemValue="1700" itemLabel="Motoring & Automotive" />
+						<apex:selectOption itemValue="1701" itemLabel="-- Aftersales" />
+						<apex:selectOption itemValue="1702" itemLabel="-- Body Repair & Fit" />
+						<apex:selectOption itemValue="1703" itemLabel="-- Design & Development" />
+						<apex:selectOption itemValue="1947" itemLabel="-- Driver" />
+						<apex:selectOption itemValue="1704" itemLabel="-- Finance & Leasing" />
+						<apex:selectOption itemValue="1705" itemLabel="-- Fleet Operations" />
+						<apex:selectOption itemValue="1763" itemLabel="-- Motorsport" />
+						<apex:selectOption itemValue="1706" itemLabel="-- Parts Advisor" />
+						<apex:selectOption itemValue="1707" itemLabel="-- Quality & Testing" />
+						<apex:selectOption itemValue="1708" itemLabel="-- Service Receptionist" />
+						<apex:selectOption itemValue="1948" itemLabel="-- Vehicle Movement" />
+						<apex:selectOption itemValue="1709" itemLabel="-- Vehicle Sales" />
+						<apex:selectOption itemValue="1710" itemLabel="-- Vehicle Technician" />
+						<apex:selectOption itemValue="1711" itemLabel="-- Other Motoring & Automotive" />
+						<apex:selectOption itemValue="501" itemLabel="Public Sector" />
+						<apex:selectOption itemValue="1697" itemLabel="-- Basic Check Cleared Roles" />
+						<apex:selectOption itemValue="509" itemLabel="-- Central Government" />
+						<apex:selectOption itemValue="1698" itemLabel="-- Counter Terrorist Cleared Roles" />
+						<apex:selectOption itemValue="980" itemLabel="-- Development" />
+						<apex:selectOption itemValue="981" itemLabel="-- Environmental" />
+						<apex:selectOption itemValue="982" itemLabel="-- Housing" />
+						<apex:selectOption itemValue="983" itemLabel="-- Law Enforcement" />
+						<apex:selectOption itemValue="984" itemLabel="-- Libraries" />
+						<apex:selectOption itemValue="508" itemLabel="-- Local Government" />
+						<apex:selectOption itemValue="985" itemLabel="-- Museums & Galleries" />
+						<apex:selectOption itemValue="986" itemLabel="-- Planning" />
+						<apex:selectOption itemValue="987" itemLabel="-- Policy" />
+						<apex:selectOption itemValue="1699" itemLabel="-- Political Researcher" />
+						<apex:selectOption itemValue="827" itemLabel="-- Probation/Prison Service" />
+						<apex:selectOption itemValue="989" itemLabel="-- Procurement" />
+						<apex:selectOption itemValue="990" itemLabel="-- Project Management" />
+						<apex:selectOption itemValue="992" itemLabel="-- Regeneration" />
+						<apex:selectOption itemValue="1883" itemLabel="-- Trading Standards" />
+						<apex:selectOption itemValue="995" itemLabel="-- Other Public Sector" />
+						<apex:selectOption itemValue="27" itemLabel="Purchasing" />
+						<apex:selectOption itemValue="1606" itemLabel="-- Assistant Buyer" />
+						<apex:selectOption itemValue="913" itemLabel="-- Buyer" />
+						<apex:selectOption itemValue="914" itemLabel="-- Contract Manager" />
+						<apex:selectOption itemValue="1607" itemLabel="-- Head of Procurement" />
+						<apex:selectOption itemValue="916" itemLabel="-- Procurement Manager" />
+						<apex:selectOption itemValue="917" itemLabel="-- Purchasing Manager" />
+						<apex:selectOption itemValue="918" itemLabel="-- Purchasing Support" />
+						<apex:selectOption itemValue="919" itemLabel="-- Senior Buyer" />
+						<apex:selectOption itemValue="920" itemLabel="-- Stock Control" />
+						<apex:selectOption itemValue="915" itemLabel="-- Other Purchasing" />
+						<apex:selectOption itemValue="338" itemLabel="Recruitment Consultancy" />
+						<apex:selectOption itemValue="427" itemLabel="-- Account Manager" />
+						<apex:selectOption itemValue="428" itemLabel="-- BD Executive/Manager" />
+						<apex:selectOption itemValue="429" itemLabel="-- Branch/Recruitment Manager" />
+						<apex:selectOption itemValue="430" itemLabel="-- Director" />
+						<apex:selectOption itemValue="431" itemLabel="-- Divisional/Regional Manager" />
+						<apex:selectOption itemValue="1949" itemLabel="-- Internal Recruiter" />
+						<apex:selectOption itemValue="433" itemLabel="-- On-site Consultant" />
+						<apex:selectOption itemValue="434" itemLabel="-- Recruitment Consultant" />
+						<apex:selectOption itemValue="435" itemLabel="-- Researcher/Resourcer" />
+						<apex:selectOption itemValue="437" itemLabel="-- Search & Selection Consultant" />
+						<apex:selectOption itemValue="436" itemLabel="-- Senior Recruitment Consultant" />
+						<apex:selectOption itemValue="438" itemLabel="-- Team Leader Other" />
+						<apex:selectOption itemValue="1884" itemLabel="-- Team Leader Permanents" />
+						<apex:selectOption itemValue="1885" itemLabel="-- Team Leader Temporaries" />
+						<apex:selectOption itemValue="432" itemLabel="-- Trainee Consultant" />
+						<apex:selectOption itemValue="439" itemLabel="-- Other Recruitment Consultancy" />
+						<apex:selectOption itemValue="90" itemLabel="Retail" />
+						<apex:selectOption itemValue="250" itemLabel="-- Area Manager" />
+						<apex:selectOption itemValue="352" itemLabel="-- Assistant Manager" />
+						<apex:selectOption itemValue="254" itemLabel="-- Buying" />
+						<apex:selectOption itemValue="1886" itemLabel="-- Fashion" />
+						<apex:selectOption itemValue="252" itemLabel="-- Floor Manager" />
+						<apex:selectOption itemValue="1887" itemLabel="-- In-Store Promotions" />
+						<apex:selectOption itemValue="253" itemLabel="-- Merchandiser" />
+						<apex:selectOption itemValue="251" itemLabel="-- Sales Assistant" />
+						<apex:selectOption itemValue="255" itemLabel="-- Store Manager" />
+						<apex:selectOption itemValue="256" itemLabel="-- Store Staff" />
+						<apex:selectOption itemValue="473" itemLabel="-- Team Leader" />
+						<apex:selectOption itemValue="257" itemLabel="-- Other Retail" />
+						<apex:selectOption itemValue="30" itemLabel="Sales" />
+						<apex:selectOption itemValue="258" itemLabel="-- Account Manager" />
+						<apex:selectOption itemValue="922" itemLabel="-- Business Development" />
+						<apex:selectOption itemValue="1950" itemLabel="-- Direct Sales" />
+						<apex:selectOption itemValue="801" itemLabel="-- Estate Agent" />
+						<apex:selectOption itemValue="921" itemLabel="-- Field Sales" />
+						<apex:selectOption itemValue="1889" itemLabel="-- Healthcare" />
+						<apex:selectOption itemValue="346" itemLabel="-- Home Working" />
+						<apex:selectOption itemValue="333" itemLabel="-- IT Sales" />
+						<apex:selectOption itemValue="337" itemLabel="-- Media Sales" />
+						<apex:selectOption itemValue="381" itemLabel="-- Medical Sales" />
+						<apex:selectOption itemValue="1888" itemLabel="-- Pharmaceutical" />
+						<apex:selectOption itemValue="259" itemLabel="-- Sales Director" />
+						<apex:selectOption itemValue="260" itemLabel="-- Sales Executive" />
+						<apex:selectOption itemValue="261" itemLabel="-- Sales Manager" />
+						<apex:selectOption itemValue="1951" itemLabel="-- Sales Manager - Regional" />
+						<apex:selectOption itemValue="1952" itemLabel="-- Sales Manager - National" />
+						<apex:selectOption itemValue="933" itemLabel="-- Telesales" />
+						<apex:selectOption itemValue="932" itemLabel="-- Telesales - Inbound Only" />
+						<apex:selectOption itemValue="31" itemLabel="-- Other Sales" />
+						<apex:selectOption itemValue="89" itemLabel="Scientific" />
+						<apex:selectOption itemValue="1892" itemLabel="-- Analyst" />
+						<apex:selectOption itemValue="970" itemLabel="-- Analytical Chemistry" />
+						<apex:selectOption itemValue="971" itemLabel="-- Bioanalysis" />
+						<apex:selectOption itemValue="363" itemLabel="-- Bioinformatics" />
+						<apex:selectOption itemValue="270" itemLabel="-- Biotechnology" />
+						<apex:selectOption itemValue="973" itemLabel="-- Chemical Engineering" />
+						<apex:selectOption itemValue="272" itemLabel="-- Chemistry" />
+						<apex:selectOption itemValue="972" itemLabel="-- Clinical Data Management" />
+						<apex:selectOption itemValue="1890" itemLabel="-- Clinical Research/Trials" />
+						<apex:selectOption itemValue="356" itemLabel="-- Environmental Science" />
+						<apex:selectOption itemValue="977" itemLabel="-- Food Science" />
+						<apex:selectOption itemValue="357" itemLabel="-- Forensic Science" />
+						<apex:selectOption itemValue="975" itemLabel="-- Formulation" />
+						<apex:selectOption itemValue="1891" itemLabel="-- Geoscience" />
+						<apex:selectOption itemValue="976" itemLabel="-- Inorganic Chemistry" />
+						<apex:selectOption itemValue="273" itemLabel="-- Laboratory Technician" />
+						<apex:selectOption itemValue="979" itemLabel="-- Life Science" />
+						<apex:selectOption itemValue="978" itemLabel="-- Materials Science" />
+						<apex:selectOption itemValue="965" itemLabel="-- Medical Devices" />
+						<apex:selectOption itemValue="368" itemLabel="-- Medical Information/Writing" />
+						<apex:selectOption itemValue="369" itemLabel="-- Microbiology" />
+						<apex:selectOption itemValue="366" itemLabel="-- Organic Chemistry" />
+						<apex:selectOption itemValue="1953" itemLabel="-- Patent Specialists" />
+						<apex:selectOption itemValue="1954" itemLabel="-- Personal Care" />
+						<apex:selectOption itemValue="274" itemLabel="-- Physics" />
+						<apex:selectOption itemValue="966" itemLabel="-- Polymer Chemistry" />
+						<apex:selectOption itemValue="374" itemLabel="-- Process Chemistry" />
+						<apex:selectOption itemValue="375" itemLabel="-- Quality Assurance" />
+						<apex:selectOption itemValue="360" itemLabel="-- Quality Control" />
+						<apex:selectOption itemValue="376" itemLabel="-- Regulatory Affairs" />
+						<apex:selectOption itemValue="275" itemLabel="-- Researcher" />
+						<apex:selectOption itemValue="361" itemLabel="-- Sales" />
+						<apex:selectOption itemValue="967" itemLabel="-- SAS Programming" />
+						<apex:selectOption itemValue="968" itemLabel="-- Statistics" />
+						<apex:selectOption itemValue="969" itemLabel="-- Validation" />
+						<apex:selectOption itemValue="276" itemLabel="-- Other Scientific" />
+						<apex:selectOption itemValue="34" itemLabel="Social Care" />
+						<apex:selectOption itemValue="474" itemLabel="-- Advice Worker" />
+						<apex:selectOption itemValue="1893" itemLabel="-- Approved Social Worker" />
+						<apex:selectOption itemValue="312" itemLabel="-- Care Assistant" />
+						<apex:selectOption itemValue="277" itemLabel="-- Care Manager" />
+						<apex:selectOption itemValue="475" itemLabel="-- Case Worker" />
+						<apex:selectOption itemValue="320" itemLabel="-- Child Care/Nanny" />
+						<apex:selectOption itemValue="1955" itemLabel="-- Home Carer" />
+						<apex:selectOption itemValue="1894" itemLabel="-- Learning Mentors" />
+						<apex:selectOption itemValue="279" itemLabel="-- Project Worker" />
+						<apex:selectOption itemValue="280" itemLabel="-- Qualified Social Worker" />
+						<apex:selectOption itemValue="1895" itemLabel="-- Registered Manager" />
+						<apex:selectOption itemValue="1896" itemLabel="-- Residential Child Care" />
+						<apex:selectOption itemValue="281" itemLabel="-- Residential Support" />
+						<apex:selectOption itemValue="282" itemLabel="-- Social Care Assessment" />
+						<apex:selectOption itemValue="283" itemLabel="-- Support Worker" />
+						<apex:selectOption itemValue="477" itemLabel="-- Youth Worker" />
+						<apex:selectOption itemValue="39" itemLabel="-- Other Social Care" />
+						<apex:selectOption itemValue="1755" itemLabel="Strategy & Consultancy" />
+						<apex:selectOption itemValue="1897" itemLabel="-- Business Analyst" />
+						<apex:selectOption itemValue="1898" itemLabel="-- Change Management" />
+						<apex:selectOption itemValue="1899" itemLabel="-- Economist" />
+						<apex:selectOption itemValue="1900" itemLabel="-- Financial Analyst" />
+						<apex:selectOption itemValue="1901" itemLabel="-- Management Consultant" />
+						<apex:selectOption itemValue="1902" itemLabel="-- Project Management" />
+						<apex:selectOption itemValue="1903" itemLabel="-- Programme Management" />
+						<apex:selectOption itemValue="1904" itemLabel="-- Statistician" />
+						<apex:selectOption itemValue="1905" itemLabel="-- Strategy Consultant" />
+						<apex:selectOption itemValue="1906" itemLabel="-- Technical Project Manager" />
+						<apex:selectOption itemValue="1907" itemLabel="-- Other Strategy & Consultancy" />
+						<apex:selectOption itemValue="1909" itemLabel="Training" />
+						<apex:selectOption itemValue="1956" itemLabel="-- Design Author" />
+						<apex:selectOption itemValue="1957" itemLabel="-- Director" />
+						<apex:selectOption itemValue="1912" itemLabel="-- Finance Trainer" />
+						<apex:selectOption itemValue="1913" itemLabel="-- Freelance Trainer" />
+						<apex:selectOption itemValue="1605" itemLabel="-- Learning & Development" />
+						<apex:selectOption itemValue="1914" itemLabel="-- Product Trainer" />
+						<apex:selectOption itemValue="1915" itemLabel="-- Sales Trainer" />
+						<apex:selectOption itemValue="1916" itemLabel="-- Training Assistant" />
+						<apex:selectOption itemValue="496" itemLabel="-- Training Manager" />
+						<apex:selectOption itemValue="218" itemLabel="-- Other Training" />
+						<apex:selectOption itemValue="11" itemLabel="Transport & Logistics" />
+						<apex:selectOption itemValue="286" itemLabel="-- Airline" />
+						<apex:selectOption itemValue="1908" itemLabel="-- Courier" />
+						<apex:selectOption itemValue="287" itemLabel="-- Driving" />
+						<apex:selectOption itemValue="1566" itemLabel="-- Export Clerk" />
+						<apex:selectOption itemValue="1567" itemLabel="-- Import Clerk" />
+						<apex:selectOption itemValue="1568" itemLabel="-- Import Co-Ordinator" />
+						<apex:selectOption itemValue="927" itemLabel="-- Loader/Shifter" />
+						<apex:selectOption itemValue="288" itemLabel="-- Logistics" />
+						<apex:selectOption itemValue="928" itemLabel="-- Picker/Packer" />
+						<apex:selectOption itemValue="826" itemLabel="-- Postal Worker" />
+						<apex:selectOption itemValue="289" itemLabel="-- Rail" />
+						<apex:selectOption itemValue="107" itemLabel="-- Shipping" />
+						<apex:selectOption itemValue="1569" itemLabel="-- Stock Control" />
+						<apex:selectOption itemValue="925" itemLabel="-- Supply Chain" />
+						<apex:selectOption itemValue="924" itemLabel="-- Team Leader" />
+						<apex:selectOption itemValue="923" itemLabel="-- Transport Planner" />
+						<apex:selectOption itemValue="1570" itemLabel="-- Warehouse Manager" />
+						<apex:selectOption itemValue="926" itemLabel="-- Warehouse Operative" />
+						<apex:selectOption itemValue="931" itemLabel="-- Warehouse Supervisor" />
+						<apex:selectOption itemValue="290" itemLabel="-- Other Transport & Logistics" />
+						<apex:selectOption itemValue="21" itemLabel="Other" />
+						<apex:selectOption itemValue="809" itemLabel="-- Agriculture" />
+						<apex:selectOption itemValue="810" itemLabel="-- Archivist/Curator" />
+						<apex:selectOption itemValue="811" itemLabel="-- Cleaner" />
+						<apex:selectOption itemValue="812" itemLabel="-- Clergy" />
+						<apex:selectOption itemValue="813" itemLabel="-- Conservation/Environment" />
+						<apex:selectOption itemValue="817" itemLabel="-- Gardener" />
+						<apex:selectOption itemValue="819" itemLabel="-- Home Working" />
+						<apex:selectOption itemValue="821" itemLabel="-- Housekeeper/Caretaker" />
+						<apex:selectOption itemValue="824" itemLabel="-- Pest Control" />
+						<apex:selectOption itemValue="830" itemLabel="-- Quality Assurance" />
+						<apex:selectOption itemValue="831" itemLabel="-- Security" />
+						<apex:selectOption itemValue="912" itemLabel="-- Textiles" />
+						<apex:selectOption itemValue="834" itemLabel="-- Translator/Interpreter" />
+						<apex:selectOption itemValue="835" itemLabel="-- Undertaker" />
+						<apex:selectOption itemValue="836" itemLabel="-- Uniformed Services" />
+						<apex:selectOption itemValue="837" itemLabel="-- Veterinary Services/Animal Care" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_City__c}" required="true"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Region/Country" />
+					<apex:selectList id="region" value="{!fRecruit__Vacancy__c.fRecruit__Region__c}" size="1" required="true">
+						<apex:selectOption itemValue="70" itemLabel="United Kingdom" />
+						<apex:selectOption itemValue="1" itemLabel="- England" />
+						<apex:selectOption itemValue="131" itemLabel="--- East Anglia" />
+						<apex:selectOption itemValue="17" itemLabel="------ Cambridgeshire" />
+						<apex:selectOption itemValue="43" itemLabel="------ Norfolk" />
+						<apex:selectOption itemValue="60" itemLabel="------ Suffolk" />
+						<apex:selectOption itemValue="169" itemLabel="--- East Midlands" />
+						<apex:selectOption itemValue="22" itemLabel="------ Derbyshire" />
+						<apex:selectOption itemValue="36" itemLabel="------ Leicestershire" />
+						<apex:selectOption itemValue="37" itemLabel="------ Lincolnshire" />
+						<apex:selectOption itemValue="47" itemLabel="------ Northamptonshire" />
+						<apex:selectOption itemValue="50" itemLabel="------ Nottinghamshire" />
+						<apex:selectOption itemValue="148" itemLabel="--- North East England" />
+						<apex:selectOption itemValue="10354" itemLabel="------ Cleveland" />
+						<apex:selectOption itemValue="10390" itemLabel="------ County Durham" />
+						<apex:selectOption itemValue="49" itemLabel="------ Northumberland" />
+						<apex:selectOption itemValue="63" itemLabel="------ Tyne And Wear" />
+						<apex:selectOption itemValue="150" itemLabel="--- North West England" />
+						<apex:selectOption itemValue="19" itemLabel="------ Cheshire" />
+						<apex:selectOption itemValue="21" itemLabel="------ Cumbria" />
+						<apex:selectOption itemValue="171" itemLabel="------ Isle of Man" />
+						<apex:selectOption itemValue="35" itemLabel="------ Lancashire" />
+						<apex:selectOption itemValue="40" itemLabel="------ Merseyside" />
+						<apex:selectOption itemValue="154" itemLabel="--- South East England" />
+						<apex:selectOption itemValue="13" itemLabel="------ Bedfordshire" />
+						<apex:selectOption itemValue="14" itemLabel="------ Berkshire" />
+						<apex:selectOption itemValue="16" itemLabel="------ Buckinghamshire" />
+						<apex:selectOption itemValue="27" itemLabel="------ East Sussex" />
+						<apex:selectOption itemValue="29" itemLabel="------ Essex" />
+						<apex:selectOption itemValue="31" itemLabel="------ Hampshire" />
+						<apex:selectOption itemValue="33" itemLabel="------ Hertfordshire" />
+						<apex:selectOption itemValue="200" itemLabel="------ Isle Of Wight" />
+						<apex:selectOption itemValue="34" itemLabel="------ Kent" />
+						<apex:selectOption itemValue="38" itemLabel="------ London" />
+						<apex:selectOption itemValue="41" itemLabel="------ Middlesex" />
+						<apex:selectOption itemValue="51" itemLabel="------ Oxfordshire" />
+						<apex:selectOption itemValue="61" itemLabel="------ Surrey" />
+						<apex:selectOption itemValue="65" itemLabel="------ West Sussex" />
+						<apex:selectOption itemValue="156" itemLabel="--- South West England" />
+						<apex:selectOption itemValue="266" itemLabel="------ Avon" />
+						<apex:selectOption itemValue="20" itemLabel="------ Cornwall" />
+						<apex:selectOption itemValue="23" itemLabel="------ Devon" />
+						<apex:selectOption itemValue="24" itemLabel="------ Dorset" />
+						<apex:selectOption itemValue="30" itemLabel="------ Gloucestershire" />
+						<apex:selectOption itemValue="54" itemLabel="------ Somerset" />
+						<apex:selectOption itemValue="67" itemLabel="------ Wiltshire" />
+						<apex:selectOption itemValue="168" itemLabel="--- Yorkshire and Humberside" />
+						<apex:selectOption itemValue="11070" itemLabel="------ North Humberside" />
+						<apex:selectOption itemValue="46" itemLabel="------ North Yorkshire" />
+						<apex:selectOption itemValue="11301" itemLabel="------ South Humberside" />
+						<apex:selectOption itemValue="58" itemLabel="------ South Yorkshire" />
+						<apex:selectOption itemValue="66" itemLabel="------ West Yorkshire" />
+						<apex:selectOption itemValue="64" itemLabel="--- West Midlands (Region)" />
+						<apex:selectOption itemValue="10675" itemLabel="------ Herefordshire" />
+						<apex:selectOption itemValue="53" itemLabel="------ Shropshire" />
+						<apex:selectOption itemValue="59" itemLabel="------ Staffordshire" />
+						<apex:selectOption itemValue="164" itemLabel="------ Warwickshire" />
+						<apex:selectOption itemValue="12011" itemLabel="------ West Midlands" />
+						<apex:selectOption itemValue="11580" itemLabel="------ Worcestershire" />
+						<apex:selectOption itemValue="4" itemLabel="- Northern Ireland" />
+						<apex:selectOption itemValue="121" itemLabel="------ County Antrim" />
+						<apex:selectOption itemValue="122" itemLabel="------ County Armagh" />
+						<apex:selectOption itemValue="142" itemLabel="------ County Derry" />
+						<apex:selectOption itemValue="128" itemLabel="------ County Down" />
+						<apex:selectOption itemValue="133" itemLabel="------ County Fermanagh" />
+						<apex:selectOption itemValue="162" itemLabel="------ County Tyrone" />
+						<apex:selectOption itemValue="3" itemLabel="- Scotland" />
+						<apex:selectOption itemValue="267" itemLabel="------ Aberdeenshire" />
+						<apex:selectOption itemValue="10040" itemLabel="------ Angus" />
+						<apex:selectOption itemValue="10049" itemLabel="------ Argyll" />
+						<apex:selectOption itemValue="10077" itemLabel="------ Ayrshire" />
+						<apex:selectOption itemValue="10100" itemLabel="------ Banffshire" />
+						<apex:selectOption itemValue="10150" itemLabel="------ Berwickshire" />
+						<apex:selectOption itemValue="10275" itemLabel="------ Caithness" />
+						<apex:selectOption itemValue="10346" itemLabel="------ Clackmannanshire" />
+						<apex:selectOption itemValue="10479" itemLabel="------ Dumfriesshire" />
+						<apex:selectOption itemValue="10481" itemLabel="------ Dunbartonshire" />
+						<apex:selectOption itemValue="10503" itemLabel="------ East Lothian" />
+						<apex:selectOption itemValue="134" itemLabel="------ Fife" />
+						<apex:selectOption itemValue="10736" itemLabel="------ Inverness-Shire" />
+						<apex:selectOption itemValue="10796" itemLabel="------ Kincardineshire" />
+						<apex:selectOption itemValue="10811" itemLabel="------ Kirkcudbrightshire" />
+						<apex:selectOption itemValue="10826" itemLabel="------ Lanarkshire" />
+						<apex:selectOption itemValue="10995" itemLabel="------ Midlothian" />
+						<apex:selectOption itemValue="11014" itemLabel="------ Morayshire" />
+						<apex:selectOption itemValue="80" itemLabel="------ Orkney Islands" />
+						<apex:selectOption itemValue="11111" itemLabel="------ Peeblesshire" />
+						<apex:selectOption itemValue="11128" itemLabel="------ Perthshire" />
+						<apex:selectOption itemValue="11191" itemLabel="------ Renfrewshire" />
+						<apex:selectOption itemValue="11215" itemLabel="------ Ross-Shire" />
+						<apex:selectOption itemValue="11221" itemLabel="------ Roxburghshire" />
+						<apex:selectOption itemValue="11263" itemLabel="------ Selkirkshire" />
+						<apex:selectOption itemValue="11347" itemLabel="------ Stirlingshire" />
+						<apex:selectOption itemValue="11380" itemLabel="------ Sutherland" />
+						<apex:selectOption itemValue="11517" itemLabel="------ West Lothian" />
+						<apex:selectOption itemValue="11548" itemLabel="------ Wigtownshire" />
+						<apex:selectOption itemValue="2" itemLabel="- Wales" />
+						<apex:selectOption itemValue="265" itemLabel="------ Clwyd" />
+						<apex:selectOption itemValue="264" itemLabel="------ Dyfed" />
+						<apex:selectOption itemValue="263" itemLabel="------ Gwent" />
+						<apex:selectOption itemValue="262" itemLabel="------ Gwynedd" />
+						<apex:selectOption itemValue="261" itemLabel="------ Mid Glamorgan" />
+						<apex:selectOption itemValue="178" itemLabel="------ Powys" />
+						<apex:selectOption itemValue="260" itemLabel="------ South Glamorgan" />
+						<apex:selectOption itemValue="259" itemLabel="------ West Glamorgan" />
+						<apex:selectOption itemValue="12043" itemLabel="Rest of the World" />
+						<apex:selectOption itemValue="12052" itemLabel="Abu Dhabi" />
+						<apex:selectOption itemValue="12053" itemLabel="Afghanistan" />
+						<apex:selectOption itemValue="12015" itemLabel="Albania" />
+						<apex:selectOption itemValue="12054" itemLabel="Algeria" />
+						<apex:selectOption itemValue="12046" itemLabel="Andorra" />
+						<apex:selectOption itemValue="12055" itemLabel="Angola" />
+						<apex:selectOption itemValue="12056" itemLabel="Antigua" />
+						<apex:selectOption itemValue="12057" itemLabel="Argentina" />
+						<apex:selectOption itemValue="12047" itemLabel="Armenia" />
+						<apex:selectOption itemValue="251" itemLabel="Australia" />
+						<apex:selectOption itemValue="237" itemLabel="Austria" />
+						<apex:selectOption itemValue="12059" itemLabel="Azerbaijan" />
+						<apex:selectOption itemValue="12060" itemLabel="Bahamas" />
+						<apex:selectOption itemValue="12016" itemLabel="Bahrain" />
+						<apex:selectOption itemValue="12061" itemLabel="Bangladesh" />
+						<apex:selectOption itemValue="12062" itemLabel="Barbados" />
+						<apex:selectOption itemValue="12017" itemLabel="Belarus" />
+						<apex:selectOption itemValue="238" itemLabel="Belgium" />
+						<apex:selectOption itemValue="12063" itemLabel="Belize" />
+						<apex:selectOption itemValue="12064" itemLabel="Bermuda" />
+						<apex:selectOption itemValue="12065" itemLabel="Bhutan" />
+						<apex:selectOption itemValue="12066" itemLabel="Bolivia" />
+						<apex:selectOption itemValue="12018" itemLabel="Bosnia and Herzegovina" />
+						<apex:selectOption itemValue="12067" itemLabel="Botswana" />
+						<apex:selectOption itemValue="12068" itemLabel="Brazil" />
+						<apex:selectOption itemValue="12069" itemLabel="Brunei Darussalam" />
+						<apex:selectOption itemValue="12019" itemLabel="Bulgaria" />
+						<apex:selectOption itemValue="12070" itemLabel="Burkina Faso" />
+						<apex:selectOption itemValue="12071" itemLabel="Burundi" />
+						<apex:selectOption itemValue="12072" itemLabel="Cambodia" />
+						<apex:selectOption itemValue="12073" itemLabel="Cameroon" />
+						<apex:selectOption itemValue="252" itemLabel="Canada" />
+						<apex:selectOption itemValue="12074" itemLabel="Cape Verde Islands" />
+						<apex:selectOption itemValue="12075" itemLabel="Central African Republic" />
+						<apex:selectOption itemValue="12076" itemLabel="Chad" />
+						<apex:selectOption itemValue="18" itemLabel="Channel Islands" />
+						<apex:selectOption itemValue="12077" itemLabel="Chile" />
+						<apex:selectOption itemValue="12020" itemLabel="China" />
+						<apex:selectOption itemValue="12078" itemLabel="Colombia" />
+						<apex:selectOption itemValue="12079" itemLabel="Comoros" />
+						<apex:selectOption itemValue="12080" itemLabel="Congo" />
+						<apex:selectOption itemValue="12081" itemLabel="Costa Rica" />
+						<apex:selectOption itemValue="12082" itemLabel="Cote d'Ivoire" />
+						<apex:selectOption itemValue="12021" itemLabel="Croatia" />
+						<apex:selectOption itemValue="12083" itemLabel="Cuba" />
+						<apex:selectOption itemValue="12001" itemLabel="Cyprus" />
+						<apex:selectOption itemValue="12002" itemLabel="Czech Republic" />
+						<apex:selectOption itemValue="239" itemLabel="Denmark" />
+						<apex:selectOption itemValue="12084" itemLabel="Djibouti" />
+						<apex:selectOption itemValue="12085" itemLabel="Dominica" />
+						<apex:selectOption itemValue="12086" itemLabel="Dominican Republic" />
+						<apex:selectOption itemValue="12045" itemLabel="Dubai" />
+						<apex:selectOption itemValue="12087" itemLabel="Ecuador" />
+						<apex:selectOption itemValue="12088" itemLabel="Egypt" />
+						<apex:selectOption itemValue="12089" itemLabel="El Salvador" />
+						<apex:selectOption itemValue="12090" itemLabel="Equatorial Guinea" />
+						<apex:selectOption itemValue="12091" itemLabel="Eritrea" />
+						<apex:selectOption itemValue="12003" itemLabel="Estonia" />
+						<apex:selectOption itemValue="12092" itemLabel="Ethiopia" />
+						<apex:selectOption itemValue="12093" itemLabel="Fiji" />
+						<apex:selectOption itemValue="240" itemLabel="Finland" />
+						<apex:selectOption itemValue="241" itemLabel="France" />
+						<apex:selectOption itemValue="12094" itemLabel="Gabon" />
+						<apex:selectOption itemValue="12095" itemLabel="Gambia" />
+						<apex:selectOption itemValue="12048" itemLabel="Georgia" />
+						<apex:selectOption itemValue="242" itemLabel="Germany" />
+						<apex:selectOption itemValue="12096" itemLabel="Ghana" />
+						<apex:selectOption itemValue="12044" itemLabel="Gibraltar" />
+						<apex:selectOption itemValue="243" itemLabel="Greece" />
+						<apex:selectOption itemValue="12049" itemLabel="Greenland" />
+						<apex:selectOption itemValue="12097" itemLabel="Grenada" />
+						<apex:selectOption itemValue="12098" itemLabel="Guam" />
+						<apex:selectOption itemValue="12099" itemLabel="Guatemala" />
+						<apex:selectOption itemValue="12100" itemLabel="Guinea" />
+						<apex:selectOption itemValue="12101" itemLabel="Guinea-Bissau" />
+						<apex:selectOption itemValue="12102" itemLabel="Guyana" />
+						<apex:selectOption itemValue="12103" itemLabel="Haiti" />
+						<apex:selectOption itemValue="12104" itemLabel="Honduras" />
+						<apex:selectOption itemValue="12022" itemLabel="Hong Kong" />
+						<apex:selectOption itemValue="12004" itemLabel="Hungary" />
+						<apex:selectOption itemValue="12023" itemLabel="Iceland" />
+						<apex:selectOption itemValue="12024" itemLabel="India" />
+						<apex:selectOption itemValue="12105" itemLabel="Indonesia" />
+						<apex:selectOption itemValue="12106" itemLabel="Iran" />
+						<apex:selectOption itemValue="12107" itemLabel="Iraq" />
+						<apex:selectOption itemValue="5" itemLabel="Ireland" />
+						<apex:selectOption itemValue="12108" itemLabel="Israel" />
+						<apex:selectOption itemValue="244" itemLabel="Italy" />
+						<apex:selectOption itemValue="12109" itemLabel="Jamaica" />
+						<apex:selectOption itemValue="12025" itemLabel="Japan" />
+						<apex:selectOption itemValue="12111" itemLabel="Jordan" />
+						<apex:selectOption itemValue="12110" itemLabel="Kazakhstan" />
+						<apex:selectOption itemValue="12112" itemLabel="Kenya" />
+						<apex:selectOption itemValue="12026" itemLabel="Kuwait" />
+						<apex:selectOption itemValue="12114" itemLabel="Kyrgyzstan" />
+						<apex:selectOption itemValue="12115" itemLabel="Laos" />
+						<apex:selectOption itemValue="12005" itemLabel="Latvia" />
+						<apex:selectOption itemValue="12116" itemLabel="Lebanon" />
+						<apex:selectOption itemValue="12117" itemLabel="Lesotho" />
+						<apex:selectOption itemValue="12113" itemLabel="Liberia" />
+						<apex:selectOption itemValue="12118" itemLabel="Libya" />
+						<apex:selectOption itemValue="12027" itemLabel="Liechtenstein" />
+						<apex:selectOption itemValue="12006" itemLabel="Lithuania" />
+						<apex:selectOption itemValue="245" itemLabel="Luxembourg" />
+						<apex:selectOption itemValue="12119" itemLabel="Macao" />
+						<apex:selectOption itemValue="12120" itemLabel="Macedonia" />
+						<apex:selectOption itemValue="12121" itemLabel="Madagascar" />
+						<apex:selectOption itemValue="12122" itemLabel="Malawi" />
+						<apex:selectOption itemValue="12123" itemLabel="Malaysia" />
+						<apex:selectOption itemValue="12124" itemLabel="Maldives" />
+						<apex:selectOption itemValue="12125" itemLabel="Mali" />
+						<apex:selectOption itemValue="12007" itemLabel="Malta" />
+						<apex:selectOption itemValue="12126" itemLabel="Marshall Islands" />
+						<apex:selectOption itemValue="12127" itemLabel="Martinique" />
+						<apex:selectOption itemValue="12128" itemLabel="Mauritania" />
+						<apex:selectOption itemValue="12129" itemLabel="Mauritius" />
+						<apex:selectOption itemValue="12130" itemLabel="Mexico" />
+						<apex:selectOption itemValue="12131" itemLabel="Micronesia" />
+						<apex:selectOption itemValue="12132" itemLabel="Moldova" />
+						<apex:selectOption itemValue="12050" itemLabel="Monaco" />
+						<apex:selectOption itemValue="12133" itemLabel="Mongolia" />
+						<apex:selectOption itemValue="12028" itemLabel="Montenegro" />
+						<apex:selectOption itemValue="12134" itemLabel="Morocco" />
+						<apex:selectOption itemValue="12135" itemLabel="Mozambique" />
+						<apex:selectOption itemValue="12136" itemLabel="Myanmar" />
+						<apex:selectOption itemValue="12137" itemLabel="Namibia" />
+						<apex:selectOption itemValue="12138" itemLabel="Nauru" />
+						<apex:selectOption itemValue="12140" itemLabel="Nepal" />
+						<apex:selectOption itemValue="246" itemLabel="Netherlands" />
+						<apex:selectOption itemValue="253" itemLabel="New Zealand" />
+						<apex:selectOption itemValue="12139" itemLabel="Nicaragua" />
+						<apex:selectOption itemValue="12141" itemLabel="Niger" />
+						<apex:selectOption itemValue="12142" itemLabel="Nigeria" />
+						<apex:selectOption itemValue="273" itemLabel="Norway" />
+						<apex:selectOption itemValue="12029" itemLabel="Oman" />
+						<apex:selectOption itemValue="12144" itemLabel="Pakistan" />
+						<apex:selectOption itemValue="12145" itemLabel="Palau" />
+						<apex:selectOption itemValue="12146" itemLabel="Palestine" />
+						<apex:selectOption itemValue="12147" itemLabel="Panama" />
+						<apex:selectOption itemValue="12143" itemLabel="Papua New Guinea" />
+						<apex:selectOption itemValue="12148" itemLabel="Paraguay" />
+						<apex:selectOption itemValue="12149" itemLabel="Peru" />
+						<apex:selectOption itemValue="12150" itemLabel="Philippines" />
+						<apex:selectOption itemValue="12008" itemLabel="Poland" />
+						<apex:selectOption itemValue="247" itemLabel="Portugal" />
+						<apex:selectOption itemValue="12030" itemLabel="Qatar" />
+						<apex:selectOption itemValue="12033" itemLabel="Romania" />
+						<apex:selectOption itemValue="12034" itemLabel="Russian Federation" />
+						<apex:selectOption itemValue="12152" itemLabel="Rwanda" />
+						<apex:selectOption itemValue="12153" itemLabel="Samoa" />
+						<apex:selectOption itemValue="12051" itemLabel="San Marino" />
+						<apex:selectOption itemValue="12151" itemLabel="Sao Tome And Principe" />
+						<apex:selectOption itemValue="12035" itemLabel="Saudi Arabia" />
+						<apex:selectOption itemValue="12155" itemLabel="Senegal" />
+						<apex:selectOption itemValue="12036" itemLabel="Serbia" />
+						<apex:selectOption itemValue="12156" itemLabel="Seychelles" />
+						<apex:selectOption itemValue="12157" itemLabel="Sierra Leone" />
+						<apex:selectOption itemValue="12037" itemLabel="Singapore" />
+						<apex:selectOption itemValue="12009" itemLabel="Slovakia" />
+						<apex:selectOption itemValue="12010" itemLabel="Slovenia " />
+						<apex:selectOption itemValue="12159" itemLabel="Solomon Islands" />
+						<apex:selectOption itemValue="12154" itemLabel="Somalia" />
+						<apex:selectOption itemValue="254" itemLabel="South Africa" />
+						<apex:selectOption itemValue="12038" itemLabel="South Korea" />
+						<apex:selectOption itemValue="248" itemLabel="Spain" />
+						<apex:selectOption itemValue="12158" itemLabel="Sri Lanka" />
+						<apex:selectOption itemValue="12160" itemLabel="St.Helena" />
+						<apex:selectOption itemValue="12162" itemLabel="St.Kitts &amp; Nevis" />
+						<apex:selectOption itemValue="12163" itemLabel="St.Lucia" />
+						<apex:selectOption itemValue="12164" itemLabel="St.Vincent &amp; The Grenadines" />
+						<apex:selectOption itemValue="12165" itemLabel="Sudan" />
+						<apex:selectOption itemValue="12166" itemLabel="Swaziland" />
+						<apex:selectOption itemValue="249" itemLabel="Sweden" />
+						<apex:selectOption itemValue="257" itemLabel="Switzerland" />
+						<apex:selectOption itemValue="12167" itemLabel="Syria" />
+						<apex:selectOption itemValue="12039" itemLabel="Taiwan" />
+						<apex:selectOption itemValue="12169" itemLabel="Tajikistan" />
+						<apex:selectOption itemValue="12170" itemLabel="Tanzania" />
+						<apex:selectOption itemValue="12171" itemLabel="Thailand" />
+						<apex:selectOption itemValue="12172" itemLabel="Togo" />
+						<apex:selectOption itemValue="12168" itemLabel="Tonga" />
+						<apex:selectOption itemValue="12173" itemLabel="Trinidad And Tobago" />
+						<apex:selectOption itemValue="12174" itemLabel="Tunisia" />
+						<apex:selectOption itemValue="12040" itemLabel="Turkey" />
+						<apex:selectOption itemValue="12175" itemLabel="Turkmenistan" />
+						<apex:selectOption itemValue="12176" itemLabel="Turks And Caicos Islands" />
+						<apex:selectOption itemValue="12177" itemLabel="Tuvalu" />
+						<apex:selectOption itemValue="12178" itemLabel="Uganda" />
+						<apex:selectOption itemValue="12041" itemLabel="Ukraine" />
+						<apex:selectOption itemValue="12042" itemLabel="United Arab Emirates" />
+						<apex:selectOption itemValue="12180" itemLabel="Uruguay" />
+						<apex:selectOption itemValue="256" itemLabel="USA" />
+						<apex:selectOption itemValue="12182" itemLabel="Uzbekistan" />
+						<apex:selectOption itemValue="12183" itemLabel="Vanuatu" />
+						<apex:selectOption itemValue="12184" itemLabel="Vatican City" />
+						<apex:selectOption itemValue="12181" itemLabel="Venezuela" />
+						<apex:selectOption itemValue="12179" itemLabel="Vietnam" />
+						<apex:selectOption itemValue="12185" itemLabel="Yemen" />
+						<apex:selectOption itemValue="12186" itemLabel="Zambia" />
+						<apex:selectOption itemValue="12187" itemLabel="Zimbabwe" />
+						<apex:selectOption itemValue="274" itemLabel="Other" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Job Description" columns="1">
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Description__c}" style="width:500px;"  required="true"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Key_Responsibilities__c}" style="width:500px;"  required="true"/>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Managers" columns="1">
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Hiring_Manager__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Employment Type" columns="1">
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Recent_Graduate__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Employment_Type__c}"  required="true"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Duration__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Compensation Package" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Currency" />
+					<apex:selectList id="currency" value="{!fRecruit__Vacancy__c.fRecruit__Currency_Code__c}" size="1">
+
+						<apex:selectOption itemValue="GBP" itemLabel="British Pounds" />
+						<apex:selectOption itemValue="EUR" itemLabel="Euro" />
+						<apex:selectOption itemValue="AUD" itemLabel="Australia Dollars" />
+						<apex:selectOption itemValue="BGN" itemLabel="Bulgaria Leva" />
+						<apex:selectOption itemValue="CZK" itemLabel="Czech Republic Koruny" />
+						<apex:selectOption itemValue="HUF" itemLabel="Hungary Forint" />
+						<apex:selectOption itemValue="MTL" itemLabel="Malta Liri" />
+						<apex:selectOption itemValue="PLN" itemLabel="Poland Zlotych" />
+						<apex:selectOption itemValue="QAR" itemLabel="Qatar Riyals" />
+						<apex:selectOption itemValue="USD" itemLabel="United States Dollars" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Minimum__c}"  required="true"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Maximum__c}"  required="true"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Period__c}"  required="true"/>
+
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Hide_Salary__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Includes_Benefits__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_OTE__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_ProRata__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Negotiable__c}"/>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection title="Job Advertisment" columns="1">
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Applications_Close_Date__c}"  required="true"/>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+		<apex:inputHidden value="{!fRecruit__Vacancy__c.fRecruit__Hiring_Manager__r.Email}"/>
+	</apex:form>
+	
+</apex:page>

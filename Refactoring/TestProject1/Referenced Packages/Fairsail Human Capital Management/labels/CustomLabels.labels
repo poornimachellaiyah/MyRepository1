@@ -1,0 +1,4968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ActionVerb_Add_New</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add New</shortDescription>
+        <value>Add New</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Add_New_or_Confirm</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add New or Confirm</shortDescription>
+        <value>Add New or Confirm</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Approve</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve</shortDescription>
+        <value>Approve</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Approve_or_Edit</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve or Edit</shortDescription>
+        <value>Approve or Edit</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Assess</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assess</shortDescription>
+        <value>Assess</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Authenticate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ActionVerb Authenticate</shortDescription>
+        <value>Authenticate</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Close</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Complete</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Complete</shortDescription>
+        <value>Complete</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Confirm</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ActionVerb Confirm</shortDescription>
+        <value>Confirm</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Confirm_or_Edit</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm or Edit</shortDescription>
+        <value>Confirm or Edit</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Edit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ActionVerb Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Follow_Up</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow Up</shortDescription>
+        <value>Follow Up</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Reveal</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reveal</shortDescription>
+        <value>Reveal</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Reveal_or_Edit</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reveal or Edit</shortDescription>
+        <value>Reveal or Edit</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Review</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Review</shortDescription>
+        <value>Review</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Score</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ActionVerb Score</shortDescription>
+        <value>Score</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Select</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Sign</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sign</shortDescription>
+        <value>Sign</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Start</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start</shortDescription>
+        <value>Start</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Submit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ActionVerb Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>ActionVerb_Submit_or_Edit</fullName>
+        <categories>ActionVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submit or Edit</shortDescription>
+        <value>Submit or Edit</value>
+    </labels>
+    <labels>
+        <fullName>Action_3_Levels</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>3 Levels</shortDescription>
+        <value>3 Levels Down</value>
+    </labels>
+    <labels>
+        <fullName>Action_4_Levels</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>4 Levels</shortDescription>
+        <value>4 Levels Down</value>
+    </labels>
+    <labels>
+        <fullName>Action_5_Levels</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>5 Levels</shortDescription>
+        <value>5 Levels Down</value>
+    </labels>
+    <labels>
+        <fullName>Action_All_Levels</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All Levels</shortDescription>
+        <value>All Levels</value>
+    </labels>
+    <labels>
+        <fullName>Action_By_0</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By {0}</shortDescription>
+        <value>By {0}</value>
+    </labels>
+    <labels>
+        <fullName>Action_By_you_for_0</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By you for {0}</shortDescription>
+        <value>By you for {0}</value>
+    </labels>
+    <labels>
+        <fullName>Action_For_0</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>For {0}</shortDescription>
+        <value>For {0}</value>
+    </labels>
+    <labels>
+        <fullName>Action_Future</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>{2} needs to {0} {1} for {3}</shortDescription>
+        <value>{2} needs to {0} {1} for {3}</value>
+    </labels>
+    <labels>
+        <fullName>Action_Future_By_You</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>{2} needs to {0} {1} for you</shortDescription>
+        <value>{2} needs to {0} {1} for you</value>
+    </labels>
+    <labels>
+        <fullName>Action_Future_For_You</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You need to {0} {1} for {3}</shortDescription>
+        <value>You need to {0} {1} for {3}</value>
+    </labels>
+    <labels>
+        <fullName>Action_Future_On_Self</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You need to {0} {1} for self</shortDescription>
+        <value>You need to {0} {1} for self</value>
+    </labels>
+    <labels>
+        <fullName>Action_Past</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>{2} {0} {1} {4} for {3}</shortDescription>
+        <value>{2} {0} {1} {4} for {3}</value>
+    </labels>
+    <labels>
+        <fullName>Action_Past_By_You</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You {0} {1} {4} for {3}</shortDescription>
+        <value>You {0} {1} {4} for {3}</value>
+    </labels>
+    <labels>
+        <fullName>Action_Past_For_You</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>{2} {0} {1} {4} for you</shortDescription>
+        <value>{2} {0} {1} {4} for you</value>
+    </labels>
+    <labels>
+        <fullName>Action_Past_On_Self</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You {0} {1} {4} for self</shortDescription>
+        <value>You {0} {1} {4} for self</value>
+    </labels>
+    <labels>
+        <fullName>Action_Select_Level</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select Level</shortDescription>
+        <value>Select Level...</value>
+    </labels>
+    <labels>
+        <fullName>Action_What_has_happened_recently</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>What has happened recently</shortDescription>
+        <value>What has happened recently</value>
+    </labels>
+    <labels>
+        <fullName>Action_What_needs_to_be_done_by_0</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>What needs to be done by {0}</shortDescription>
+        <value>What needs to be done by {0}</value>
+    </labels>
+    <labels>
+        <fullName>Action_What_needs_to_be_done_by_you_for_0</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>What needs to be done by you for {0}</shortDescription>
+        <value>What needs to be done by you for {0}</value>
+    </labels>
+    <labels>
+        <fullName>Action_What_needs_to_be_done_for_0</fullName>
+        <categories>Action</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>What needs to be done for {0}</shortDescription>
+        <value>What needs to be done for {0}</value>
+    </labels>
+    <labels>
+        <fullName>Button_Actions</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Actions</shortDescription>
+        <value>Actions</value>
+    </labels>
+    <labels>
+        <fullName>Button_Activate_Without_Confirm</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activate Without Confirm</shortDescription>
+        <value>Activate Without Confirm</value>
+    </labels>
+    <labels>
+        <fullName>Button_Add_Development_Need</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Development Need</shortDescription>
+        <value>Add Development Need</value>
+    </labels>
+    <labels>
+        <fullName>Button_Administration</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Administration</shortDescription>
+        <value>Administration</value>
+    </labels>
+    <labels>
+        <fullName>Button_Approve</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve</shortDescription>
+        <value>Approve</value>
+    </labels>
+    <labels>
+        <fullName>Button_Approve_Development_Need</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Approve Development Need</shortDescription>
+        <value>Approve Development Need</value>
+    </labels>
+    <labels>
+        <fullName>Button_Approve_Draft</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve Draft</shortDescription>
+        <value>Approve Draft</value>
+    </labels>
+    <labels>
+        <fullName>Button_Assess</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assess</shortDescription>
+        <value>Assess</value>
+    </labels>
+    <labels>
+        <fullName>Button_Cancel</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Button_Cancel_Form</fullName>
+        <categories>Cancel Form</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel Form</shortDescription>
+        <value>Cancel Form</value>
+    </labels>
+    <labels>
+        <fullName>Button_Check_In</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Check In</shortDescription>
+        <value>Check In</value>
+    </labels>
+    <labels>
+        <fullName>Button_Check_Out</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Check Out</shortDescription>
+        <value>Check Out</value>
+    </labels>
+    <labels>
+        <fullName>Button_Clear</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Clear</shortDescription>
+        <value>Clear</value>
+    </labels>
+    <labels>
+        <fullName>Button_Clone</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clone</shortDescription>
+        <value>Clone</value>
+    </labels>
+    <labels>
+        <fullName>Button_Close</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>Button_Complete</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Complete</shortDescription>
+        <value>Complete</value>
+    </labels>
+    <labels>
+        <fullName>Button_Confirm</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm</shortDescription>
+        <value>Confirm</value>
+    </labels>
+    <labels>
+        <fullName>Button_Confirm_Draft</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm Draft</shortDescription>
+        <value>Confirm Draft</value>
+    </labels>
+    <labels>
+        <fullName>Button_Delete</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Button_Do_Bulk_Actions</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Do Bulk Actions</shortDescription>
+        <value>Do Bulk Actions</value>
+    </labels>
+    <labels>
+        <fullName>Button_Edit</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Button_Edit_Development_Need</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit Development Need</shortDescription>
+        <value>Edit Development Need</value>
+    </labels>
+    <labels>
+        <fullName>Button_Email</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>Button_Help</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help</shortDescription>
+        <value>Help</value>
+    </labels>
+    <labels>
+        <fullName>Button_Initiate</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Initiate</shortDescription>
+        <value>Initiate</value>
+    </labels>
+    <labels>
+        <fullName>Button_Language</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Language</shortDescription>
+        <value>Language</value>
+    </labels>
+    <labels>
+        <fullName>Button_Logout</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Logout</shortDescription>
+        <value>Logout</value>
+    </labels>
+    <labels>
+        <fullName>Button_New</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>Button_New_From_Library</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New From Library</shortDescription>
+        <value>New Training From Library</value>
+    </labels>
+    <labels>
+        <fullName>Button_Next</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>Button_OK</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Button OK</shortDescription>
+        <value>OK</value>
+    </labels>
+    <labels>
+        <fullName>Button_Org_Chart</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chart</shortDescription>
+        <value>Chart</value>
+    </labels>
+    <labels>
+        <fullName>Button_Personal_Profile</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Personal Profile</shortDescription>
+        <value>Personal Profile</value>
+    </labels>
+    <labels>
+        <fullName>Button_Previous</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>Button_Print</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Print</shortDescription>
+        <value>Print</value>
+    </labels>
+    <labels>
+        <fullName>Button_Profile</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile</shortDescription>
+        <value>Profile</value>
+    </labels>
+    <labels>
+        <fullName>Button_Reject</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reject</shortDescription>
+        <value>Reject</value>
+    </labels>
+    <labels>
+        <fullName>Button_Reopen</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reopen</shortDescription>
+        <value>Reopen</value>
+    </labels>
+    <labels>
+        <fullName>Button_Reopen_Form</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reopen Form</shortDescription>
+        <value>Reopen Form</value>
+    </labels>
+    <labels>
+        <fullName>Button_Replace</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Replace</shortDescription>
+        <value>Replace</value>
+    </labels>
+    <labels>
+        <fullName>Button_Resend_Email</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resend Email</shortDescription>
+        <value>Resend Email</value>
+    </labels>
+    <labels>
+        <fullName>Button_Reveal</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reveal</shortDescription>
+        <value>Reveal</value>
+    </labels>
+    <labels>
+        <fullName>Button_Reveal_To_Manager</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reveal to Manager</shortDescription>
+        <value>Reveal to Manager</value>
+    </labels>
+    <labels>
+        <fullName>Button_Reveal_To_Team_Member</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reveal to Team Member</shortDescription>
+        <value>Reveal to Team Member</value>
+    </labels>
+    <labels>
+        <fullName>Button_Save</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Button_Save_And_Approve</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save and Approve</shortDescription>
+        <value>Save and  Approve</value>
+    </labels>
+    <labels>
+        <fullName>Button_Save_And_Continue</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save and Continue</shortDescription>
+        <value>Save and Continue</value>
+    </labels>
+    <labels>
+        <fullName>Button_Save_And_New</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save and New</shortDescription>
+        <value>Save and New</value>
+    </labels>
+    <labels>
+        <fullName>Button_Save_Review</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save Review</shortDescription>
+        <value>Save Review</value>
+    </labels>
+    <labels>
+        <fullName>Button_Score</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Button Score</shortDescription>
+        <value>Score</value>
+    </labels>
+    <labels>
+        <fullName>Button_Search</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Button_Send</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send</shortDescription>
+        <value>Send</value>
+    </labels>
+    <labels>
+        <fullName>Button_Sign</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sign</shortDescription>
+        <value>Sign</value>
+    </labels>
+    <labels>
+        <fullName>Button_Start</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start</shortDescription>
+        <value>Start</value>
+    </labels>
+    <labels>
+        <fullName>Button_Submit</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>Button_Support</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button_Support</shortDescription>
+        <value>Support</value>
+    </labels>
+    <labels>
+        <fullName>Button_Team</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team</shortDescription>
+        <value>Team</value>
+    </labels>
+    <labels>
+        <fullName>Button_Team_Members</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Members</shortDescription>
+        <value>Team Members</value>
+    </labels>
+    <labels>
+        <fullName>Button_Update</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
+        <fullName>Button_View</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>View</shortDescription>
+        <value>View</value>
+    </labels>
+    <labels>
+        <fullName>Collaboration_Portal_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Collaboration Portal Title</shortDescription>
+        <value>Fairsail WX</value>
+    </labels>
+    <labels>
+        <fullName>Email_Actions_Digest</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Here is a list of all the Fairsail actions for you</shortDescription>
+        <value>Here is a list of all the Fairsail actions for you</value>
+    </labels>
+    <labels>
+        <fullName>Email_Actions_Digest_Action_Page</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email Actions Digest Action Page</shortDescription>
+        <value>Click here to view all your actions online</value>
+    </labels>
+    <labels>
+        <fullName>Email_Actions_Digest_Subject</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Your Fairsail Action Digest</shortDescription>
+        <value>Your Fairsail Action Digest</value>
+    </labels>
+    <labels>
+        <fullName>Employment_Details</fullName>
+        <categories>Employment Details</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Employment Details</shortDescription>
+        <value>Employment Details</value>
+    </labels>
+    <labels>
+        <fullName>Federation_Id</fullName>
+        <categories>Federation Id</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Federation Id</shortDescription>
+        <value>Federation Id</value>
+    </labels>
+    <labels>
+        <fullName>Find_Skills</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Find Skills</shortDescription>
+        <value>Find Skills</value>
+    </labels>
+    <labels>
+        <fullName>Force_com</fullName>
+        <categories>Force.com</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Force.com</shortDescription>
+        <value>Force.com</value>
+    </labels>
+    <labels>
+        <fullName>Force_com_User_Details</fullName>
+        <categories>Force.com User Details</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Force.com User Details</shortDescription>
+        <value>Force.com User Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_A_at_B</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A at B</shortDescription>
+        <value>{0} at {1}</value>
+    </labels>
+    <labels>
+        <fullName>Global_A_in_B</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A in B</shortDescription>
+        <value>{0} in {1}</value>
+    </labels>
+    <labels>
+        <fullName>Global_Action</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>Global_All</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All</shortDescription>
+        <value>All</value>
+    </labels>
+    <labels>
+        <fullName>Global_Approval_Actor</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Actual Approver</shortDescription>
+        <value>Actual Approver</value>
+    </labels>
+    <labels>
+        <fullName>Global_Approval_Created_Date</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>Global_Approval_History</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approval History</shortDescription>
+        <value>Approval History</value>
+    </labels>
+    <labels>
+        <fullName>Global_Approval_Original_Actor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assigned To</shortDescription>
+        <value>Assigned To</value>
+    </labels>
+    <labels>
+        <fullName>Global_Approval_Status</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Global_Approved</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approved</shortDescription>
+        <value>Approved</value>
+    </labels>
+    <labels>
+        <fullName>Global_Are_You_Sure</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Are you sure?</shortDescription>
+        <value>Are you sure?</value>
+    </labels>
+    <labels>
+        <fullName>Global_As_Team</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A&apos;s Team</shortDescription>
+        <value>{0}&apos;s Team</value>
+    </labels>
+    <labels>
+        <fullName>Global_Attached_File</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attached File</shortDescription>
+        <value>Attached File</value>
+    </labels>
+    <labels>
+        <fullName>Global_Attachment</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attachment</shortDescription>
+        <value>Attachment</value>
+    </labels>
+    <labels>
+        <fullName>Global_Attachments</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attachments</shortDescription>
+        <value>Attachments</value>
+    </labels>
+    <labels>
+        <fullName>Global_Attributes</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attributes</shortDescription>
+        <value>Attributes</value>
+    </labels>
+    <labels>
+        <fullName>Global_Average</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Average</shortDescription>
+        <value>Average</value>
+    </labels>
+    <labels>
+        <fullName>Global_Being_Developed</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Being Developed</shortDescription>
+        <value>Being Developed</value>
+    </labels>
+    <labels>
+        <fullName>Global_Calendar</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Calendar</shortDescription>
+        <value>Calendar</value>
+    </labels>
+    <labels>
+        <fullName>Global_Change</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Change</shortDescription>
+        <value>Change</value>
+    </labels>
+    <labels>
+        <fullName>Global_Collaboration</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Collaboration</shortDescription>
+        <value>Collaboration</value>
+    </labels>
+    <labels>
+        <fullName>Global_Collaborators</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Collaborators</shortDescription>
+        <value>Collaborators</value>
+    </labels>
+    <labels>
+        <fullName>Global_Colleague</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Colleague</shortDescription>
+        <value>Colleague</value>
+    </labels>
+    <labels>
+        <fullName>Global_Colleagues</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Colleagues</shortDescription>
+        <value>Colleagues</value>
+    </labels>
+    <labels>
+        <fullName>Global_Comments</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comments</shortDescription>
+        <value>Comments</value>
+    </labels>
+    <labels>
+        <fullName>Global_Create_PDF</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create PDF</shortDescription>
+        <value>Create Adobe PDF version</value>
+    </labels>
+    <labels>
+        <fullName>Global_Created</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created</shortDescription>
+        <value>Created</value>
+    </labels>
+    <labels>
+        <fullName>Global_Cross_Report</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cross Report</shortDescription>
+        <value>Cross Report</value>
+    </labels>
+    <labels>
+        <fullName>Global_Cross_Reporting_Managers</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cross Reporting Managers</shortDescription>
+        <value>Cross Reporting Managers</value>
+    </labels>
+    <labels>
+        <fullName>Global_Cross_Reports</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cross Reports</shortDescription>
+        <value>Cross Reports</value>
+    </labels>
+    <labels>
+        <fullName>Global_Current</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current</shortDescription>
+        <value>Current</value>
+    </labels>
+    <labels>
+        <fullName>Global_Current_Level</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Level</shortDescription>
+        <value>Current Level</value>
+    </labels>
+    <labels>
+        <fullName>Global_Current_Total</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Total</shortDescription>
+        <value>Current Total</value>
+    </labels>
+    <labels>
+        <fullName>Global_Customer</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer</shortDescription>
+        <value>Customer</value>
+    </labels>
+    <labels>
+        <fullName>Global_Date</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>Global_Days</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Days</shortDescription>
+        <value>Days</value>
+    </labels>
+    <labels>
+        <fullName>Global_Description</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>Global_Details</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Details</shortDescription>
+        <value>Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_Direct_Report</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Direct Report</shortDescription>
+        <value>Direct Report</value>
+    </labels>
+    <labels>
+        <fullName>Global_Direct_Reports</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Direct Reports</shortDescription>
+        <value>Direct Reports</value>
+    </labels>
+    <labels>
+        <fullName>Global_Earliest</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Earliest</shortDescription>
+        <value>Earliest</value>
+    </labels>
+    <labels>
+        <fullName>Global_Ending</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Ending</shortDescription>
+        <value>Ending</value>
+    </labels>
+    <labels>
+        <fullName>Global_Error</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>Global_Field</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field</shortDescription>
+        <value>Field</value>
+    </labels>
+    <labels>
+        <fullName>Global_File_Too_Large</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>File Too Large</shortDescription>
+        <value>Selected file too large. Please select another.</value>
+    </labels>
+    <labels>
+        <fullName>Global_Form_Submitted_Successfully</fullName>
+        <categories>Form</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Form Submitted Successfully</shortDescription>
+        <value>Form Submitted Successfully</value>
+    </labels>
+    <labels>
+        <fullName>Global_Freeze_Warning</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global Freeze Warning</shortDescription>
+        <value>After clicking this button you will not be able to make further changes.  If you still want to be able to change things press Cancel.</value>
+    </labels>
+    <labels>
+        <fullName>Global_Hide_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Hide Details</shortDescription>
+        <value>Hide Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_History</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>History</shortDescription>
+        <value>History</value>
+    </labels>
+    <labels>
+        <fullName>Global_Home_Details</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Home Details</shortDescription>
+        <value>Home Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_Hours</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hours</shortDescription>
+        <value>Hours</value>
+    </labels>
+    <labels>
+        <fullName>Global_I_Found</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>i of n</shortDescription>
+        <value>{0} found</value>
+    </labels>
+    <labels>
+        <fullName>Global_I_Of_N</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>i of n</shortDescription>
+        <value>{0} of {1}</value>
+    </labels>
+    <labels>
+        <fullName>Global_In</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>In</shortDescription>
+        <value>In</value>
+    </labels>
+    <labels>
+        <fullName>Global_Information</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Information</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>Global_Item</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Item</shortDescription>
+        <value>Item</value>
+    </labels>
+    <labels>
+        <fullName>Global_Job_Profile</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Job Profile</shortDescription>
+        <value>Job Profile</value>
+    </labels>
+    <labels>
+        <fullName>Global_Latest</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Latest</shortDescription>
+        <value>Latest</value>
+    </labels>
+    <labels>
+        <fullName>Global_Loading</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>Global_Logged_In_As</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Logged In As</shortDescription>
+        <value>Logged in as</value>
+    </labels>
+    <labels>
+        <fullName>Global_Management</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Management</shortDescription>
+        <value>Management</value>
+    </labels>
+    <labels>
+        <fullName>Global_Manager</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager</shortDescription>
+        <value>Manager</value>
+    </labels>
+    <labels>
+        <fullName>Global_Managers</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Managers</shortDescription>
+        <value>Managers</value>
+    </labels>
+    <labels>
+        <fullName>Global_Maximum</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Maximum</shortDescription>
+        <value>Maximum</value>
+    </labels>
+    <labels>
+        <fullName>Global_Mentor</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mentor</shortDescription>
+        <value>Mentor</value>
+    </labels>
+    <labels>
+        <fullName>Global_Minimum</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Minimum</shortDescription>
+        <value>Minimum</value>
+    </labels>
+    <labels>
+        <fullName>Global_Needs_Development</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Needs Development</shortDescription>
+        <value>Needs Development</value>
+    </labels>
+    <labels>
+        <fullName>Global_No</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global No</shortDescription>
+        <value>No</value>
+    </labels>
+    <labels>
+        <fullName>Global_None</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>None</shortDescription>
+        <value>None</value>
+    </labels>
+    <labels>
+        <fullName>Global_Not_Revealed</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Not Revealed</shortDescription>
+        <value>Not Revealed</value>
+    </labels>
+    <labels>
+        <fullName>Global_Other</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other</shortDescription>
+        <value>Other</value>
+    </labels>
+    <labels>
+        <fullName>Global_Others</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Others</shortDescription>
+        <value>Others</value>
+    </labels>
+    <labels>
+        <fullName>Global_Out</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Out</shortDescription>
+        <value>Out</value>
+    </labels>
+    <labels>
+        <fullName>Global_Password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Password</shortDescription>
+        <value>Password</value>
+    </labels>
+    <labels>
+        <fullName>Global_Pending</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pending</shortDescription>
+        <value>Pending</value>
+    </labels>
+    <labels>
+        <fullName>Global_People</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>People (e.g. 7 people)</shortDescription>
+        <value>People</value>
+    </labels>
+    <labels>
+        <fullName>Global_Percentage</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Percentage</shortDescription>
+        <value>Percentage</value>
+    </labels>
+    <labels>
+        <fullName>Global_Person</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Person</shortDescription>
+        <value>Person</value>
+    </labels>
+    <labels>
+        <fullName>Global_Personal_Details</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Personal Details</shortDescription>
+        <value>Personal Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_Please_Confirm</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Please Confirm</shortDescription>
+        <value>Please Confirm</value>
+    </labels>
+    <labels>
+        <fullName>Global_Printing</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Printing</shortDescription>
+        <value>Printing</value>
+    </labels>
+    <labels>
+        <fullName>Global_Provisional</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Provisional</shortDescription>
+        <value>Provisional</value>
+    </labels>
+    <labels>
+        <fullName>Global_Public_Holiday</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Public Holiday</shortDescription>
+        <value>Public Holiday</value>
+    </labels>
+    <labels>
+        <fullName>Global_Record</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record</shortDescription>
+        <value>Record</value>
+    </labels>
+    <labels>
+        <fullName>Global_Rejected</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rejected</shortDescription>
+        <value>Rejected</value>
+    </labels>
+    <labels>
+        <fullName>Global_Reporting_Currency</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reporting Currency</shortDescription>
+        <value>Reporting Currency</value>
+    </labels>
+    <labels>
+        <fullName>Global_Required_Level</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required Level</shortDescription>
+        <value>Required Level</value>
+    </labels>
+    <labels>
+        <fullName>Global_Schedule</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Schedule</shortDescription>
+        <value>Schedule</value>
+    </labels>
+    <labels>
+        <fullName>Global_Search</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Global_Search_Organisation</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Search Organisation</shortDescription>
+        <value>Search Organisation</value>
+    </labels>
+    <labels>
+        <fullName>Global_Select</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Select</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>Global_Select_File</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select File</shortDescription>
+        <value>Select File</value>
+    </labels>
+    <labels>
+        <fullName>Global_Self</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Self</shortDescription>
+        <value>Self</value>
+    </labels>
+    <labels>
+        <fullName>Global_Settings</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Settings</shortDescription>
+        <value>Settings</value>
+    </labels>
+    <labels>
+        <fullName>Global_Status</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Global_Subject</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Subject</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>Global_Team</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team</shortDescription>
+        <value>Team</value>
+    </labels>
+    <labels>
+        <fullName>Global_Team_Manager</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Manager</shortDescription>
+        <value>Team Manager</value>
+    </labels>
+    <labels>
+        <fullName>Global_Team_Member</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Member</shortDescription>
+        <value>Team Member</value>
+    </labels>
+    <labels>
+        <fullName>Global_Team_Member_View</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member View</shortDescription>
+        <value>Team Member View</value>
+    </labels>
+    <labels>
+        <fullName>Global_Team_View</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team View</shortDescription>
+        <value>Team View</value>
+    </labels>
+    <labels>
+        <fullName>Global_Too_Many_Results</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Too Many Results</shortDescription>
+        <value>Too many results to display. Please refine your search.</value>
+    </labels>
+    <labels>
+        <fullName>Global_Top</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Top</shortDescription>
+        <value>Top</value>
+    </labels>
+    <labels>
+        <fullName>Global_Total</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Total</shortDescription>
+        <value>Total</value>
+    </labels>
+    <labels>
+        <fullName>Global_Upload_File</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upload File</shortDescription>
+        <value>Upload File</value>
+    </labels>
+    <labels>
+        <fullName>Global_Username</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Username</shortDescription>
+        <value>Username</value>
+    </labels>
+    <labels>
+        <fullName>Global_View_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global View Details</shortDescription>
+        <value>View Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_View_Team_Member</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global View Team Member</shortDescription>
+        <value>View Team Member</value>
+    </labels>
+    <labels>
+        <fullName>Global_Visibility</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Visibility</shortDescription>
+        <value>Visibility</value>
+    </labels>
+    <labels>
+        <fullName>Global_Warning</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Warning</shortDescription>
+        <value>Warning</value>
+    </labels>
+    <labels>
+        <fullName>Global_Work_Details</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Work Details</shortDescription>
+        <value>Work Details</value>
+    </labels>
+    <labels>
+        <fullName>Global_Yes</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Yes</shortDescription>
+        <value>Yes</value>
+    </labels>
+    <labels>
+        <fullName>Global_You</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global You</shortDescription>
+        <value>You</value>
+    </labels>
+    <labels>
+        <fullName>Help_CP_User_Guide</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help CP User Guide</shortDescription>
+        <value>Collaboration Portal User Guide</value>
+    </labels>
+    <labels>
+        <fullName>Help_Links</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help Links</shortDescription>
+        <value>Below are links to the online version of the Fairsail documentation. Should you need further assistance please see support.</value>
+    </labels>
+    <labels>
+        <fullName>Help_Managers_Guide</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help Managers Guide</shortDescription>
+        <value>HR Manager&apos;s Guide</value>
+    </labels>
+    <labels>
+        <fullName>Help_No_Contact</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help No Contact</shortDescription>
+        <value>Please do not contact Fairsail or Salesforce directly</value>
+    </labels>
+    <labels>
+        <fullName>Help_Salesforce</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help Salesforce</shortDescription>
+        <value>Should you need assistance with Salesforce please refer to the online help</value>
+    </labels>
+    <labels>
+        <fullName>Help_Support_Internal</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help Support Internal</shortDescription>
+        <value>For support please contact your HR team or IT manager</value>
+    </labels>
+    <labels>
+        <fullName>Job_Description_Library</fullName>
+        <categories>Job Description</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Job Description Library</shortDescription>
+        <value>Job Description Library</value>
+    </labels>
+    <labels>
+        <fullName>Job_Description_Team_Members</fullName>
+        <categories>Job Description</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Job Description Team Members</shortDescription>
+        <value>Job Description Team Members</value>
+    </labels>
+    <labels>
+        <fullName>Link_Here</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Link Here</shortDescription>
+        <value>here</value>
+    </labels>
+    <labels>
+        <fullName>Message_Search</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Message Search</shortDescription>
+        <value>Find text in team member details.  Use * for any characters, ? for one character, &quot; &quot; for exact text. Use AND or OR for logic.</value>
+    </labels>
+    <labels>
+        <fullName>Month_April</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>April</shortDescription>
+        <value>April</value>
+    </labels>
+    <labels>
+        <fullName>Month_August</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>August</shortDescription>
+        <value>August</value>
+    </labels>
+    <labels>
+        <fullName>Month_December</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>December</shortDescription>
+        <value>December</value>
+    </labels>
+    <labels>
+        <fullName>Month_February</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>February</shortDescription>
+        <value>February</value>
+    </labels>
+    <labels>
+        <fullName>Month_January</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>January</shortDescription>
+        <value>January</value>
+    </labels>
+    <labels>
+        <fullName>Month_July</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>July</shortDescription>
+        <value>July</value>
+    </labels>
+    <labels>
+        <fullName>Month_June</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>June</shortDescription>
+        <value>June</value>
+    </labels>
+    <labels>
+        <fullName>Month_March</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>March</shortDescription>
+        <value>March</value>
+    </labels>
+    <labels>
+        <fullName>Month_May</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>May</shortDescription>
+        <value>May</value>
+    </labels>
+    <labels>
+        <fullName>Month_November</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>November</shortDescription>
+        <value>November</value>
+    </labels>
+    <labels>
+        <fullName>Month_October</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>October</shortDescription>
+        <value>October</value>
+    </labels>
+    <labels>
+        <fullName>Month_September</fullName>
+        <categories>Month</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>September</shortDescription>
+        <value>September</value>
+    </labels>
+    <labels>
+        <fullName>My_Current_Job_Description</fullName>
+        <categories>Job Description</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>My Current Job Description</shortDescription>
+        <value>My Current Job Description</value>
+    </labels>
+    <labels>
+        <fullName>New_Hire</fullName>
+        <categories>Team Member New Hire</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member New Hire</shortDescription>
+        <value>Team Member New Hire</value>
+    </labels>
+    <labels>
+        <fullName>Next_Year</fullName>
+        <categories>Next Year</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Next_Year</shortDescription>
+        <value>Next Year</value>
+    </labels>
+    <labels>
+        <fullName>Noun_Org_Chart</fullName>
+        <categories>Noun</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Org Chart</shortDescription>
+        <value>Org Chart</value>
+    </labels>
+    <labels>
+        <fullName>Or_Upload_New_Picture</fullName>
+        <categories>Or Upload New Picture</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Or Upload New Picture</shortDescription>
+        <value>Or Upload New Picture</value>
+    </labels>
+    <labels>
+        <fullName>Picture</fullName>
+        <categories>Picture</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Picture</shortDescription>
+        <value>Picture</value>
+    </labels>
+    <labels>
+        <fullName>Please_close_your_browser_tab</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Please close your browser tab</shortDescription>
+        <value>Please close your browser tab</value>
+    </labels>
+    <labels>
+        <fullName>Previous_Year</fullName>
+        <categories>Previous Year</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Previous Year</shortDescription>
+        <value>Previous Year</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Absence</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Absence</shortDescription>
+        <value>Absence</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Benefit_Enrollment</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Benefit Enrollment</shortDescription>
+        <value>Benefit Enrollment</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Competencies</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competencies</shortDescription>
+        <value>Competencies</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Competency</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competency</shortDescription>
+        <value>Competency</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Competency_Assessment</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competency Assessment</shortDescription>
+        <value>Competency Assessment</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Dependants</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dependants</shortDescription>
+        <value>Dependants</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Dependants_Dependant_Adress</fullName>
+        <categories>Dependants</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Dependant Adress</shortDescription>
+        <value>Dependant Address (only if different from home address for team member)</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Development_Need</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development Need</shortDescription>
+        <value>Development Need</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Education</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Education</shortDescription>
+        <value>Education</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Emergency_Contact</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Emergency Contact</shortDescription>
+        <value>Emergency Contact</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Experience</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Experience</shortDescription>
+        <value>Experience</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Form</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Form</shortDescription>
+        <value>Form</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_HR_Request</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Employment Details Change</shortDescription>
+        <value>Employment Details Change</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Indicator</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Indicator</shortDescription>
+        <value>Indicator</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Internal_Communication</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ProcessItem Internal Communication</shortDescription>
+        <value>Internal Communication</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Job_Description</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Job Description</shortDescription>
+        <value>Job Description</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Metrics_Review</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Metrics Review</shortDescription>
+        <value>Metrics Review</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Objective</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Objective</shortDescription>
+        <value>Objective</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Passports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Passports</shortDescription>
+        <value>Passports</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Performance_Review</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Performance Review</shortDescription>
+        <value>Performance Review</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Personal_Details</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Personal Details</shortDescription>
+        <value>Personal Details</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Recognition</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recognition</shortDescription>
+        <value>Recognition</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Skill</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skill</shortDescription>
+        <value>Skill</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Stock_Options</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Stock Options</shortDescription>
+        <value>Stock Options</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Succession_Plan</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Succession Plan</shortDescription>
+        <value>Succession Plan</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Talent_Plan</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Talent Plan</shortDescription>
+        <value>Talent Plan</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Target</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Target</shortDescription>
+        <value>Target</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Timesheet</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Timesheet</shortDescription>
+        <value>Timesheet</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Training</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training</shortDescription>
+        <value>Training</value>
+    </labels>
+    <labels>
+        <fullName>ProcessItem_Vacation</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Time Off</shortDescription>
+        <value>Time Off</value>
+    </labels>
+    <labels>
+        <fullName>ProcessState_Active</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ProcessState Active</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>ProcessState_Closed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ProcessState Closed</shortDescription>
+        <value>Closed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessState_Draft</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ProcessState Draft</shortDescription>
+        <value>Draft</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Activated</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activated</shortDescription>
+        <value>Activated</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Added</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Added</shortDescription>
+        <value>Added</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Amended</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Amended</shortDescription>
+        <value>Amended</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Approve_and_Upload</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve and Upload</shortDescription>
+        <value>Approve and Upload</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Approved</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approved</shortDescription>
+        <value>Approved</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Assessed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assessed</shortDescription>
+        <value>Assessed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Closed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closed</shortDescription>
+        <value>Closed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Completed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Confirmed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirmed</shortDescription>
+        <value>Confirmed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Created</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created</shortDescription>
+        <value>Created</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Edited</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edited</shortDescription>
+        <value>Edited</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Rejected</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rejected</shortDescription>
+        <value>Rejected</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Removed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Removed</shortDescription>
+        <value>Removed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Reopened</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reopened</shortDescription>
+        <value>Reopened</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Requested</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Requested</shortDescription>
+        <value>Requested</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Requested_to_Assess</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Requested to Assess</shortDescription>
+        <value>Requested to Assess</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Revealed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Revealed</shortDescription>
+        <value>Revealed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Reviewed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reviewed</shortDescription>
+        <value>Reviewed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Signed</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Signed</shortDescription>
+        <value>Signed</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Started</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Started</shortDescription>
+        <value>Started</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Submitted_for_Approval</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submitted for Approval</shortDescription>
+        <value>Submitted for Approval</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Sumbitted_for_Approval</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No longer used</shortDescription>
+        <value>Submitted for Approval</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Team_Member_Job_Change</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ProcessVerb Team Member Job Change</shortDescription>
+        <value>Team Member Job Change</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Team_Member_Reset_Password_Invite</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ProcessVerb Team Member Reset Password Invite</shortDescription>
+        <value>Team members to receive new password reset invitation</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Upload_Certificate</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload Certificate</shortDescription>
+        <value>Upload Certificate</value>
+    </labels>
+    <labels>
+        <fullName>ProcessVerb_Upload_New</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload New</shortDescription>
+        <value>Upload New</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Accrual</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accrual</shortDescription>
+        <value>Accrual</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Accrual_Log</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accrual Log</shortDescription>
+        <value>Accrual Log</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Accrue</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accrue</shortDescription>
+        <value>Accrue</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Accrued</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accrued</shortDescription>
+        <value>Accrued</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Accrued_Balance</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accrued Balance</shortDescription>
+        <value>Accrued Balance</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Add</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Adjust_Days</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Adjust Days</shortDescription>
+        <value>This request (adjust if not all days are work days)</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Amount</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Amount</shortDescription>
+        <value>Amount</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Annual_Allowance</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Absence Annual Allowance</shortDescription>
+        <value>Annual Allowance</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Approve_and_Upload</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve and Upload</shortDescription>
+        <value>Approve and Upload</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Approved_Absences</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Approved Absences</shortDescription>
+        <value>Approved Absences</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Approved_Vacations</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Approved Vacations</shortDescription>
+        <value>Approved Vacations</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Balance</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Balance</shortDescription>
+        <value>Balance</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Base</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Base</shortDescription>
+        <value>Base</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Cap</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cap</shortDescription>
+        <value>Cap</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Carried_Over</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Carried Over</shortDescription>
+        <value>Carried Over</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Carry_Over</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Carry Over</shortDescription>
+        <value>Carry Over</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Compensation</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>In Compensation</shortDescription>
+        <value>In Compensation</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Date</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Dates</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dates</shortDescription>
+        <value>Dates</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Download_Certificate</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Download Certificate</shortDescription>
+        <value>Download Certificate</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Earned</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Earned</shortDescription>
+        <value>Earned</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Event</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Event</shortDescription>
+        <value>Event</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Initial</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Initial</shortDescription>
+        <value>Initial</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Legends</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Legends</shortDescription>
+        <value>Legends</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Next_Accrual</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Next Accrual</shortDescription>
+        <value>Next Accrual</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Next_Year</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next Year</shortDescription>
+        <value>Next Year</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Pending_Absences</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Pending Absences</shortDescription>
+        <value>Pending Absences</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Pending_Vacations</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Pending Vacations</shortDescription>
+        <value>Pending Vacations</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Previous_Year</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous Year</shortDescription>
+        <value>Previous Year</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Pro_Rata</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Allowance Pro Rata</shortDescription>
+        <value>Allowance Pro Rata</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Provisional_Absences</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Provisional Absences</shortDescription>
+        <value>Provisional Absences</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Provisional_Vacations</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Absence Provisional Vacations</shortDescription>
+        <value>Provisional Vacations</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Reason_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reason is needed</shortDescription>
+        <value>Reason is needed to continue.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Reset</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reset</shortDescription>
+        <value>Reset</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Subtract</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subtract</shortDescription>
+        <value>Subtract</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Supporting_Evidence</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Supporting Evidence</shortDescription>
+        <value>Supporting Evidence</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Time_In_Lieu</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Time In Lieu</shortDescription>
+        <value>Time In Lieu</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Time_Off</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Time Off</shortDescription>
+        <value>Time Off {0}</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Total_Balance</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Total Balance</shortDescription>
+        <value>Total Balance</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Upload_New</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload New</shortDescription>
+        <value>Upload New</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absence_Year_End_Balance</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Year End Balance</shortDescription>
+        <value>Year End Balance</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Absences</shortDescription>
+        <value>Absences</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Approved</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approved</shortDescription>
+        <value>Approved</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Calculated_Days</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Absences Calculated Days</shortDescription>
+        <value>Calculated Days</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Calculated_Hours</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Absences Calculated Hours</shortDescription>
+        <value>Calculated Hours</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Certificate</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Certificate</shortDescription>
+        <value>Certificate</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Next_Year_Time_Off</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Absences Next Year Time Off</shortDescription>
+        <value>Time Off Next Year</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Pending_Approval</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pending Approval</shortDescription>
+        <value>Pending Approval</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Period</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Period</shortDescription>
+        <value>Period</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Recent_Time_Off</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recent time off</shortDescription>
+        <value>Time Off This Year</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Recent_absences</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recent Absences</shortDescription>
+        <value>12 Months Absences</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Type</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Type</shortDescription>
+        <value>Type</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Vacation_Conflicts</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Vacation Conflicts</shortDescription>
+        <value>Overlaps with time off in your team</value>
+    </labels>
+    <labels>
+        <fullName>Process_Absences_Work_Days</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Work day</shortDescription>
+        <value>Work days</value>
+    </labels>
+    <labels>
+        <fullName>Process_Benefits</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Benefits</shortDescription>
+        <value>Benefits</value>
+    </labels>
+    <labels>
+        <fullName>Process_Benefits_Enroll</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Enroll</shortDescription>
+        <value>Enroll</value>
+    </labels>
+    <labels>
+        <fullName>Process_Checkin</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Check In/Out</shortDescription>
+        <value>Check In/Out</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competencies</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competencies</shortDescription>
+        <value>Competencies</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competency Assessment</shortDescription>
+        <value>Competency Assessment</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Able_To_Close</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All policies met.  Able to close.</shortDescription>
+        <value>All policies met.  Able to close.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Able_To_Start</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All policies met.  Able to start.</shortDescription>
+        <value>All policies met.  Able to start.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Active_Assessors</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Active Assessors</shortDescription>
+        <value>Active Assessors</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Add_Assessor</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Assessor</shortDescription>
+        <value>Add Assessor</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Add_Assessors</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>To add assessors click on suggestions above or search for others below</shortDescription>
+        <value>To add assessors click on suggestions above or search for others below</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Add_External</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add External</shortDescription>
+        <value>Add External</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Add_Internal</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add From Organisation</shortDescription>
+        <value>Add From Organisation</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Add_Team_Member</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add From Your Team</shortDescription>
+        <value>Add From Your Team</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Agreed_Development_Areas</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agreed Development Areas</shortDescription>
+        <value>Agreed Development Areas</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Agreed_Strengths</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agreed Strengths</shortDescription>
+        <value>Agreed Strengths</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_All_Average</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All Average</shortDescription>
+        <value>All Average</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Areas_With_Need</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Areas with most team development need</shortDescription>
+        <value>Areas with most team development need</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Areas_With_Strength</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Areas with most team strength</shortDescription>
+        <value>Areas with most team strength</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Assessed_Job_Profile</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assessed job profile and key dates</shortDescription>
+        <value>Assessed job profile and key dates</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Assessors</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assessors</shortDescription>
+        <value>Assessors</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Before_Closing</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Before closing</shortDescription>
+        <value>Before closing</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Before_Starting</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Before starting</shortDescription>
+        <value>Before starting</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Cannot_Cancel_Before_Close_Date</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cannot Cancel Before Close Date</shortDescription>
+        <value>Active assessments cannot be cancelled before the Close Date</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Comments_For</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comments For</shortDescription>
+        <value>Comments for {0}</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Competency_Results</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competency results</shortDescription>
+        <value>Competency results</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Completed_Assessors</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed Assessors</shortDescription>
+        <value>Completed Assessors</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Current</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current assessment</shortDescription>
+        <value>Current assessment</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Development_Options</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development options</shortDescription>
+        <value>Development options</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Included_Team_Members</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Included team members</shortDescription>
+        <value>Included team members</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Indicators_By_Strength</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Indicators for X ranked by strength</shortDescription>
+        <value>Indicators for {0} ranked by strength</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Initiate</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Initiate</shortDescription>
+        <value>Initiate</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Manager_Assessment_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager Assessment Required</shortDescription>
+        <value>A completed manager assessment is required</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Manager_Assessor_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager Assessor Required</shortDescription>
+        <value>A manager assessment is required</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Number_To_Assess</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number to Assess</shortDescription>
+        <value>Number to Assess</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Other_Assessment_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other Assessment Required</shortDescription>
+        <value>Another {0} completed assessment(s) required (other than self and manager)</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Other_Assessor_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other Assessor Required</shortDescription>
+        <value>Another {0} assessment(s) required (other than self and manager)</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Overall_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Overall Comments</shortDescription>
+        <value>Overall Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Potential_Blindspots</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Potential Blindspots</shortDescription>
+        <value>Potential Blindspots</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Previous_Assessment</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous assessment</shortDescription>
+        <value>Previous assessment</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Ranked_By_Overall_Strength</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competencies ranked by overall strength</shortDescription>
+        <value>Competencies ranked by overall strength</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Reporting_Relationship</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reporting Relationship</shortDescription>
+        <value>Reporting Relationship</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Reports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reports</shortDescription>
+        <value>Reports</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Self_Assessment_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Self Assessment Required</shortDescription>
+        <value>A completed self assessment is required</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Self_Assessor_Required</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Self Assessor Required</shortDescription>
+        <value>A self assessment is required</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Start</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Competency Assessment</shortDescription>
+        <value>Start Competency Assessment</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Team_Competencies</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Competencies</shortDescription>
+        <value>Team Competencies</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Team_Competency_Scores</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team competency scores</shortDescription>
+        <value>Team competency scores</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Top_Team_Competencies</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Top Team Competencies</shortDescription>
+        <value>Top Team Competencies</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Top_Two_Competencies</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Top two competencies</shortDescription>
+        <value>Top two competencies</value>
+    </labels>
+    <labels>
+        <fullName>Process_Competency_Assessment_Unrealised_Strengths</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unrealised Strengths</shortDescription>
+        <value>Unrealised Strengths</value>
+    </labels>
+    <labels>
+        <fullName>Process_Contributing_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Contributing Objectives</shortDescription>
+        <value>Contributing Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Corporate_Notice</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Internal Communication</shortDescription>
+        <value>Internal Communications</value>
+    </labels>
+    <labels>
+        <fullName>Process_Dependants</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dependants</shortDescription>
+        <value>Dependants</value>
+    </labels>
+    <labels>
+        <fullName>Process_Details_Select_Language</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Language</shortDescription>
+        <value>Language</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Area_Being_Developed</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Area being developed</shortDescription>
+        <value>Area being developed</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Competency</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competency Development</shortDescription>
+        <value>Competency Development</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Development_Options</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development options</shortDescription>
+        <value>Development options</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Development_Plan</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development Plan</shortDescription>
+        <value>Development Plan</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Item_Being_Developed</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Item being developed</shortDescription>
+        <value>Item being developed</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Objective</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development Objective</shortDescription>
+        <value>Development Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Other_Needs</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other needs</shortDescription>
+        <value>Other needs</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Outcome</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Outcome</shortDescription>
+        <value>Outcome</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Need_Skill</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skill Development</shortDescription>
+        <value>Skill Development</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Needs</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development Plan</shortDescription>
+        <value>Development Plan</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Needs_Current</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current</shortDescription>
+        <value>Current</value>
+    </labels>
+    <labels>
+        <fullName>Process_Development_Needs_Recent</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recent</shortDescription>
+        <value>Recent</value>
+    </labels>
+    <labels>
+        <fullName>Process_Education_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Education History</shortDescription>
+        <value>Education History</value>
+    </labels>
+    <labels>
+        <fullName>Process_Education_History_A_in_B_at_C</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A in B at C</shortDescription>
+        <value>{0} in {1} at {2}</value>
+    </labels>
+    <labels>
+        <fullName>Process_Education_History_Dates</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dates</shortDescription>
+        <value>Dates</value>
+    </labels>
+    <labels>
+        <fullName>Process_Education_History_New_Education</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Education</shortDescription>
+        <value>New Education</value>
+    </labels>
+    <labels>
+        <fullName>Process_Emergency_Contacts</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Emergency Contacts</shortDescription>
+        <value>Emergency Contacts</value>
+    </labels>
+    <labels>
+        <fullName>Process_Employment_Details</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Employment Details</shortDescription>
+        <value>Employment Details</value>
+    </labels>
+    <labels>
+        <fullName>Process_Form_Available_Forms</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Form Available Forms</shortDescription>
+        <value>Available Forms</value>
+    </labels>
+    <labels>
+        <fullName>Process_Forms</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forms</shortDescription>
+        <value>Forms</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Employment Details Changes</shortDescription>
+        <value>Employment Details Changes</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Bonuses_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Bonuses History</shortDescription>
+        <value>Bonuses History</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Changes</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Changes</shortDescription>
+        <value>Changes</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Job_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Job History</shortDescription>
+        <value>Job History</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_New_Value</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Value</shortDescription>
+        <value>New Value</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Old_Value</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Value</shortDescription>
+        <value>Current Value</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Operations_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Operations History</shortDescription>
+        <value>Operations History</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Requested_Changes</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Requested Changes</shortDescription>
+        <value>Requested Changes</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Requests_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Requests History</shortDescription>
+        <value>Requests History</value>
+    </labels>
+    <labels>
+        <fullName>Process_HR_Requests_Salary_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Salary History</shortDescription>
+        <value>Salary History</value>
+    </labels>
+    <labels>
+        <fullName>Process_Job_Description</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Job Description</shortDescription>
+        <value>Job Description</value>
+    </labels>
+    <labels>
+        <fullName>Process_Job_Description_Copy_From</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Copy Job Description From:</shortDescription>
+        <value>Copy Job Description From:</value>
+    </labels>
+    <labels>
+        <fullName>Process_Job_Profiles_Matching</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Job Profiles Matching</shortDescription>
+        <value>Job Profiles Matching</value>
+    </labels>
+    <labels>
+        <fullName>Process_Manager_Note</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager Note</shortDescription>
+        <value>Manager Note</value>
+    </labels>
+    <labels>
+        <fullName>Process_Manager_Notes</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager Notes</shortDescription>
+        <value>Manager Notes</value>
+    </labels>
+    <labels>
+        <fullName>Process_Manager_Notes_Recent</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recent Notes</shortDescription>
+        <value>Recent Notes</value>
+    </labels>
+    <labels>
+        <fullName>Process_Metrics_Achieved</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Achieved</shortDescription>
+        <value>Achieved</value>
+    </labels>
+    <labels>
+        <fullName>Process_Metrics_Not_Achieved</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Not Achieved</shortDescription>
+        <value>Not Achieved</value>
+    </labels>
+    <labels>
+        <fullName>Process_Metrics_Partly_Achieved</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Partly Achieved</shortDescription>
+        <value>Partly Achieved</value>
+    </labels>
+    <labels>
+        <fullName>Process_Metrics_Review</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Metrics Review</shortDescription>
+        <value>Metrics Review</value>
+    </labels>
+    <labels>
+        <fullName>Process_Number_To_Start</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number to Start</shortDescription>
+        <value>Number to Start</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Objectives</shortDescription>
+        <value>Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Above_Track</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Above Track</shortDescription>
+        <value>Above Track</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Below_Track</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Below Track</shortDescription>
+        <value>Below Track</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Colleagues_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Colleagues&apos; Objectives</shortDescription>
+        <value>Colleagues Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Current</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current</shortDescription>
+        <value>Current</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Current_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Objectives</shortDescription>
+        <value>Current Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Direct_Report_A_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Direct Reports&apos;  Objectives</shortDescription>
+        <value>Direct Report {0} Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Direct_Report_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Direct Reports&apos; Objectives</shortDescription>
+        <value>Direct Reports&apos; Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Key_Dates</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Key Dates</shortDescription>
+        <value>Key Dates</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Link_To_Manager_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Link To Manager&apos;s Objectives</shortDescription>
+        <value>Contribution to Business</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Manager_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager&apos;s Objectives</shortDescription>
+        <value>Manager Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Managers</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager&apos;s</shortDescription>
+        <value>Manager&apos;s</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Milestones</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestones</shortDescription>
+        <value>Milestones</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_On_Track</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>On Track</shortDescription>
+        <value>On Track</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Previous</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous Objectives</shortDescription>
+        <value>Previous Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Previous_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous Objectives</shortDescription>
+        <value>Previous Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Review_Of_Progress</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Review of progress</shortDescription>
+        <value>Review of progress</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Team_Member_Objectives</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Member&apos;s Objectives</shortDescription>
+        <value>Team Member Objectives</value>
+    </labels>
+    <labels>
+        <fullName>Process_Objectives_Team_Members</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Member&apos;s</shortDescription>
+        <value>Team Member&apos;s</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_CR_Manager</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_CR_ Manager</shortDescription>
+        <value>Cross Report</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_CR_Mentor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_CR_Mentor</shortDescription>
+        <value>Mentoring</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_CR_Project_Manager</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_CR_Project_Manager</shortDescription>
+        <value>Project Team Member</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_CR_Supervisor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_CR_Supervisor</shortDescription>
+        <value>Supervising</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Cross_Reports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cross reports to</shortDescription>
+        <value>Cross reports to</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Levels</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Levels</shortDescription>
+        <value>Levels</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Manager</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_Manager</shortDescription>
+        <value>Cross Report</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Mentor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_Mentor</shortDescription>
+        <value>Mentor</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Project_Manager</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_Project_Manager</shortDescription>
+        <value>Project Manager</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Supervisor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process_Org_Chart_Supervisor</shortDescription>
+        <value>Supervisor</value>
+    </labels>
+    <labels>
+        <fullName>Process_Org_Chart_Team</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team</shortDescription>
+        <value>Team</value>
+    </labels>
+    <labels>
+        <fullName>Process_Passports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Passports</shortDescription>
+        <value>Passports</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Performance Review</shortDescription>
+        <value>Performance Review</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Active_Objective_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Performance Review Active_ Objective Required</shortDescription>
+        <value>This team member has no new active objectives.  You cannot sign the performance review until at least one is agreed.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Additional_Details</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional Details</shortDescription>
+        <value>Additional Details</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_By_Manager</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By Manager</shortDescription>
+        <value>By Manager</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_By_Self</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By Self</shortDescription>
+        <value>By Self</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Competency_Assessment_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Performance Review Competency Assessment Required</shortDescription>
+        <value>This team member requires a competency assessment as part of this review.  You cannot reveal the performance review until this is done.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Freeze_Warning</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Performance Review Freeze Warning</shortDescription>
+        <value>After pressing this button you will not be able to make any further changes to this review.  If you don&apos;t want that press Cancel.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Last_Review</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Performance Review Last Review</shortDescription>
+        <value>Last Review</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Manager_Comments_And_Rating</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager Comments and Rating</shortDescription>
+        <value>Manager Comments and Rating</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Not_used_in_WX</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Performance Review (Not used in WX)</shortDescription>
+        <value>Performance Review (Not used in WX)</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Objective_Review_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Performance Review Objective Review Required</shortDescription>
+        <value>This team member has objectives due for review.  Click on each objective name to review it.  You cannot reveal the performance review until this is done.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Objective_Review_Warning</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Performance Objective Review Warning</shortDescription>
+        <value>This team member has objectives due for review now or soon.  Click on each objective name to review it.</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_PDF</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Performance Review</shortDescription>
+        <value>Performance Review</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Self_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Self Comments</shortDescription>
+        <value>Self Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Start</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Performance Review</shortDescription>
+        <value>Start Performance Review</value>
+    </labels>
+    <labels>
+        <fullName>Process_Performance_Review_Your_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Your Comments</shortDescription>
+        <value>Your Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Personal_Details</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Personal Details</shortDescription>
+        <value>Personal Details</value>
+    </labels>
+    <labels>
+        <fullName>Process_Personal_Details_Photo</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Photo</shortDescription>
+        <value>Photograph (must be below 200K bytes)</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Recognition</shortDescription>
+        <value>Recognition</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Award_Date</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Award Date</shortDescription>
+        <value>Award Date</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Given</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Given</shortDescription>
+        <value>Given</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Given_By_Team_Member</fullName>
+        <categories>Global</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Given By A This Month</shortDescription>
+        <value>Given By {0} This Month</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Giver</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Giver</shortDescription>
+        <value>Giver</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Maximum_Given</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You have already given X out of Y Recognitions this month</shortDescription>
+        <value>You have already given {0} out of {1} Recognitions this month</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Maximum_To_Be_Given</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Maximum To Be Given Per Month</shortDescription>
+        <value>Maximum To Be Given Per Month</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Maximum_To_Be_Received</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A has already received X out of Y Recognitions this month</shortDescription>
+        <value>{0} has already received {1} out of {2} Recognitions this month</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_New_Recognition</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New Recognition</shortDescription>
+        <value>New Recognition</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Reason</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reason</shortDescription>
+        <value>Reason</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Received</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Received</shortDescription>
+        <value>Received</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Receiver</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Receiver</shortDescription>
+        <value>Receiver</value>
+    </labels>
+    <labels>
+        <fullName>Process_Recognition_Unable_To_Give_Message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Recognition Unable To Give Message</shortDescription>
+        <value>You are unable to give recognition to this team member at this time</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Salary Plan</shortDescription>
+        <value>Salary Plan</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Annual_Increase</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Annual Increase</shortDescription>
+        <value>Annual Increase</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Annual_Total</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Annual Total</shortDescription>
+        <value>Annual Total</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Current</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current</shortDescription>
+        <value>Current</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Current_All_Reports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current All Reports</shortDescription>
+        <value>Current All Reports</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Proposed</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Proposed</shortDescription>
+        <value>Proposed</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Proposed_All_Reports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Proposed All Reports</shortDescription>
+        <value>Proposed All Reports</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Proposed_Team_Increase</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Proposed Team Increase</shortDescription>
+        <value>Proposed Team Increase</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Suggested</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Suggested</shortDescription>
+        <value>Suggested</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Suggested_All_Reports</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Suggested All Reports</shortDescription>
+        <value>Suggested All Reports</value>
+    </labels>
+    <labels>
+        <fullName>Process_Salary_Plan_Suggested_Team_Increase</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Suggested Team Increase</shortDescription>
+        <value>Suggested Team Increase</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Cross_Company</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cross-Company</shortDescription>
+        <value>Cross-Company</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Current_Skill</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Current Skill</shortDescription>
+        <value>Current Skill</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Development_Options</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Development options</shortDescription>
+        <value>Development options</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Immediate_Team_and_Colleagues</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Immediate Team and Colleagues</shortDescription>
+        <value>Immediate Team and Colleagues</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Key</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Key</shortDescription>
+        <value>Key</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Level_of_Skill</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Level of Skill</shortDescription>
+        <value>Level of Skill</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Manager_and_All_Below</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager and All Below</shortDescription>
+        <value>Manager and All Below</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Other_Skills</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other skills</shortDescription>
+        <value>Other skills</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Others_With_Same_Skill</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Others with same skill</shortDescription>
+        <value>Others with same skill</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Planned_Development</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Planned Development</shortDescription>
+        <value>Planned Development</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Required_Skill</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Required Skill</shortDescription>
+        <value>Required Skill</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Required_Skills_Profile</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required Skills Profile</shortDescription>
+        <value>Required Skills Profile</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Skill_Find_Help</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skill Find Help</shortDescription>
+        <value>Team members with skill profile with those most closely matching at the top:</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Skill_Search</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skill Search</shortDescription>
+        <value>Skill Search</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skill_Skills_from_profile</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skills from profile</shortDescription>
+        <value>Skills from profile</value>
+    </labels>
+    <labels>
+        <fullName>Process_Skills</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skills</shortDescription>
+        <value>Skills</value>
+    </labels>
+    <labels>
+        <fullName>Process_Stock_Options</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Stock Options</shortDescription>
+        <value>Stock Options</value>
+    </labels>
+    <labels>
+        <fullName>Process_Succession_Plan</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Succession Plan</shortDescription>
+        <value>Succession Plan</value>
+    </labels>
+    <labels>
+        <fullName>Process_Successors_Soonest_Ready</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Soonest Ready</shortDescription>
+        <value>Soonest Ready</value>
+    </labels>
+    <labels>
+        <fullName>Process_Successors_Succeeds_To</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Succeeds To</shortDescription>
+        <value>Succeeds To</value>
+    </labels>
+    <labels>
+        <fullName>Process_Successors_Successors</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Successors</shortDescription>
+        <value>Successors</value>
+    </labels>
+    <labels>
+        <fullName>Process_Summary</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process Summary</shortDescription>
+        <value>Summary</value>
+    </labels>
+    <labels>
+        <fullName>Process_Taken_Already</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Taken Already</shortDescription>
+        <value>Taken or Approved Already</value>
+    </labels>
+    <labels>
+        <fullName>Process_Talent_Plan</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Talent Plan</shortDescription>
+        <value>Talent Plan</value>
+    </labels>
+    <labels>
+        <fullName>Process_Talent_Plan_Performance</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Performance</shortDescription>
+        <value>Performance</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Targets</shortDescription>
+        <value>Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Actual</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Actual</shortDescription>
+        <value>Actual</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Actual_Amount</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Actual Amount</shortDescription>
+        <value>Actual Amount</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Actuals_Total_YTD</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Actuals Total YTD</shortDescription>
+        <value>Actuals Total YTD</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Annual_Actual</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Annual Actual</shortDescription>
+        <value>Annual Actual</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Annual_Target</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Annual Target</shortDescription>
+        <value>Annual Target</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Annual_Target_Count</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Annual Target Count</shortDescription>
+        <value>Annual Target Count</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Annual_Target_Total</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Annual Target Total</shortDescription>
+        <value>Annual Target Total</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Colleagues_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Colleagues&apos; Targets</shortDescription>
+        <value>Colleagues&apos; Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Direct_Reports_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Direct Reports&apos; Targets</shortDescription>
+        <value>Direct Reports&apos; Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Last_Manager_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last Manager Comments</shortDescription>
+        <value>Last Manager Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Last_Team_Member_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last Team Member Comments</shortDescription>
+        <value>Last Team Member Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Manager_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manager Targets</shortDescription>
+        <value>Manager Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Monthly_Actuals</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Monthly Actuals</shortDescription>
+        <value>Monthly Actuals</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Monthly_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Monthly Targets</shortDescription>
+        <value>Monthly Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_New_Manager_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New Manager Comments</shortDescription>
+        <value>New Manager Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_New_Team_Member_Comments</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New Team Member Comments</shortDescription>
+        <value>New Team Member Comments</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Quarterly_Actuals</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quarterly Actuals</shortDescription>
+        <value>Quarterly Actuals</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Quarterly_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quarterly Targets</shortDescription>
+        <value>Quarterly Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Target_Amount</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Target Amount</shortDescription>
+        <value>Target Amount</value>
+    </labels>
+    <labels>
+        <fullName>Process_Targets_Team_Member_Targets</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Team Member Targets</shortDescription>
+        <value>Team Member Targets</value>
+    </labels>
+    <labels>
+        <fullName>Process_Team_Members_Matching</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Members Matching</shortDescription>
+        <value>Team Members Matching</value>
+    </labels>
+    <labels>
+        <fullName>Process_Training</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training</shortDescription>
+        <value>Training</value>
+    </labels>
+    <labels>
+        <fullName>Process_Training_Period</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Period</shortDescription>
+        <value>Period</value>
+    </labels>
+    <labels>
+        <fullName>Process_Training_Related_Development_Options</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Related Development Options</shortDescription>
+        <value>Related Development Options</value>
+    </labels>
+    <labels>
+        <fullName>Process_Vacations</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Paid Time Off</shortDescription>
+        <value>Paid Time Off</value>
+    </labels>
+    <labels>
+        <fullName>Process_Vacations_Period</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Period</shortDescription>
+        <value>Period</value>
+    </labels>
+    <labels>
+        <fullName>Process_Work_History</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Work History</shortDescription>
+        <value>Work History</value>
+    </labels>
+    <labels>
+        <fullName>Process_Work_History_Dates</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dates</shortDescription>
+        <value>Dates</value>
+    </labels>
+    <labels>
+        <fullName>Process_Work_History_Experience</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Experience</shortDescription>
+        <value>Experience</value>
+    </labels>
+    <labels>
+        <fullName>Process_Work_History_New_Position</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Position</shortDescription>
+        <value>New Position</value>
+    </labels>
+    <labels>
+        <fullName>Refresh</fullName>
+        <categories>Refresh</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Refresh</shortDescription>
+        <value>Refresh</value>
+    </labels>
+    <labels>
+        <fullName>Reset_Password</fullName>
+        <categories>Password</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reset Password</shortDescription>
+        <value>Reset Password</value>
+    </labels>
+    <labels>
+        <fullName>Salary_Plan_All_Reports</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Salary Plan All Reports</shortDescription>
+        <value>All Reports Completed</value>
+    </labels>
+    <labels>
+        <fullName>Salary_Plan_Completed_Direct_Reports</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Salary Plan Completed Direct Reports</shortDescription>
+        <value>Direct Reports Completed</value>
+    </labels>
+    <labels>
+        <fullName>Single_Sign_On</fullName>
+        <categories>Single Sign-On</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Single Sign-On</shortDescription>
+        <value>Single Sign-On</value>
+    </labels>
+    <labels>
+        <fullName>Single_Sign_On_User_Details</fullName>
+        <categories>Single Sign-On User Details</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Single Sign-On User Details</shortDescription>
+        <value>Single Sign-On User Details</value>
+    </labels>
+    <labels>
+        <fullName>Start_Date</fullName>
+        <categories>Date</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Start Date</shortDescription>
+        <value>Start Date</value>
+    </labels>
+    <labels>
+        <fullName>Status_Approved</fullName>
+        <categories>Status</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approved</shortDescription>
+        <value>Approved</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Direct_Reports_No_Successors</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Direct Reports No Successors</shortDescription>
+        <value>Direct reports without successors</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Direct_Reports_Successors</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Direct Reports Successors</shortDescription>
+        <value>Direct reports with successors</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Soonest_Ready</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Soonest Ready</shortDescription>
+        <value>Soonest Ready</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Succeeds_To</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Succeeds To</shortDescription>
+        <value>Succeeds To</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Successors</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Successors</shortDescription>
+        <value>Successors</value>
+    </labels>
+    <labels>
+        <fullName>Successor_Total</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Successor Total</shortDescription>
+        <value>Number of Successors</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member</shortDescription>
+        <value>Team Member</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_Create_User_Message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member Create User Message</shortDescription>
+        <value>Please note, you may need to refresh the Team Member page in order to see these changes.</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_Details</fullName>
+        <categories>Team Member Details</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member Details</shortDescription>
+        <value>Team Member Details</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_EmploymentDetails</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Employment Details</shortDescription>
+        <value>Employment Details</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_PerformanceDetails</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Performance Details</shortDescription>
+        <value>Performance Details</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_Picture</fullName>
+        <categories>Team Member Picture</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member Picture</shortDescription>
+        <value>Team Member Picture</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_SalaryDetails</fullName>
+        <categories>Team Member</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Salary Details</shortDescription>
+        <value>Salary Details</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_Terminate</fullName>
+        <categories>Team Member Terminate</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member Terminate</shortDescription>
+        <value>Team Member Terminate</value>
+    </labels>
+    <labels>
+        <fullName>Team_Member_User</fullName>
+        <categories>Team Member User</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Team Member User</shortDescription>
+        <value>Team Member User</value>
+    </labels>
+    <labels>
+        <fullName>Terminate</fullName>
+        <categories>Terminate</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Terminate</shortDescription>
+        <value>Terminate</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_By_Tomorrow</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>by tomorrow</shortDescription>
+        <value>by tomorrow</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_Last_Year</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>last year</shortDescription>
+        <value>last year</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_N_Days_Old</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>n days old</shortDescription>
+        <value>{0} days old</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_N_Months_Old</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>n months old</shortDescription>
+        <value>{0} months old</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_N_Weeks_Old</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>n weeks old</shortDescription>
+        <value>{0} weeks old</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_N_Years_Old</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>n years old</shortDescription>
+        <value>{0} years old</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_Today</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>today</shortDescription>
+        <value>today</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_Within_N_Days</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>within n days</shortDescription>
+        <value>within {0} days</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_Within_N_Months</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>within n months</shortDescription>
+        <value>within {0} months</value>
+    </labels>
+    <labels>
+        <fullName>TimeSpan_Yesterday</fullName>
+        <categories>TimeSpan</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>yesterday</shortDescription>
+        <value>yesterday</value>
+    </labels>
+    <labels>
+        <fullName>Time_Off</fullName>
+        <categories>Time Off</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time Off</shortDescription>
+        <value>Time Off</value>
+    </labels>
+    <labels>
+        <fullName>User</fullName>
+        <categories>User</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>User</shortDescription>
+        <value>User</value>
+    </labels>
+    <labels>
+        <fullName>User_Details</fullName>
+        <categories>User</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>User Details</shortDescription>
+        <value>User Details</value>
+    </labels>
+    <labels>
+        <fullName>Year_View</fullName>
+        <categories>Year View</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Year View</shortDescription>
+        <value>Year View</value>
+    </labels>
+</CustomLabels>

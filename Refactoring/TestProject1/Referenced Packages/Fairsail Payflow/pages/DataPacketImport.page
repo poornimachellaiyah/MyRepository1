@@ -1,0 +1,15 @@
+<apex:page controller="fpay.DataPacketController" >
+	<apex:form >
+		<apex:pageBlock title="Import Data" mode="edit">
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Data File" />
+					<apex:inputFile value="{!jsonContent}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!import}" value="Import" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

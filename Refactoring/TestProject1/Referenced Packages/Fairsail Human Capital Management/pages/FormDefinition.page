@@ -1,0 +1,159 @@
+<apex:page standardController="fHCM2__Form_Definition__c" Extensions="fHCM2.FormDefinitionEditExtensionController">
+	<style>
+pre {
+ overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+ white-space: pre-wrap; /* css-3 */
+ white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+ white-space: -pre-wrap; /* Opera 4-6 */
+ white-space: -o-pre-wrap; /* Opera 7 */
+ /* width: 99%; */
+ word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+</style>
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Form_Definition__c.label}" subtitle="{!fHCM2__Form_Definition__c.Name}" help="/apex/Help?obj=fHCM2__Form_Definition__c" />
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fHCM2__Form_Definition__c.label}" mode="details">
+			<apex:pageBlockButtons >
+				<c:LinkButton label="Visual Edit" url="/apex/fHCM2__FormGen?id={!fHCM2__Form_Definition__c.Id}"/>
+				<c:LinkButton label="XML Edit" url="/apex/fHCM2__FormDefinitionEditXml?id={!fHCM2__Form_Definition__c.Id}"/>
+				<apex:commandButton action="{!delete}" value="{!$Label.fhcm2__Button_Delete}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+				<c:PopupButton label="Completed Forms to Excel" url="/apex/FormExcel?id={!fHCM2__Form_Definition__c.Id}&startdate=1900-01-01" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Form Definition Details" columns="2">
+				<apex:outputField value="{!fHCM2__Form_Definition__c.Name}" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+
+
+	<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" selectedTab="pages" rendered="{!isnull($CurrentPage.parameters.tab)}">
+		<apex:tab label="Form" name="pages">
+			<apex:pageBlock mode="details">
+					<apex:outputPanel style="width:900px;">
+						<pre style="width:900px;">
+	                    <apex:outputText value="{!definitionXml}" escape="true" />
+	                  </pre>
+					</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Emails" name="email">
+			<apex:pageBlock title="Emails" mode="details">
+					<apex:pageBlockButtons >
+						<c:LinkButton label="New Form Email" url="/apex/FormEmailEdit?formDefinitionId={!fHCM2__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fHCM2__Form_Definition__c.Form_Emails__r}" var="row">
+					<apex:column headerValue="Email Name">
+						<apex:outputLink value="/apex/FormEmailEdit?id={!row.Id}&retURL=%2F{!fHCM2__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Data Links" name="firewall">
+			<apex:pageBlock mode="details">
+				<apex:pageBlockSection title="Linked Object Details" columns="2">
+					<apex:outputField value="{!fHCM2__Form_Definition__c.fHCM2__Permit_New_Object__c}" />
+					<apex:outputField value="{!fHCM2__Form_Definition__c.fHCM2__Object_Name__c}" />
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+			<apex:pageBlock title="Rules" mode="details">
+					<apex:pageBlockButtons >
+						<c:LinkButton label="New Rule" url="/apex/FormRuleEdit?formDefinitionId={!fHCM2__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!rules}" var="row">
+					<apex:column headerValue="Data">
+						<apex:outputLink value="/apex/FormRuleEdit?id={!row.Id}&retURL=%2F{!fHCM2__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Direction">
+						<apex:outputLabel value="{!row.fHCM2__Direction__c}" />
+					</apex:column>
+					<apex:column headerValue="Field Name">
+						<apex:outputLabel value="{!row.fHCM2__Field_Name__c}" />
+					</apex:column>
+					<apex:column headerValue="Condition">
+						<apex:outputLabel value="{!row.fHCM2__Condition__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Policies" name="policy">
+			<apex:pageBlock title="Form Policies" mode="details">
+					<apex:pageBlockButtons >
+						<c:LinkButton label="New Form Policy" url="/apex/FormPolicyEdit?formDefinitionId={!fHCM2__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fHCM2__Form_Definition__c.Form_Policies__r}" var="row">
+					<apex:column headerValue="Policy Name">
+						<apex:outputLink value="/apex/FormPolicyEdit?id={!row.Id}&retURL=%2F{!fHCM2__Form_Definition__c.Id}">{!row.Policy__r.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column value="{!row.fHCM2__Team_Member_Starts__c}"/>
+					<apex:column value="{!row.fHCM2__Manager_Starts__c}"/>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+	</apex:tabPanel>
+
+	<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" selectedTab="firewall" rendered="{!!isnull($CurrentPage.parameters.tab)}">
+		<apex:tab label="Form" name="pages">
+			<apex:pageBlock mode="details">
+					<apex:outputPanel style="width:900px;">
+						<pre style="width:900px;">
+	                    <apex:outputText value="{!fHCM2__Form_Definition__c.fHCM2__Definition__c}" escape="true" />
+	                  </pre>
+					</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Emails" name="email">
+			<apex:pageBlock title="Emails" mode="details">
+					<apex:pageBlockButtons >
+						<c:LinkButton label="New Form Email" url="/apex/FormEmailEdit?formDefinitionId={!fHCM2__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fHCM2__Form_Definition__c.Form_Emails__r}" var="row">
+					<apex:column headerValue="Email Name">
+						<apex:outputLink value="/apex/FormEmailEdit?id={!row.Id}&retURL=%2F{!fHCM2__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Data Links" name="firewall">
+			<apex:pageBlock mode="details">
+				<apex:pageBlockSection title="Linked Object Details" columns="2">
+					<apex:outputField value="{!fHCM2__Form_Definition__c.fHCM2__Permit_New_Forms__c}" />
+					<apex:outputField value="{!fHCM2__Form_Definition__c.fHCM2__Permit_New_Object__c}" />
+					<apex:outputField value="{!fHCM2__Form_Definition__c.fHCM2__Object_Name__c}" />
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+			<apex:pageBlock title="Rules" mode="details">
+					<apex:pageBlockButtons >
+						<c:LinkButton label="New Rule" url="/apex/FormRuleEdit?formDefinitionId={!fHCM2__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fHCM2__Form_Definition__c.Form_Rules__r}" var="row">
+					<apex:column headerValue="Data Name">
+						<apex:outputLink value="/apex/FormRuleEdit?id={!row.Id}&retURL=%2F{!fHCM2__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Direction">
+						<apex:outputLabel value="{!row.fHCM2__Direction__c}" />
+					</apex:column>
+					<apex:column headerValue="Field Name">
+						<apex:outputLabel value="{!row.fHCM2__Field_Name__c}" />
+					</apex:column>
+					<apex:column headerValue="Condition">
+						<apex:outputLabel value="{!row.fHCM2__Condition__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Policies" name="policy">
+			<apex:pageBlock title="Form Policies" mode="details">
+					<apex:pageBlockButtons >
+						<c:LinkButton label="New Form Policy" url="/apex/FormPolicyEdit?formDefinitionId={!fHCM2__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fHCM2__Form_Definition__c.Form_Policies__r}" var="row">
+					<apex:column headerValue="Policy Name">
+						<apex:outputLink value="/apex/FormPolicyEdit?id={!row.Id}&retURL=%2F{!fHCM2__Form_Definition__c.Id}">{!row.Policy__r.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column value="{!row.fHCM2__Team_Member_Starts__c}"/>
+					<apex:column value="{!row.fHCM2__Manager_Starts__c}"/>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+	</apex:tabPanel>
+</apex:page>

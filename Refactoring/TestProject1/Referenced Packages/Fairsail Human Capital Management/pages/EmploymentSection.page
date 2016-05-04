@@ -1,0 +1,9 @@
+<apex:page controller="fHCM2.EmploymentTeamController" standardStylesheets="false" showHeader="false" sidebar="false" rendered="{!subject.EmploymentIsUsing}">
+	<apex:pageBlock >
+       	<c:FieldSetSection objectid="{!viewer.teamMember.id}" fields="{!FieldsetTeamMemberTableDetails}" title="{!$Label.fhcm2__Process_Employment_Details}" rendered="{!viewer.IsManager && viewer.departmentPolicy.fHCM2__Employment_Is_Active__c==true}">
+			<apex:outputPanel layout="block" styleClass="wideButtonBar">
+				<apex:outputLink value="/apex/{!links.Employment}?id={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+			</apex:outputPanel>
+       	</c:FieldSetSection>
+	</apex:pageBlock>
+</apex:page>

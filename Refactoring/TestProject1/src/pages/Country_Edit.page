@@ -1,0 +1,188 @@
+<apex:page standardController="Country__c" showHeader="true" sidebar="true">
+
+    <apex:form id="myform">
+        <apex:SectionHeader title="New Country"/>
+        <apex:pageBlock id="pgBlock" mode="Edit" title="Country Details">
+          <apex:pageMessages />
+
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="Save" action="{!Save}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/> 
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="pgBlockSectionCountryInfo" collapsible="false" columns="2" >
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Country Name </apex:outputLabel>
+                    <apex:inputField id="ctryName" required="true" value="{!Country__c.Name}" />
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >VSO Office? </apex:outputLabel>
+                    <apex:inputField id="vsoOff" required="true" value="{!Country__c.VSO_Office__c}" />
+                </apex:pageblockSectionItem>  
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Country People Manager </apex:outputLabel>
+                    <apex:inputField id="ctryPM" value="{!Country__c.Country_People_Manager__c}" />
+                </apex:pageblockSectionItem>   
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Region </apex:outputLabel>
+                    <apex:inputField id="Region" required="true" value="{!Country__c.Region__c}" />
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Country Director </apex:outputLabel>
+                    <apex:inputField id="CDir" value="{!Country__c.Country_Director__c}" />
+                </apex:pageblockSectionItem>  
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Prefix for Payroll ID </apex:outputLabel>
+                    <apex:inputField id="PrePayID" value="{!Country__c.Prefix_for_Payroll_ID__c}" />
+                </apex:pageblockSectionItem>    
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Federation People Manager</apex:outputLabel>
+                    <apex:inputField id="FedPM" value="{!Country__c.Federation_People_Manager__c}" />
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Payroll Cutoff Day of the Month</apex:outputLabel>
+                    <apex:inputField id="Paycutoff" value="{!Country__c.Payroll_Cutoff_Day_of_the_Month__c}" />
+                </apex:pageblockSectionItem>                                                                                                        
+            </apex:pageBlockSection> 
+            <apex:pageblockSection id="Desinfo" title="Description Information" collapsible="false" columns="1">
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Description </apex:outputLabel>
+                    <apex:inputField id="Desc" value="{!Country__c.Description__c}" style="width:95%;" />
+                </apex:pageblockSectionItem> 
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Country Specifics </apex:outputLabel>
+                    <apex:inputField id="CSpec" value="{!Country__c.Country_Specifics__c}" style="width:95%;"  />
+                </apex:pageblockSectionItem> 
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Posting Guidelines</apex:outputLabel>
+                    <apex:inputField id="Pguide" value="{!Country__c.Posting_Guidelines__c}"  style="width:95%;" />
+                </apex:pageblockSectionItem>                
+            </apex:pageblockSection> 
+            <apex:pageBlockSection id="Emergency" title="Emergency Contacts Details" collapsible="true" columns="2">
+               <apex:pageblockSectionItem >
+                  <apex:outputLabel >Emergency Phone</apex:outputLabel>
+                  <apex:inputField id="EP" value="{!Country__c.Emergency_Phone__c}" />
+               </apex:pageblockSectionItem>
+               <apex:pageblockSectionItem >
+                   <apex:outputLabel ></apex:outputLabel>
+               </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Emergency Contact 1</apex:outputLabel>
+                    <apex:inputField id="EC" value="{!Country__c.Emergency_Contact_One__c}" />
+                </apex:pageblockSectionItem>  
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Emergency Contact 2</apex:outputLabel>
+                    <apex:inputField id="EC1" value="{!Country__c.Emergency_Contact_2__c}" />
+                </apex:pageblockSectionItem>                               
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="pgBlockSectionAddressInfo" title="Address Information" collapsible="true" columns="2">
+            <apex:facet name="header">
+                    <span class="pbSubExtra">
+                        <span class="bodySmall">
+                            <a href="javascript:copyAddress();">Copy Office Address to Postal Address</a>
+                        </span>
+                    </span>
+                    <h3>Address Information<span class="titleSeparatingColon">:</span></h3>
+            </apex:facet>
+            <apex:pageBlockSectionItem id="pgOAdd1">
+                <apex:outputLabel >Office Address 1</apex:outputLabel>
+                <apex:inputField id="OffAddress1" value="{!Country__c.Office_Address_1__c}" taborderhint="1" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAdd1">
+                <apex:outputLabel >Postal Address 1</apex:outputLabel>
+                <apex:inputField id="PostAddress1" value="{!Country__c.Postal_Address_1__c}" taborderhint="8" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pgOAdd2">
+                <apex:outputLabel >Office Address 2</apex:outputLabel>
+                <apex:inputField id="OffAddress2" value="{!Country__c.Office_Address_2__c}" taborderhint="2" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAdd2">
+                <apex:outputLabel >Postal Address 2</apex:outputLabel>
+                <apex:inputField id="PostAddress2" value="{!Country__c.Postal_Address_1__c}" taborderhint="9"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pgOAdd3">
+                <apex:outputLabel >Office Address 3</apex:outputLabel>
+                <apex:inputField id="OffAddress3" value="{!Country__c.Office_Address_3__c}" taborderhint="3" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAdd3">
+                <apex:outputLabel >Postal Address 3</apex:outputLabel>
+                <apex:inputField id="PostAddress3" value="{!Country__c.Postal_Address_3__c}" taborderhint="10"/>
+            </apex:pageBlockSectionItem>           
+            
+            <apex:pageBlockSectionItem id="pgOAddCity">
+                <apex:outputLabel >Office Address City</apex:outputLabel>
+                <apex:inputField id="OffCity" value="{!Country__c.Office_Address_City__c}" taborderhint="4" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAddCity">
+                <apex:outputLabel >Postal Address City</apex:outputLabel>
+                <apex:inputField id="PostCity" value="{!Country__c.Postal_Address_City__c}" taborderhint="11"/>
+            </apex:pageBlockSectionItem>   
+            
+              <apex:pageBlockSectionItem id="pgOAddPsCode">
+                <apex:outputLabel >Office Address Postal Code</apex:outputLabel>
+                <apex:inputField id="OffPcode" value="{!Country__c.Office_Address_Postal_Code__c}" taborderhint="5"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem id="pgPAddPsCode">
+                <apex:outputLabel >Postal Address Postal Code</apex:outputLabel>
+                <apex:inputField id="OffPPcode" value="{!Country__c.Postal_Address_Postal_Code__c}" taborderhint="12"/>
+             </apex:pageBlockSectionItem> 
+            
+            <apex:pageBlockSectionItem id="pgOAddCtry">
+                <apex:outputLabel >Office Address Country</apex:outputLabel>
+                <apex:inputField id="OffCountry" value="{!Country__c.Office_Address_Country__c}" taborderhint="6" />
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem id="pgPAddCtry">
+                <apex:outputLabel >Postal Address Country</apex:outputLabel>
+                <apex:inputField id="PostCountry" value="{!Country__c.Postal_Address_Country__c}" taborderhint="13"/>
+            </apex:pageBlockSectionItem>  
+
+            <apex:pageBlockSectionItem id="pgPhone">
+                <apex:outputLabel >Phone</apex:outputLabel>
+                <apex:inputField id="phone" value="{!Country__c.Phone__c}" taborderhint="7"/>
+            </apex:pageBlockSectionItem> 
+
+            
+        </apex:pageBlockSection>            
+            <apex:pageBlockSection id="sys" title="System Information" collapsible="true" columns="2">
+                <apex:pageblockSectionItem >
+                   <!--  <tr><td class="labelCol first ">Owner</td>
+                        <td class="dataCol  first ">{!$User.Name}e}</td>
+                    </tr>  -->
+                
+                   <apex:outputLabel >Owner</apex:outputLabel>
+                    <apex:outputText id="own" value="{!$User.FirstName} {!$User.LastName}"  />
+                </apex:pageblockSectionItem>  
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Help.Recalculate Apex Sharing (Admin)</apex:outputLabel>
+                    <apex:inputField id="help" value="{!Country__c.Recalculate_Apex_Sharing_Admin_Only__c}" />
+                </apex:pageblockSectionItem>                               
+            </apex:pageBlockSection>             
+        </apex:pageBlock>
+    </apex:form>
+        <script>
+            function copyAddress() {
+                var OffAdd1=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAdd1.OffAddress1}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAdd1.PostAddress1}').value=OffAdd1; 
+                
+                var OffAdd2=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAdd2.OffAddress2}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAdd2.PostAddress2}').value=OffAdd2;                
+                
+                var OffAdd3=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAdd3.OffAddress3}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAdd3.PostAddress3}').value=OffAdd3;
+                
+                var OffCity=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAddCity.OffCity}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAddCity.PostCity}').value=OffCity;
+
+                var OffCoun1=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAddPsCode.OffPcode}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAddPsCode.OffPPcode}').value=OffCoun1;                                            
+
+
+                var OffCoun=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAddCtry.OffCountry}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAddCtry.PostCountry}').value=OffCoun;        
+                            
+               
+
+            }
+        </script>
+</apex:page>

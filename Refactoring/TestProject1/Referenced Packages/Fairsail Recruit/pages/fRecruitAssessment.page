@@ -1,0 +1,81 @@
+<apex:page standardController="fRecruit__Assessment__c" extensions="fRecruit.AssessmentControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Assessment__c.label}" subTitle="{!fRecruit__Assessment__c.Name}" help="http://recruit.help.fairsail.com/topics/Assessment.html" />
+	<apex:form >
+		<apex:pageBlock title="{!fRecruit__Assessment__c.fRecruit__Selection_Stage__r.Name}: {!fRecruit__Assessment__c.fRecruit__Application__r.fRecruit__Candidate__r.Name}" mode="details">
+			<apex:pageBlockButtons >
+				<c:fRecruitLinkButton label="Edit" url="/apex/fRecruitassessmentEdit?applicationId={!fRecruit__Assessment__c.fRecruit__Application__c}&selectionStageId={!fRecruit__Assessment__c.fRecruit__Selection_Stage__c}"/>
+				<apex:commandButton action="{!xDelete}" value="Delete" />
+				<c:fRecruitPopupButton label="Interview Worksheet" url="/apex/fRecruitinterviewSheet?id={!fRecruit__Assessment__c.fRecruit__Selection_Stage__c}"/>
+				<c:fRecruitPopupButton rendered="{!fRecruit__Assessment__c.fRecruit__Form__c!=null && !fRecruit__Assessment__c.fRecruit__Awaiting_Form__c}" label="Form" url="/apex/fRecruitAssessmentFormView?id={!fRecruit__Assessment__c.fRecruit__Form__c}" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:outputField value="{!fRecruit__Assessment__c.Name}" />
+				<apex:outputField value="{!fRecruit__Assessment__c.fRecruit__Application__r.fRecruit__Vacancy__c}" />
+				<apex:outputField value="{!fRecruit__Assessment__c.fRecruit__Application__r.fRecruit__Candidate__c}" />
+				<apex:outputField value="{!fRecruit__Assessment__c.fRecruit__Selection_Stage__r.fRecruit__Assessor__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Assessment of selection criteria" columns="1" rendered="{!rows.size>0}">
+			<apex:pageBlockTable value="{!rows}" var="row" >
+				<apex:column headerValue="Type">
+					<apex:outputLabel value="{!row.criteriaType}"/>
+				</apex:column>
+				<apex:column headerValue="Criteria">
+					<apex:outputLabel value="{!row.criteriaName}"/>
+				</apex:column>
+				<apex:column headerValue="Required">
+					<c:fRecruitOutputCheckbox value="{!row.required}"/>
+				</apex:column>
+				<apex:column headerValue="Rating">
+					<apex:outputPanel style="color:#a0a0a0;" rendered="{!row.HasScore}"><apex:image value="{!row.ratingIndicator}" alt="{!row.rating}" /> {!row.weightedScore}</apex:outputPanel>
+					<apex:outputPanel rendered="{!!row.hasScore}">&nbsp;</apex:outputPanel>
+				</apex:column>
+				<apex:column headerValue="Comments">
+					<apex:outputLabel value="{!row.comment}"/>
+				</apex:column>
+			</apex:pageBlockTable>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Qualifying Questions" columns="1" rendered="{!qualifiers.size>0}">
+			<apex:pageBlockTable value="{!qualifiers}" var="row">
+				<apex:column headerValue="Criteria">
+					<apex:outputLabel value="{!row.Criteria_Assessment__r.Criteria_Library_Item__r.Name}"/>
+				</apex:column>
+				<apex:column headerValue="Question">
+					<apex:outputLabel value="{!row.Qualification_Question__r.fRecruit__Prompt__c}"/>
+				</apex:column>
+				<apex:column headerValue="Response">
+					<apex:outputLabel value="{!row.Qualification_Response__r.fRecruit__Prompt__c}"/>
+				</apex:column>
+				<apex:column headerValue="Score">
+					<apex:outputLabel value="{!row.fRecruit__Score__c}"/>
+				</apex:column>
+				<apex:column headerValue="Minimum Score">
+					<apex:outputLabel value="{!row.Qualification_Question__r.fRecruit__Minimum_Score__c}"/>
+				</apex:column>
+			</apex:pageBlockTable>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Start Details" columns="1" rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Start_Details.size>0 && fRecruit__Assessment__c.Selection_Stage__r.fRecruit__Enter_Start_Details__c}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Start_Details}" var="f">
+                   	<apex:outputField value="{!fRecruit__Assessment__c.Application__r[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+			<apex:pageBlockSection title="Overall assessment of this stage" columns="1">
+				<apex:repeat value="{!$ObjectType.fRecruit__Assessment__c.FieldSets.fRecruit__Overall_Assessment_Edit}" var="f">
+                   	<apex:outputField value="{!fRecruit__Assessment__c[f]}"/>
+                </apex:repeat>
+				<apex:pageBlockSectionItem rendered="{!fRecruit__Assessment__c.fRecruit__Weighted_Average_Score__c!=null}">
+					<apex:outputLabel value="Overall Rating"/>
+					<apex:outputPanel style="color:#a0a0a0;" rendered="{!fRecruit__Assessment__c.fRecruit__Weighted_Average_Score__c!=null}"><apex:outputText escape="false" value="{!fRecruit__Assessment__c.fRecruit__Rating_Indicator__c}"/> {!fRecruit__Assessment__c.fRecruit__Weighted_Average_Score__c}</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:outputField rendered="{!fRecruit__Assessment__c.fRecruit__Weighted_Score__c!=0}" value="{!fRecruit__Assessment__c.fRecruit__Weighted_Score__c}"/>
+				<apex:outputField value="{!fRecruit__Assessment__c.fRecruit__Outcome__c}"/>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Quality Check" columns="1" rendered="{!$ObjectType.fRecruit__Assessment__c.FieldSets.fRecruit__Quality_Check.size>0 && !isblank(fRecruit__Assessment__c.fRecruit__Quality_Check__c)}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Assessment__c.FieldSets.fRecruit__Quality_Check}" var="f">
+                   	<apex:outputField value="{!fRecruit__Assessment__c[f]}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+		<p style="text-align: center">Key:-&nbsp;&nbsp;&nbsp;&nbsp; Exceeds <apex:image value="/img/samples/rating5.gif" />&nbsp;&nbsp; Fully Meets <apex:image value="/img/samples/rating4.gif" />&nbsp;&nbsp; Just Meets <apex:image value="/img/samples/rating3.gif" />&nbsp;&nbsp; Partly Meets <apex:image value="/img/samples/rating2.gif" />&nbsp;&nbsp; Not Met <apex:image value="/img/samples/rating1.gif" /></p>
+		</apex:pageBlock>
+	</apex:form>
+		<apex:relatedList list="Interviewers__r" subject="{!fRecruit__Assessment__c.Id}"/>
+</apex:page>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Benefit_Field__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of field in Benefit where this value will be copied when the plan is selected</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of field in Benefit where this value will be copied when the plan is selected</inlineHelpText>
+        <label>Benefit Field</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Benefit_Plan__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Benefit Plan</label>
+        <referenceTo>Benefit_Plan__c</referenceTo>
+        <relationshipLabel>Benefit Calculations</relationshipLabel>
+        <relationshipName>Benefit_Calculations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Default__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Default value if null</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default value if null</inlineHelpText>
+        <label>Default</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Display_during_Enrollment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show this value to the team member when enrolling</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show this value to the team member when enrolling</inlineHelpText>
+        <label>Display during Enrollment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HCM_Expression__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Fairsail expression that will return the value of this calculation for this team member.  If entered this will be used instead of the HCM Field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fairsail expression that will return the value of this calculation for this team member.  If entered this will be used instead of the HCM Field</inlineHelpText>
+        <label>HCM Expression</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>HCM_Field__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Field in HCM Object that will return the value of this calculation for this team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Field in HCM Object that will return the value of this calculation for this team member</inlineHelpText>
+        <label>HCM Field</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HCM_Object__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Object that will return the value of this calculation for this team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Object that will return the value of this calculation for this team member</inlineHelpText>
+        <label>HCM Object</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Display order for those that are shown</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Display order for those that are shown</inlineHelpText>
+        <label>Order</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Benefit Calculation</label>
+    <nameField>
+        <label>Benenfit Calculation Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Benefit Calculations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

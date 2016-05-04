@@ -1,0 +1,616 @@
+<apex:page showHeader="true" sidebar="false" standardStylesheets="false" doctype="html-5.0">
+
+	<apex:includeScript value="{!URLFOR($Resource.cftsys__CFTsys3, '/jquery/js/jquery-1.11.3.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.cftsys__CFTsys3, '/bootstrap3/js/bootstrap.min.js')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.CFTsys3, 
+							'/bootstrap3/css/bootstrap-theme.min.css')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.CFTsys3, 
+							'/bootstrap3/css/bootstrap.min.css')}"/>
+
+	<style>
+        #text {
+        	font-size: 15px;
+        	color: #806D6D;
+        }
+        #textBlack {
+        	font-size: 15px;
+        }
+    </style>						
+
+	<div class="bs">
+		<div class="container" style="width: 100%;padding-left: 0px;padding-right: 0px;margin-left: 10px;margin-right: 10px;">
+			
+			<div class="page-header" style="margin-top: 10px;">
+				  <h1>CFTsys 3  <small>Authorities</small></h1>
+			</div>
+			
+		</div>
+
+		<div class="container">
+
+			<p class="lead" id="textBlack">
+                In case of positive or doubtful suspect match urgently contact the following authorities as per the corresponding list jurisdiction and territory (the following information was obtained from the corresponding official websites)
+            </p>
+
+		  
+		</div>
+
+		<div class="container">
+
+			<div class="panel panel-default">
+			  
+			  <div class="panel-body">
+			    
+			  		<ul class="nav nav-pills  nav-justified">
+					    <li class="active" style="margin-left: 0px;"><a data-toggle="pill" href="#OFAC">U.S.: OFAC</a></li>
+					    <li><a data-toggle="pill" href="#UK">U.K.</a></li>
+					    <li><a data-toggle="pill" href="#australia">Australia</a></li>
+					    <li><a data-toggle="pill" href="#canada">Canada</a></li>
+					    <li><a data-toggle="pill" href="#other">Other Countries</a></li>
+					</ul>
+
+					  <br/>
+					  <br/>
+					  <br/>
+
+					  <div class="tab-content">
+					    <div id="OFAC" class="tab-pane fade in active">
+
+						     <p class="lead" id="text">
+				                Terrorism financing came into limelight in the United States after the terrorist attacks in the United States on the 11th September in 2001. The US Government passed the USA PATRIOT Act to, among other reasons, attempt thwarting the financing of terrorism (CFT) and anti-money laundering (AML) making sure these were given some sort of adequate focus by US financial institutions. The act also had extraterritorial impact and non-US banks having correspondent banking accounts or doing business with US banks had to upgrade their AML/CFT processes.
+				            </p>
+
+				            <p class="lead" id="text">
+				                As part of its enforcement efforts, OFAC publishes a list of individuals and companies owned or controlled by, or acting for or on behalf of, targeted countries. It also lists individuals, groups, and entities, such as terrorists and narcotics traffickers designated under programs that are not country-specific. Collectively, such individuals and companies are called "Specially Designated Nationals" or "SDNs." Their assets are blocked and U.S. persons are generally prohibited from dealing with them.
+				            </p>
+
+				            <p class="lead" id="text">
+				                <a href="http://www.treasury.gov/resource-center/faqs/Sanctions/Pages/directions.aspx" target="_blank">When Should I Call the OFAC Hotline?</a>
+				            </p>
+
+						      <div class="panel-group" id="accordion">
+							    
+							    
+
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+								        OFAC Hotline Numbers:</a>
+								      </h4>
+								    </div>
+								    <div id="collapse1" class="panel-collapse collapse">
+								      	<ul class="lead" id="text">
+				                          <li>Toll Free Hotline +1-800-540-6322</li>
+				                          <li>Local Hotline  +1-202-622-2490</li>
+				                          <li>OFAC Licensing Division (Direct) +1-202-622-2480</li>
+				                          <li>OFAC Fax-on-demand document service +1-202-622-0077</li>
+				                      	</ul>
+								    </div>
+								  </div>
+							    
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+								        Contact us by Postal Service</a>
+								      </h4>
+								    </div>
+								    <div id="collapse2" class="panel-collapse collapse">
+								      <div class="panel-body">
+								      	<div id="text">
+								      		Office of Foreign Assets Control<br/>
+											U.S. Department of the Treasury<br/>
+											Treasury Annex<br/>
+											1500 Pennsylvania Avenue, NW<br/>
+											Washington, DC 20220<br/>
+								      	</div>
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+								        Contact us Electronically</a>
+								      </h4>
+								    </div>
+								    <div id="collapse3" class="panel-collapse collapse">
+								      <div class="panel-body">
+								      	
+								      	<p class="lead" id="text">
+				                			<a href="" target="_blank">E-mail OFAC</a>
+				            			</p>
+
+				            			<p class="lead" id="text">
+				                			<a href="http://www.treasury.gov/about/organizational-structure/offices/Terrorism-Fin-Intel/Pages/OfficeOfForeignAssetsControlHotline.aspx" target="_blank">Submit in "in-process" wire transfers to the hotline</a>
+				            			</p>
+
+				            			<p class="lead" id="text">
+				                			<a href="" target="_blank">Click here to appeal an OFAC designation or other listing</a>
+				            			</p>
+
+								      </div>
+								    </div>
+								  </div>
+							    
+							  </div> 
+					    </div>
+					    
+					    <div id="UK" class="tab-pane fade">
+
+					      	<p class="lead" id="text">
+				                Enquiries relating to asset freezing or other financial sanctions should be submitted to HM Treasury either by email to <a href="mailto:financialsanctions@hmtreasury.gsi.gov.uk" target="_top">financialsanctions@hmtreasury.gsi.gov.uk</a> with cc to <a href="mailto:aml@hmtreasury.gsi.gov.uk" target="_top">aml@hmtreasury.gsi.gov.uk</a> or by post to:
+				            </p>
+
+				            <ul class="lead" id="text">
+	                          <li>Financial Sanctions</li>
+	                          <li>HM Treasury</li>
+	                          <li>1 Horse Guards Road</li>
+	                          <li>London</li>
+	                          <li>SW1A 2HQ</li>
+	                      	</ul>
+
+	                      	<p class="lead" id="text">
+				               HM Treasury is responsible for the implementation and administration of international financial sanctions in effect in the UK, for domestic designations under the Terrorist Asset-Freezing etc. Act 2010, licensing exemptions to financial sanctions, and directions given under <a href="http://www.legislation.gov.uk/ukpga/2008/28/schedule/7" target="_blank">Schedule 7 to the Counter-Terrorism Act 2008</a>, and under <a href="http://eur-lex.europa.eu/legal-content/EN/TXT/;ELX_SESSIONID=Dj2cTbFhLGxyP62DYN0W9JlS1hyLtqPbHdnzXYLGzTcxCkGJsz1s!2004986111?uri=OJ:JOL_2014_229_R_0001" target="_blank"> Council Regulation (EU) No.833/2014</a> , concerning Russia’s actions in Ukraine.
+				            </p>
+
+				            <div class="panel-group" id="accordion2">
+							    
+							    
+
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse4">
+								       Sanctions, Embargoes and Restrictions:</a>
+								      </h4>
+								    </div>
+								    <div id="collapse4" class="panel-collapse collapse">
+								      	<div class="panel-body">
+								      		<p class="lead" id="text">
+								              More information on financial sanctions can be found in our detailed guide on <a href="https://www.gov.uk/sanctions-embargoes-and-restrictions" target="_blank">sanctions, embargoes and restrictions</a>.
+								            </p>
+								      	</div>
+								    </div>
+								  </div>
+							    
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse5">
+								        Regime-specific Consolidated Lists and Releases</a>
+								      </h4>
+								    </div>
+								    <div id="collapse5" class="panel-collapse collapse">
+								      <div class="panel-body">
+								      		<p class="lead" id="text">
+								              We have provided further information in our document series on <a href="https://www.gov.uk/government/organisations/hm-treasury/series/financial-sanctions-regime-specific-consolidated-lists-and-releases" target="_blank">regime-specific consolidated lists and releases</a>.
+								            </p>	
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse6">
+								        Counter Terrorist Finance Strategy</a>
+								      </h4>
+								    </div>
+								    <div id="collapse6" class="panel-collapse collapse">
+								      <div class="panel-body">
+								      		<p class="lead" id="text">
+								              Information on our <a href="https://www.gov.uk/government/publications/counter-terrorist-finance-strategy" target="_blank">counter terrorist finance strategy</a> sets out the work being done by both the public and private sector to deter terrorists from using the financial system, detect them when they do and disrupt them.
+								            </p>	
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse7">
+								        Effective Anti-money Laundering and Counter Financing of Terrorism Policy</a>
+								      </h4>
+								    </div>
+								    <div id="collapse7" class="panel-collapse collapse">
+								      <div class="panel-body">
+								      		<p class="lead" id="text">
+								              We have provided information on how the Home Office and the Treasury work to implement an <a href="https://www.gov.uk/government/publications/preventing-money-laundering" target="_blank">effective anti-money laundering and counter financing of terrorism policy </a>in the UK.
+								            </p>
+								      </div>
+								    </div>
+								  </div>
+							    
+							  </div> 
+
+					    </div>
+					    <div id="australia" class="tab-pane fade">
+					      
+					    	<p class="lead" id="text">
+				                The Consolidated List includes all persons and entities to which the Charter of the United Nations Act 1945 and the Autonomous Sanctions Act 2011 currently applies. This follows the transition of Australia's targeted financial sanctions from the Banking (Foreign Exchange) Regulations 1959 to the Autonomous Sanctions Regulations 2011. 
+				            </p>
+
+				            <p class="lead" id="text">
+				                A number of sanctions regimes make it a criminal offence to, among other things:
+				            </p>
+
+				            <ul class="lead" id="text">
+	                          <li>Use or deal with the assets of a designated person or entity; or</li>
+	                          <li>Make an asset available to, or for the benefit of, a designated person or entity</li>
+	                      	</ul>
+
+	                      	<p class="lead" id="text">
+				                The penalty for these offences is:
+				            </p>
+
+				            <ul class="lead" id="text">
+	                          <li>for individuals, a maximum 10 years’ imprisonment and a fine the greater of $425,000 or three times the transaction value; and</li>
+	                          <li>for bodies corporate, a fine the greater of $1.7 million or three times the transaction value (the offence is a strict liability offence for bodies corporate)</li>
+	                      	</ul>
+
+
+	                      	<div class="panel-group" id="accordion3">
+							    
+							    
+
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion3" href="#collapse8">
+								       Reporting to the Australian Federal Police</a>
+								      </h4>
+								    </div>
+								    <div id="collapse8" class="panel-collapse collapse">
+								      	<div class="panel-body">
+
+								      		<p class="lead" id="text">
+								              Regulation 42 of the Charter of the United Nations (Dealing with Assets) Regulations 2008 and regulation 24 of the Autonomous Sanctions Regulations 2011 require asset holders to provide the Australian Federal Police with specific information about freezable or controlled assets, as defined under that legislation
+								            </p>
+								            
+								            <p class="lead" id="text">
+								              Please see the following legislation:
+								            </p>
+
+								            <ul class="lead" id="text">
+					                          <li><a href="http://www.comlaw.gov.au/Series/F2011L02673" target="_blank">Autonomous Sanctions Regulations</a></li>
+					                          <li><a href="http://www.comlaw.gov.au/Series/F2008L00917" target="_blank">Charter of the United Nations (Dealing with Assets) Regulations</a></li>
+					                      	</ul>
+
+								      	</div>
+								    </div>
+								  </div>
+							    
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion3" href="#collapse9">
+								        Australian Federal Police assistance to find a match</a>
+								      </h4>
+								    </div>
+								    <div id="collapse9" class="panel-collapse collapse">
+								      <div class="panel-body">
+
+								      		<p class="lead" id="text">
+								              To facilitate this process, a referral process has been agreed between DFAT, the AFP and asset holders represented by the Australian Bankers' Association and the major banks. The relevant <a href="http://dfat.gov.au/international-relations/security/sanctions/Documents/Referral_Form_to_AFP.doc" target="_blank">referral form to the AFP</a> can be downloaded, printed and filled out with:
+								            </p>
+
+								            <ul class="lead" id="text">
+					                          <li>as much information about the asset, including information about its owner or controller, as is known to the asset holder, and</li>
+					                          <li>the asset holder’s contact details.</li>
+					                      	</ul>
+
+					                      	<p class="lead" id="text">
+								              The referral form should be sent to the AFP at the following address:
+								            </p>
+
+								            <p class="lead" id="text">
+								              AFP Operations Coordination Centre
+								            </p>
+
+								            <ul class="lead" id="text">
+					                          <li>e-mail: <a href="mailto:AOCC-Client-Liaison@afp.gov.au" target="_top">AOCC-Client-Liaison@afp.gov.au</a></li>
+					                          <li>Fax: (02) 6126 7900</li>
+					                          <li>Phone: (02) 6126 7133</li>
+					                      	</ul>	
+
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion3" href="#collapse10">
+								        Application to use or deal with frozen assets</a>
+								      </h4>
+								    </div>
+								    <div id="collapse10" class="panel-collapse collapse">
+								      <div class="panel-body">
+								      		<p class="lead" id="text">
+								              Applications to use or deal with frozen assets, or to make assets available to designated persons or entities, must be made using the <a href="http://dfat.gov.au/international-relations/security/sanctions/Pages/online-sanctions-administration-system.aspx" target="_blank">Online Sanctions Administration System (OSAS)</a>.
+								            </p>	
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion3" href="#collapse11">
+								        Wrongly frozen assets</a>
+								      </h4>
+								    </div>
+								    <div id="collapse11" class="panel-collapse collapse">
+								      <div class="panel-body">
+
+								      		<p class="lead" id="text">
+								              The responsibility to freeze an asset subject to targeted financial sanctions rests with the person or entity that holds the asset, for example the financial institution that holds the funds.
+								            </p>
+
+								            <p class="lead" id="text">
+								              If you consider that an asset that you directly or indirectly own or control has been frozen in error, please contact the asset holder in the first instance. If, following contact with the asset holder, you continue to consider that the asset has been frozen in error, please contact:
+								            </p>
+
+								            <div id="text">
+									      		Director<br/>
+												Sanctions Section<br/>
+												R G Casey Building<br/>
+												John McEwen Crescent<br/>
+												Barton ACT 0221<br/>
+												Australia<br/>
+												<br/>
+											</div>
+
+											<p class="lead" id="text">
+								              or e-mail <a href="mailto:sanctions@dfat.gov.au" target="_top">sanctions@dfat.gov.au</a> providing:
+								            </p>
+
+								            <ul class="lead" id="text">
+					                          <li>your full name and contact details;</li>
+					                          <li>the details of the asset and asset holder, including details of your legal or other interest in the asset);</li>
+					                          <li>details of your contact with the asset holder; and</li>
+					                          <li>the reasons for your belief that the asset has been frozen in error.</li>
+					                      	</ul>
+
+								      	
+								      </div>
+								    </div>
+								  </div>
+							    
+							  </div> 
+
+					    </div>
+					    <div id="canada" class="tab-pane fade">
+					      
+					    	<p class="lead" id="text">
+				                About the list: 
+				            </p>
+
+				            <p class="lead" id="text">
+				                Lists of Names subject to the Regulations Establishing a List of Entities made under subsection 83.05(1) of the Criminal Code, and/or the Regulations Implementing the United Nations Resolutions on the Suppression of Terrorism (RIUNRST) and/or United Nations Al-Qaida and Taliban Regulations (UNAQTR).
+				            </p>
+
+	                      	<p class="lead" id="text">
+				                (Please note: The following lists have been developed by the Department of Foreign Affairs and International Trade and modified by the addition of names provided by Public Safety Canada. Please contact OSFI if you have questions or comments about the lists; we will forward the information to the appropriate parties.)
+				            </p>
+
+	                      	<div class="panel-group" id="accordion4">
+										    
+
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion4" href="#collapse12">
+								       Designated Persons Listings and Sanctions Laws [as at the date of this Guide]</a>
+								      </h4>
+								    </div>
+								    <div id="collapse12" class="panel-collapse collapse">
+								      	<div class="panel-body">
+
+								      		<p class="lead" id="text">
+								              Canada implements international sanctions and measures to combat terrorism through the following two Canadian statutes and regulations created pursuant to them:
+								            </p>
+								            
+								            <p class="lead" id="text">
+								              1 - The <a href="http://laws.justice.gc.ca/eng/U-2/index.html" target="_blank">United Nations Act</a> (UN Act) allows for the enactment of regulations implementing decisions of the United Nations Security Council (UNSC) (which are binding on all UN members) to list and apply sanctions to terrorists and others who threaten international peace and security. Pertinent regulations under the UN Act are:
+								            </p>
+
+								            <ul class="lead" id="text">
+					                          <li>Regulations Implementing the United Nations Resolutions on the Suppression of Terrorism (RIUNRST);</li>
+					                          <li>United Nations Al-Qaida and Taliban Regulations (UNAQTR);</li>
+					                          <li>Regulations Implementing the United Nations Resolutions on Iran (RIUNRI); and</li>
+					                          <li>Regulations Implementing the United Nations Resolutions on the Democratic People’s Republic of Korea (RIUNRDPRK)</li>
+					                      	</ul>
+
+					                      	<p class="lead" id="text">
+								              2 - Under the <a href="http://laws.justice.gc.ca/eng/C-46/index.html" target="_blank">Criminal Code</a>, the Governor in Council may, on the recommendation of the Minister of Public Safety, place an entity on the list of terrorist entities if satisfied that the legal threshold outlined in s. 83.05(1) of the Criminal Code has been met. Pertinent regulations under the Criminal Code are the Regulations Establishing a List of Entities (Criminal Code Regulations).
+								            </p>
+
+								      	</div>
+								    </div>
+								  </div>
+							    
+							    <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion4" href="#collapse13">
+								        Activities Prohibited by the Laws</a>
+								      </h4>
+								    </div>
+								    <div id="collapse13" class="panel-collapse collapse">
+								      <div class="panel-body">
+
+								      		<p class="lead" id="text">
+								              The Laws include prohibitions of certain activities by FRFIs, inside or outside of Canada. Examples of prohibited activities include:
+								            </p>
+
+								            <ul class="lead" id="text">
+					                          <li>Providing or collecting funds with the intent or knowledge that the funds are to be used by a Designated Person;</li>
+					                          <li>Dealing in property of a Designated Person;</li>
+					                          <li>Entering or facilitating a transaction relating to property of a Designated Person;</li>
+					                          <li>Making a financial service available for the benefit of a Designated Person; or</li>
+					                          <li>Providing a financial service in respect of property of a Designated Person.</li>
+					                      	</ul>        	
+
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="panel panel-info">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <a data-toggle="collapse" data-parent="#accordion4" href="#collapse14">
+								        Contact OFSI</a>
+								      </h4>
+								    </div>
+								    <div id="collapse14" class="panel-collapse collapse">
+								      <div class="panel-body">
+
+								      		<p class="lead" id="text">
+								              The Office of the Superintendent of Financial Institutions, Regulatory Information Division, 255 Albert Street, Ottawa Ontario K1A 0H2, or by fax at (613) 991-6248.
+								            </p>
+
+								            <p class="lead" id="text">
+								              <b>By Telephone</b>
+								            </p>
+
+								            <p class="lead" id="text">
+								              OSFI offers a toll-free telephone number for public enquiries in Canada. Our hours of operation are Monday through Friday, between 8:30 a.m. and 6:00 p.m. (Eastern Time).
+								            </p>
+
+								            <p class="lead" id="text">
+								              Telephone: 1-800-385-8647
+								            </p>
+
+								            <p class="lead" id="text">
+								              Local information number (Ottawa-Gatineau): (613) 943-3950
+								            </p>
+
+								            <p class="lead" id="text">
+								              TTY services: (613) 943-3980
+								            </p>
+
+								            <p class="lead" id="text">
+								              <b>By Mail</b>
+								            </p>
+
+								            <div class="row">
+											  <div class="col-md-3">
+
+												<p class="lead" id="text">
+									              Ottawa (Head Office)
+									            </p>
+
+											  	<div id="text">
+										      		255 Albert Street<br/>
+													Ottawa, Ontario<br/>
+													K1A 0H2<br/>
+													Telephone (reception): (613) 990-7788<br/>
+													<br/>
+												</div>
+
+											  </div>
+
+											  <div class="col-md-3">
+											  	
+											  	<p class="lead" id="text">
+									              Toronto
+									            </p>
+
+											  	<div id="text">
+										      		Suite 1900<br/>
+													121 King Street West<br/>
+													Toronto, Ontario<br/>
+													M5H 3T9<br/>
+													Telephone (reception): (416) 973-6662<br/>
+													<br/>
+												</div>
+
+											  </div>
+											  <div class="col-md-3">
+											  	
+											  	<p class="lead" id="text">
+									             	Montreal
+									            </p>
+
+											  	<div id="text">
+										      		200 René Lévesque Blvd. W.<br/>
+													Suite 903<br/>
+													Montreal, Quebec<br/>
+													H2Z 1X4<br/>
+													Telephone (reception): (514) 283-4836<br/>
+													<br/>
+												</div>
+
+											  </div>
+											  <div class="col-md-3">
+											  	
+											  	<p class="lead" id="text">
+									             	Vancouver
+									            </p>
+
+											  	<div id="text">
+										      		P.O. Box 11<br/>
+													1095 West Pender Street<br/>
+													V6E 2M6<br/>
+													Vancouver<br/>
+													<br/>
+													<br/>
+													<br/>
+												</div>
+
+											  </div>
+											</div>
+
+								             <p class="lead" id="text">
+								              <b>By Fax</b>
+								            </p>
+
+								            <p class="lead" id="text">
+								              Fax: (613) 990-5591
+								            </p>
+   
+								      </div>
+								    </div>
+								  </div>
+							    
+							  </div> 
+
+					    </div>
+
+					    <div id="other" class="tab-pane fade">
+					      
+					    	<ul class="lead" id="text">
+	                          <li>APG: <a href="http://www.fatf-gafi.org/pages/asiapacificgrouponmoneylaunderingapg.html" target="_blank">Autonomous Sanctions Regulations</a></li>
+	                          <li>CFATF: <a href="http://www.fatf-gafi.org/pages/caribbeanfinancialactiontaskforcecfatf.html" target="_blank">Caribbean Financial Action Task Force</a></li>
+	                          <li>EAG: <a href="http://www.fatf-gafi.org/pages/eurasiangroupeag.html" target="_blank">Eurasian Group</a></li>
+	                          <li>ESAAMLG: <a href="http://www.fatf-gafi.org/pages/easternandsouthernafricaanti-moneylaunderinggroupesaamlg.html" target="_blank">Eastern and Southern Africa Anti-Money Laundering Group</a></li>
+	                          <li>GAFISUD: <a href="http://www.fatf-gafi.org/pages/financialactiontaskforceofsouthamericaagainstmoneylaunderinggafisud.html" target="_blank">Financial Action Task Force on Money Laundering in South America</a></li>
+	                          <li>GIABA: <a href="http://www.comlaw.gov.au/Series/F2008L00917" target="_blank">Charter of the United Nations (Dealing with Assets) Regulations</a></li>
+	                          <li>MENAFATF: <a href="http://www.fatf-gafi.org/pages/intergovernmentalactiongroupagainstmoneylaunderinginwestafricagiaba.html" target="_blank">Inter Governmental Action Group against Money Laundering in West Africa</a></li>
+	                          <li>MONEYVAL: <a href="http://www.fatf-gafi.org/pages/moneyval.html" target="_blank">Council of Europe Committee of Experts on the Evaluation of Anti-Money Laundering Measures and the Financing of Terrorism</a></li>
+	                      	</ul>
+
+					    </div>
+
+					  </div>
+				</div>
+
+			</div>
+
+		  </div>
+		</div>
+
+					  	
+
+
+
+	
+    
+
+                  
+                                
+</apex:page>

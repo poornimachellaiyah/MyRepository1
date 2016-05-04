@@ -1,0 +1,25 @@
+<apex:page title="Fairsail">
+
+	<apex:include pageName="{!$Page.FairsailIncludes}"/>
+
+    <apex:outputPanel id="pagePanel" layout="block" style="margin:0 auto;width:800px; position:relative; z-index:0">
+    
+        <apex:insert name="bannerPanel" />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody>
+            <tr>
+                <td valign="top" class="thinPanelTD">
+                    <apex:insert name="thinPanel" />
+                </td>
+                <td class="gapPanelTD">&nbsp;</td>
+                <td valign="top" class="widePanelTD">
+                    <apex:insert name="widePanel" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <apex:insert name="footer" />
+        <c:FairsailFooter />
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="imageLoader"/>
+</apex:page>

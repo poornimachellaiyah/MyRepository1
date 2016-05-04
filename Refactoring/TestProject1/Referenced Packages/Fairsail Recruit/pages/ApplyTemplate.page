@@ -1,0 +1,48 @@
+<apex:page applyHtmlTag="true" applyBodyTag="false" >
+<head>
+ 	<c:Notice page="ApplyTemplate" location="Header" />
+ 	<script type="text/javascript">
+	function adjust_iframe_height(){
+		if (chainOnload!=null) chainOnload();
+		try {
+		    var actual_height = document.getElementById('mainPageDivId').scrollHeight;
+		    parent.postMessage(actual_height,"*"); 
+	    } catch (err) {}
+	}
+	</script>
+	<apex:stylesheet value="{!$Resource.fRecruit__ApplyPortalCSS}"/>
+	<apex:stylesheet value="{!$Setup.Apply_Portal__c.Stylesheet__c}"/>
+	<apex:insert name="head"/>
+</head>
+<body>
+<c:Notice page="ApplyTemplate" location="Top" />
+<div id="page{!$CurrentPage.Name}">
+<div id="mainPageDivId" class="mainPageDiv">
+  <div class="headerDiv">
+  <apex:image styleClass="headerImage" value="{!$Setup.Apply_Portal__c.Header_Image__c}" rendered="{!!isblank($Setup.Apply_Portal__c.Header_Image__c)}"/>
+  <apex:insert name="header"/>
+  </div>
+  <table><tr>
+	  <td class="leftColumn">
+	  	<apex:insert name="left"/>
+	  </td>
+	  <td class="bodyColumn">
+	  	<apex:insert name="body"/>
+	  </td>
+	  <td class="rightColumn">
+	  	<apex:insert name="right"/>
+	  </td>
+  </tr></table>
+  <apex:insert name="footer"/>
+  <div class="poweredBy">Powered by <a href="http://www.fairsail.com">Fairsail Recruit</a></div>
+</div>
+</div>
+<c:Notice page="ApplyTemplate" location="Bottom" />
+</body>
+<c:Notice page="ApplyTemplate" location="Footer" />
+<site:googleAnalyticsTracking />
+<script type="text/javascript">
+	var chainOnload = window.onload;
+	window.onload = adjust_iframe_height;
+</script>
+</apex:page>

@@ -1,0 +1,58 @@
+<apex:page >
+	<style>
+h1 {
+	font-size: 200%;
+}
+
+.box {
+	border-style: outset;
+	padding: 5px;
+}
+
+.outerbox {
+	font-size: 125%;
+	padding: 15px;
+}
+</style>
+	<div class="outerbox">
+	<h1>Fairsail Data Loader</h1>
+	<br />
+	<p>Load data into the system using CSV files</p>
+	<br />
+	<div class="box"><a href="../apex/CSVUpload">
+	<h2>Team Member, Employment and Salary</h2>
+	</a>
+	<p>Use this page to upload current information about a Team Member</p>
+	</div>
+	<br />
+	<div class="box"><a href="../apex/FHCM2ObjectUpload">
+	<h2>Individual Object</h2>
+	</a>
+	<p>Use this page to upload a single object</p>
+	</div>
+	<br />
+	<div class="box"><a href="../apex/TemplateGenerator">
+	<h2>Template Generator</h2>
+	</a>
+	<p>Generate a template for a Main Load</p>
+	</div>
+	<br />
+	<div class="box"><a href="../apex/TemplateGeneratorObjects">
+	<h2>Template Generator Individual Objects</h2>
+	</a>
+	<p>Generate a template for an Object Load</p>
+	</div>
+	<br />
+	<div class="box"><a href="../apex/PicklistExporter">
+	<h2>Picklist Exporter</h2>
+	</a>
+	<p>View picklist options for picklist fields</p>
+	</div>
+	<br />
+	<div class="box"><a href="../apex/DataDeletion">
+	<h2>Mass Deletion</h2>
+	</a>
+	<p>Mass delete Team Member data</p>
+	</div>
+	</div>
+</apex:page>

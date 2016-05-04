@@ -1,0 +1,182 @@
+<apex:page controller="UploadOfferLetterController" showHeader="false">
+
+<head>
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #b06397;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+    color:#ad0075;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   color:#ad0075;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+body .bPageBlock .pbBody .vsopurple .pbSubheader{
+    background-color:#f8f8f8;
+    border-top-color: #ad0075;  
+}
+
+
+      #centre {
+  font-size:1em;
+  line-height:1.3;
+  margin:5px auto;
+  padding-top:10px;
+  position:relative;
+  width:962px;
+}
+       #main {
+  background-color:#FFFFFF;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  min-height:500px;
+  padding-top:40px;
+}
+
+.PageTitle {  
+    font-size:20px;
+    color:#ad0075;
+    font-weight: normal;
+   margin-left:10px; 
+} 
+
+</style>
+</head>
+<body>
+<apex:form >
+    <apex:outputpanel id="opp1" rendered="{!if(uploadStatus=='Submitted',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+            <td><div class="PageTitle ">
+            <apex:outputText id="PageTitle1" value="Confirmation of Offer Acceptance" /></div></td>                
+            </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxt020" value="Thank You - Offer Acceptance Successfully Submitted." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div> 
+    </apex:outputpanel>
+
+<apex:outputPanel id="opp2" rendered="{!NOT(if(uploadStatus=='Submitted',true,false))}">    
+<div class="PageTitle "><apex:outputText id="PageTitle" value="Confirmation of Offer Acceptance" /></div><br/>
+<apex:pageBlock >
+    <apex:pageBlockSection columns="1">
+        <apex:outputtext id="LetterInfo" rendered="{!If((recordType=='Employee_Offer'),true,false)}">To confirm your acceptance of VSO&#39;s offer, please tick &#39;Confirm Acceptance of Offer&#39; below and then click the Submit button. Note: if you are accepting an unconditional offer, if possible please also upload a copy of your signed contract (otherwise speak to your VSO contact).</apex:outputtext>    
+        <apex:outputText id="VolLetterInfo" rendered="{!If((recordType=='Volunteer_Offer'&& VoluteerType!='E-placement'),true,false)}">To confirm your acceptance of VSO&#39;s offer, please tick &#39;Confirm Acceptance of Offer&#39; below and then click the Submit button.</apex:outputText>
+        <!--
+         Narpavi-TPT-E-Volunteering-28/Dec/2015.
+         Add the below text for E-Volunteer type.
+        -->
+        <apex:outputText id="E-VolLetterinfo" rendered="{!IF((recordType=='Volunteer_Offer' && VoluteerType=='E-placement'),true,false)}">To confirm your acceptance of VSO&#39;s offer, and that you understand the need to sign and return your Health and Safety assessment as part of the offer, please tick the &#39;Confirm Acceptance of Offer&#39; and &#39;I understand the Health and Safety assessment requirements&#39;.</apex:outputText>
+        <apex:pageBlockSectionItem >            
+            <apex:outputLabel id="olblAccepted" >Confirm Acceptance of Offer</apex:outputLabel>  
+            <apex:outputPanel id="opnl1" styleClass="requiredInput" layout="block" >
+            <apex:outputPanel id="opnl2" styleClass="requiredBlock" layout="block" />
+            <apex:inputCheckbox required="true" id="chkAccepted" value="{!HasAccepted}"/>
+            </apex:outputPanel>  
+        </apex:pageBlockSectionItem>        
+        <!--
+         Narpavi-TPT-E-Volunteering-28/Dec/2015.
+         Add the below field in the screen only for E-Volunteer type.
+        -->
+      <apex:pageBlockSectionItem rendered="{!IF((recordType=='Volunteer_Offer' && VoluteerType=='E-placement'),true,false)}">         
+            <apex:outputLabel id="olblAccepted1" >I understand the Health and Safety assessment requirements</apex:outputLabel> 
+            <apex:outputPanel id="opnl3" styleClass="requiredInput" layout="block" >
+            <apex:outputPanel id="opnl4" styleClass="requiredBlock" layout="block" />
+            <apex:inputCheckbox required="true" id="checkedAccepted" value="{!EVolAccepted}"/>
+            </apex:outputPanel>                                      
+        </apex:pageBlockSectionItem>
+        <!--
+         Dinesh-TPT-Recruit Phase-2 changes-06/July/2015.
+         Enable and disable the fields based on the offer record types.
+        -->
+        <apex:pageBlockSectionItem rendered="{!If((recordType=='Employee_Offer'),true,false)}">
+            <apex:outputLabel id="olblAttachment">Signed Contract Attached</apex:outputLabel>
+            <apex:inputCheckbox id="chkSigned" value="{!HasSigned}"/>             
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem rendered="{!If((recordType=='Employee_Offer'),true,false)}">
+            <apex:outputLabel id="olblform">Upload Signed Contract</apex:outputLabel>              
+            <apex:inputFile id="UploadOfferLetter" value="{!uploadedFile}" fileName="{!filename}" fileSize="{!filesize}"></apex:inputFile>
+         </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+     <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+         <div align="right"><apex:commandbutton id="cbtnSubmitForm" value="Submit" action="{!FormSubmit}" /></div> 
+</apex:pageBlock>
+     </apex:outputPanel>
+</apex:form>
+</body>
+</apex:page>

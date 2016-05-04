@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Performance review of a team member by themselves</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Self_Performance_Review</fullName>
+        <availableFields>
+            <field>Action_Plan__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Career_Aspirations__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Development_Needs__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Review__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Strengths__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Training__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Items assessed by the team member in a performance review.</description>
+        <label>Self Performance Review</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Self_Performance_Review_Mid_Year</fullName>
+        <availableFields>
+            <field>Action_Plan__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Career_Aspirations__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Development_Needs__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Review__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Strengths__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Training__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Items assessed by the team member in a performance review.</description>
+        <label>Self Performance Review Mid Year</label>
+    </fieldSets>
+    <fields>
+        <fullName>Action_Plan__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Action Plan</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Career_Aspirations__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Career aspirations self-evaluation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Career aspirations self-evaluation</inlineHelpText>
+        <label>Career Aspirations</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Development_Needs__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Written self-evaluation of evaluation of development needs</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Written evaluation of development needs</inlineHelpText>
+        <label>Development Needs</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EncodeID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>EncodeID</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Final_Comment__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comment made when signing the review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comment made when signing the review</inlineHelpText>
+        <label>Final Comment</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Performance_Review__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Related performance review by manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Related performance review by manager</inlineHelpText>
+        <label>Performance Review</label>
+        <referenceTo>Performance_Review__c</referenceTo>
+        <relationshipLabel>Self Performance Reviews</relationshipLabel>
+        <relationshipName>Performance_Review_Manager</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Revealed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date of revealing to the manager by the team member.  Cannot be signed until it has been revealed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date of revealing to the manager by the team member.  Cannot be signed until it has been revealed.</inlineHelpText>
+        <label>Revealed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Review__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Written self-evaluation of performance by the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Written self-evaluation of performance by the team member</inlineHelpText>
+        <label>Self Review</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Signed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date of signature by the team member.  This completes the process for the team member.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date of signature by the team member.  This completes the process for the team member.</inlineHelpText>
+        <label>Signed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Strengths__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Written self-evaluation of evaluation of strengths</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Written evaluation of strengths</inlineHelpText>
+        <label>Strengths</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The team member to which this self performance review relates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team member to which this self performance review relates</inlineHelpText>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipName>Self_Performance_Review</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Training__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Written self-evaluation of training during the reviewed period</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Written self-evaluation of training during the reviewed period</inlineHelpText>
+        <label>Training</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <label>Self Performance Review</label>
+    <nameField>
+        <label>Performance Review #</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Self Performance Reviews</pluralLabel>
+    <recordTypes>
+        <fullName>Completed</fullName>
+        <active>true</active>
+        <label>Completed</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Draft</fullName>
+        <active>true</active>
+        <label>Draft</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New</fullName>
+        <active>true</active>
+        <label>New</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Revealed</fullName>
+        <active>true</active>
+        <label>Revealed</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+</CustomObject>

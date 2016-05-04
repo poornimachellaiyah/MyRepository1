@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Application__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Application where the candidate was assessed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Application where the candidate was assessed</inlineHelpText>
+        <label>Application</label>
+        <referenceTo>Application__c</referenceTo>
+        <relationshipName>R00N40000001STJEEA4</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Assessment_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Assessment Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Assessment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Assessment</label>
+        <referenceTo>Assessment__c</referenceTo>
+        <relationshipLabel>Criteria Assessments</relationshipLabel>
+        <relationshipName>Criteria_Assessments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Below_Needs__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(Score__c&lt;=1,1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Below Needs</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Candidate__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Candidate that has been assessed for this selection criteria</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Candidate that has been assessed for this selection criteria</inlineHelpText>
+        <label>Candidate</label>
+        <referenceTo>Candidate__c</referenceTo>
+        <relationshipName>R00N40000001SYDqEAO</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comments made by assessor or interviewer against this criteria.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comments made by assessor or interviewer against this criteria.</inlineHelpText>
+        <label>Comments</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Criteria_Library_Item__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Attribute that is assessed by this selection score</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Attribute that is assessed by this selection score</inlineHelpText>
+        <label>Criteria Library Item</label>
+        <referenceTo>Criteria_Library_Item__c</referenceTo>
+        <relationshipLabel>Criteria Assessments</relationshipLabel>
+        <relationshipName>R00N40000001STJTEA4</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Interviewer_Average_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( Interviewer_Count__c &gt; 0,  Interviewer_Total_Score__c / Interviewer_Count__c, null )</formula>
+        <label>Interviewer Average Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Interviewer_Count__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Interviewer Count</label>
+        <summaryFilterItems>
+            <field>Interviewer_Criteria_Assessment__c.Rating__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </summaryFilterItems>
+        <summaryForeignKey>Interviewer_Criteria_Assessment__c.Criteria_Assessment__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Interviewer_Total_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Interviewer Total Score</label>
+        <summarizedField>Interviewer_Criteria_Assessment__c.Score__c</summarizedField>
+        <summaryFilterItems>
+            <field>Interviewer_Criteria_Assessment__c.Rating__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </summaryFilterItems>
+        <summaryForeignKey>Interviewer_Criteria_Assessment__c.Criteria_Assessment__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Meets_Needs__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(Score__c&gt;=2,1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Meets Needs</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Qualification_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Qualification Score</label>
+        <summarizedField>Qualification_Assessment__c.Score__c</summarizedField>
+        <summaryForeignKey>Qualification_Assessment__c.Criteria_Assessment__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Rating_Indicator__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Blob indicator for the rating given.</description>
+        <externalId>false</externalId>
+        <formula>IMAGE( CASE( round(Score__c,0), 0, &quot;/img/samples/rating1.gif&quot;, 1, &quot;/img/samples/rating2.gif&quot;, 2, &quot;/img/samples/rating3.gif&quot;, 3, &quot;/img/samples/rating4.gif&quot;, 4, &quot;/img/samples/rating5.gif&quot;, &quot;/s.gif&quot;),  
+CASE( round(Score__c,0), 0, &quot;Not Met&quot;, 1, &quot;Partly Meets&quot;, 2, &quot;Just Meets&quot;, 3, &quot;Fully Meets&quot;, 4, &quot;Exceeds&quot;, &quot;Not Rated&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Blob indicator for the rating given.</inlineHelpText>
+        <label>Rating Indicator</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rating__c</fullName>
+        <deprecated>false</deprecated>
+        <description>How well does the candidate meet this selection criteria.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How well does the candidate meet this selection criteria.</inlineHelpText>
+        <label>Rating</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Exceeds</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fully Meets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Just Meets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partly Meets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Met</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Rating converted into a score  on a scale of 0 (for none ) to 4 (for Exceeds). Used to rank candidates.</description>
+        <externalId>false</externalId>
+        <formula>case(Rating__c,&quot;Exceeds&quot;,4,&quot;Fully Meets&quot;,3,&quot;Just Meets&quot;,2,&quot;Partly Meets&quot;,1,&quot;Not Met&quot;,0,&quot;4&quot;,4,&quot;3&quot;,3,&quot;2&quot;,2,&quot;1&quot;,1,&quot;0&quot;,0,  Interviewer_Average_Score__c )</formula>
+        <inlineHelpText>Rating converted into a score on a scale of 0 (for none ) to 4 (for Exceeds). Used to rank candidates.</inlineHelpText>
+        <label>Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Selection_Criteria__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Selection criteria that was evaluated for this candidate</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Selection criteria that was evaluated for this candidate</inlineHelpText>
+        <label>Selection Criteria</label>
+        <referenceTo>Selection_Criteria__c</referenceTo>
+        <relationshipName>R00N40000001SYJJEA4</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Weighted_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Weighted score of score times weight for selection criteria. Used to rank candidates.</description>
+        <externalId>false</externalId>
+        <formula>Score__c *  Selection_Criteria__r.Weight__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Weighted score of score times weight for selection criteria. Used to rank candidates.</inlineHelpText>
+        <label>Weighted Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Criteria Assessment</label>
+    <nameField>
+        <label>Criteria Assessment Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Criteria Assessments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

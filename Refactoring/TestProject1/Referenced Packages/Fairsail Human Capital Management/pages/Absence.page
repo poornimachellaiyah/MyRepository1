@@ -1,0 +1,477 @@
+<apex:page controller="fHCM2.AbsenceController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!(isVacation && subject.absences.isUsingVacation) || (!isVacation && subject.absences.isUsingAbsence)}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!if(isVacation,$Label.fhcm2__Process_Vacations,$Label.fhcm2__Process_Absences)}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="{!if(isVacation,'Vacation','Absence')}" location="Subheader"/>
+                <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Absences_Recent_absences}" rendered="{!!isVacation}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                        <apex:outputLink value="/apex/{!links.AbsenceProfile}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Profile}</apex:outputLink>
+                        <apex:outputLink rendered="{!!isNew}" value="/apex/{!links.Absence}?teamMemberId={!viewer.teamMember.Id}&request=Absence" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:repeat value="{!subject.absences.recentAbsences}" var="absence">
+                        <c:DetailListBar title="{!absence.Title}"
+                            value="/apex/{!links.Absence}?id={!absence.id}"
+                            sub_title="{!text(absence.Days)+' - '+absence.status}"
+                            sub_value="/apex/{!links.FairsailProfile}?id={!absence.TeamMemberId}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Status__c.label}">
+                                {!absence.status}
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!if(inHours,$Label.fhcm2__Global_Hours,$Label.fhcm2__Global_Days)}" value="{!text(absence.Days)}" />
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Type}" value="{!absence.Reason}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    <c:DetailListItem label="{!if(inHours,$Label.fhcm2__Global_Hours,$Label.fhcm2__Global_Days)}" value="{!text(subject.absences.TotalRecentAbsences)}" />
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Absences_Recent_Time_Off}" rendered="{!isVacation}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                        <apex:outputLink value="/apex/{!links.AbsenceProfile}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Profile}</apex:outputLink>
+                        <apex:outputLink rendered="{!!isNew}" value="/apex/{!links.Absence}?teamMemberId={!viewer.teamMember.Id}&request=Vacation" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:repeat value="{!subject.absences.yearsVacations}" var="absence">
+                        <c:DetailListBar title="{!absence.Title}"
+                            value="/apex/{!links.Absence}?id={!absence.id}"
+                            sub_title="{!text(absence.Days)+' - '+absence.status}"
+                            sub_value="/apex/{!links.FairsailProfile}?id={!absence.TeamMemberId}"
+                        >
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Status__c.label}">
+                                {!absence.status}
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!if(inHours,$Label.fhcm2__Global_Hours,$Label.fhcm2__Global_Days)}" value="{!text(absence.Days)}" />
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Type}" value="{!absence.Reason}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    <c:DetailListItem label="{!if(inHours,$Label.fhcm2__Global_Hours,$Label.fhcm2__Global_Days)}" value="{!text(subject.absences.totalVacationsYear)}" />
+
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Absences_Next_Year_Time_Off}" rendered="{!isVacation && subject.absences.NextYearsVacations.size>0}">
+                    <apex:repeat value="{!subject.absences.NextYearsVacations}" var="absence">
+                        <c:DetailListBar title="{!absence.Title}"
+                            value="/apex/{!links.Absence}?id={!absence.id}"
+                            sub_title="{!text(absence.Days)+' - '+absence.status}"
+                            sub_value="/apex/{!links.FairsailProfile}?id={!absence.TeamMemberId}"
+                        >
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Status__c.label}">
+                                {!absence.status}
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!if(inHours,$Label.fhcm2__Global_Hours,$Label.fhcm2__Global_Days)}" value="{!text(absence.Days)}" />
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Type}" value="{!absence.Reason}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    <c:DetailListItem label="{!if(inHours,$Label.fhcm2__Global_Hours,$Label.fhcm2__Global_Days)}" value="{!text(subject.absences.totalVacationsNextYear)}" />
+                </apex:pageBlockSection>
+                
+                <apex:outputPanel id="vacationConflicts" rendered="{!isVacation}">
+                
+                <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Absences_Vacation_Conflicts}" rendered="{!and(isVacation, teamVacations.size > 0)}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                        <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:repeat value="{!teamVacations}" var="absence">
+                        <c:DetailListBar title="{!absence.Title}"
+                            value="/apex/{!links.Absence}?id={!absence.id}"
+                            sub_title="{!absence.TeamMemberName}"
+                            sub_value="/apex/{!links.FairsailProfile}?id={!absence.TeamMemberId}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Status__c.label}">
+                                {!absence.status}
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Work_Days}" value="{!text(absence.Days)}" />
+                            <c:DetailListItem label="{!$Label.fhcm2__Process_Absences_Type}" value="{!absence.Reason}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                </apex:outputPanel>
+
+            	<c:Notice viewer="{!viewer}" page="{!if(isVacation,'Vacation','Absence')}" location="Subfooter"/>
+            </apex:pageBlock>
+
+        </apex:define>
+
+        <apex:define name="widePanel">
+
+
+                <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+                <script>
+                    jQuery.noConflict();
+                    var submitFormFlag = false;
+                    function refreshForm(){
+                        submitFormFlag = true;
+                        refreshOverlapingVacations();
+                    }
+                    function checkPermission(){
+                        if(!submitFormFlag && jQuery(".reasonSelect").val() == ''){
+                            jQuery(".reasonSelectError").show();
+                            return false;
+                        }
+                        return true;
+                    }
+                    function unpdateReason(){
+                        if(jQuery(".reasonSelect").val() != '')jQuery(".reasonSelectError").hide();
+                    }
+					jQuery(document).ready(function() {
+					    var allPageTags=document.getElementsByTagName("div");
+					    for (i=0; i<allPageTags.length; i++) {
+					        if (allPageTags[i].id.indexOf(':accrualLog')>=0) {
+						      twistSection(allPageTags[i].childNodes[0].childNodes[0]);
+						    }
+						}
+					});
+                </script>
+
+            <apex:form rendered="{!viewer.isTeamMemberOrManager}" onsubmit="return checkPermission();">
+                <apex:actionFunction status="loadStatus" immediate="true" name="refreshOverlapingVacations" action="{!refresh}" reRender="datesSection, vacationConflicts, messageSection, accrualLog" />
+                <apex:outputPanel id="messageSection">
+	                <apex:pageMessages />
+                </apex:outputPanel>
+                <apex:pageBlock rendered="{!Approved}" mode="view" title="{!if(isVacation,$Label.fhcm2__Process_Vacations,$Label.fhcm2__Process_Absences)}">
+
+            	<c:Notice viewer="{!viewer}" page="{!if(isVacation,'Vacation','Absence')}" location="Header"/>
+
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absence_Dates}" columns="1">
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputText value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Start_Date__c.label}"/>
+                                    <c:outputDate dateValue="{!AbsenceObject.fHCM2__Start_Date__c}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputText value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__End_Date__c.label}"/>
+                                    <c:outputDate dateValue="{!AbsenceObject.fHCM2__End_Date__c}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputField value="{!AbsenceObject.fHCM2__End_Date_Provisional__c}" rendered="{!AbsenceObject.fHCM2__End_Date_Provisional__c==true}"/>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Vacation_Team_Member}" var="f">
+		                            <apex:outputField value="{!AbsenceObject[f]}" rendered="{!isVacation && viewer.isTeamMember && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}" />
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Vacation_Manager}" var="f">
+		                            <apex:outputField value="{!AbsenceObject[f]}" rendered="{!isVacation && !viewer.isTeamMember && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}" />
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Team_Member}" var="f">
+		                            <apex:outputField value="{!AbsenceObject[f]}" rendered="{!!isVacation && viewer.isTeamMember && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}" />
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Manager}" var="f">
+		                            <apex:outputField value="{!AbsenceObject[f]}" rendered="{!!isVacation && !viewer.isTeamMember && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}" />
+								</apex:repeat>
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Parental_Team_Member}" var="f" rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true && viewer.IsTeamMember}">
+									<apex:pageBlockSectionItem rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true && viewer.IsTeamMember}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+				                        <apex:outputField value="{!AbsenceObject[f]}" />
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                                
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Parental_Manager}" var="f" rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true && !viewer.isTeamMember}">
+									<apex:pageBlockSectionItem rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true && !viewer.isTeamMember}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+				                        <apex:outputField value="{!AbsenceObject[f]}" />
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                                
+		 						<apex:repeat value="{!AdditionalFieldset}" var="f" rendered="{!UsingPattern}">
+									<apex:pageBlockSectionItem rendered="{!UsingPattern}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+				                        <apex:outputField value="{!AbsenceObject[f]}" />
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                                
+                                <apex:pageBlockSectionItem rendered="{!And(!isVacation, !isNew)}">
+                                    <apex:outputText value="{!$Label.fhcm2__Global_Attached_File}"/>
+                                    <apex:outputPanel >
+                                        <apex:commandLink target="_blank" rendered="{!AbsenceObject.fHCM2__Picture__c != null}" action="{!DownloadAttachment}">{!$Label.fhcm2__Process_Absence_Download_Certificate}</apex:commandLink>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!!isNew}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Status__c.label}"/>
+                                    <apex:outputText value="{!absenceObject.fHCM2__Status__c}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:outputField value="{!AbsenceObject.fHCM2__Days__c}"/>
+
+
+                            </apex:pageBlockSection>
+		            	<c:Notice viewer="{!viewer}" page="{!if(isVacation,'Vacation','Absence')}" location="Footer"/>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew && AbsenceObject.fHCM2__Start_Date__c >= TODAY() || viewer.IsManager}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+                
+                <apex:pageBlock rendered="{!!Approved}" mode="edit" id="datesSection" title="{!if(isVacation,$Label.fhcm2__Process_Vacations,$Label.fhcm2__Process_Absences)}">
+                    <script>
+                        submitFormFlag = false;
+                    </script>
+		            	<c:Notice viewer="{!viewer}" page="{!if(isVacation,'Vacation','Absence')}" location="Header"/>
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absence_Dates}" columns="1">
+                                <apex:pageBlockSectionItem >
+									<c:FieldLabel value="{!$ObjectType.Absence__c.fields.Start_Date__c }" />
+                                	<apex:outputPanel >
+	                                	<apex:outputPanel layout="block">
+		                                	<apex:inputField required="true" id="startDate" value="{!AbsenceObject.fHCM2__Start_Date__c}" onchange="refreshForm();"/>
+		                                </apex:outputPanel>
+		                                <apex:outputPanel layout="block">
+		                                	<apex:outputPanel layout="none" rendered="{!!isblank(earliestStart)}">
+		                                		<apex:outputText value="{!$Label.fhcm2__Global_Earliest}"/>:&nbsp;<c:outputDate value="{!earliestStart}"/>
+		                                	</apex:outputPanel>
+		                                	<apex:outputPanel layout="none" rendered="{!!isblank(latestStart)}">
+		                                		&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText value="{!$Label.fhcm2__Global_Latest}"/>:&nbsp;<c:outputDate value="{!latestStart}"/>
+		                                	</apex:outputPanel>
+	                                	</apex:outputPanel>
+	                                </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+
+                                <apex:pageBlockSectionItem rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true}">
+									<c:FieldLabel value="{!$ObjectType.Absence__c.fields.Expected_Arrival_Date__c }" />
+	                                <apex:inputField required="true" id="expectedDate" value="{!AbsenceObject.fHCM2__Expected_Arrival_Date__c}" onchange="refreshForm();"/>
+								</apex:pageBlockSectionItem>
+								
+                                <apex:pageBlockSectionItem >
+                                	<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__End_Date__c}"/>
+                                	<apex:outputPanel >
+	                                	<apex:outputPanel layout="block">
+		                                	<apex:inputField required="true" id="endDate" value="{!AbsenceObject.fHCM2__End_Date__c}" onchange="refreshForm();"/>
+		                                </apex:outputPanel>
+		                                <apex:outputPanel layout="block">
+		                                	<apex:outputPanel layout="none" rendered="{!!isblank(earliestEnd)}">
+		                                		<apex:outputText value="{!$Label.fhcm2__Global_Earliest}"/>:&nbsp;<c:outputDate value="{!earliestEnd}"/>
+		                                	</apex:outputPanel>
+		                                	<apex:outputPanel layout="none" rendered="{!!isblank(latestEnd)}">
+		                                		&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText value="{!$Label.fhcm2__Global_Latest}"/>:&nbsp;<c:outputDate value="{!latestEnd}"/>
+		                                	</apex:outputPanel>
+	                                	</apex:outputPanel>
+	                                </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+
+                                <apex:pageBlockSectionItem rendered="{!!isVacation}">
+                                	<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__End_Date_Provisional__c}"/>
+	                                <apex:inputField id="provisional" value="{!AbsenceObject.fHCM2__End_Date_Provisional__c}"/>
+	                            </apex:pageBlockSectionItem>
+
+                                <apex:pageBlockSectionItem rendered="{!UsingPattern && hasReasons}">
+                                    <c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Reason__c}"/>
+              						<apex:selectList required="true" id="reason" value="{!AbsenceObject.fHCM2__Reason__c}" onchange="refreshForm();" size="1">
+										<apex:selectOptions value="{!reasons}" />
+									</apex:selectList>
+                                </apex:pageBlockSectionItem>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Vacation_Team_Member}" var="f">
+									<apex:pageBlockSectionItem rendered="{!isVacation && viewer.isTeamMember && !(f=='fHCM2__Reason__c' && UsingPattern)}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+			                            <apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+			                        </apex:pageBlockSectionItem>
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Vacation_Manager}" var="f">
+									<apex:pageBlockSectionItem rendered="{!isVacation && !viewer.isTeamMember && !(f=='fHCM2__Reason__c' && UsingPattern) && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+		                            	<apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+		                            </apex:pageBlockSectionItem>
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Team_Member}" var="f">
+									<apex:pageBlockSectionItem rendered="{!!isVacation && viewer.isTeamMember && !(f=='fHCM2__Reason__c' && UsingPattern) && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+		                            	<apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+		                            </apex:pageBlockSectionItem>
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Manager}" var="f">
+									<apex:pageBlockSectionItem rendered="{!!isVacation && !viewer.isTeamMember && !(f=='fHCM2__Reason__c' && UsingPattern) && AbsenceObject.fHCM2__Is_Parental_Leave__c!=true}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+		                            	<apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+		                            </apex:pageBlockSectionItem>
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Manager_Evidence}" var="f">
+									<apex:pageBlockSectionItem rendered="{!!isVacation && AbsenceObject.fHCM2__Evidence_Trigger__c && !viewer.isTeamMember}" >
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+		                            	<apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+		                            </apex:pageBlockSectionItem>
+								</apex:repeat>
+								<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Manager_Alert}" var="f">
+									<apex:pageBlockSectionItem rendered="{!!isVacation && AbsenceObject.fHCM2__Alert_Trigger__c && !viewer.isTeamMember}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+		                            	<apex:inputField value="{!AbsenceObject[f]}"  required="{!f.required}"/>
+		                            </apex:pageBlockSectionItem>
+								</apex:repeat>
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Parental_Team_Member}" var="f">
+									<apex:pageBlockSectionItem rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true && viewer.IsTeamMember}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+				                        <apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                                
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Parental_Manager}" var="f">
+									<apex:pageBlockSectionItem rendered="{!AbsenceObject.fHCM2__Is_Parental_Leave__c==true && viewer.IsManager}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+				                        <apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+
+		 						<apex:repeat value="{!AdditionalFieldset}" var="f" rendered="{!UsingPattern}">
+									<apex:pageBlockSectionItem rendered="{!UsingPattern}">
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Absence__c.fields[f]}" label="{!$ObjectType.fHCM2__Absence__c.fields[f].label}" help="{!$ObjectType.fHCM2__Absence__c.fields[f].InlineHelpText}"/>
+				                        <apex:inputField value="{!AbsenceObject[f]}" required="{!f.required}"/>
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+
+                                <apex:pageBlockSectionItem rendered="{!And(!isVacation, !isNew)}">
+                                    <apex:outputText value="{!$Label.fhcm2__Global_Attached_File}"/>
+                                    <apex:outputPanel >
+                                        <apex:commandLink target="_blank" rendered="{!AbsenceObject.fHCM2__Picture__c != null}" action="{!DownloadAttachment}">{!$Label.fhcm2__Process_Absence_Download_Certificate}</apex:commandLink>
+                                        <apex:commandButton rendered="{!AbsenceObject.fHCM2__Picture__c != null}" action="{!saveWizzard}" value="{!if(viewer.isManager, $Label.fhcm2__Process_Absence_Approve_and_Upload, $Label.fhcm2__Process_Absence_Upload_New)}"/>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!!isNew}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Absence__c.Fields.fHCM2__Status__c.label}"/>
+                                    <apex:outputText value="{!absenceObject.fHCM2__Status__c}"/>
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                            
+                          <apex:actionStatus id="loadStatus">
+                          <apex:facet name="start">
+                              <apex:pageBlockSection title="{!substitute($Label.fhcm2__Process_Absence_Time_Off,'{0}',if(inHours,'(' + $Label.fhcm2__Global_Hours + ')','(' + $Label.fhcm2__Global_Days + ')'))}" columns="1" collapsible="False">
+                              <apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+                            </apex:pageBlockSection>
+
+                        </apex:facet>
+                          <apex:facet name="stop">
+                              
+                              <apex:pageBlockSection title="{!substitute($Label.fhcm2__Process_Absence_Time_Off,'{0}',if(inHours,'(' + $Label.fhcm2__Global_Hours + ')','(' + $Label.fhcm2__Global_Days + ')'))}" columns="1" collapsible="False">
+                                <apex:pageblockSectionItem rendered="{!isVacation && daysCarriedOver!=0 && !accrueContinuously && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Carried_Over}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!daysCarriedOver}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && selfBase+base!=0 && !accrueContinuously && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Base}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!selfBase+base}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && !accrueContinuously && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Annual_Allowance}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!daysPerYear}"/>
+                                </apex:pageblockSectionItem>
+                                 <apex:pageblockSectionItem rendered="{!isVacation && !accrueContinuously && daysPerYearProRata!=daysPerYear && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Pro_Rata}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!daysPerYearProRata}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && SelfVacationCompensation>0 && !accrueContinuously && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Compensation}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!SelfVacationCompensation}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && !accrueContinuously && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Taken_Already}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!daysTaken}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!!UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Adjust_Days}"></apex:outputLabel>
+                                    <apex:outputPanel >
+                                    <apex:inputfield styleClass="daysInput" id="adaysoff" required="true" value="{!AbsenceObject.fHCM2__Days__c}"/>
+                                    <apex:outputPanel rendered="{!isVacation}">
+                                     <input type="button" class="btn" onclick="refreshForm();" value="{!$Label.Global_Change}"/>
+                                     </apex:outputPanel>
+                                     </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && !UsingPattern}" dataStyle="border-top:2px solid #0E52A1;">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Balance}"></apex:outputLabel>
+                                    <apex:outputPanel style="color:{!IF(((daysPerYearProRata + daysCarriedOver + SelfVacationCompensation + selfBase + base) - daysTaken) - AbsenceObject.fHCM2__Days__c < 0, 'red', 'auto')};">
+                                    	<c:outputNumber decimalPlaces="2" fixed="false" value="{!((daysPerYearProRata + daysCarriedOver + SelfVacationCompensation + selfBase + base) - daysTaken) - AbsenceObject.fHCM2__Days__c}"/>
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && showAccrual && !UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Accrued_Balance}"></apex:outputLabel>
+                                    <apex:outputPanel style="color:{!IF(((AccruedBalance + daysCarriedOver + SelfVacationCompensation + selfBase + base) - daysTaken) - AbsenceObject.fHCM2__Days__c < 0, 'red', 'auto')};">
+	                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!(AccruedBalance + daysCarriedOver + SelfVacationCompensation + selfBase + base) - daysTaken - AbsenceObject.fHCM2__Days__c}"/>
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+
+
+                                <apex:pageblockSectionItem rendered="{!isVacation && !accrueContinuously && UsingPattern && AccrualTotal.timeInLieu>0}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Time_In_Lieu}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!AccrualTotal.timeInLieu}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && !accrueContinuously && UsingPattern && AccrualTotal.carryOver>0}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Carry_Over}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!AccrualTotal.carryOver}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!isVacation && UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Accrued}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!AccrualTotal.accrual}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!UsingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Adjust_Days}"></apex:outputLabel>
+                                    <apex:outputPanel >
+                                    <apex:inputfield styleClass="daysInput" id="bdaysoff" required="true" value="{!AbsenceObject.fHCM2__Days__c}"/>
+                                    <apex:outputPanel rendered="{!isVacation}">
+                                     <input type="button" class="btn" onclick="refreshForm();" value="{!$Label.Global_Change}"/>
+                                     </apex:outputPanel>
+                                     </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!ShowAccrualBalance}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Accrued_Balance}"></apex:outputLabel>
+                                    <apex:outputPanel style="color:{!IF(AccrualTotal.total-AbsenceObject.fHCM2__Days__c < 0, 'red', 'auto')};">
+	                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!AccrualTotal.total-AbsenceObject.fHCM2__Days__c}"/>
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem rendered="{!ShowYearEndBalance && !isBlank(yearEndTotal)}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Year_End_Balance}"></apex:outputLabel>
+                                    <apex:outputPanel style="color:{!IF(yearEndTotal < 0, 'red', 'auto')};">
+	                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!yearEndTotal}"/>
+                                    </apex:outputPanel>
+                                </apex:pageblockSectionItem>
+                                                               
+                            </apex:pageBlockSection>
+                            
+                        </apex:facet>
+                        </apex:actionStatus>
+                        
+	            	<c:Notice viewer="{!viewer}" page="{!if(isVacation,'Vacation','Absence')}" location="Footer"/>
+
+                    <apex:pageBlockButtons >
+                        <apex:outputPanel rendered="{!isVacation}" layout="none">
+                            <apex:commandButton action="{!save}" value="{!if(viewer.isManager, $Label.fhcm2__Button_Save_And_Approve, $Label.fhcm2__Button_Save)}" />
+                            <apex:commandButton action="{!saveAndNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!isNew}"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!!isVacation}" layout="none">
+                            <apex:commandButton action="{!save}"  rendered="{!AbsenceObject.fHCM2__Picture__c != null}" value="{!if(viewer.isManager, $Label.fhcm2__Button_Save_And_Approve, $Label.fhcm2__Button_Save)}"/>
+                            <apex:commandButton action="{!saveWizzard}" rendered="{!AbsenceObject.fHCM2__Picture__c == null}" value="{!if(viewer.isManager, $Label.fhcm2__Button_Save_And_Approve, $Label.fhcm2__Button_Save)}"/>
+                            <apex:commandButton action="{!saveAndNewWizzard}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!isNew}"/>
+                        </apex:outputPanel>
+                        <apex:commandButton action="{!reject}" value="{!$Label.fhcm2__Button_Reject}" rendered="{!!isNew && isblank(AbsenceObject.fHCM2__Approval_Date__c) && viewer.IsManager}" />
+                        <apex:commandButton action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew && (AbsenceObject.fHCM2__Start_Date__c >= TODAY() || viewer.IsManager || viewer.isOwnManager)}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+
+		            <apex:pageBlock mode="view" rendered="{!UsingPattern && viewer.IsTeamMemberOrManager}" >
+                     <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absence_Accrual_Log}" id="accrualLog" columns="1" collapsible="true">
+	                    <apex:pageBlockTable value="{!AccrualTotal.log}" var="logItem" rows="100">
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Date}">
+	                            <c:outputDate dateValue="{!logItem.logDate}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Event}">
+	                            <apex:outputText value="{!logItem.event}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Amount}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.amount}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Accrual}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.accrual}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Carry_Over}" rendered="{!AccrualTotal.hasCarryOver}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.carryOver}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Time_In_Lieu}" rendered="{!AccrualTotal.hasTimeInLieu}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.timeInLieu}"/>
+	                        </apex:column>
+	                    </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    </apex:pageBlock>
+
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!AbsenceObject}" page="{!links.FairsailProfile}" rendered="{!!isNew && viewer.isTeamMemberOrManager}"/>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

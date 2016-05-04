@@ -1,0 +1,42 @@
+<apex:page standardController="fHCM2__Form_Definition__c" Extensions="fHCM2.FormDefinitionEditExtensionController">
+    <apex:sectionHeader title="{!$ObjectType.fHCM2__Form_Definition__c.label}" subtitle="{!fHCM2__Form_Definition__c.Name}" help="/apex/Help?obj=fHCM2__Form_Definition__c" />
+    <apex:form >
+        <apex:pageBlock title="{!$ObjectType.fHCM2__Form_Definition__c.label}" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveDefinition}" value="{!$Label.fhcm2__Button_Save}" />
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" />
+            </apex:pageBlockButtons>
+            <apex:messages style="color:red;font-weight:bold;"/>
+            <apex:pageBlockSection title="Form Definition Details" columns="1">
+                <apex:outputField value="{!fHCM2__Form_Definition__c.Name}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Page id"/>
+					<apex:inputText required="true" value="{!currentPage.id}"/>
+				</apex:pageBlockSectionItem>           	
+             </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Page Text" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Page title"/>
+					<apex:inputText size="100" value="{!currentPage.title}"/>
+				</apex:pageBlockSectionItem>           	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Page subtitle"/>
+					<apex:inputText size="100" value="{!currentPage.subTitle}"/>
+				</apex:pageBlockSectionItem>           	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Page button title"/>
+					<apex:inputText size="100" value="{!currentPage.buttonText}"/>
+				</apex:pageBlockSectionItem>           	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Text at the top of page"/>
+					<apex:inputTextarea cols="100" rows="10" value="{!currentPage.preTextEdit}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Text at the bottom of page"/>
+					<apex:inputTextarea cols="100" rows="10" value="{!currentPage.postTextEdit}"/>
+				</apex:pageBlockSectionItem>           	
+             </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

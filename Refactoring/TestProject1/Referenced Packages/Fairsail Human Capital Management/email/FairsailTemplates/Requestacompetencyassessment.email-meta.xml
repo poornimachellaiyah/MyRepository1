@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sent to assessors to ask them to complete an assessment.  Sent from a workflow rule.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Request a competency assessment</name>
+    <style>none</style>
+    <subject>Request for a competency assessment</subject>
+    <type>text</type>
+</EmailTemplate>

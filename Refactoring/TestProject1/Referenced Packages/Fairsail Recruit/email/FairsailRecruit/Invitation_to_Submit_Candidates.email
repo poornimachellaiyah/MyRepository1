@@ -1,0 +1,3 @@
+We have a new vacancy ({!Agency_Invitation__c.Vacancy__c})  for which you are invited to submit candidates.  Full details of the vacancy are on the link below.  All candidates must be submitted via the website at the link below.
+
+{!Agency_Invitation__c.Agency_Portal_URL__c}

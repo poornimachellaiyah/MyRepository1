@@ -1,0 +1,39 @@
+<apex:page standardController="fRecruit__Selection_Criteria__c" extensions="fRecruit.EditSelectionCriteriaControllerExtension">
+	<p><apex:outputLink value="/apex/fRecruitVacancyConfigure?id={!fRecruit__Selection_Criteria__c.fRecruit__Vacancy__c}">Back to {!fRecruit__Selection_Criteria__c.fRecruit__Vacancy__r.Name} Configuration</apex:outputLink></p>
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Selection_Criteria__c.label} Details" subTitle="{!fRecruit__Selection_Criteria__c.Name}" help="http://recruit.help.fairsail.com/topics/EditSelectionCriteria.html" />
+	<apex:form >
+		<apex:pageBlock title="Edit {!fRecruit__Selection_Criteria__c.Name}" mode="details">
+			<apex:pageBlockButtons >
+				<c:fRecruitLinkButton url="/{!$CurrentPage.parameters.id}/e" label="Edit"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Information" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Vacancy"/>
+					<apex:outputText value="{!fRecruit__Selection_Criteria__c.fRecruit__Vacancy__r.Name}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Type"/>
+					<apex:outputText value="{!fRecruit__Selection_Criteria__c.fRecruit__Type__c}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Name"/>
+					<apex:outputText value="{!fRecruit__Selection_Criteria__c.Name}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Required__c}"/>
+				<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Weight__c}" />
+				<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Measure__c}" />
+			</apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Assessment of qualifying or external test score (overrides those in criteria library)" columns="1">
+            	<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Partly_Meets_Score__c}"/>
+            	<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Just_Meets_Score__c}"/>
+            	<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Fully_Meets_Score__c}"/>
+            	<apex:outputField value="{!fRecruit__Selection_Criteria__c.fRecruit__Exceeds_Score__c}"/>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

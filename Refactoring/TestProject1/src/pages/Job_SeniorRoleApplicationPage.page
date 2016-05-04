@@ -1,0 +1,530 @@
+<!-- Dinesh-TPT-RecruitV2 changes-06/June/2015.
+Page created to capture the senior role applicants informations-->
+
+<apex:page controller="Job_SeniorRoleApplicationController" sidebar="{!showHeaderandSidebar}" showheader="{!showHeaderandSidebar}"  id="jobApplicationPage" >
+<head>
+
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #ad0075;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+       
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+.requiredExample {
+background-color: #c00;
+//position: absolute;
+left: -4px;
+width: 2px;
+height: 18px;
+}
+
+body .bPageBlock .detailList .labelCol 
+{
+width:2%;
+}
+
+body .bPageBlock .detailList td 
+{
+vertical-align:middle;
+}
+
+
+</style>
+
+       
+<apex:includeScript value="{!URLFOR($Resource.jQuery, '/jquery-ui-1.10.3/jquery-1.9.1.js')}"  />
+
+<script>
+
+$j = jQuery.noConflict();
+$j(function () {
+        // make skills list show full skill name in hovertext
+        $j(".multilist option").each(function()
+        {
+            $j(this).attr('title',$j(this).text());
+        });
+                
+        // add more years to datepicker (note that same year range must be used for all date fields)
+        var currentYear = (new Date).getFullYear();
+        var startYear=currentYear-54;
+        var endYear=currentYear+5;
+        var htmlStr='';
+        for(i=startYear;i<endYear+1;i++){
+            htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+        }
+        $j('#calYearPicker').html(htmlStr);
+ 
+    });
+    
+    function disableOnSubmit(input) {
+        setTimeout('disableAfterTimeout(\'' + input.id + '\');', 50);
+    }
+    function disableAfterTimeout(id) {
+        var toDisable = document.getElementById( id );
+        toDisable.disabled = 'disabled';
+        // Use the Salesforce CSS style to make the button appear disabled
+        toDisable.className = 'btnDisabled';
+        toDisable.value = "Saving application"
+    }    
+
+</script>
+
+</head>
+<body>  
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T3NFTL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T3NFTL');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K2HP3N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2HP3N');</script>
+<!-- End Google Tag Manager --> 
+
+
+<!-- start of changes by Raghu on 08/01/2016 -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTG9W3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTG9W3');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W26NX9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W26NX9');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NG74VT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NG74VT');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTJMND"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTJMND');</script>
+<!-- End Google Tag Manager -->
+<!-- End of Changes by Raghu -->
+
+
+    <apex:form id="f1">   
+    <br/>
+    <div class="appheader">
+              
+    <apex:outputpanel id="opp1" rendered="{!if(applicationStatus=='Submitted',true,false)}"> 
+    <script type="text/javascript"> 
+
+        var dataLayer=dataLayer || []; 
+
+        dataLayer.push({'event':'JOB_APPLICATION_COMPLETE'}); 
+
+     </script>                       
+       <table class="appheader">
+         <tr class="appheadercon">            
+            <td class="jobopp" colspan="2" style="padding-top:10px;"><apex:outputtext id="otxt010" value="Application form" /></td>
+         </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxt020" value="Thank you – your application has been successfully submitted." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <apex:commandbutton id="cmdCloseWindow" value="Close window" onclick="window.close()"/>
+    </apex:outputpanel>
+    <apex:outputpanel id="opp2" rendered="{!NOT(if(applicationStatus=='Submitted',true,false))}">
+        <table class="appheader">
+            <tr class="appheadercon">          
+                <td width="50">                   
+                       <img id="HeaderImage" border="0" src="https://vso--c.eu1.content.force.com/servlet/servlet.ImageServer?id=015D0000003ZnPf&oid=00DD0000000o0JM&lastMod=1418648284000"></img></td>
+                <td style="vertical-align:middle;text-align:left;"><b>Application form</b></td>  
+                    
+                <td align="right"><apex:commandbutton id="cbtnSubmitApplication1" style="font-size:12px" value="Submit application" action="{!ApplicationSubmit}" onclick="disableOnSubmit(this);" /></td>
+            </tr>
+            <tr class="appheadercon">
+                <td colspan="2"></td>
+            </tr>
+            <tr class="appheadercon">
+                <td colspan="2" class="jobopp" style="padding-top:10px;"><apex:outputtext id="otxt030" value="{!selectedJob.Job_Title__c}" /></td>
+            </tr>
+            <tr class="appheadercon">
+                <td colspan="2"></td>
+            </tr>
+            
+            <tr class="appheadercon">
+                <td colspan="2" style="font-size:12px;padding-left:10px;">
+                <ul>
+                    <li>
+                     Please read the job/placement description and person specification carefully before completing this form. Shortlisting will be carried out solely on the basis of information provided on the application form, excluding the data captured in the ‘Equal opportunities and diversity’ section which will solely be used to track whether we are successful in attracting and recruiting diverse talent.</li> 
+                    <br/>
+                    <li>Only once all relevant fields been completed, click the “Submit application” button.</li>
+                    <br/>
+                    <li>Fields marked with red <span class="requiredExample">&nbsp;</span> are mandatory fields.</li>
+                    <br/>
+                    <li>We wish you good luck in your application and thank you in advance for taking the time to apply for an opportunity with VSO.</li>
+                </ul>             
+                </td>
+            </tr>           
+        </table>
+        <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+        <br/>
+        
+    <!-- Personal Details -->        
+    <apex:pageBlock title="Personal details" id="personal_details"> 
+        
+        <apex:pageBlockSection id="pbs010" columns="1">
+            <strong>Note:</strong> Please write your first name and last name as they appear on your passport<br/>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs020" columns="2">
+            <apex:pageBlockSectionItem id="pbsi020">
+                <apex:outputLabel id="olblTitle">Title</apex:outputLabel>
+                <apex:inputfield id="ifldTitle" value="{!Applicant.Salutation}" required="true" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi021">
+                <apex:outputLabel id="olblHomePhone">Home phone</apex:outputLabel>
+                <apex:inputfield id="ifldHomePhone" value="{!Applicant.Homephone}" required="false" />
+            </apex:pageBlockSectionItem>    
+            
+            <apex:pageBlockSectionItem id="pbsi022">
+                <apex:outputLabel id="olblFirstName">First name</apex:outputLabel>
+                <apex:inputfield id="ifldFirstName" value="{!Applicant.Firstname}" required="true" style="width:95%;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi023">
+                <apex:outputLabel id="olblMobilePhone">Mobile phone</apex:outputLabel>
+                <apex:inputfield id="ifldMobilePhone" value="{!Applicant.Mobilephone}" required="true" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi024">
+                <apex:outputLabel id="olblLastName" >Last name</apex:outputLabel>
+                <apex:inputfield id="ifldLastName" value="{!Applicant.Lastname}" required="true" style="width:95%;"/>
+            </apex:pageBlockSectionItem>            
+            
+            <apex:pageBlockSectionItem id="pbsi025">
+                <apex:outputLabel id="olblPersonalEmail">Personal email</apex:outputLabel>
+                <apex:inputfield id="ifldPersonalEmail" value="{!Applicant.npe01__HomeEmail__c}" required="true" />
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi026">
+                <apex:outputLabel id="olblPreferrredName">Preferred name</apex:outputLabel>
+                <apex:inputfield id="ifldPreferrredName" value="{!Applicant.Preferred_Name__c}" required="false" style="width:95%;" />
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi025a">
+                <apex:outputLabel id="colblConfirmEmail">Confirm email</apex:outputLabel>
+                <apex:outputPanel id="opnl010" styleClass="requiredInput" layout="block" >
+                    <apex:outputPanel id="opnl020" styleClass="requiredBlock" layout="block" />          
+                    <apex:inputtext id="cifldConfirmEmail" value="{!confirmEmail}" required="false" />
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>           
+          
+            <apex:pageBlockSectionItem id="pbsi027">
+                <apex:outputLabel id="olblSkypeUsername">Skype username</apex:outputLabel>
+                <apex:inputfield id="ifldSkypeUsername" value="{!Applicant.Skype_User_Name__c}"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs030" title="Address details" columns="1" collapsible="false">
+        
+            <apex:pageBlockSectionItem id="pbsi030">
+                <apex:outputLabel id="olblHouseStreet">House name/number and street</apex:outputLabel>
+                <apex:inputfield id="ifldHouseStreet" value="{!Applicant.MailingStreet}" required="true" style="width:50%;"/>
+            </apex:pageBlockSectionItem> 
+            
+            <apex:pageBlockSectionItem id="pbsi031">
+                <apex:outputLabel id="olblCity">City</apex:outputLabel>
+                <apex:inputfield id="ifldHouseStreet" value="{!Applicant.MailingCity}" required="true" style="width:50%;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi032">
+                <apex:outputLabel id="olblState">State/province</apex:outputLabel>
+                <apex:inputfield id="ofldState" value="{!Applicant.MailingState}" required="true" style="width:50%;"/>
+            </apex:pageBlockSectionItem>            
+
+            <apex:pageBlockSectionItem id="pbsi033">
+                <apex:outputLabel id="olblZip" >Zip/postal code/PO Box</apex:outputLabel>
+                <apex:inputfield id="ofldZip" value="{!Applicant.MailingPostalCode}" required="false"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi034">
+                <apex:outputLabel id="olblCountry">Country of residence</apex:outputLabel>
+                <apex:outputPanel id="opnl030" styleClass="requiredInput" layout="block" >
+                    <apex:outputPanel id="opnl040" styleClass="requiredBlock" layout="block" />          
+                    <apex:selectList id="slstCountry" size="1" styleClass="requiredInput" value="{!Applicant.MailingCountry}" required="false" style="width:65%;"><apex:selectOptions value="{!CountryList}"/></apex:selectList>         
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>        
+    </apex:pageBlock>
+    
+     <!--SKILLS SECTION -->
+    <apex:pageBlock title="Skills" id="languages_skills">
+     <apex:pageBlockSection id="pbs091" columns="1">
+           
+            <apex:outputlabel id="olblProfession" value="Please indicate which of the following skills most closely matches your profession:"/>
+     
+            <apex:pageBlockSectionItem id="pbsi073a">
+                <apex:outputLabel id="olblProfession">Profession</apex:outputLabel>
+                <apex:outputPanel id="opnl041" styleClass="requiredInput" layout="block" >
+                    <apex:outputPanel id="opnl042" styleClass="requiredBlock" layout="block" />
+                    <apex:selectList id="slstProfession" size="1" styleClass="requiredInput" value="{!Profession}" required="false" style="width:90%;"><apex:selectOptions value="{!SkillsWithNoneOption}"/></apex:selectList>         
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>     
+    
+    
+   
+    <!-- SUPPORTING STATEMENT -->
+    <apex:pageBlock id="SupportingStatement" title="Supporting statement">
+    <apex:outputtext id="otxtSupportingInfo" >Please use this section to detail your skills and experience in relation to the person specification attached to the job advert. 
+       If you are applying to a generic advert (i.e. not applying to a specific role), please use this section to detail your current skills and opportunities you are interested in. Your supporting statement should be no longer than 1500 words.</apex:outputtext>
+ 
+    <apex:pageBlockSection id="pbs160" columns="1">
+        <apex:pageBlockSectionItem id="pbsi160">
+            <apex:outputPanel styleClass="requiredInput" layout="block">
+               <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <!-- SPGI-75, is required but checked server side -->       
+                <apex:inputfield id="itaJobEvidence" value="{!jobApplication.Supporting_Statement__c}" style="width:100%;"/>
+            </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+    </apex:pageBlock>    
+
+    <!-- CV UPLOAD -->
+    <apex:pageBlock id="CurriculumVitae" title="Upload your Curriculum Vitae">
+        <apex:outputtext id="otxtCVInfo">Please upload your current CV to be considered as part of your application. Your CV should contain further details of your employment and education history as well as any previous volunteering experience.<br/> 
+                        Please note, your CV should be in written English and uploaded as a Microsoft Word document.</apex:outputtext>
+        <apex:pageBlockSection id="pbs170" columns="1">
+            <apex:pageBlockSectionItem id="pbsi170">
+                <apex:outputPanel id="opnl050" styleClass="requiredInput" layout="block" >
+                <apex:outputPanel id="opnl060" styleClass="requiredBlock" layout="block" /> 
+                    <apex:inputfile id="ifleUploadCV" value="{!uploadedFile}" filename="{!filename}" filesize="{!filesize}" required="true" />          
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>    
+
+    <!-- ELIGIBILITY TO WORK -->
+    <apex:pageBlock id="EligibilitytoWork" title="Eligibility to work">
+        <apex:pageBlockSection id="pbs180" columns="1">
+            <apex:pageBlockSectionItem id="pbsi181">
+                <apex:outputlabel id="olblLocationEligibleWork" value="Are you currently legally entitled to live and work in the location in which the job is based?" style="display:block;width:300px;" />
+                <apex:inputfield id="ifldLocationEligibleWork" value="{!jobApplication.Eligibility_To_Work__c}" required="{!selectedJob.RecordType.DeveloperName == 'Employee_Job_Approved'}" />
+            </apex:pageBlockSectionItem>        
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+        
+    <!-- EQUAL OPPOS -->
+    <apex:pageBlock id="EqualOpportunities" title="Equal opportunities and diversity">
+        <apex:outputtext id="otxtEqualOpprtunitiesInfo">
+                            At VSO we are committed to encouraging diversity in the recruitment, retention and development of our people. 
+                            By providing the data below you will help us track how successful we are in attracting and recruiting diverse 
+                            talent.<br/> 
+                            Please note the data you provide
+                            <ul>
+                            <li>Will not influence your application to VSO </li>
+                            <li>Will be held in strict confidence</li> 
+                            <li>Will be used to produce anonymous statistics for reporting purposes only</li>
+                            </ul>       
+        </apex:outputtext>
+        
+        <apex:pageBlockSection id="pbs190" columns="2">
+            <apex:pageBlockSectionItem id="pbsi190">
+                <apex:outputlabel id="olblGender" value="Gender"/>
+                <apex:inputfield id="ifldGender" value="{!Applicant.Gender__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+                        
+            <apex:pageBlockSectionItem id="pbsi191" rendered="false">
+                <apex:outputlabel id="olblEthnicity" value="Ethnicity"/>
+                <apex:inputfield id="ifldEthnicity" value="{!Applicant.Ethnicity__c}" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi192">
+                <apex:outputlabel id="olblNationality" value="Nationality"/>
+                <apex:inputfield id="ifldNationality" value="{!Applicant.Nationality_1__c}" required="true"/>
+            </apex:pageBlockSectionItem>    
+            
+            <apex:pageBlockSectionItem id="pbsi193" rendered="false">
+                <apex:outputlabel id="olblEthnicityOther" value="Ethnicity other"/>
+                <apex:inputfield id="ifldEthnicityOther" value="{!Applicant.Ethnicity_Other__c}"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi194">
+                <apex:outputlabel id="olblAgeRange" value="Age range"/>
+                <apex:inputfield id="ifldAgeRange" value="{!Applicant.Age_Range__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs200" columns="1">
+            
+            <apex:pageBlockSectionItem id="pbsi200">
+                <apex:outputlabel id="olblPostiveAbout"><apex:image id="imgPostiveAbout" value="{!$Resource.PositiveAboutDisabledPeople_Logo}" height="40px" width="50px" /></apex:outputlabel>
+                <apex:outputtext id="otxtPostiveInfo">We are positive about disabled people. If there is any information you feel is appropriate for us to consider under our commitment to opportunities for disabled people, please give details below:</apex:outputtext>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi210">
+                <apex:outputlabel id="olblDisabilityConsideration" value=""/>
+                <apex:inputfield id="ifldDisabilityConsideration" value="{!jobApplication.Applicant_Disability_Considerations__c }" style="width:100%;"/>
+            </apex:pageBlockSectionItem>
+                                                            
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+
+    <!-- DECLARATION -->    
+    <apex:pageBlock id="Declaration" title="Declaration">
+        <apex:pageBlockSection id="pbs210" columns="1">
+            <apex:pageBlockSectionItem id="pbsi210">
+            <apex:outputlabel id="olblDeclaration" value="I declare that all the information I have provided on this form is true and correct." style="display:block;width:525px;"/>
+            <apex:inputfield id="ifldDeclaration" required="true" value="{!jobApplication.Declaration__c}"/> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <!-- DATA PROTECTION & PRIVACY -->
+    <apex:pageBlock id="DataProtection" title="Data Protection and Data Privacy Policy">
+                        If you complete and submit this form, VSO will store and process your data in accordance with the requirements of its
+                         Data Protection Policy, its Privacy Policy and in keeping with the UK Data Protection Act 1998 (“the Act”). 
+                         By ticking the box below and submitting this form you agree to the processing of your data by VSO in accordance 
+                         with the Act, its Data Protection Policy and the Privacy Policy, both available on its website 
+                         at&nbsp;<apex:outputlink value="http://www.vsointernational.org" target="_blank">www.vsointernational.org</apex:outputlink>.<br/>
+                         <br/>
+                         You agree that VSO may transfer such data as is necessary to any country where you may be placed, including 
+                         countries where data protection laws may not apply or may be less stringent than in the European Union. 
+                         For volunteer applications we will need to pass your information to your host organisation, but will ensure 
+                         that VSO entities continue to handle your personal information in accordance with our group wide policy on 
+                         the protection and security of your data. Details of these transfers can be provided at your request.  
+        <apex:pageBlockSection id="pbs220">
+        
+        <apex:pageBlockSectionItem id="pbsi220"></apex:pageBlockSectionItem>
+        
+            <apex:pageBlockSectionItem id="pbsi221">
+                <apex:outputlabel id="olblConsentToInformationStore" value="Agree" style="display:block;width:275px;"/>
+                <apex:inputfield id="ifldConsentToInformationStore" required="true" value="{!jobApplication.Consent_To_Information_Being_Stored__c}"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection columns="1"> 
+         <apex:pageBlockSectionItem id="pbsi222">                
+             <img align="left" width="50" id="HeaderImage" border="0" src="https://vso--c.eu1.content.force.com/servlet/servlet.ImageServer?id=015D0000003ZnPf&oid=00DD0000000o0JM&lastMod=1418378193000"></img>
+              <apex:outputText >You can find out more information about VSO by visiting &nbsp;<apex:outputlink value="http://www.vsointernational.org" target="_blank">www.vsointernational.org</apex:outputlink></apex:outputText>       
+         </apex:pageBlockSectionItem>         
+        </apex:pageBlockSection>      
+        
+    </apex:pageBlock>                 
+        
+    <div align="right"><apex:commandbutton id="cbtnSubmitApplication2" value="Submit application" action="{!ApplicationSubmit}" onclick="disableOnSubmit(this);" /></div>     
+    <br/>
+    </apex:outputpanel>   
+    </div>         
+    </apex:form>
+</body>
+</apex:page>

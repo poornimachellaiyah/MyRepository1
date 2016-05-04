@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A competency assessment event for a team member.  The competencies and indicators that are assessed are selected by choosing a Job Profile.  The key dates for the assessment are also recorded.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Assessment_Tile</fullName>
+        <description>Tile view for Competency Assessment</description>
+        <displayedFields>
+            <field>Manager_Action__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Competency_Sum__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Competency_Count__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Competency_Average__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Assessment Tile</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>New_Assessment</fullName>
+        <description>On creating a new competency assessment</description>
+        <displayedFields>
+            <field>End_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Close_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>New Assessment</label>
+    </fieldSets>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isnull(Manager_Action__c), if ( isnull(Team_Member_Action__c), null,  Team_Member_Action_Date__c ) ,  Manager_Action_Date__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Combined Manager and Team Member Actions</description>
+        <externalId>false</externalId>
+        <formula>if ( Manager_Action__c = &apos;&apos;, if ( Team_Member_Action__c = &apos;&apos;, &apos;&apos;, &apos;Team Member: &apos;&amp;Team_Member_Action__c) , &apos;Manager: &apos;&amp;Manager_Action__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Combined Manager and Team Member Actions</inlineHelpText>
+        <label>Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Close_Date__c</fullName>
+        <defaultValue>Today() + 10</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The date on which the competency assessment will be closed and outstanding feedback requests canceled.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date after which the competency assessment may be closed and outstanding feedback requests cancelled. Make this shortly after the &quot;End Date&quot; to give a grace period for feedback to be completed.</inlineHelpText>
+        <label>Close Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Competency_Average__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( Competency_Count__c &gt; 0,  Competency_Sum__c /  Competency_Count__c, null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Competency Average</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Competency_Count__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Competency Count</label>
+        <summaryFilterItems>
+            <field>Competency__c.Average_Score__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Competency__c.Competency_Assessment__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Competency_Sum__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Competency Sum</label>
+        <summarizedField>Competency__c.Average_Score__c</summarizedField>
+        <summaryFilterItems>
+            <field>Competency__c.Average_Score__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Competency__c.Competency_Assessment__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Completed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date competency assessment is actually closed and completed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date competency assessment is actually closed and completed</inlineHelpText>
+        <label>Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <defaultValue>Today() + 7</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Date that people are asked to complete feedback by.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that people are asked to complete feedback by.  Set this a few days before the &quot;Close Date&quot; to give time to chase stragglers.</inlineHelpText>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Is_Current__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( Team_Member__r.Current_Competency_Assessment__c ==  Id, &apos;True&apos;, &apos;False&apos; )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Current</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Profile__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Job profile containing the competencies and indicators that are to be assessed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Job profile containing the competencies and indicators that are to be assessed</inlineHelpText>
+        <label>Job Profile</label>
+        <referenceTo>Job_Profile__c</referenceTo>
+        <relationshipName>Competency_Assessment</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( $RecordType.Name = &apos;Draft&apos;,
+    DATEVALUE(LastModifiedDate),
+    if($RecordType.Name = &apos;Active&apos;,
+        if(Manager_Active__c,
+            Close_Date__c,
+            if(Close_Date__c&lt;today() || (Others_Active__c=0 &amp;&amp; !Team_Member_Active__c),
+                Close_Date__c,
+                null
+            )
+        ),
+        if($RecordType.Name = &apos;Completed&apos;,
+            if(!Show_Team_Member__c,
+                if(                           
+                    if(ISNULL(Team_Member__r.Policy__c),
+                        Team_Member__r.Department__r.Policy__r.HR_Reveals_Competency_Assessment__c,       
+                        Team_Member__r.Policy__r.HR_Reveals_Competency_Assessment__c
+                    ),
+                    null,
+                    Completed_Date__c
+                ),
+                null                  
+            ),
+            null
+        )
+    )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Action to be done by manager</description>
+        <externalId>false</externalId>
+        <formula>if( $RecordType.Name = &apos;Draft&apos;,
+    &apos;Start&apos;,
+    if($RecordType.Name = &apos;Active&apos;,
+        if(Manager_Active__c,
+            &apos;Manager Assessment&apos;,
+            if(Close_Date__c&lt;today() || (Others_Active__c=0 &amp;&amp; !Team_Member_Active__c),
+                &apos;Close&apos;,
+                null
+            )
+        ),
+        if($RecordType.Name = &apos;Completed&apos;,
+            if(!Show_Team_Member__c,
+                if(                           
+                    if(ISNULL(Team_Member__r.Policy__c),
+                        Team_Member__r.Department__r.Policy__r.HR_Reveals_Competency_Assessment__c,       
+                        Team_Member__r.Policy__r.HR_Reveals_Competency_Assessment__c
+                    ),
+                    null,
+                    &apos;Reveal&apos;
+                ),
+                null                  
+            ),
+            null
+        )
+    )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Action to be done by manager</inlineHelpText>
+        <label>Manager Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates that manager assessment is active but not yet complete</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates that manager assessment is active but not yet complete</inlineHelpText>
+        <label>Manager Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Others_Active__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of  assessments active but not yet complete (not counting self and manager)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of  assessments active but not yet complete (not counting self and manager)</inlineHelpText>
+        <label>Others Active</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Show_Team_Member__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Show Team Member</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The date on which the competency assessment started</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date on which the competency assessment started</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Form_Completed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The start form has been completed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The start form has been completed.</inlineHelpText>
+        <label>Start Form Completed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( $RecordType.Name = &apos;Draft&apos;,datevalue(LastModifiedDate),if(and($RecordType.Name = &apos;Active&apos;,Team_Member_Active__c), End_Date__c ,if(and($RecordType.Name = &apos;Active&apos;,or(Close_Date__c&lt;today(),and(Others_Active__c=0,!Team_Member_Active__c,!Manager_Active__c))), Close_Date__c ,null)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team Member Action Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Action to be done by team member</description>
+        <externalId>false</externalId>
+        <formula>if( $RecordType.Name = &apos;Draft&apos;,
+    &apos;Start&apos;,
+    if($RecordType.Name = &apos;Active&apos;, 
+        if(Team_Member_Active__c,
+            &apos;Self Assessment&apos;,
+            if(Close_Date__c&lt;today() || !(Others_Active__c&gt;0 || Manager_Active__c),
+                if(
+                    if(ISNULL(Team_Member__r.Policy__c),            
+
+                        Team_Member__r.Department__r.Policy__r.Auto_complete_Competency_Assessment__c,   
+
+                        Team_Member__r.Policy__r.Auto_complete_Competency_Assessment__c
+                    ),
+                    &apos;Close&apos;, 
+                    null
+                 ),
+                 null
+            )
+        ), 
+        null
+    )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Action to be done by team member</inlineHelpText>
+        <label>Team Member Action</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates that self assessment is active but not yet complete</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates that self assessment is active but not yet complete</inlineHelpText>
+        <label>Team Member Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Email__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Copy of team member email</description>
+        <externalId>false</externalId>
+        <label>Team Member Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The team member that is being assessed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team member that is being assessed</inlineHelpText>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipName>Competency_Assessment</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_Close__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set to true to trigger the competency assessment to close</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set to true to trigger the competency assessment to close</inlineHelpText>
+        <label>Trigger Close</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_Start__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set to true to trigger the competency assessment to start</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set to true to trigger the competency assessment to start</inlineHelpText>
+        <label>Trigger Start</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Competency Assessment</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Competency Assessment</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Competency Assessments</pluralLabel>
+    <recordTypes>
+        <fullName>Active</fullName>
+        <active>true</active>
+        <label>Active</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Completed</fullName>
+        <active>true</active>
+        <label>Completed</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Draft</fullName>
+        <active>true</active>
+        <label>Draft</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+    <webLinks>
+        <fullName>Complete_Assessment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Close</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/js/functions.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/11.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/11.0/apex.js&quot;)}
+
+var fairsail;
+if (!fairsail) {
+fairsail = {};
+}
+
+fairsail.execute = function( operation, params ) {
+try {
+return sforce.apex.execute(&quot;f/Fairsail&quot;, operation, params );
+} catch (e)
+{
+alert(&quot;Exception from webservice Fairsail.&quot;+operation+&quot;: &quot;+String(e));
+}
+}
+
+fairsail.completeCompetencyAssessment= function(id) {
+return fairsail.execute(&quot;completeCompetencyAssessment&quot;, {&quot;id&quot;:id} )[0];
+}
+
+var message = fairsail.completeCompetencyAssessment(&quot;{!Competency_Assessment__c.Id}&quot;);
+if (message==null)
+    window.location.reload();
+else
+   alert(message);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>PDF</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>PDF</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/fHCM2__CompetencyAssessmentPDF?id={!Competency_Assessment__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Start_Assessment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Start</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/js/functions.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/11.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/11.0/apex.js&quot;)}
+
+var fairsail;
+if (!fairsail) {
+    fairsail = {};
+}
+	
+fairsail.execute = function( operation, params ) {
+    try {
+	return sforce.apex.execute(&quot;f/Fairsail&quot;, operation, params );
+    } catch (e)
+    {
+	alert(&quot;Exception from webservice Fairsail.&quot;+operation+&quot;: &quot;+String(e));
+    }
+}
+
+fairsail.startCompetencyAssessment = function(competencyAssessmentId) {
+    return fairsail.execute(&quot;startCompetencyAssessment&quot;, {&quot;competencyAssessmentId&quot;:competencyAssessmentId} )[0];
+} 
+var message = fairsail.startCompetencyAssessment (&quot;{!Competency_Assessment__c.Id}&quot;);
+if (message==null)
+window.location.reload();
+else
+alert(message);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>View</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>View</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/fHCM2__CompetencyAssessment?id={!Competency_Assessment__c.Id}</url>
+    </webLinks>
+</CustomObject>

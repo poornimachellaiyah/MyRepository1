@@ -1,0 +1,112 @@
+<apex:page controller="fHCM2.TurnoverReportController" standardStylesheets="{!$CurrentPage.parameters.renderAs!='Excel'}" showHeader="{!$CurrentPage.parameters.renderAs!='Excel'}" sidebar="false" title="Turnover Report" contenttype="{!if($CurrentPage.parameters.renderAs=='Excel','application/vnd.ms-excel#Turnover.xls','')}" tabStyle="fHCM2__Team_Member__c">
+
+	<style>
+		.bPageBlock .pbTitle {width:20px;}
+	</style>
+
+	<apex:sectionHeader title="Turnover Report" help="http://recruit.help.fairsail.com/topics/EditReference.html" subTitle="{!if(selectValue=='','All',selectValue)}" rendered="{!$CurrentPage.parameters.renderAs!='Excel' && $CurrentPage.parameters.inline!='1'}"/>
+
+	<apex:pageBlock >
+		<apex:pageBlockButtons rendered="{!$CurrentPage.parameters.renderAs!='Excel' && $CurrentPage.parameters.inline!='1'}" location="top" >
+			<c:LinkButton label="Export Excel" url="Turnover?groupBy={!groupBy}&period={!period}&method={!method}&offset={!offset}&renderAs=Excel"/>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<c:LinkButton label="<<" url="Turnover?groupBy={!groupBy}&period={!period}&method={!method}&offset={!offset-gap}&selectBy={!selectBy}&selectValue={!urlencode(selectValue)}"/>
+			<c:LinkButton label="Now" url="Turnover?groupBy={!groupBy}&period={!period}&method={!method}&offset=0&selectBy={!selectBy}&selectValue={!urlencode(selectValue)}"/>
+			<c:LinkButton label=">>" url="Turnover?groupBy={!groupBy}&period={!period}&method={!method}&offset={!offset+gap}&selectBy={!selectBy}&selectValue={!urlencode(selectValue)}"/>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<c:LinkButton label="By Month" url="Turnover?groupBy={!groupBy}&period=month&method={!method}&selectBy={!selectBy}&selectValue={!urlencode(selectValue)}"/>
+			<c:LinkButton label="By Quarter" url="Turnover?groupBy={!groupBy}&period=quarter&method={!method}&selectBy={!selectBy}&selectValue={!urlencode(selectValue)}"/>
+			<c:LinkButton label="By Year" url="Turnover?groupBy={!groupBy}&period=year&method={!method}&selectBy={!selectBy}&selectValue={!urlencode(selectValue)}"/>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<apex:repeat value="{!$ObjectType.fHCM2__Team_Member__c.FieldSets.fHCM2__Turnover}" var="f">
+				<c:LinkButton label="By {!f.label}" url="Turnover?groupBy={!f}&period={!period}&method={!method}&offset={!offset}" rendered="{!!contains(f,'Manager__r') && !contains(f,'Department__r')}"/>
+				<c:LinkButton label="By {!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Manager__c.label}" url="Turnover?groupBy={!f}&period={!period}&method={!method}&offset={!offset}" rendered="{!contains(f,'Manager__r')}"/>
+				<c:LinkButton label="By {!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Department__c.label}" url="Turnover?groupBy={!f}&period={!period}&method={!method}&offset={!offset}" rendered="{!contains(f,'Department__r')}"/>
+			</apex:repeat>
+		</apex:pageBlockButtons>
+		
+		<a href="/apex/fHCM2__Turnover" target="_top">
+	    <apex:chart animate="false" hidden="false" height="400" width="{!if($CurrentPage.parameters.inline!='1',1200,380)}" data="{!monthlyTotals}" rendered="{!$CurrentPage.parameters.renderAs!='Excel'}">
+	    	  <apex:axis type="Numeric" position="left" fields="headCount" 
+	            title="Number of Employees" grid="true" minimum="0"/>
+	    	  <apex:axis type="Numeric" position="right" fields="turnover" 
+	            title="Annual Turnover Rate (%)" grid="true"/>
+	    	  <apex:axis type="Category" position="bottom" fields="month" 
+	            title="Period Starting"><apex:chartLabel rotate="-90"/></apex:axis>
+	    	<apex:barSeries orientation="vertical" axis="left" xField="month" yField="headCount" colorSet="#1797C0"/>
+	    	<apex:lineSeries axis="right" xField="month" yField="turnover" />
+	   </apex:chart></a>
+		
+		<apex:outputPanel rendered="{!$CurrentPage.parameters.inline!='1'}">
+		<style>
+			.resultTable {border-collapse:collapse;}
+			.resultTable td {border: solid 1px #808080;padding:2px;}
+			.resultTable .center {text-align:center;}
+			.resultTable td a {
+			    color: #0E52A1;
+			    font-weight: bold;
+			    text-decoration: none;
+			}
+			.resultTable td a:hover {
+			    text-decoration: underline;
+			}
+		</style>
+
+
+		<table class="resultTable">
+			<tr>
+				<td rowspan="2">
+					<apex:repeat value="{!$ObjectType.fHCM2__Team_Member__c.FieldSets.fHCM2__Turnover}" var="f">
+						<apex:outputPanel rendered="{!f==groupBy}">
+							<apex:outputLabel value="{!f.label}" rendered="{!!contains(f,'Manager__r') && !contains(f,'Department__r')}"/>
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Manager__c.label}" rendered="{!contains(f,'Manager__r')}"/>
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Department__c.label}" rendered="{!contains(f,'Department__r')}"/>
+						</apex:outputPanel>
+					</apex:repeat>
+				</td>
+				<td colspan="4" class="center">Overall</td>
+				<apex:repeat value="{!dates}" var="date">
+					<td colspan="4" class="center"><c:outputDate dateValue="{!date}" format="MMM yyyy"/></td>
+				</apex:repeat>
+			</tr>
+			<tr>
+				<td class="center" style="font-size:60%;">Count</td>
+				<td class="center" style="font-size:60%;">Hire</td>
+				<td class="center" style="font-size:60%;">Term</td>
+				<td class="center" style="font-size:60%;">Turnover</td>
+				<apex:repeat value="{!dates}" var="date">
+					<td class="center" style="font-size:60%;">Count</td>
+					<td class="center" style="font-size:60%;">Hire</td>
+					<td class="center" style="font-size:60%;">Term</td>
+					<td class="center" style="font-size:60%;">Turnover</td>
+				</apex:repeat>
+			</tr>
+			<apex:repeat value="{!groups}" var="group">
+				<tr>
+					<td><apex:outputLink value="Turnover?groupBy={!groupBy}&period={!period}&method={!method}&offset={!offset}&selectBy={!groupBy}&selectValue={!urlencode(group)}">{!group}</apex:outputLink></td>
+					<td class="center">{!yearResults[group].headCount}</td>
+					<td class="center">{!yearResults[group].newHires}</td>
+					<td class="center">{!yearResults[group].terminations}</td>
+					<td class="center">{!yearResults[group].percentageTerminations}%</td>
+					<apex:repeat value="{!dates}" var="date">
+						<td class="center">{!groupResults[date][group].headCount}</td>
+						<td class="center">{!groupResults[date][group].newHires}</td>
+						<td class="center">{!groupResults[date][group].terminations}</td>
+						<td class="center">{!groupResults[date][group].PercentageTerminations}%</td>
+					</apex:repeat>
+				</tr>
+			</apex:repeat>
+			<tr>
+				<td>Total</td>
+				<td class="center">{!grandTotalResults.headCount}</td>
+				<td class="center">{!grandTotalResults.newHires}</td>
+				<td class="center">{!grandTotalResults.terminations}</td>
+				<td class="center">{!grandTotalResults.percentageTerminations}%</td>
+				<apex:repeat value="{!dates}" var="date">
+					<td class="center">{!totalResults[date].headCount}</td>
+					<td class="center">{!totalResults[date].newHires}</td>
+					<td class="center">{!totalResults[date].terminations}</td>
+					<td class="center">{!totalResults[date].PercentageTerminations}%</td>
+				</apex:repeat>
+			</tr>
+		</table>
+		</apex:outputPanel>
+ 	</apex:pageBlock>
+</apex:page>

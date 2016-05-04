@@ -1,0 +1,77 @@
+<apex:page standardController="fHCM2__Talent_Plan__c" extensions="fHCM2.TalentPlanControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Target" rendered="{!subject.currentTalentPlan.isUsing}" action="{!selectUI}">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<c:Notice viewer="{!viewer}" page="TalentPlan" location="Subheader"  />
+			<c:Notice viewer="{!viewer}" page="TalentPlan" location="Subfooter"  />
+		</apex:define>
+
+		<apex:define name="widePanel">
+			<apex:form >
+				<apex:pageBlock title="{!$Label.fhcm2__Global_Current}" id="myform">
+					<apex:pageBlockButtons rendered="{!viewer.isManager}">
+						<apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and(viewer.isEdit)}" styleClass="inputsubmit" />
+						<apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!and(viewer.isEdit)}" styleClass="inputsubmit" />
+					</apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="TalentPlan" location="Header"  />
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!fHCM2__Talent_Plan__c.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+							</c:PersonSection>
+					</apex:pageBlockSection>
+					
+					<apex:pageBlockSection title="{!$Label.fhcm2__Process_Talent_Plan}" columns="1">
+						<apex:inputField value="{!fHCM2__Talent_Plan__c.fHCM2__Performance_Rating__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Performance_Rating__c.label }" />
+							<apex:outputText value="{!fHCM2__Talent_Plan__c.fHCM2__Performance_Rating__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!fHCM2__Talent_Plan__c.fHCM2__Potential__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Potential__c.label }" />
+							<apex:outputText value="{!fHCM2__Talent_Plan__c.fHCM2__Potential__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!fHCM2__Talent_Plan__c.fHCM2__Risk_of_Leaving__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Risk_of_Leaving__c.label }" />
+							<apex:outputText value="{!fHCM2__Talent_Plan__c.fHCM2__Risk_of_Leaving__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!fHCM2__Talent_Plan__c.fHCM2__Reason_to_Leave__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Reason_to_Leave__c.label }" />
+							<apex:outputText value="{!fHCM2__Talent_Plan__c.fHCM2__Reason_to_Leave__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!fHCM2__Talent_Plan__c.fHCM2__Impact_of_Loss__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Impact_of_Loss__c.label }" />
+							<apex:outputText value="{!fHCM2__Talent_Plan__c.fHCM2__Impact_of_Loss__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!fHCM2__Talent_Plan__c.fHCM2__Retention_Plan__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Retention_Plan__c.label }" />
+							<apex:outputText value="{!fHCM2__Talent_Plan__c.fHCM2__Retention_Plan__c}" />
+						</apex:pageBlockSectionItem>
+
+					</apex:pageBlockSection>
+
+
+				</apex:pageBlock>
+			</apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!fHCM2__Talent_Plan__c}" page="{!links.FairsailProfile}" rendered="{!viewer.isManager}"/>
+			<c:Notice viewer="{!viewer}" page="TalentPlan" location="Footer"  />
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

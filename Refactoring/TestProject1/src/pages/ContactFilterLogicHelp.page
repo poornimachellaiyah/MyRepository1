@@ -1,0 +1,158 @@
+<apex:page tabstyle="Talent_Search__tab" showHeader="false" sidebar="false">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1">
+                <table style="width: 100%;" bgcolor="#E6EBE6" cellpadding="4" cellspacing="0">
+                    <thead>
+                        <tr bgcolor="#6986C1" style="width: 100%;">
+                                                                                                                <th style="width: 100%;"><font color="white">&nbsp;&nbsp;Filter
+                                                                                                                                                Logic Tips</font></th>
+                                                                                                </tr>
+                                                                                </thead>
+                                                                </table>
+                                                                <p style="width: 100%;">
+                                                                                Use the following tips when entering filter logic: <br /> <br />
+                                                                <li>&nbsp;When you add filter logic, include each custom filter
+                                                                                in the Boolean expression to avoid an input error.</li>
+                                                                <br />
+                                                                <li>&nbsp;Make sure all parentheses are closed.</li>
+                                                                <br />
+                                                                <li>&nbsp;Enclose conditions that have priority in parentheses.
+                                                                                For example, "(1 AND 2) OR 3" finds records that meet either both
+                                                                                the first two filters or the third. While "1 AND (2 OR 3)" finds
+                                                                                records that meet the first filter as well as either the second or
+                                                                                third.</li>
+                                                                <br />
+                                                                
+                                                                <li>&nbsp;Use the line numbers at the beginning of each filter
+                                                                                line and separate each line number with AND, OR to specify
+                                                                                the conditions a record must meet to be included. Use the AND
+                                                                                operator to find records that match both values, use the OR
+                                                                                operator to find records that match either value. Use filter logic to
+                                                                                specify the relationship between each filter line. Avoid conditions
+                                                                                like "1 AND OR 2" or "(1 2 3)."</li>
+                                                                <br />
+                                                                <li>&nbsp;If you remove a custom filter, remove the
+                                                                                corresponding number and its operator from the filter logic to
+                                                                                avoid an input error.</li>
+                                                                <br />
+                                                                
+                                                                <li>Use the following examples when entering filter logic:</li>
+                                                                </p>
+                                                </apex:pageBlockSection>
+                                                <table border="0">
+                                                                <tr>
+                                                                                <td>
+                                                                                                <table style="width: 100%;" bgcolor="#E6EBE6" cellpadding="4"
+                                                                                                                cellspacing="0">
+                                                                                                                <thead>
+                                                                                                                                <tr bgcolor="#6986C1" style="width: 100%;">
+                                                                                                                                                <th style="width: 40%;"><font color="white">&nbsp;&nbsp;Example</font>
+                                                                                                                                                </th>
+                                                                                                                                                <th style="width: 60%;"><font color="white">&nbsp;&nbsp;Description</font>
+                                                                                                                                                </th>
+
+                                                                                                                                </tr>
+                                                                                                                </thead>
+                                                                                                                <tbody>
+                                                                                                                                <tr>
+                                                                                                                                                <td>(1 AND 2) OR 3</td>
+                                                                                                                                                <td>Finds records that match both the first two filter
+                                                                                                                                                                lines or the third. Use the following filter conditions: <br />
+                                                                                                                                                                <br />a.Account Owner contains Joe <br /> <br />b.Industry
+                                                                                                                                                                equals Banking <br /> <br />c.Annual Revenue greater than
+                                                                                                                                                                10000000 <br /> <br />This filter can help you find banking
+                                                                                                                                                                accounts owned by Joe or any account with a revenue greater
+                                                                                                                                                                than $10 million.</td>
+                                                                                                                                </tr>
+                                                                                                                                <tr>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                </tr>
+
+                                                                                                                                <tr>
+                                                                                                                                                <td>1 AND (2 OR 3)</td>
+                                                                                                                                                <td>Finds records that match both the first filter line
+                                                                                                                                                                and either of the last two.<br /> <br /> Using the same
+                                                                                                                                                                filters in the example above, this report finds all accounts
+                                                                                                                                                                Joe owns that are either in the banking industry or have a
+                                                                                                                                                                revenue greater than $10 million. You can also repeat a filter
+                                                                                                                                                                line in your expression. For example, the expression in this
+                                                                                                                                                                example yields the same results as (1 AND 2) OR (1 AND 3).</td>
+                                                                                                                                </tr>
+                                                                                                                                <tr>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                </tr>
+
+                                                                                                                                <tr>
+                                                                                                                                                <td>(1 AND 2) OR (3 AND 4)</td>
+                                                                                                                                                <td>Finds records that match both the first two filter
+                                                                                                                                                                lines or the second two filter lines. This could be useful
+                                                                                                                                                                when compiling a list of key deals that are closing soon. Use
+                                                                                                                                                                this expression with the filters below to find all the
+                                                                                                                                                                opportunities over $1 million that are closing in the next 60
+                                                                                                                                                                days as well as opportunities over $5 million that are closing
+                                                                                                                                                                in the next 120 days. In this example, your filters would look
+                                                                                                                                                                like this:<br /> <br /> <br /> a.Amount greater than
+                                                                                                                                                                1000000 <br /> <br />b.Close Date equals Next 60 Days <br />
+                                                                                                                                                                <br />c.Amount greater than 5000000 <br /> <br />d.Close
+                                                                                                                                                                Date equals Next 120 Days</td>
+                                                                                                                                </tr>
+                                                                                                                                <tr>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                </tr>
+                                                                                                                                <tr>
+                                                                                                                                                <td>(1 OR 2 OR 3) AND 4</td>
+                                                                                                                                                <td>Finds records that match any of the first three filter
+                                                                                                                                                                lines that also include the last. For example, using these
+                                                                                                                                                                filter conditions: <br /> <br />a. Title equals CFO <br />
+                                                                                                                                                                <br />b.Functional Role equals CFO <br /> <br />c.Reports
+                                                                                                                                                                To equals CFO <br /> <br />d.Contact Owner contains Joe <br />
+                                                                                                                                                                <br />Use a filter like this to find contacts owned by Joe
+                                                                                                                                                                that have a title of CFO, functional role of CFO, or reports
+                                                                                                                                                                to the CFO.</td>
+                                                                                                                                </tr>
+                                                                                                                                
+                                                                                                                                <tr>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                                <td>
+                                                                                                                                                                <hr />
+                                                                                                                                                </td>
+                                                                                                                                </tr>
+                                                                                                                                <tr bordercolor="black">
+                                                                                                                                                <td>(4 AND (2 OR 3)) OR 1</td>
+                                                                                                                                                <td>Finds records that match the last filter line as well
+                                                                                                                                                                as those that match the first and either the second or third
+                                                                                                                                                                filter line. <br /> <br />For example, using the filter
+                                                                                                                                                                conditions in the example above, results include contacts that
+                                                                                                                                                                have a CFO title as well as contacts owned by Joe that either
+                                                                                                                                                                have a CFO role or report to the CFO. Note that you do not
+                                                                                                                                                                need to enter filter line numbers in order.</td>
+                                                                                                                                </tr>
+
+                                                                                                                </tbody>
+                                                                                                </table>
+                                                                                </td>
+                                                                </tr>
+                                                </table>
+
+
+                                </apex:pageBlock>
+                </apex:form>
+</apex:page>

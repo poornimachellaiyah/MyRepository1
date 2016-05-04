@@ -1,0 +1,1094 @@
+<apex:page controller="fHCM2.AssessmentController" standardStylesheets="true" showHeader="false" sidebar="false" title="Assessment" rendered="{!IsExternal}" cache="false">
+
+
+	<link href="{!$Resource.fHCM2__FairsailIcon}/Icon/fairsail.ico" rel="shortcut icon"/>
+    <apex:includeScript value="{!$Resource.fHCM2__FairsailUI}"/>
+    <apex:stylesheet value="{!IF(ISNULL(getCompanyCSS), $Resource.FairsailHCMcss, getCompanyCSS) }"/>
+
+<style>
+    .rich-toolbar {
+        background-image: none; 
+        background-color: #0e52a1;
+        height:55px;
+        border:0px;
+        padding:0;  
+    }
+    .dr-toolbar-ext {
+        background-image: none; 
+        background-color: #0e52a1;
+        height:55px;
+        border:0px;
+        padding:0;  
+    }
+    .pbBody a {
+        font-weight:bold;text-decoration: none;color: #0e52a1;
+    }
+    .poweredBy  {
+        text-decoration: none;color: #b0b0b0;
+        text-align:right;
+    }
+    .poweredBy a {
+        text-decoration: none;color: #b0b0b0;
+        text-align:right;
+    }
+    .bPageBlock {
+        clear:none;
+
+        background-color:#ffffff;
+        background-image:none;
+
+        border-top:0px;
+        margin:0pt 0pt 0pt 0px;
+        padding:0pt 0pt 0pt 0px;
+        padding-bottom:0px;
+    } 
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+        margin:0pt 0pt 0pt 0px;
+    }
+    .bPageBlock .pbTitle {
+        margin:0pt 0pt 0pt 0px;
+        padding:5pt 0pt 5pt 0px;
+        width: 40%;
+    } 
+    .bPageBlock .pbHeader {
+        background-color:#e0e0e0;
+        background-image:none;
+        margin:0pt 0pt 0pt 0px;
+        padding:0pt 5pt 0pt 5px;
+    } 
+    .bPageBlock .pbBody {
+        background-color:#ffffff;
+        background-image:none;
+        margin:0pt 0pt 0pt 0px;
+        padding:0pt 0pt 0pt 0px;
+    } 
+    .bPageBlock .pbFooter {
+        background-color:#ffffff;
+        background-image:none;
+        margin:0pt 0pt 0pt 0px;
+        padding:0pt 5pt 0pt 5px;
+    } 
+    .pbSubheader {
+        border-top: 2px solid #f4805c;
+        background-color:#C4D2E8;
+        padding:4pt 5px 2pt 10px;
+        margin:10px 0pt 0pt 0px;
+    }
+    .pbSubheader h3 {
+        color:#0e52a1;
+    }
+    .mainTitle {
+        font-size:150%;
+    }
+    body .bPageBlock .pbBody .labelCol, body .bPageBlock .pbBody .dataCol, body .bPageBlock .pbBody .data2Col {
+        padding-top:0px;
+    }
+	.bPageBlock .detailList .labelCol {
+	    width: 25%;
+	}
+    .bPageBlock .detailList .data2Col {
+        padding: 0px 0px 0px 0px;
+    }
+    .pageSubBlock {
+        margin:0px 0pt 10px 0px;
+        border: 1px solid #C4D2E8;
+        border-top: 2px solid #f4805c;
+    }
+    .pageSubBlockHeader {
+        background-color:#C4D2E8;
+        padding:4pt 5px 2pt 10px;
+    }
+    .psbTitle {
+    }
+    textarea {
+        width: 95%;
+    }
+    .thinButtonBar {
+        width:190px;text-align:right;background-color:#e8e8e8;
+    }
+    .wideButtonBar {
+        width:590px;text-align:right;background-color:#e8e8e8;
+    }
+    .thinButtonBar a {
+        font-weight:bold;text-decoration: none;color: #0e52a1;padding-left:10px;padding-right:10px;
+    }
+    .thinButtonBar a:hover {
+        background-color:#c0c0c0;
+    }
+    .wideButtonBar a {
+        font-weight:bold;text-decoration: none;color: #0e52a1;padding-left:10px;padding-right:10px;
+    }
+    .wideButtonBar a:hover {
+        background-color:#c0c0c0;
+    }
+    .thinButtonBar2 {
+        width:100%;text-align:right;
+    }
+    .thinButtonBar2 a {
+        font-weight:bold;text-decoration: none;color: #0e52a1;
+    }
+    .inputbutton, .inputsubmit {
+        background-color:#0e52a1;
+        background-image:none;
+        border-color:#D9DFEA rgb(14, 31, 91) rgb(14, 31, 91) rgb(217, 223, 234);
+        border-style:solid;
+        font-weight:bold;
+        border-width:1px;
+        color:#FFFFFF;
+        font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+        font-size:11px;
+        xpadding:2px 2px 2px;
+        text-align:center;
+        margin-left:5px;
+    }
+    .inputbutton[disabled], .inputsubmit[disabled] {
+        background-color:#a0a0a0;
+        background-image:none;
+        border-color:#D9DFEA rgb(14, 31, 91) rgb(14, 31, 91) rgb(217, 223, 234);
+        border-style:solid;
+        font-weight:normal;
+        border-width:1px;
+        color:#FFFFFF;
+        font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+        font-size:11px;
+        xpadding:2px 2px 2px;
+        text-align:center;
+        margin-left:5px;
+    }
+    .actionBlock {
+        margin-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .actionBlock a {
+        font-weight:bold;text-decoration: none;color: #0e52a1;
+    }
+    .dr-pnlbar-h-act {
+        background-color:#0e52a1;
+        background-image:none;
+        color:#FFFFFF;
+        font-family:Arial,Verdana,sans-serif;
+        font-size:11px;
+        font-weight:bold;
+        vertical-align:middle;
+        width:184px;
+    }
+    .dr-pnlbar-h {
+        background-color:#7f9bca;
+        background-image:none;
+        color:#FFFFFF;
+        font-family:Arial,Verdana,sans-serif;
+        font-size:11px;
+        font-weight:bold;
+        vertical-align:middle;
+        width:184px;
+    }
+    .dr-pnlbar-h:hover {
+        background-color:#0e52a1;
+    }
+    .dr-pnlbar-c {
+        padding:0px;
+    }       
+    .dr-pnlbar-ext {
+        background-color:#ffffff;
+    }
+    .dr-pnlbar {
+        border-color:#808080;
+        border:none;
+        padding:0px;
+    }
+    .dr-tbpnl-cntnt {
+        background-color:#FFFFFF;
+    }
+    .process-objective {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/objective.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-target {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/target.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-performance-review {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/performancereview.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-checkin {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/accept.png);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-job-description {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/jobdescription.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-succession-plan {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/successionplan.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-talent-plan {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/talentplan.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-skill {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/skill.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-competency-assessment {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/competencyassessment.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-development-need {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/developmentneed.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-training {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/training.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-hr-request {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/hrrequest.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-education {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/education.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-experience {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/experience.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-absence {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/absence.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-vacation {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/vacation.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-benefitenrollment {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/benefitenrollment.gif);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .process-internal {
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/desk.png);
+        background-repeat: no-repeat;
+        padding-left:23px;
+        padding-top:2px;
+        padding-bottom:3px;
+    }
+    .person-section-left {
+        vertical-align: top;
+        width:60px;
+    }
+    .person-section-right {
+        vertical-align: top;
+    }
+    .person-panel-left {
+        vertical-align: top;
+        width:60px;
+    }
+    .person-panel-right {
+        vertical-align: top;
+        font-size:90%;
+    }
+	.process-warning {
+		color: red;	
+	}
+    .twin-part {
+        border-bottom:1px solid #7f9bca;
+        width:100%;
+    }   
+    .twin-part-image-a {
+        width: 16px; height: 16px; float: right;
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/maximise.gif);
+        background-repeat:no-repeat;
+        background-position:top right;
+    }
+    .twin-part-image-b {
+        width: 16px; height: 16px; float: right;
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/minimise.gif);
+        background-repeat:no-repeat;
+        background-position:top right;
+    }
+    .twin-part-image-a:hover {
+        width: 16px; height: 16px; float: right;
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/maximiseinverted.gif);
+        background-repeat:no-repeat;
+        background-position:top right;
+    }
+    .twin-part-image-b:hover {
+        width: 16px; height: 16px; float: right;
+        background-image:url({!$Resource.fHCM2__FairsailIcon}/16x16/minimiseinverted.gif);
+        background-repeat:no-repeat;
+        background-position:top right;
+    }
+    .imageLoader {
+        background: url({!$Resource.fHCM2__FairsailIcon}/16x16/maximise.gif);
+        background: url({!$Resource.fHCM2__FairsailIcon}/16x16/minimise.gif);
+        background: url({!$Resource.fHCM2__FairsailIcon}/16x16/maximiseinverted.gif);
+        background: url({!$Resource.fHCM2__FairsailIcon}/16x16/minimiseinverted.gif);
+        visibility: hidden;
+    }
+    .SelfColor {
+        background: #FF9900;
+    }
+    .ManagerColor {
+        background: #2288ee;
+    }
+    .MentorColor {
+        background: #228800;
+    }
+    .DirectReportColor {
+        background: #663399;
+    }
+    .ColleagueColor {
+        background: #97336E;
+    }
+    .CustomerColor {
+        background: #999933;
+    }
+    .OtherColor {
+        background: #993333;
+    }
+    .averageColor {
+        background: #3B5998;
+    }
+    
+    .loginTable{
+        width: 400px;
+        margin-top: 128px;
+        padding: 20px 20px 20px 60px;
+        border: 1px solid #999999;
+    }
+    
+    .ui-slider-handle{
+        background: #0E52A1 !important;
+    }
+    
+    .ui-slider, .ui-slider-handle{
+        cursor: pointer !important;
+    }
+    
+    .fairsailNoticeboard {
+    	width:95%;
+    	padding: 0 20px 0 5px;
+    }
+    
+    .fairsailNotice {
+    	margin: 10px 0;
+    }
+   .thinPanelTD{
+       width:190px;
+   }
+   .gapPanelTD{
+       width:20px;
+   }
+   .widePanelTD{
+       width:590px;
+   }
+   .teamMemberFind {
+   		margin-top:30px;
+   		margin-left:5px;
+   }
+
+
+    
+</style>
+
+
+
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <script>
+                jQuery.noConflict();
+            	var competencyIds = [
+            		<apex:repeat value="{!competencyIds}" var="comp">
+            			"{!comp}",
+            		</apex:repeat>
+            		null
+            	];
+            	var questionCompetencyIds = [
+            		<apex:repeat value="{!questions}" var="question">
+            			"{!question.CompetencyId}",
+            		</apex:repeat>
+            		null
+            	];
+            	var competencySum;
+            	var competencyCount;
+            	function StartAverage() {
+            		competencySum = {};
+            		competencyCount = {};
+            		for (var i=0; i<competencyIds.length-1; i++)
+            		{
+            			competencySum[competencyIds[i]] = 0.0;
+            			competencyCount[competencyIds[i]] = 0;
+            		}
+            	}
+            	function ScoreForAverage( quno, score ) {
+            		if (score!='' && Number(score)>0) {
+            			competencySum[questionCompetencyIds[quno]] += Number(score);
+             			competencyCount[questionCompetencyIds[quno]] ++;
+            		}
+            	}
+            	function SetAverages() {
+            		var overallSum = 0.0;
+            		var overallCount = 0;
+            		for (var i=0; i<competencyIds.length-1; i++) {
+            			if (competencyCount[competencyIds[i]]>0) {
+            				var av = Math.round(competencySum[competencyIds[i]]*10/competencyCount[competencyIds[i]])/10;
+            				overallSum += av;
+            				overallCount ++;
+            				jQuery('.averageCompetency'+competencyIds[i]).text(String(av));
+            			} else {
+            				jQuery('.averageCompetency'+competencyIds[i]).text('n/a');
+            			}
+            		}
+            		if (overallCount>0) {
+            			jQuery('.averageOverall').text(String(Math.round(overallSum*10/overallCount)/10));
+            		} else {
+           				jQuery('.averageOverall').text('n/a');
+            		}
+            	}
+
+                
+            </script>
+
+
+
+            <style>
+                .thinPanelTD{
+                    display: none;
+                }
+            </style>
+
+    <apex:outputPanel id="pagePanel" layout="block" style="margin:0 auto;width:800px; position:relative; z-index:0">
+    
+        <apex:insert name="bannerPanel" />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody>
+            <tr>
+               <td valign="top" class="widePanelTD">
+
+            <apex:form rendered="{!!IsCompleted}">
+                <apex:pageMessages />
+                <apex:actionFunction name="saveResponses" action="{!saveResponses}" oncomplete="savePending=false;" immediate="true"/>
+                <apex:pageBlock title="{!$Label.fhcm2__ProcessItem_Competency_Assessment}" rendered="{!!isDone}">
+                    <apex:pageBlockButtons >
+                    	<apex:outputPanel layout="none" rendered="{!layout!='All on one page'}">
+	                        <input id="previous" class="btn inputsubmit" type="submit" value="{!$Label.Button_Previous}" onClick="previousQuestion();return false;" />
+	                        <input id="next" class="btn inputsubmit" type="submit" value="{!$Label.Button_Next}" onClick="nextQuestion();return false;" />
+	                    </apex:outputPanel>
+                        <apex:commandButton id="save" action="{!saveAndContinue}" value="{!$Label.fhcm2__Button_Save_And_Continue}" styleClass="inputsubmit" />
+                        <apex:commandButton id="complete" action="{!complete}" value="{!$Label.fhcm2__Button_Complete}" styleClass="inputsubmit" onclick="return confirm('{!JSINHTMLENCODE($Label.fhcm2__Global_Freeze_Warning)}');"/>
+
+
+                    </apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="AssessmentExternal" location="Header"/>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.Competency_Assessment__c.fields.Team_Member__c.label }" for="teamMember" />
+                            <apex:outputLabel value="{!viewer.teamMember.Name}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+					<apex:outputPanel rendered="{!layout=='One indicator per page'}">
+		            <script type="Text/JavaScript">
+						function questionValue(index) {
+						    for (var j=0;j<document.forms.length;j++)   {
+						        var elements = document.forms[j];
+						            for (var i=0;i<elements.length;i++)
+						                if (elements[i].id.indexOf('response') >= 0 && isQuestion(elements[i].parentNode,index))
+						                {
+						                    if (elements[i].id.indexOf('Hidden') >= 0)
+						                        return elements[i].value;
+						                    else if (elements[i].id.indexOf('DropDown') >= 0)
+						                        return elements[i].value;
+						                    else if (elements[i].id.indexOf('Radio') >= 0 && elements[i].checked)
+						                        return elements[i].value;
+						                }
+						    }
+						    return '';
+						}
+						function isAnswered(index) {
+						    for (var j=0;j<document.forms.length;j++)   {
+						        var elements = document.forms[j];
+						            for (var i=0;i<elements.length;i++)
+						                if (elements[i].id.indexOf('response') >= 0 && isQuestion(elements[i].parentNode,index))
+						                {
+						                    if (elements[i].id.indexOf('Hidden') >= 0)
+						                        return elements[i].value!='';
+						                    else if (elements[i].id.indexOf('DropDown') >= 0)
+						                        return elements[i].value!='';
+						                    else if (elements[i].id.indexOf('Radio') >= 0 && elements[i].checked)
+						                        return true;
+						                }
+						    }
+						    return false;
+						}
+						function hasAnsweredAll() {
+						}
+						function countQuestions() {
+						    var result = 0;
+						    var allPageTags=document.getElementsByTagName("span");
+						    for (i=0; i<allPageTags.length; i++) {
+						        if (allPageTags[i].id.indexOf(':questionPanel')>=0) {
+						            result++;
+						        } 
+						    }
+						    return result;
+						}
+						function isQuestion(element,index) {
+						    if (String(element) == 'undefined')
+						        return false;
+						    else if (element.id.indexOf(':'+String(index)+':questionPanel')>=0)
+						        return true;
+						    else if (element.id.indexOf(':questionPanel')>=0)
+						        return false;
+						    else
+						        return isQuestion(element.parentNode,index);
+						}
+						function hideQuestion(index) {
+						    var allPageTags=document.getElementsByTagName("span");
+						    for (i=0; i<allPageTags.length; i++) {
+						        if (allPageTags[i].id.indexOf(':'+String(index)+':questionPanel')>=0) {
+						            allPageTags[i].style.display='none';
+						        } 
+						    }
+						}
+						var hasChanged = false;
+						function showQuestion(index) {
+						    var allPageTags=document.getElementsByTagName("span");
+						    for (i=0; i<allPageTags.length; i++) {
+						        if (allPageTags[i].id.indexOf(':'+String(index)+':questionPanel')>=0) {
+						            allPageTags[i].style.display='';
+						        } 
+						    }
+						    showButtons();
+						}
+						function atEnd() {
+						    return (questionNumber==noQuestions-1);
+						}
+						function atStart() {
+						    return (questionNumber==0);
+						}
+						function previousQuestion() {
+						    if (!atStart())
+						    {
+						        hideQuestion(questionNumber--);
+						        showQuestion(questionNumber);
+						        if (hasChanged) doSaveResponses();
+						        hasChanged = false;
+						    }
+						}
+						function nextQuestion() {
+						    if (!atEnd())
+						    {
+						        hideQuestion(questionNumber++);
+						        showQuestion(questionNumber);
+						        if (hasChanged) doSaveResponses();
+						        hasChanged = false;
+						    }
+						}
+						var hasAnsweredAll = false;
+						function calculateAverages() {
+							StartAverage();
+							for (var i=0;i<noQuestions;i++) {
+								ScoreForAverage( i, questionValue(i) );
+							}
+							SetAverages();
+						}
+						function showButtons() {
+						    calculateAverages();
+						    if (atStart()) {
+						        disable('previous');
+						    } else {
+						        enable('previous');
+						    }
+						    if (atEnd()) {
+						        disable('next');
+						        hasAnsweredAll = isAnswered(questionNumber);
+						    } else {
+						        if (isAnswered(questionNumber)) enable('next'); else disable('next');
+						    }
+						    if (hasAnsweredAll) enable('complete'); else disable('complete');
+						}
+						var savePending = false;
+						var saveQueued = false;
+						var queue;
+						function doSaveResponses() {
+						    if (savePending) {
+						        if (!saveQueued) {
+						            saveQueued = true;
+						            queue = setTimeout("saveQueued = false; doSaveResponses();",1000);
+						        }
+						    } else {
+						        if (saveQueued) clearTimeout(queue);
+						        saveQueued = false;
+						        savePending = true;
+						        saveResponses();
+						    }
+						}
+					</script>
+                    <apex:repeat value="{!questions}" var="question" id="questionRepeat2" >
+                        <apex:outputPanel style="display:none;" id="questionPanel">
+                            <apex:pageBlockSection title="{!question.abovePrompt}" columns="1">
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Indicator }" />
+                                    <apex:outputText >
+                                        <div style="clear:none;float:left;width:100px">
+                                        	<apex:outputText style="font-style:italic" value="{!$Label.fhcm2__Global_I_Of_N}">
+												<apex:param value="{!question.questionNumber}"/>
+												<apex:param value="{!noQuestions}"/>
+											</apex:outputText>
+                                        </div>
+                                        <script type="Text/JavaScript">PercentageIndicator({!question.questionNumber},{!noQuestions});</script>
+                                    </apex:outputText>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!=''}">
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Competency }" />
+                                    <apex:outputPanel ><apex:outputText value="{!question.competency}" style="font-weight:bold;"/><apex:outputLabel rendered="{!showAverageScore}"> {!$Label.Global_Average}:&nbsp;<span class="averageCompetency{!question.competencyId}"></span>. {!$Label.fhcm2__Process_Competency_Assessment_All_Average}:&nbsp;<span class="averageOverall"></span></apex:outputLabel></apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.agreedAction!='' && viewer.departmentPolicy.fHCM2__Show_Last_Development_Action__c}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.fields.fHCM2__Agreed_Action__c.label}" />
+                                    <apex:outputText value="{!question.agreedAction}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.progress!='' && viewer.departmentPolicy.fHCM2__Show_Last_Development_Action__c}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.fields.fHCM2__Progress__c.label}" />
+                                    <apex:outputText value="{!question.progress}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.indicator!='' && question.competency!=question.indicator}">
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Indicator }" />
+                                    <apex:outputText value="{!question.indicator}" style="font-weight:bold;"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Vertical Radio Buttons')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectRadio id="responseVerticalRadio" value="{!question.score}" layout="pageDirection" onClick="showButtons()" onkeydown="showButtons()" onchange="hasChanged=true; showButtons()" ondblclick="nextQuestion()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectRadio>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Slider Bar Scale')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <c:SliderSelector scale="{!question.scale}" sliderId="{!question.Id}" indicatorDescriptions="{!question.indicatorDescriptions}" onchange="hasChanged=true; showButtons();" score="{!question.score}">
+                                        <apex:inputHidden value="{!question.score}" id="responseDropDown"/>
+                                    </c:SliderSelector>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Horizontal Radio Buttons')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectRadio id="responseHorizontalRadio" value="{!question.score}" layout="lineDirection" onClick="showButtons()" onkeydown="showButtons()" onchange="hasChanged=true; showButtons()" ondblclick="nextQuestion()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectRadio>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Drop Down Menu')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectList id="responseDropDown" value="{!question.score}" size="1" onClick="showButtons()" onSelect="showButtons()" onchange="hasChanged=true; showButtons()" ondblclick="nextQuestion()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectList>
+                                </apex:pageBlockSectionItem>
+                                <apex:inputHidden id="responseHidden" value="{!question.score}" rendered="{!!question.hasScale}" />
+                                <apex:pageBlockSectionItem rendered="{!question.hasComments}">
+                                    <apex:outputLabel value="{!question.commentPrompt}" />
+                                    <apex:inputTextarea id="comment" onChange="hasChanged=true;" value="{!question.comment}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.hasStrengths}">
+                                    <apex:outputLabel value="{!question.strengthPrompt}" />
+                                    <apex:inputTextarea id="strength" onChange="hasChanged=true;" value="{!question.strength}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.hasDevelopmentNeeds}">
+                                    <apex:outputLabel value="{!question.developmentNeedPrompt}" />
+                                    <apex:inputTextarea id="developmentNeed" onChange="hasChanged=true;" value="{!question.developmentNeed}" />
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                            <p>{!question.belowPrompt}</p>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                    </apex:outputPanel>
+
+					<apex:outputPanel rendered="{!layout=='All on one page'}">
+			            <script type="Text/JavaScript">
+						function calculateAverages() {
+							StartAverage();
+							var i=0;
+							jQuery('.potentialQuestion').each(
+							    function(){
+							    	var val = '';
+							    	if (jQuery(this).find('input:radio').size()>0)
+							    		val = jQuery(this).find('input:radio:checked').val();
+							    	else if (jQuery(this).is('select'))
+							    		val = jQuery(this).val();
+							    	else if (jQuery(this).find('input:hidden').size()>0)
+							    		val = jQuery(this).find('input:hidden').val();
+									ScoreForAverage( i++, val );
+								}
+							);
+							SetAverages();
+						}
+						function showButtons() {
+							var complete = true;
+							jQuery('.requiredQuestion').each(
+							    function(){
+							    	if (jQuery(this).find('input:radio').size()>0)
+							    		val = jQuery(this).find('input').is(':checked');
+							    	else if (jQuery(this).is('select'))
+							    		val = jQuery(this).val()!='';
+							    	else if (jQuery(this).find('input:hidden').size()>0)
+							    		val = jQuery(this).find('input:hidden').val()!='';
+									if (!val) complete = false;
+								}
+							);
+							if (complete) enable('complete'); else disable('complete');
+							calculateAverages();
+						}
+			            </script>
+                        <apex:pageBlockSection title="{!if(questions.size>0,questions[0].abovePrompt,'')}" columns="1">
+                        	<apex:variable var="lastCompetency" value="''"/>
+	                    	<apex:repeat value="{!questions}" var="question" id="questionRepeat">
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency}">
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Competency }" />
+                                    <apex:outputPanel ><apex:outputText value="{!question.competency}" style="font-weight:bold;"/><apex:outputpanel rendered="{!showAverageScore}"> {!$Label.Global_Average}:&nbsp;<span class="averageCompetency{!question.competencyId}"></span></apex:outputpanel></apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency && question.agreedAction!='' && viewer.departmentPolicy.fHCM2__Show_Last_Development_Action__c}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.fields.fHCM2__Agreed_Action__c.label}" />
+                                    <apex:outputText value="{!question.agreedAction}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency && question.progress!='' && viewer.departmentPolicy.fHCM2__Show_Last_Development_Action__c}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.fields.fHCM2__Progress__c.label}" />
+                                    <apex:outputText value="{!question.progress}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.indicator!='' && question.competency!=question.indicator}">
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Indicator }" />
+                                    <apex:outputText value="{!question.indicator}" style="font-weight:bold;"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Vertical Radio Buttons')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectRadio styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion" value="{!question.score}" layout="pageDirection" onClick="showButtons()" onkeydown="showButtons()" onchange="showButtons()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectRadio>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem id="questionPanelSBS" rendered="{!and(question.hasScale,question.format='Slider Bar Scale')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:outputPanel styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion">
+                                    <c:SliderSelector scale="{!question.scale}" sliderId="{!question.Id}" indicatorDescriptions="{!question.indicatorDescriptions}" onchange="showButtons();" score="{!question.score}">
+                                        <apex:inputHidden value="{!question.score}" id="responseDropDown"/>
+                                    </c:SliderSelector>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Horizontal Radio Buttons')}" >
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectRadio styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion" id="responseHorizontalRadio" value="{!question.score}" layout="lineDirection" onClick="showButtons()" onkeydown="showButtons()" onchange="showButtons()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectRadio>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Drop Down Menu')}">
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectList styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion" id="responseDropDown" value="{!question.score}" size="1" onClick="showButtons()" onSelect="showButtons()" onchange="showButtons()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectList>
+                                </apex:pageBlockSectionItem>
+                                <apex:inputHidden id="responseHidden" value="{!question.score}" rendered="{!!question.hasScale}" />
+                                <apex:pageBlockSectionItem rendered="{!question.hasComments}">
+                                    <apex:outputLabel value="{!question.commentPrompt}" />
+                                    <apex:inputTextarea id="comment" value="{!question.comment}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:variable var="lastCompetency" value="{!question.competency}"/>
+                                <apex:pageBlockSectionItem rendered="{!question.hasStrengths}">
+                                    <apex:outputLabel value="{!question.strengthPrompt}" />
+                                    <apex:inputTextarea id="strength" value="{!question.strength}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.hasDevelopmentNeeds}">
+                                    <apex:outputLabel value="{!question.developmentNeedPrompt}" />
+                                    <apex:inputTextarea id="developmentNeed" value="{!question.developmentNeed}" />
+                                </apex:pageBlockSectionItem>
+	                    	</apex:repeat>
+                             <apex:pageBlockSectionItem rendered="{!showAverageScore}">
+                                 <apex:outputLabel value="{!$Label.fhcm2__Process_Competency_Assessment_All_Average}" />
+                                 <apex:outputPanel ><span class="averageOverall"></span></apex:outputPanel>
+                             </apex:pageBlockSectionItem>
+                         </apex:pageBlockSection>
+                        <p>{!questions[0].belowPrompt}</p>
+                    </apex:outputPanel>
+
+
+					<apex:outputPanel rendered="{!layout=='One competency per page'}">
+		            <script type="Text/JavaScript">
+		            	var currentIndex = 0;
+		            	function setPage(page) {
+		            		for (var i=0;i<competencyIds.length-1;i++)
+								jQuery(".competency"+competencyIds[i]).hide();
+							jQuery(".competency"+competencyIds[page]).show();
+							showButtons();
+		            	}
+						function previousQuestion() {
+							if (currentIndex>0) {
+								setPage(--currentIndex);
+							}
+					        if (hasChanged) doSaveResponses();
+					        hasChanged = false;
+						}
+						function nextQuestion() {
+							if (currentIndex<competencyIds.length-2) {
+								setPage(++currentIndex);
+							}
+					        if (hasChanged) doSaveResponses();
+					        hasChanged = false;
+						}
+						function hasDonePage(page) {
+								var completePage = true;
+								jQuery('.competency'+competencyIds[currentIndex]+' .requiredQuestion').each(
+								    function(){
+								    	if (jQuery(this).find('input:radio').size()>0)
+								    		val = jQuery(this).find('input').is(':checked');
+								    	else if (jQuery(this).is('select'))
+								    		val = jQuery(this).val()!='';
+								    	else if (jQuery(this).find('input:hidden').size()>0)
+								    		val = jQuery(this).find('input:hidden').val()!='';
+										if (!val) completePage = false;
+									}
+								);
+								return completePage;
+						}
+						function hasPotentialPage(page) {
+								var completePage = true;
+								jQuery('.competency'+competencyIds[currentIndex]+' .potentialQuestion').each(
+								    function(){
+								    	if (jQuery(this).find('input:radio').size()>0)
+								    		val = jQuery(this).find('input').is(':checked');
+								    	else if (jQuery(this).is('select'))
+								    		val = jQuery(this).val()!='';
+								    	else if (jQuery(this).find('input:hidden').size()>0)
+								    		val = jQuery(this).find('input:hidden').val()!='';
+										if (!val) completePage = false;
+									}
+								);
+								return !completePage;
+						}
+						function showButtons() {
+							var complete = true;
+							if (currentIndex>0) enable('previous'); else disable('previous');
+							if (currentIndex<competencyIds.length-2 && hasDonePage(currentIndex)) enable('next'); else disable('next');
+							jQuery('.requiredQuestion').each(
+							    function(){
+							    	if (jQuery(this).find('input:radio').size()>0)
+							    		val = jQuery(this).find('input').is(':checked');
+							    	else if (jQuery(this).is('select'))
+							    		val = jQuery(this).val()!='';
+							    	else if (jQuery(this).find('input:hidden').size()>0)
+							    		val = jQuery(this).find('input:hidden').val()!='';
+									if (!val) complete = false;
+								}
+							);
+							if (complete) enable('complete'); else disable('complete');
+							calculateAverages();
+						}
+						function calculateAverages() {
+							StartAverage();
+							var i=0;
+							jQuery('.potentialQuestion').each(
+							    function(){
+							    	var val = '';
+							    	if (jQuery(this).find('input:radio').size()>0)
+							    		val = jQuery(this).find('input:radio:checked').val();
+							    	else if (jQuery(this).is('select'))
+							    		val = jQuery(this).val();
+							    	else if (jQuery(this).find('input:hidden').size()>0)
+							    		val = jQuery(this).find('input:hidden').val();
+									ScoreForAverage( i++, val );
+								}
+							);
+							SetAverages();
+						}
+		            	var hasChanged=false;
+						var savePending = false;
+						var saveQueued = false;
+						var queue;
+						function doSaveResponses() {
+						    if (savePending) {
+						        if (!saveQueued) {
+						            saveQueued = true;
+						            queue = setTimeout("saveQueued = false; doSaveResponses();",1000);
+						        }
+						    } else {
+						        if (saveQueued) clearTimeout(queue);
+						        saveQueued = false;
+						        savePending = true;
+						        saveResponses();
+						    }
+						}
+					</script>
+                   	<apex:variable var="lastCompetency" value="''"/>
+                            <apex:pageBlockSection title="{!if(questions.size>0,questions[0].abovePrompt,'')}" columns="1">
+                            <apex:outputPanel >
+                    <apex:repeat value="{!questions}" var="question" id="questionRepeat">
+                    		<apex:outputPanel styleClass="competency{!question.competencyId}">
+                            <apex:pageBlockSection columns="1">
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency}">
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Competency }" />
+                                    <apex:outputText >
+                                        <div style="clear:none;float:left;width:100px">
+                                        	<apex:outputText style="font-style:italic" value="{!$Label.fhcm2__Global_I_Of_N}">
+												<apex:param value="{!question.competencyNumber}"/>
+												<apex:param value="{!competencyIds.size}"/>
+											</apex:outputText>
+                                        </div>
+                                        <script type="Text/JavaScript">PercentageIndicator({!question.questionNumber},{!noQuestions});</script>
+                                    </apex:outputText>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency}" >
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Competency }" />
+                                    <apex:outputPanel ><apex:outputText value="{!question.competency}" style="font-weight:bold;"/><apex:outputLabel rendered="{!showAverageScore}"> {!$Label.Global_Average}:&nbsp;<span class="averageCompetency{!question.competencyId}"></span>. {!$Label.fhcm2__Process_Competency_Assessment_All_Average}:&nbsp;<span class="averageOverall"></span></apex:outputLabel></apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency && question.agreedAction!='' && viewer.departmentPolicy.fHCM2__Show_Last_Development_Action__c}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.fields.fHCM2__Agreed_Action__c.label}" />
+                                    <apex:outputText value="{!question.agreedAction}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.competency!='' && question.competency!=lastCompetency && question.progress!='' && viewer.departmentPolicy.fHCM2__Show_Last_Development_Action__c}">
+                                    <apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.fields.fHCM2__Progress__c.label}" />
+                                    <apex:outputText value="{!question.progress}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.indicator!='' && question.competency!=question.indicator}" >
+                                    <apex:outputLabel value="{!$Label.ProcessItem_Indicator }" />
+                                    <apex:outputText value="{!question.indicator}" style="font-weight:bold;"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Vertical Radio Buttons')}" >
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectRadio styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion" id="responseVerticalRadio" value="{!question.score}" layout="pageDirection" onClick="showButtons()" onkeydown="showButtons()" onchange="hasChanged=true; showButtons()" >
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectRadio>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Slider Bar Scale')}" >
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:outputPanel styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion">
+                                    <c:SliderSelector scale="{!question.scale}" sliderId="{!question.Id}" indicatorDescriptions="{!question.indicatorDescriptions}" onchange="hasChanged=true; showButtons();" score="{!question.score}">
+                                        <apex:inputHidden value="{!question.score}" id="responseDropDown"/>
+                                    </c:SliderSelector>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                                
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Horizontal Radio Buttons')}" >
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectRadio styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion" id="responseHorizontalRadio" value="{!question.score}" layout="lineDirection" onClick="showButtons()" onkeydown="showButtons()" onchange="hasChanged=true; showButtons()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectRadio>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!and(question.hasScale,question.format='Drop Down Menu')}" >
+                                    <apex:outputLabel value="{!question.prompt}" />
+                                    <apex:selectList styleclass="{!if(question.permitNoResponse,'','requiredQuestion')} potentialQuestion" id="responseDropDown" value="{!question.score}" size="1" onClick="showButtons()" onSelect="showButtons()" onchange="hasChanged=true; showButtons()">
+                                        <apex:selectOptions value="{!question.scale}" />
+                                    </apex:selectList>
+                                </apex:pageBlockSectionItem>
+                                <apex:inputHidden id="responseHidden" value="{!question.score}" rendered="{!!question.hasScale}" />
+                                <apex:pageBlockSectionItem rendered="{!question.hasComments}" >
+                                    <apex:outputLabel value="{!question.commentPrompt}" />
+                                    <apex:inputTextarea id="comment" onChange="hasChanged=true;" value="{!question.comment}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.hasStrengths}" >
+                                    <apex:outputLabel value="{!question.strengthPrompt}" />
+                                    <apex:inputTextarea id="strength" onChange="hasChanged=true;" value="{!question.strength}" />
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem rendered="{!question.hasDevelopmentNeeds}" >
+                                    <apex:outputLabel value="{!question.developmentNeedPrompt}" />
+                                    <apex:inputTextarea id="developmentNeed" onChange="hasChanged=true;" value="{!question.developmentNeed}" />
+                                </apex:pageBlockSectionItem>
+                            </apex:pageBlockSection>
+                         </apex:outputPanel>
+                         <apex:variable var="lastCompetency" value="{!question.competency}"/>
+                    </apex:repeat>
+					</apex:outputPanel>
+                            </apex:pageBlockSection>
+                            <p>{!questions[0].belowPrompt}</p>
+                    </apex:outputPanel>
+					<c:Notice viewer="{!viewer}" page="AssessmentExternal" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+
+         	<apex:outputPanel layout="none" rendered="{!layout=='One indicator per page'}">
+            <script type="Text/JavaScript">
+						var questionNumber=0;
+						var noQuestions=countQuestions();
+						for (questionNumber=0; questionNumber<noQuestions-1; questionNumber++)
+						    if (!isAnswered(questionNumber))
+						        break;
+						showQuestion(questionNumber);
+			</script>
+			</apex:outputPanel>
+         	<apex:outputPanel layout="none" rendered="{!layout=='All on one page'}">
+            <script type="Text/JavaScript">
+						showButtons();
+			</script>
+			</apex:outputPanel>
+         	<apex:outputPanel layout="none" rendered="{!layout=='One competency per page'}">
+            <script type="Text/JavaScript">
+            	for (currentIndex=0;currentIndex<competencyIds.length-2;currentIndex++) {
+            		if (hasPotentialPage(currentIndex))
+            			break;
+            	}
+            	setPage(currentIndex);
+			</script>
+			</apex:outputPanel>
+
+
+                     <apex:pageBlock title="{!$Label.fhcm2__ProcessItem_Competency_Assessment}" rendered="{!isDone}">
+                     	<p>Completed - Thank you</p>
+                     </apex:pageBlock>
+     
+     
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </apex:outputPanel>
+
+</apex:page>

@@ -1,0 +1,27 @@
+<apex:page standardController="fpay__Payroll_Service__c" standardStylesheets="true" showHeader="true" sidebar="true" title="Payroll Upload Configure">
+	<apex:sectionHeader title="Payroll Upload Configure" subtitle="{!fpay__Payroll_Service__c.Name}"/>
+	<br />
+	<apex:form >
+		<apex:pageBlock title="{!fpay__Payroll_Service__c.Name} Upload Configure" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Options" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Primary_Key__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Upload_Record_Delimiter__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Upload_Field_Delimiter__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Upload_Use_Field_Numbers__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Upload_Full_File__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Upload_Post_Employment_Data__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="SFTP" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Incoming_Server__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Incoming_Path__c}" />
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

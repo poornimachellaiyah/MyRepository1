@@ -1,0 +1,38 @@
+<apex:page standardController="fRecruit__Application__c" extensions="fRecruit.EditApplicationControllerExtension,fRecruit.SetupPoliciesExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="{!fRecruit__Application__c.Name}" help="http://recruit.help.fairsail.com/topics/EditApplication.html"/>
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Application__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pagemessages />
+
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:outputField value="{!fRecruit__Application__c.Name}"/>
+				<apex:outputField value="{!fRecruit__Application__c.fRecruit__Vacancy__c}"/>
+				<apex:outputField value="{!fRecruit__Application__c.fRecruit__Candidate__c}"/>
+			</apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Current Status" columns="1" rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Current_Status.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Current_Status}" var="f">
+                   	<apex:inputField value="{!fRecruit__Application__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__Selection_Stage__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__Selection_Stage__c'}">
+						<apex:outputLabel value="Current Stage" for="currentStage"/>
+						<apex:selectList value="{!fRecruit__Application__c.fRecruit__Selection_Stage__c}" id="currentStage" size="1">
+							<apex:selectOptions value="{!currentStages}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional Details" columns="2" rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Edit.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Edit}" var="f">
+                    	<apex:inputField value="{!fRecruit__Application__c[f]}" required="{!f.required}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

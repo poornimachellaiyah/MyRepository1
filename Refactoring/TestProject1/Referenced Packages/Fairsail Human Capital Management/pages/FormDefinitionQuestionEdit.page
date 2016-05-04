@@ -1,0 +1,2 @@
+<apex:page standardController="fHCM2__Form_Definition__c" Extensions="fHCM2.FormDefinitionEditExtensionController">
+</apex:page>

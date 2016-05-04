@@ -1,0 +1,49 @@
+<apex:page standardController="fRecruit__Reference__c">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Reference__c.label} Details" subTitle="{!fRecruit__Reference__c.Name}" help="http://recruit.help.fairsail.com/topics/EditReference.html" />
+	<apex:form >
+		<apex:pageBlock title="Reference Details" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Information" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Candidate"/>
+					<apex:outputText value="{!fRecruit__Reference__c.fRecruit__Candidate__r.Name}"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Reference__c.fRecruit__Application__c}"/>
+
+				<apex:inputField style="width:400px" required="true" value="{!fRecruit__Reference__c.Name}" />
+				<apex:inputField required="true" value="{!fRecruit__Reference__c.fRecruit__Type__c}" />
+				<apex:inputField style="width:400px" value="{!fRecruit__Reference__c.fRecruit__Email__c}" />
+				<apex:inputField style="width:400px" value="{!fRecruit__Reference__c.fRecruit__Phone__c}" />
+				<apex:inputField style="width:400px" value="{!fRecruit__Reference__c.fRecruit__Salutation__c}" />
+				<apex:inputField style="width:400px" value="{!fRecruit__Reference__c.fRecruit__Job_Title__c}" />
+				<apex:inputField value="{!fRecruit__Reference__c.fRecruit__Contact_After_Offer__c}" />
+				<apex:inputField value="{!fRecruit__Reference__c.fRecruit__Send_Email__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Result" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Start Date"/>
+					<c:outputDate stringValue="{!fRecruit__Reference__c.fRecruit__Start_Date__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Reminder Date"/>
+					<c:outputDate stringValue="{!fRecruit__Reference__c.fRecruit__Reminder_Date__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Reference__c.fRecruit__Last_Contact__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Awaiting Form"/>
+					<c:fRecruitOutputCheckbox value="{!fRecruit__Reference__c.fRecruit__Awaiting_Form__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Form"/>
+					<c:fRecruitPopupButton rendered="{!fRecruit__Reference__c.fRecruit__Form__c<>null}" label="Form" url="/apex/fRecruitAssessmentFormView?id={!fRecruit__Reference__c.fRecruit__Form__c}" disabled="{!fRecruit__Reference__c.fRecruit__Awaiting_Form__c}"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Reference__c.fRecruit__Accepted__c}" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,16 @@
+<apex:page tabStyle="fRecruit__Application__c">
+    <apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="Home" help="http://recruit.help.fairsail.com/topics/NewApplication.html" Description="An application is the record of one candidate applying for one vacancy.  Create new applications when entering new candidates manually or to consider a candidate for a second vacancy.  Applications are created automatically when receiving emails from candidates with the vacancy reference in the subject line."/>
+    <apex:listViews type="fRecruit__Application__c">
+        <apex:facet name="header">
+            <table cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td class="pbTitle"></td>
+                        <td class="pbButton"><input type="button" value="New" class="btn" onClick="navigateToUrl('/{!$ObjectType.fRecruit__Application__c.keyPrefix}/e');" /></td>
+                        <td class="pbHelp"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </apex:facet>
+    </apex:listViews>
+</apex:page>

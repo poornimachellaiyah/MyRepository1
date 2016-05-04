@@ -1,0 +1,17 @@
+<apex:page controller="fRecruit.InterviewersAssessmentsController" showHeader="false" standardStylesheets="true" tabStyle="fRecruit__Application__c">
+
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Interviewer__c.label}"  subtitle="{!$User.FirstName+' '+$User.LastName}"/>
+
+   	<apex:pageBlock mode="view">
+		<apex:pageBlockTable value="{!interviewerAssessments}" var="row">
+			<apex:column headerValue="Action">
+				<apex:outputLink value="/apex/fRecruit__fRecruitInterviewersAssessmentEdit?id={!row.Id}&retURL=%2Fapex%2FfRecruitInterviewersAssessments">[Assess]</apex:outputLink>
+			</apex:column>
+			<apex:repeat value="{!$ObjectType.fRecruit__Interviewer__c.FieldSets.fRecruit__Interview_List}" var="f">
+				<apex:column headerValue="{!f.label}">
+                   	<apex:outputField value="{!row[f]}"/>
+                </apex:column>
+            </apex:repeat>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+</apex:page>

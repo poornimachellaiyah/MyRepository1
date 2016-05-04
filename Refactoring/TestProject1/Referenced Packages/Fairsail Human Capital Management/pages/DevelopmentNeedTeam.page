@@ -1,0 +1,19 @@
+<apex:page controller="fHCM2.DevelopmentNeedTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Target">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+		</apex:define>
+
+		<apex:define name="widePanel">
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

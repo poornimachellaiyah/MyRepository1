@@ -1,0 +1,1279 @@
+<apex:page controller="Job_ApplicationController" sidebar="{!showHeaderandSidebar}" showheader="{!showHeaderandSidebar}"  id="jobApplicationPage" >
+<head>
+
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #ad0075;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+       
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+.requiredExample {
+background-color: #c00;
+//position: absolute;
+left: -4px;
+width: 2px;
+height: 18px;
+}
+
+body .bPageBlock .detailList .labelCol 
+{
+width:2%;
+}
+
+body .bPageBlock .detailList td 
+{
+vertical-align:middle;
+}
+
+
+</style>
+
+       
+<apex:includeScript value="{!URLFOR($Resource.jQuery, '/jquery-ui-1.10.3/jquery-1.9.1.js')}"  />
+
+<script>
+
+$j = jQuery.noConflict();
+$j(function () {
+        // make skills list show full skill name in hovertext
+        $j(".multilist option").each(function()
+        {
+            $j(this).attr('title',$j(this).text());
+        });
+                
+        // add more years to datepicker (note that same year range must be used for all date fields)
+        var currentYear = (new Date).getFullYear();
+        var startYear=currentYear-54;
+        var endYear=currentYear+5;
+        var htmlStr='';
+        for(i=startYear;i<endYear+1;i++){
+            htmlStr += "<option value=\""+i+"\">"+i+"</option>";
+        }
+        $j('#calYearPicker').html(htmlStr);
+ 
+    });
+    
+    function disableOnSubmit(input) {
+        setTimeout('disableAfterTimeout(\'' + input.id + '\');', 50);
+    }
+    function disableAfterTimeout(id) {
+        var toDisable = document.getElementById( id );
+        toDisable.disabled = 'disabled';
+        // Use the Salesforce CSS style to make the button appear disabled
+        toDisable.className = 'btnDisabled';
+        toDisable.value = "Saving application"
+    }    
+
+</script>
+
+</head>
+<body>  
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T3NFTL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T3NFTL');</script>
+<!-- End Google Tag Manager -->
+
+<!-- start of changes by Raghu on 08/01/2016 -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K2HP3N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2HP3N');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTG9W3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTG9W3');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W26NX9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W26NX9');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NG74VT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NG74VT');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTJMND"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTJMND');</script>
+<!-- End Google Tag Manager -->
+<!-- End of Changes by Raghu -->
+
+
+    <apex:form id="f1">   
+    <br/>
+    <div class="appheader">
+              
+    <apex:outputpanel id="opp1" rendered="{!if(applicationStatus=='Submitted',true,false)}"> 
+    <script type="text/javascript"> 
+
+        var dataLayer=dataLayer || []; 
+
+        dataLayer.push({'event':'JOB_APPLICATION_COMPLETE'}); 
+
+     </script>                       
+       <table class="appheader">
+         <tr class="appheadercon">            
+            <td class="jobopp" colspan="2" style="padding-top:10px;"><apex:outputtext id="otxt010" value="Application form" /></td>
+         </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxt020" value="Thank you – your application has been successfully submitted." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <apex:commandbutton id="cmdCloseWindow" value="Close window" onclick="window.close()"/>
+    </apex:outputpanel>
+    <apex:outputpanel id="opp2" rendered="{!NOT(if(applicationStatus=='Submitted',true,false))}">
+        <table class="appheader">
+            <tr class="appheadercon">          
+                <td width="50">                   
+                       <img id="HeaderImage" border="0" src="https://vso--c.eu1.content.force.com/servlet/servlet.ImageServer?id=015D0000003ZnPf&oid=00DD0000000o0JM&lastMod=1418648284000"></img></td>
+                <td style="vertical-align:middle;text-align:left;"><b>Application form</b></td>  
+                    
+                <td align="right"><apex:commandbutton id="cbtnSubmitApplication1" style="font-size:12px" value="Submit application" action="{!ApplicationSubmit}" onclick="disableOnSubmit(this);" /></td>
+            </tr>
+            <tr class="appheadercon">
+                <td colspan="2"></td>
+            </tr>
+            <tr class="appheadercon">
+                <td colspan="2" class="jobopp" style="padding-top:10px;"><apex:outputtext id="otxt030" value="{!selectedJob.Job_Title__c}" /></td>
+            </tr>
+            <tr class="appheadercon">
+                <td colspan="2"></td>
+            </tr>
+            
+            <tr class="appheadercon">
+                <td colspan="2" style="font-size:12px;padding-left:10px;">
+                <ul>
+                    <li>
+                     Please read the job/placement description and person specification carefully before completing this form. Shortlisting will be carried out solely on the basis of information provided on the application form, excluding the data captured in the ‘Equal opportunities and diversity’ section which will solely be used to track whether we are successful in attracting and recruiting diverse talent.</li> 
+                    <br/>
+                    <li>Only once all relevant fields been completed, click the “Submit application” button.</li>
+                    <br/>
+                    <li>Fields marked with red <span class="requiredExample">&nbsp;</span> are mandatory fields.</li>
+                    <br/>
+                    <li>We wish you good luck in your application and thank you in advance for taking the time to apply for an opportunity with VSO.</li>
+                </ul>             
+                </td>
+            </tr>           
+        </table>
+        <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+        <br/>
+        
+    <!-- Personal Details -->        
+    <apex:pageBlock title="Personal details" id="personal_details"> 
+        
+        <apex:pageBlockSection id="pbs010" columns="1">
+            <strong>Note:</strong> Please write your first name and last name as they appear on your passport<br/>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs020" columns="2">
+            <apex:pageBlockSectionItem id="pbsi020">
+                <apex:outputLabel id="olblTitle">Title</apex:outputLabel>
+                <apex:inputfield id="ifldTitle" value="{!Applicant.Salutation}" required="true" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi021">
+                <apex:outputLabel id="olblHomePhone">Home phone</apex:outputLabel>
+                <apex:inputfield id="ifldHomePhone" value="{!Applicant.Homephone}" required="false" />
+            </apex:pageBlockSectionItem>    
+            
+            <apex:pageBlockSectionItem id="pbsi022">
+                <apex:outputLabel id="olblFirstName">First name</apex:outputLabel>
+                <apex:inputfield id="ifldFirstName" value="{!Applicant.Firstname}" required="true" style="width:95%;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi023">
+                <apex:outputLabel id="olblMobilePhone">Mobile phone</apex:outputLabel>
+                <apex:inputfield id="ifldMobilePhone" value="{!Applicant.Mobilephone}" required="true" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi024">
+                <apex:outputLabel id="olblLastName" >Last name</apex:outputLabel>
+                <apex:inputfield id="ifldLastName" value="{!Applicant.Lastname}" required="true" style="width:95%;"/>
+            </apex:pageBlockSectionItem>            
+            
+            <apex:pageBlockSectionItem id="pbsi025">
+                <apex:outputLabel id="olblPersonalEmail">Personal email</apex:outputLabel>
+                <apex:inputfield id="ifldPersonalEmail" value="{!Applicant.npe01__HomeEmail__c}" required="true" />
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi026">
+                <apex:outputLabel id="olblPreferrredName">Preferred name</apex:outputLabel>
+                <apex:inputfield id="ifldPreferrredName" value="{!Applicant.Preferred_Name__c}" required="false" style="width:95%;" />
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi025a">
+                <apex:outputLabel id="colblConfirmEmail">Confirm email</apex:outputLabel>
+                <apex:outputPanel id="opnl010" styleClass="requiredInput" layout="block" >
+                    <apex:outputPanel id="opnl020" styleClass="requiredBlock" layout="block" />          
+                    <apex:inputtext id="cifldConfirmEmail" value="{!confirmEmail}" required="false" />
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>           
+          
+            <apex:pageBlockSectionItem id="pbsi027">
+                <apex:outputLabel id="olblSkypeUsername">Skype username</apex:outputLabel>
+                <apex:inputfield id="ifldSkypeUsername" value="{!Applicant.Skype_User_Name__c}"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs030" title="Address details" columns="1" collapsible="false">
+        
+            <apex:pageBlockSectionItem id="pbsi030">
+                <apex:outputLabel id="olblHouseStreet">House name/number and street</apex:outputLabel>
+                <apex:inputfield id="ifldHouseStreet" value="{!Applicant.MailingStreet}" required="true" style="width:50%;"/>
+            </apex:pageBlockSectionItem> 
+            
+            <apex:pageBlockSectionItem id="pbsi031">
+                <apex:outputLabel id="olblCity">City</apex:outputLabel>
+                <apex:inputfield id="ifldHouseStreet" value="{!Applicant.MailingCity}" required="true" style="width:50%;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi032">
+                <apex:outputLabel id="olblState">State/province</apex:outputLabel>
+                <apex:inputfield id="ofldState" value="{!Applicant.MailingState}" required="true" style="width:50%;"/>
+            </apex:pageBlockSectionItem>            
+
+            <apex:pageBlockSectionItem id="pbsi033">
+                <apex:outputLabel id="olblZip" >Zip/postal code/PO Box</apex:outputLabel>
+                <apex:inputfield id="ofldZip" value="{!Applicant.MailingPostalCode}" required="false"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi034">
+                <apex:outputLabel id="olblCountry">Country of residence</apex:outputLabel>
+                <apex:outputPanel id="opnl030" styleClass="requiredInput" layout="block" >
+                    <apex:outputPanel id="opnl040" styleClass="requiredBlock" layout="block" />          
+                    <apex:selectList id="slstCountry" size="1" styleClass="requiredInput" value="{!Applicant.MailingCountry}" required="false" style="width:65%;"><apex:selectOptions value="{!CountryList}"/></apex:selectList>         
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>        
+    </apex:pageBlock>
+    
+    <!-- FURTHER DETAILS -->
+    <apex:pageBlock title="Further details" id="further_details">   
+        <apex:pageBlockSection id="pbs040" columns="1">
+            <apex:pageBlockSectionItem id="pbsi040">
+                <apex:outputlabel id="olblEngageVSO" value="How would you like to engage with VSO?" style="display:block;width:150px;"/>
+                <apex:inputfield id="ofldEngageVSO" value="{!Applicant.How_would_you_like_to_engage_with_VSO__c}"/>
+            </apex:pageBlockSectionItem>        
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs050" columns="2">         
+            <apex:pageBlockSectionItem id="pbsi041">
+                <apex:outputLabel id="olblNoticePeriod">What is your current notice period?</apex:outputLabel>
+                <apex:inputfield id="ofldNoticePeriod" value="{!Applicant.What_is_your_current_notice_period__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi042">
+                <apex:outputLabel id="olblPleaseSpecify">If other please specify?</apex:outputLabel>
+                <apex:inputfield id="ofldPleaseSpecify" value="{!Applicant.What_is_your_current_notice_period_other__c}"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+        <hr/>
+        <br/>
+        <apex:outputText id="otxtVolQuestions">If you are applying for a volunteer opportunity please answer the following questions:</apex:outputText> 
+        <br/><br/>
+        
+        <apex:pageBlockSection id="pbs060" columns="2">
+            <apex:pageBlockSectionItem id="pbsi050">
+                <apex:outputLabel id="olblAvailableFrom">When are you available from?</apex:outputLabel>
+                <apex:inputfield id="ifldAvailableFrom" value="{!Applicant.Available_From__c}" required="{!selectedJob.RecordType.DeveloperName == 'Approved_Volunteer_Job'}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi051">
+                <apex:outputLabel id="olblAvailableUntil">When are you available until?</apex:outputLabel>
+                <apex:inputfield id="ofldAvailableUntil" value="{!Applicant.Available_To__c}"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+    </apex:pageBlock>   
+    
+    <!-- SOURCE INFO -->
+    <apex:pageBlock title="Source information" id="source_information">
+        <apex:pageBlockSection id="pbs070" columns="1">
+            <apex:pageBlockSectionItem id="pbsi060">
+                <apex:outputLabel id="olblHeardVacancy" value="Please indicate how you heard about this vacancy" style="display:block;width:340px;"/>
+                <apex:inputfield id="ifldHeardVacancy" value="{!jobApplication.How_Did_You_Hear_About_Us__c}" required="true" />
+            </apex:pageBlockSectionItem>
+ 
+            <apex:pageBlockSectionItem id="pbsi061">
+                <apex:outputLabel id="olblSocialMediaSpecify" value="If social media, please specify" style="display:block;width:340px;"/>
+                <apex:inputfield id="ifldSocialMediaSpecify" value="{!jobApplication.How_did_you_hear_social__c}"/>
+            </apex:pageBlockSectionItem>        
+
+            <apex:pageBlockSectionItem id="pbsi062">
+                <apex:outputLabel id="olblReferralSpecify" value="If referral, please specify" style="display:block;width:340px;"/>
+                <apex:inputfield id="ifldReferralSpecify" value="{!jobApplication.How_did_you_hear_referral__c}"/>
+            </apex:pageBlockSectionItem> 
+
+            <apex:pageBlockSectionItem id="pbsi063">
+                <apex:outputLabel id="olblAlumnusSpecify" value="If alumnus, please specify" style="display:block;width:340px;"/>
+                <apex:inputfield id="ifldAlumnusSpecify" value="{!jobApplication.How_did_you_hear_Alumnus__c}"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi063a">
+                <apex:outputLabel id="olblOtherSpecify" value="Please provide further details of where you saw this opportunity advertised"/>
+                <apex:inputfield id="ifldOtherSpecify" value="{!jobApplication.How_Did_You_Hear_Other__c}"/>
+            </apex:pageBlockSectionItem>
+                                   
+            <br/>
+            If you were referred to this position by any VSO employee or volunteer you know personally, or by a recruitment agency, then please enter the VSO employee or volunteer name, or the recruitment agency code if applicable
+            <br/>
+            
+            <apex:pageBlockSectionItem id="pbsi064">
+                <apex:outputLabel id="olblEmployeeName" value="Employee/volunteer name"/>
+                <apex:inputfield id="ifldEmployeeName" value="{!jobApplication.Referral_Name__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi065">
+                <apex:outputLabel id="olblAgencyCode" value="Recruitment agency code (if applicable)"/>
+                <apex:inputfield id="ofldAgencyCode" value="{!jobApplication.Referral_Agency_Code__c}"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>    
+
+    <!-- LANGUAGES & SKILLS SECTION -->
+    <apex:pageBlock title="Languages and skills" id="languages_skills">
+        <apex:pageBlockSection id="pbs080" columns="2">
+            
+            <apex:pageBlockSectionItem id="pbsi070">
+                <apex:outputlabel id="olblLanguage1" value="Language 1"/>
+                <apex:inputfield id="ifldLanguage1" value="{!Applicant.Language_1__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi071">
+                <apex:outputlabel id="olblLanguage2" value="Language 2"/>
+                <apex:inputfield id="ifldLanguage2" value="{!Applicant.Language_2__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi072">
+                <apex:outputlabel id="olblLanguage3" value="Language 3"/>
+                <apex:inputfield id="ifldLanguage3" value="{!Applicant.Language_3__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi073">
+                <apex:outputlabel id="olblLanguage4" value="Language 4"/>
+                <apex:inputfield id="ifldLanguage4" value="{!Applicant.Language_4__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+                        
+        </apex:pageBlockSection>
+        
+        
+        <apex:pageBlockSection id="pbs091" columns="1">
+            <br/>
+            <apex:outputlabel id="olblProfession" value="Please indicate which of the following skills most closely matches your profession:"/>
+     
+            <apex:pageBlockSectionItem id="pbsi073a">
+                <apex:outputLabel id="olblProfession">Profession</apex:outputLabel>
+                <apex:outputPanel id="opnl041" styleClass="requiredInput" layout="block" >
+                    <apex:outputPanel id="opnl042" styleClass="requiredBlock" layout="block" />
+                    <apex:selectList id="slstProfession" size="1" styleClass="requiredInput" value="{!Profession}" required="false" style="width:90%;"><apex:selectOptions value="{!SkillsWithNoneOption}"/></apex:selectList>         
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            
+            <apex:outputlabel id="olblAdditionalSkills" value="Please identify any additional professional skills from the list below. You can add as many skills as are relevant to you; if you are successfully shortlisted these skills will be need to be demonstrated/evidenced through our selection process."/>
+            <c:MultiselectPicklist id="mspl" leftLabel="Available skills"
+                                                leftOptions="{!allSkills}"
+                                                rightLabel="Selected skills"
+                                                rightOptions="{!SelectedSkills}"
+                                                size="15"
+                                                width="300px"/>         
+        </apex:pageBlockSection>
+    </apex:pageBlock>     
+
+    <!-- QUESTIONS -->
+    <apex:pageBlock id="application_questions" title="Application questions" rendered="{!isQuestions}">
+        <apex:pageBlockSection id="pbs090" columns="1">
+            <apex:repeat id="rpt010" value="{!QuestionList}" var="ques">
+            <apex:pageBlockSectionItem id="pbsi090">
+                <apex:outputlabel value="{!ques.JobQuestion.Question__r.Question__c}"  style="display:block;width:340px;"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block" >
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:selectradio value="{!ques.response}" tabindex="280">
+                            <apex:selectOptions value="{!AnswersOptions}" />
+                </apex:selectradio>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            </apex:repeat>  
+        </apex:pageBlockSection>        
+    </apex:pageBlock>
+
+    <!-- EMPLOYMENT HISTORY -->
+    <apex:pageBlock title="Employment history" id="employment_history">
+        
+        <!-- Narpavi-TPT-(3-March-2016)-Added for Data Quality 
+             To get the history of applicant with VSO  -->   
+        <apex:pageBlockSection id="pbs100" columns="1">
+                                       
+        
+            <apex:outputtext id="otxtJobDetails">Please provide us with details of your current or most recent job</apex:outputtext>
+        
+            <apex:pageBlockSectionItem id="pbsi102">
+                <apex:outputlabel id="olblJobTitle" value="Job title" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldJobTitle" value="{!jobApplication.Current_Most_Recent_Job_Title__c}" style="width:280px;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi103">
+                <apex:outputlabel id="olblOrganisationName" value="Organisation name" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldOrganisationName" value="{!jobApplication.Current_Most_Recent_Organization__c}" style="width:280px;" />
+            </apex:pageBlockSectionItem>    
+            
+            <apex:pageBlockSectionItem id="pbsi104">
+                <apex:outputlabel id="olblEmploymentStatus" value="Employment status" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldEmploymentStatus" value="{!jobApplication.Employment_Status__c}" required="true" style="width:280px;"/>
+            </apex:pageBlockSectionItem>                    
+                    
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs110" columns="2">
+            <apex:pageBlockSectionItem id="pbsi110" >
+                <apex:outputlabel id="olblDateJoined" value="Date joined" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldDateJoined" value="{!jobApplication.Current_Most_Recent_Job_Date_Joined__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi111">
+                <apex:outputlabel id="olblDateLeft" value="Date left (if applicable)" style="display:block;width:150px;"/>
+                <apex:inputfield id="ifldDateLeft" value="{!jobApplication.Current_Most_Recent_Job_Date_Left__c}"/>
+            </apex:pageBlockSectionItem>            
+            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs120" columns="1">
+            <apex:outputtext id="otxtVSOPaidRole">If you are applying for a paid role with VSO, please answer the following questions:</apex:outputtext>
+        </apex:pageBlockSection>
+    
+        <apex:pageBlockSection id="pbs130" columns="2">
+            <apex:pageBlockSectionItem id="pbsi130">
+                <apex:outputlabel id="olblCurrentSalary" value="Current basic salary" style="display:block;width:140px;"/>
+                <apex:inputfield id="ofldCurrentSalary" value="{!jobApplication.Current_Most_Recent_Basic_Salary__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi131">
+                <apex:outputlabel id="olblCurrentBenefits" value="Current total benefits package" style="display:block;width:150px;"/>
+                <apex:inputfield id="ifldCurrentBenefits" value="{!jobApplication.Current_Most_Recent_Benefits__c}"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs140" columns="1">
+            <apex:outputtext id="otxtCurrentResponsibilities">Please summarise your current responsibilities below:</apex:outputtext>
+            <apex:pageBlockSectionItem id="pbsi140">
+                <apex:inputfield id="itxaJobResponsibilities" value="{!jobApplication.Job_Responsibilities__c}" style="width:100%;"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+    
+    <!-- Referee Details -->
+    <apex:pageBlock id="RefereeInformation" title="Referee Details">        
+        <apex:outputtext id="otxtRefHeader">Please provide the details of two professional referees who have agreed to supply references.
+         The referees should be for your last two positions and should be your line/department manager, or someone in a position of responsibility for any work experience or placement undertaken. 
+         If you are a student or trainee this should include a teacher/tutor at your education institution. VSO will only contact referees with your prior consent.
+        </apex:outputtext>     
+        <apex:pageblockSection id="Referee1" title="Referee 1" columns="2">       
+            <apex:pageBlockSectionItem id="pbsiRef1FirstName">
+                <apex:outputlabel id="olblRef1FirstName" value="Referee First Name"/>
+                <apex:inputfield id="ifldRef1FirstName" value="{!jobApplication.Referee_1_First_Name__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsiRef1LastName">
+                <apex:outputlabel id="olblRef1LastName" value="Referee Last Name"/>
+                <apex:inputfield id="ifldRef1LastName" value="{!jobApplication.Referee_1_Last_Name__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsiRef1Relationship">
+                <apex:outputlabel id="olblRef1Relationship" value="Relationship To You"/>
+                <apex:inputfield id="ifldRef1FRelationship" value="{!jobApplication.Referee_1_Relationship_To_You__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem id="pbsiRef1RelationshipOther">
+                <apex:outputlabel id="olblRef1RelationshipOther" value="Relationship To You-Other(Please Specify)"/>
+                <apex:inputfield id="ifldRef1FRelationshipOther" value="{!jobApplication.Referee_1_Relationship_To_You_Other__c}"/>
+            </apex:pageBlockSectionItem> 
+             <apex:pageBlockSectionItem id="pbsiRef1JobTitle">
+                <apex:outputlabel id="olblRef1JobTitle" value="Referee Job Title"/>
+                <apex:inputfield id="ifldRef1JobTitle" value="{!jobApplication.Referee_1_Job_Title__c}" required="true"/>
+            </apex:pageBlockSectionItem> 
+             <apex:pageBlockSectionItem id="pbsiRef1Org">
+                <apex:outputlabel id="olblRef1Org" value="Referee Organisation"/>
+                <apex:inputfield id="ifldRef1Org" value="{!jobApplication.Referee_1_Organisation__c}" required="true"/>
+            </apex:pageBlockSectionItem>            
+             <apex:pageBlockSectionItem id="pbsiRef1Email">
+                <apex:outputlabel id="olblRef1Email" value="Work Email"/>
+                <apex:inputfield id="ifldRef1Email" value="{!jobApplication.Referee_1_Email__c}" required="true"/>
+            </apex:pageBlockSectionItem>   
+             <apex:pageBlockSectionItem id="pbsiRef1Phone">
+                <apex:outputlabel id="olblRef1Phone" value="Telephone"/>
+                <apex:inputfield id="ifldRef1Phone" value="{!jobApplication.Referee_1_Telephone__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsiRef1Approach">
+                <apex:outputlabel id="olblRef1Approach" value="Ok To Approach Referee Before Offer?"/>
+                <apex:inputfield id="ifldRef1Approach" value="{!jobApplication.Referee_1_Approach_Before_Offer__c}" required="true"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageblockSection>       
+        <apex:pageblockSection id="Referee2" columns="2" title="Referee 2">        
+            <apex:pageBlockSectionItem id="pbsiRef2FirstName">
+                <apex:outputlabel id="olblRef2FirstName" value="Referee First Name"/>
+                <apex:inputfield id="ifldRef2FirstName" value="{!jobApplication.Referee_2_First_Name__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsiRef2LastName">
+                <apex:outputlabel id="olblRef2LastName" value="Referee Last Name"/>
+                <apex:inputfield id="ifldRef2LastName" value="{!jobApplication.Referee_2_Last_Name__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsiRef2Relationship">
+                <apex:outputlabel id="olblRef2Relationship" value="Relationship To You"/>
+                <apex:inputfield id="ifldRef2FRelationship" value="{!jobApplication.Referee_2_Relationship_To_You__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem id="pbsiRef2RelationshipOther">
+                <apex:outputlabel id="olblRef2RelationshipOther" value="Relationship To You-Other(Please Specify)"/>
+                <apex:inputfield id="ifldRef2FRelationshipOther" value="{!jobApplication.Referee_2_Relationship_To_You_Other__c}"/>
+            </apex:pageBlockSectionItem> 
+             <apex:pageBlockSectionItem id="pbsiRef2JobTitle">
+                <apex:outputlabel id="olblRef2JobTitle" value="Referee Job Title"/>
+                <apex:inputfield id="ifldRef2JobTitle" value="{!jobApplication.Referee_2_Job_Title__c}" required="true"/>
+            </apex:pageBlockSectionItem> 
+             <apex:pageBlockSectionItem id="pbsiRef2Org">
+                <apex:outputlabel id="olblRef2Org" value="Referee Organisation"/>
+                <apex:inputfield id="ifldRef2Org" value="{!jobApplication.Referee_2_Organisation__c}" required="true"/>
+            </apex:pageBlockSectionItem>            
+             <apex:pageBlockSectionItem id="pbsiRef2Email">
+                <apex:outputlabel id="olblRef2Email" value="Work Email"/>
+                <apex:inputfield id="ifldRef2Email" value="{!jobApplication.Referee_2_Email__c}" required="true"/>
+            </apex:pageBlockSectionItem>   
+             <apex:pageBlockSectionItem id="pbsiRef2Phone">
+                <apex:outputlabel id="olblRef2Phone" value="Telephone"/>
+                <apex:inputfield id="ifldRef2Phone" value="{!jobApplication.Referee_2_Telephone__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pbsiRef2Approach">
+                <apex:outputlabel id="olblRef2Approach" value="Ok To Approach Referee Before Offer?"/>
+                <apex:inputfield id="ifldRef2Approach" value="{!jobApplication.Referee_2_Approach_Before_Offer__c}" required="true"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageblockSection> 
+    </apex:pageBlock>    
+    
+    <!-- EDUCATION & PROFESSIONAL REGISTRATION -->
+    <apex:pageBlock id="EducationProfessionalRegistration" title="Education and professional registration">
+        <apex:pageBlockSection id="pbs150" columns="1">
+            <apex:pageBlockSectionItem id="pbsi150">
+                <apex:outputlabel id="olblEducationLevel" value="Please identify your current education level" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldEducationLevel" value="{!Applicant.Current_Education_Level__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:outputtext id="otxtProfessionalRegistration">Please provide details of any professional registration relevant to the role. Please input most relevant, add any further detail in your supporting statement or CV.</apex:outputtext>
+            
+            <apex:pageBlockSectionItem id="pbsi151">
+                <apex:outputlabel id="olblCertificateProgrammeName" value="Certificate/programme name" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldCertificateProgrammeName" value="{!Applicant.Certificate_Programme_Name__c}"/>
+            </apex:pageBlockSectionItem>  
+            
+            <apex:pageBlockSectionItem id="pbsi152">
+                <apex:outputlabel id="olblDateObtained" value="Date obtained" style="display:block;width:140px;"/>
+                <apex:inputfield id="ifldDateObtained" value="{!Applicant.Certificate_Programme_Date_Obtained__c}"/>
+            </apex:pageBlockSectionItem>                    
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <!-- SUPPORTING STATEMENT -->
+    <apex:pageBlock id="SupportingStatement" title="Supporting statement">
+    <apex:outputtext id="otxtSupportingInfo" >Please use this section to detail your skills and experience in relation to the person specification attached to the job advert. 
+       If you are applying to a generic advert (i.e. not applying to a specific role), please use this section to detail your current skills and opportunities you are interested in. Your supporting statement should be no longer than 1500 words.</apex:outputtext>
+ 
+    <apex:pageBlockSection id="pbs160" columns="1">
+        <apex:pageBlockSectionItem id="pbsi160">
+            <apex:outputPanel styleClass="requiredInput" layout="block">
+               <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <!-- SPGI-75, is required but checked server side -->       
+                <apex:inputfield id="itaJobEvidence" value="{!jobApplication.Supporting_Statement__c}" style="width:100%;"/>
+            </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+    </apex:pageBlock>    
+
+    <!-- CV UPLOAD -->
+    <apex:pageBlock id="CurriculumVitae" title="Upload your Curriculum Vitae">
+        <apex:outputtext id="otxtCVInfo">Please upload your current CV to be considered as part of your application. Your CV should contain further details of your employment and education history as well as any previous volunteering experience.<br/> 
+                        Please note, your CV should be in written English and uploaded as a Microsoft Word document.</apex:outputtext>
+        <apex:pageBlockSection id="pbs170" columns="1">
+            <apex:pageBlockSectionItem id="pbsi170">
+                <apex:outputPanel id="opnl050" styleClass="requiredInput" layout="block" >
+                <apex:outputPanel id="opnl060" styleClass="requiredBlock" layout="block" /> 
+                    <apex:inputfile id="ifleUploadCV" value="{!uploadedFile}" filename="{!filename}" filesize="{!filesize}" required="true" />          
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>    
+
+    <!-- ELIGIBILITY TO WORK -->
+    <apex:pageBlock id="EligibilitytoWork" title="Eligibility to work">
+        <apex:pageBlockSection id="pbs180" columns="1">
+            <apex:pageBlockSectionItem id="pbsi180">
+                <apex:outputlabel id="olblCountryEligibleWork" value="Which countries/regions are you currently eligible to live and work in?" style="display:block;width:300px;"/>
+                <apex:inputfield id="ifldCountryEligibleWork" value="{!jobApplication.Countries_Regions_Eligible_to_Work__c}" style="width:90%;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi181">
+                <apex:outputlabel id="olblLocationEligibleWork" value="Are you currently legally entitled to live and work in the location in which the job is based?" style="display:block;width:300px;" />
+                <apex:inputfield id="ifldLocationEligibleWork" value="{!jobApplication.Eligibility_To_Work__c}" required="{!selectedJob.RecordType.DeveloperName == 'Employee_Job_Approved'}" />
+            </apex:pageBlockSectionItem>        
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+        
+    <!-- EQUAL OPPOS -->
+    <apex:pageBlock id="EqualOpportunities" title="Equal opportunities and diversity">
+        <apex:outputtext id="otxtEqualOpprtunitiesInfo">
+                            At VSO we are committed to encouraging diversity in the recruitment, retention and development of our people. 
+                            By providing the data below you will help us track how successful we are in attracting and recruiting diverse 
+                            talent.<br/> 
+                            Please note the data you provide
+                            <ul>
+                            <li>Will not influence your application to VSO </li>
+                            <li>Will be held in strict confidence</li> 
+                            <li>Will be used to produce anonymous statistics for reporting purposes only</li>
+                            </ul>       
+        </apex:outputtext>
+        
+        <apex:pageBlockSection id="pbs190" columns="2">
+            <apex:pageBlockSectionItem id="pbsi190">
+                <apex:outputlabel id="olblGender" value="Gender"/>
+                <apex:inputfield id="ifldGender" value="{!Applicant.Gender__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+                        
+            <apex:pageBlockSectionItem id="pbsi191" rendered="false">
+                <apex:outputlabel id="olblEthnicity" value="Ethnicity"/>
+                <apex:inputfield id="ifldEthnicity" value="{!Applicant.Ethnicity__c}" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi192">
+                <apex:outputlabel id="olblNationality" value="Nationality"/>
+                <apex:inputfield id="ifldNationality" value="{!Applicant.Nationality_1__c}" required="true"/>
+            </apex:pageBlockSectionItem>    
+            
+            <apex:pageBlockSectionItem id="pbsi193" rendered="false">
+                <apex:outputlabel id="olblEthnicityOther" value="Ethnicity other"/>
+                <apex:inputfield id="ifldEthnicityOther" value="{!Applicant.Ethnicity_Other__c}"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem id="pbsi194">
+                <apex:outputlabel id="olblAgeRange" value="Age range"/>
+                <apex:inputfield id="ifldAgeRange" value="{!Applicant.Age_Range__c}" required="true"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="pbs200" columns="1">
+            
+            <apex:pageBlockSectionItem id="pbsi200">
+                <apex:outputlabel id="olblPostiveAbout"><apex:image id="imgPostiveAbout" value="{!$Resource.PositiveAboutDisabledPeople_Logo}" height="40px" width="50px" /></apex:outputlabel>
+                <apex:outputtext id="otxtPostiveInfo">We are positive about disabled people. If there is any information you feel is appropriate for us to consider under our commitment to opportunities for disabled people, please give details below:</apex:outputtext>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsi210">
+                <apex:outputlabel id="olblDisabilityConsideration" value=""/>
+                <apex:inputfield id="ifldDisabilityConsideration" value="{!jobApplication.Applicant_Disability_Considerations__c }" style="width:100%;"/>
+            </apex:pageBlockSectionItem>
+                                                            
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+
+    <!-- DECLARATION -->    
+    <apex:pageBlock id="Declaration" title="Declaration">
+        <apex:pageBlockSection id="pbs210" columns="1">
+            <apex:pageBlockSectionItem id="pbsi210">
+            <apex:outputlabel id="olblDeclaration" value="I declare that all the information I have provided on this form is true and correct." style="display:block;width:525px;"/>
+            <apex:inputfield id="ifldDeclaration" required="true" value="{!jobApplication.Declaration__c}"/> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <!-- DATA PROTECTION & PRIVACY -->
+    <apex:pageBlock id="DataProtection" title="Data Protection and Data Privacy Policy">
+                        If you complete and submit this form, VSO will store and process your data in accordance with the requirements of its
+                         Data Protection Policy, its Privacy Policy and in keeping with the UK Data Protection Act 1998 (“the Act”). 
+                         By ticking the box below and submitting this form you agree to the processing of your data by VSO in accordance 
+                         with the Act, its Data Protection Policy and the Privacy Policy, both available on its website 
+                         at&nbsp;<apex:outputlink value="http://www.vsointernational.org" target="_blank">www.vsointernational.org</apex:outputlink>.<br/>
+                         <br/>
+                         You agree that VSO may transfer such data as is necessary to any country where you may be placed, including 
+                         countries where data protection laws may not apply or may be less stringent than in the European Union. 
+                         For volunteer applications we will need to pass your information to your host organisation, but will ensure 
+                         that VSO entities continue to handle your personal information in accordance with our group wide policy on 
+                         the protection and security of your data. Details of these transfers can be provided at your request.  
+        <apex:pageBlockSection id="pbs220">
+        
+        <apex:pageBlockSectionItem id="pbsi220"></apex:pageBlockSectionItem>
+        
+            <apex:pageBlockSectionItem id="pbsi221">
+                <apex:outputlabel id="olblConsentToInformationStore" value="Agree" style="display:block;width:275px;"/>
+                <apex:inputfield id="ifldConsentToInformationStore" required="true" value="{!jobApplication.Consent_To_Information_Being_Stored__c}"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection columns="1"> 
+         <apex:pageBlockSectionItem id="pbsi222">                
+             <img align="left" width="50" id="HeaderImage" border="0" src="https://vso--c.eu1.content.force.com/servlet/servlet.ImageServer?id=015D0000003ZnPf&oid=00DD0000000o0JM&lastMod=1418378193000"></img>
+              <apex:outputText >You can find out more information about VSO by visiting &nbsp;<apex:outputlink value="http://www.vsointernational.org" target="_blank">www.vsointernational.org</apex:outputlink></apex:outputText>       
+         </apex:pageBlockSectionItem>         
+        </apex:pageBlockSection>      
+        
+    </apex:pageBlock>                 
+        
+    <div align="right"><apex:commandbutton id="cbtnSubmitApplication2" value="Submit application" action="{!ApplicationSubmit}" onclick="disableOnSubmit(this);" /></div>     
+    <br/>
+    </apex:outputpanel>   
+    </div>         
+    </apex:form>
+</body>
+</apex:page>
+<!--      
+        <div class="pdetails">
+            <div class="jobopp" >Personal details</div> 
+            <br/> 
+            <div>
+                <table>
+                <tr>
+                   <td colspan="2"></td>
+                   <td colspan="2" align="center">Please identify languages you are proficient in below:</td>
+                </tr>
+                <tr>
+                    <td width="180px">Title<font color="Red">*</font></td>
+                    <td width="180px"><apex:inputfield value="{!Applicant.Salutation}" required="true" style="width:100%;" taborderhint="2"/>                           
+                    </td>
+                    <td width="180px" style="padding-left:50px">Language 1<font color="Red">*</font></td>
+                    <td width="180px"><apex:inputfield value="{!Applicant.Language_1__c}" required="true" style="width:100%;" taborderhint="13"/></td>
+                    
+                </tr>
+                <tr>
+                    <td><apex:outputText value="First name"/><font color="Red">*</font></td>
+                    <td><apex:inputfield value="{!Applicant.Firstname}" required="true" style="width:80%;" taborderhint="3"/></td>
+                    <td style="padding-left:50px">Language 2</td>
+                    <td><apex:inputfield value="{!Applicant.Language_2__c}" style="width:100%;" taborderhint="14"/></td>
+                </tr>
+                <tr>
+                    <td >Last name<font color="Red">*</font></td>
+                    <td ><apex:inputfield value="{!Applicant.Lastname}" required="true" style="width:100%;" taborderhint="4"/></td>
+                    
+                    <td style="padding-left:50px">Language 3</td>
+                    <td><apex:inputfield value="{!Applicant.Language_3__c}" style="width:100%;" taborderhint="15"/></td>                                   
+                </tr>
+                <tr> 
+                    <td>Preferred name</td>
+                    <td><apex:inputfield value="{!Applicant.Preferred_Name__c}" style="width:100%;" taborderhint="5"/></td>
+                    <td style="padding-left:50px">Language 4</td>
+                    <td><apex:inputfield value="{!Applicant.Language_4__c}" style="width:100%;" taborderhint="16"/></td>                    
+                </tr>
+                <tr>
+                    <td>Home phone</td>
+                    <td><apex:inputfield value="{!Applicant.Homephone}"  style="width:100%;" taborderhint="5"/> </td>   
+                    <td></td>
+                    <td></td>                   
+                </tr>
+                <tr>
+                    <td>Mobile phone<font color="Red">*</font></td>
+                    <td><apex:inputfield value="{!Applicant.Mobilephone}" required="true" style="width:100%;" taborderhint="6"/></td>                    
+                </tr>
+                <tr>
+                    <td >Personal email<font color="Red">*</font></td>
+                    <td><apex:inputfield value="{!Applicant.npe01__HomeEmail__c}" required="true" style="width:100%;" taborderhint="7"/></td>
+                </tr>               
+                <tr>
+                    <td>Skype username</td>
+                    <td><apex:inputfield value="{!Applicant.Skype_User_Name__c}" style="width:100%;"/></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Number/name and street<font color="Red">*</font></td>
+                    <td><apex:inputfield value="{!Applicant.MailingStreet}" required="true" style="width:100%;" taborderhint="8"/></td>
+                    <td></td>
+                    <td></td>
+                    
+                </tr>
+                <tr>
+                    <td >City<font color="Red">*</font></td>
+                    <td><apex:inputfield value="{!Applicant.MailingCity}" required="true" style="width:100%;" taborderhint="9"/></td>
+                    <td style="padding-left:50px"></td>
+                    <td></td>
+                    
+                </tr>
+                <tr>
+                    <td>State/province<font color="Red">*</font> </td>
+                    <td><apex:inputfield value="{!Applicant.MailingState}" required="true" style="width:100%;" taborderhint="10"/></td>
+                    <td style="padding-left:50px"></td>
+                    <td></td>
+                </tr>
+                
+                
+                <tr>
+                    <td >Zip/postal code/PO Box<font color="Red">*</font> </td>
+                    <td><apex:inputfield value="{!Applicant.MailingPostalCode}" required="false" style="width:100%;" taborderhint="11"/></td>
+                    <td style="padding-left:50px"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td >Country of residence<font color="Red">*</font></td>
+                    <td><apex:selectList size="1" value="{!Applicant.MailingCountry}" required="true" style="width:100%;"><apex:selectOptions value="{!CountryList}"/></apex:selectList></td>
+                    <td style="padding-left:50px"></td>
+                    <td></td>
+                    
+                </tr>
+                </table>
+            </div>
+            <br/> 
+                       
+            </div>
+            <br/>
+
+<div class="pdetails">
+            <div class="jobopp">Further details</div>
+            <br/>
+            <table width="100%">
+                <tr>
+                    <td colspan="2">How would you like to engage with VSO?</td>
+                    <td colspan="2"><apex:inputfield value="{!Applicant.How_would_you_like_to_engage_with_VSO__c}"/></td>
+                </tr>
+                <tr><td style="height:8px" colspan="4"><hr/></td></tr>              
+                <tr>
+                    <td colspan="4">If you are applying for a volunteer opportunity please answer the following questions:</td>
+                </tr>
+                <tr><td colspan="4">&nbsp;</td></tr>
+                <tr>
+                    <td>When are you available from?<font color="Red">*</font> </td>
+                    <td><apex:inputfield value="{!Applicant.Available_From__c}" required="true" taborderhint="17"/></td>                
+                    <td>When are you available until? </td>
+                    <td><apex:inputfield value="{!Applicant.Available_To__c}" taborderhint="18"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">What is your current notice period?<font color="Red">*</font></td>
+                    <td colspan="2"><apex:inputfield value="{!Applicant.What_is_your_current_notice_period__c}"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Please specify</td>
+                    <td colspan="2"><apex:inputfield value="{!Applicant.What_is_your_current_notice_period_other__c}"/></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+
+
+<div class="pdetails">
+            <div class="jobopp">Source information</div>
+            <br/>
+            <table>
+                <tr>
+                    <td>Please indicate how you heard about this vacancy</td>
+                    <td><apex:inputfield value="{!jobApplication.How_Did_You_Hear_About_Us__c}"/></td>
+                </tr>
+                 <tr>
+                    <td>If social media, please specify</td>
+                    <td><apex:inputfield value="{!jobApplication.How_did_you_hear_social__c}"/></td>
+                </tr>  
+                 <tr>
+                    <td>If referral, please specify</td>
+                    <td><apex:inputfield value="{!jobApplication.How_did_you_hear_referral__c}"/></td>
+                </tr>     
+                <tr>
+                    <td>If anlumnus, please specify</td>
+                    <td><apex:inputfield value="{!jobApplication.How_did_you_hear_Alumnus__c}"/></td>
+                </tr>     
+                <tr height="8px"><td colspan="2"><hr/></td></tr>                 
+                <tr height="8px">
+                    <td colspan="2">If you were referred to this position by any VSO employee or volunteer you know personally, or by a recruitment agency, then please enter their full VSO email address or recruitment agency code if applicable</td>
+                </tr>   
+               <tr><td colspan="4">&nbsp;</td></tr>
+                <tr>
+                    <td>Employee/volunteer name</td>
+                    <td><apex:inputfield value="{!jobApplication.Referral_Name__c}"/></td>
+                </tr>  
+                <tr>
+                    <td>Recruitment agency code (if applicable)</td>
+                    <td><apex:inputfield value="{!jobApplication.Referral_Agency_Code__c}"/></td>
+                </tr>             
+            </table>
+        </div>
+        <br/>    
+        
+        <div class="pdetails">
+            <div class="jobopp">Skills</div>
+            <br/>            
+            <table>
+                <tr>
+                    <td colspan="4">Please identify your professional skills from the list below. You can add as many skills as are relevant to you; if you are successfully shortlisted these skills will be need to be demonstrated/evidenced through our selection process.</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><c:MultiselectPicklist id="mspl" leftLabel="Available Skills"
+                                                leftOptions="{!allSkills}"
+                                                rightLabel="Selected Skills"
+                                                rightOptions="{!SelectedSkills}"
+                                                size="15"
+                                                width="300px"/>                                      
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>                
+            </table>            
+        </div>
+        <br/>      
+        
+        <div class="pdetails">
+            <div class="jobopp" >Employment history</div> 
+            <br/> 
+            <table>
+                   <tr>
+                       <td colspan="4">Please provide us with details of your current or most recent job</td>
+                   </tr> 
+                   <tr><td height="8px"></td></tr>  
+                   <tr>
+                       <td width="180px">Date Joined</td>
+                       <td width="180px" style="padding-left:50px"><apex:inputfield value="{!jobApplication.Current_Most_Recent_Job_Date_Joined__c}"/></td>
+                       <td width="180px">Date Left (if applicable)</td>
+                       <td width="180px" style="padding-left:50px"><apex:inputfield value="{!jobApplication.Current_Most_Recent_Job_Date_Left__c}"/></td>
+                   </tr>   
+                   <tr>
+                       <td width="180px">Job Category</td>
+                       <td colspan="3"><apex:inputfield value="{!jobApplication.Current_Most_Recent_Job_Category__c}"/></td>
+                   </tr>                                                        
+                        <tr>
+                            <td width="180px">Employment status<font color="Red">*</font>  </td>
+                            <td width="180px" style="padding-left:50px"><apex:inputfield value="{!jobApplication.Employment_Status__c}" required="true" style="width:100%;" taborderhint="23"/></td>
+                            <td></td>
+                            <td></td>                    
+                        </tr>
+                        <tr>
+                            <td>Job title </td>
+                            <td><apex:inputfield value="{!jobApplication.Current_Most_Recent_Job_Title__c}" style="width:100%;" taborderhint="24"/></td>
+                            <td></td>
+                            <td></td>                         
+                        </tr>
+                        <tr>
+                            <td >Organisation name</td>
+                            <td ><apex:inputfield value="{!jobApplication.Current_Most_Recent_Organization__c}" style="width:100%;" taborderhint="25"/></td>
+                            <td style="padding-left:50px;"> </td>
+                            <td></td>
+                        </tr>
+                   <tr><td colspan="4"><hr/></td></tr>
+                   <tr>
+                        <td colspan="4">If you are applying for a paid role with VSO, please answer the following questions:</td>
+                   </tr>
+                   <tr>
+                            <td width="180px">Current basic salary </td>
+                            <td width="180px" style="padding-left:50px"><apex:inputfield value="{!jobApplication.Current_Most_Recent_Basic_Salary__c}" style="width:100%;" taborderhint="26"/></td>                           
+                            <td width="180px">Current benefits package</td>
+                            <td width="180px" style="padding-left:50px"><apex:inputfield value="{!jobApplication.Current_Most_Recent_Benefits__c}" style="width:100%;" taborderhint="27"/></td>
+                   </tr>
+                   <tr><td colspan="4">&nbsp;</td></tr>
+                   <tr>
+                        <td colspan="4">Please summarise your current responsibilities below</td>
+                   </tr>
+                   <tr>
+                        <td colspan="4"><apex:inputtextarea richtext="true" value="{!jobApplication.Current_Most_Recent_Job_Responsibilities__c}"/></td>  
+                   </tr>                          
+            </table>
+            <br/>
+        </div>               
+        <br/>        
+
+        <div class="pdetails">
+            <div class="jobopp">Education and professional registration</div>
+            <br/>
+            <table width="100%">
+                <tr>
+                    <td>Please identify your current education level</td>
+                    <td><apex:inputfield value="{!Applicant.Current_Education_Level__c}"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Please provide details of any professional registration relevant to the role</td>
+                </tr>
+                <tr><td colspan="2"><hr/></td></tr>
+                <tr>
+                    <td>Certificate/programme name</td>
+                    <td><apex:inputfield value="{!Applicant.Certificate_Programme_Name__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Date Obtained</td>
+                    <td><apex:inputfield value="{!Applicant.Certificate_Programme_Date_Obtained__c}"/></td>
+                </tr>
+            </table>
+        </div>
+        <br/>  
+
+    <div class="pdetails">
+            <div class="jobopp"> Upload your curriculum vitae</div>
+            <br/>
+            
+            <div>
+                <table>
+                 <tr>
+                    <td >Please upload your current CV to be considered as part of your application. Your CV should contain further details of your employment and education history as well as any previous volunteering experience.<br/> 
+                        Please note, your CV should be in written English and uploaded as a Microsoft Word document.<br/>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td >
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>  </td>
+                </tr>
+                </table>
+            </div>
+            <br/>
+        </div>      
+        <br/>        
+        
+        <div class="pdetails">
+            <div class="jobopp" >Eligibility to work</div> 
+            <br/> 
+            <table width="100%">
+               <tr>
+                   <td>Which countries/regions are you currently eligible to live and work in?</td>
+                   <td><apex:inputfield value="{!jobApplication.Countries_Regions_Eligible_to_Work__c}" style="width:360px"/></td>
+               </tr>
+                <tr>
+                         <td width="360px" >Are you currently legally entitled to live and work in the location in which the job is based?zzzzz {!selectedJob.RecordType.DeveloperName == 'Approved_Volunteer_Job'}</td>
+                         <td width="360px"><apex:inputfield value="{!jobApplication.Eligibility_To_Work__c}" style="width:100%;" taborderhint="20" required="{!selectedJob.RecordType.DeveloperName == 'Approved_Volunteer_Job'}"/></td>                      
+               </tr>
+            </table>
+            <br/>
+        </div>
+        <br/>       
+        
+        
+        
+        <div class="pdetails">
+            
+            <div class="jobopp" >Equal opportunities and diversity</div> 
+            <br/> 
+            <div>
+                <table>
+                        <tr>
+                            <td colspan="4">
+                            At VSO we are committed to encouraging diversity in the recruitment, retention and development of our people. 
+                            By providing the data below you will help us track how successful we are in attracting and recruiting diverse 
+                            talent.<br/> 
+                            Please note the data you provide
+                            <ul>
+                            <li>Will not influence your application to VSO </li>
+                            <li>Will be held in strict confidence</li> 
+                            <li>Will be used to produce anonymous statistics for reporting purposes only.</li>
+                            </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td width="180px" >Gender<font color="Red">*</font>  </td>
+                            <td width="180px">
+                                <apex:inputfield value="{!Applicant.Gender__c}" required="true" style="width:100%;" taborderhint="51"/>
+                            </td>
+                            <td width="180px" style="padding-left:50px;">Ethnicity<font color="Red">*</font> </td>
+                            <td width="180px">
+                                <apex:inputfield value="{!Applicant.Ethnicity__c}" required="true" style="width:100%;" taborderhint="54"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >Nationality<font color="Red">*</font> </td>
+                            <td >
+                                <apex:inputfield value="{!Applicant.Nationality_1__c}" required="true" style="width:100%;" taborderhint="52"/>
+                            </td>
+                            <td style="padding-left:50px;">Ethnicity other </td>
+                            <td><apex:inputfield value="{!Applicant.Ethnicity_Other__c }" style="width:100%;" taborderhint="55"/></td>
+                            
+                            
+                        </tr>
+                        <tr>
+                            <td>Age range<font color="Red">*</font> </td>
+                            <td>
+                                <apex:inputfield value="{!Applicant.Age_Range__c}" required="true" style="width:100%;" taborderhint="53"/>
+                            </td>
+                            <td style="padding-left:50px;"> </td>
+                            <td></td>
+                        </tr>
+                          
+                </table>
+                <br/>
+                <table>
+                    <tr>
+                        <td width="60px"><apex:image value="{!$Resource.PositiveAboutDisabledPeople_Logo}" height="40px" width="50px" /></td>
+                        <td>We are positive about disabled people. If there is any information you feel is appropriate for us to consider under our commitment to opportunities for disabled people, please give details below</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><apex:inputfield value="{!jobApplication.Applicant_Disability_Considerations__c }" style="width:100%;" taborderhint="56"/></td>
+                    </tr>
+                </table>
+                <br/>
+                <table>
+                
+                
+                </table>
+                
+            </div>
+            <br/>
+        </div>
+        <br/>       
+        
+        <div class="pdetails">
+            <div class="jobopp">Declaration</div>
+            <br/>
+            
+            <div>
+                <table>
+                 <tr>
+                    <td colspan="4">I declare that all the information I have provided on this form is true and correct.&nbsp;&nbsp;<apex:inputfield value="{!jobApplication.Declaration__c}" taborderhint="57"/><font color="Red">*</font></td>
+                </tr>
+                </table>
+            </div>
+            <br/>
+        </div>  
+        
+<div class="pdetails">
+            <div class="jobopp">Data Protection and data privacy policy</div>
+            <br/>
+            
+            <div>
+                <table>
+                 <tr>
+                    <td colspan="2">
+                        If you complete and submit this form, VSO will store and process your data in accordance with the requirements of its
+                         Data Protection Policy, its Privacy Policy and in keeping with the UK Data Protection Act 1998 (“the Act”). 
+                         By ticking the box below and submitting this form you agree to the processing of your data by VSO in accordance 
+                         with the Act, its Data Protection Policy and the Privacy Policy, both available on its website 
+                         at <apex:outputlink value="www.vsointernational.org"> www.vsointernational.org </apex:outputlink>.<br/>
+                         <br/>
+                         You agree that VSO may transfer such data as is necessary to any country where you may be placed, including 
+                         countries where data protection laws may not apply or may be less stringent than in the European Union. 
+                         For volunteer applications we will need to pass your information to your host organisation, but will ensure 
+                         that VSO entities continue to handle your personal information in accordance with our group wide policy on 
+                         the protection and security of your data. Details of these transfers can be provided at your request.
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    
+                </tr>
+                <tr>
+                    <td width="30px">Agree </td>
+                    <td><apex:inputfield value="{!jobApplication.Consent_To_Information_Being_Stored__c}" taborderhint="58"/><font color="Red">*</font></td> 
+                </tr>
+                </table>
+            </div>
+            <br/>
+        </div>
+            
+        <br/>        
+        
+        
+        
+             
+ -->

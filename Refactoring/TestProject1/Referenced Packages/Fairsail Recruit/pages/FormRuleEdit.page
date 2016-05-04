@@ -1,0 +1,36 @@
+<apex:page standardController="fRecruit__Form_Rule__c" extensions="fRecruit.FormRuleControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Form_Rule__c.label}" subtitle="{!fRecruit__Form_Rule__c.Name}" help="http://recruit.help.fairsail.com/topics/Candidate.html" />
+	<apex:form >
+		<apex:actionFunction action="{!toggleAdvanced}" name="toggleAdvanced" immediate="true">
+		</apex:actionFunction>
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Form_Rule__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!save}" value="Save" />
+				<apex:commandButton action="{!xDelete}" value="Delete" rendered="{!fRecruit__Form_Rule__c.Id!=null}" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Form Rule Details" columns="1">
+				<apex:inputHidden value="{!fRecruit__Form_Rule__c.fRecruit__Form_Definition__c}" />
+				<apex:inputField value="{!fRecruit__Form_Rule__c.Name}" Id="fieldName" required="true" style="width:400px;" rendered="{!advanced}"/>
+				<apex:pageBlockSectionItem rendered="{!!advanced}">
+					<apex:outputLabel value="Form Field" />
+					<apex:selectList value="{!fRecruit__Form_Rule__c.Name}" Id="fieldName" size="1" required="true">
+						<apex:selectOptions value="{!formFields}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Form_Rule__c.fRecruit__Direction__c}" Id="direction" required="true" />
+				<apex:inputField value="{!fRecruit__Form_Rule__c.fRecruit__Field_Name__c}" Id="fieldMap" style="width:400px;"  required="true" rendered="{!advanced}"/>
+				<apex:pageBlockSectionItem rendered="{!!advanced}">
+					<apex:outputLabel value="Data Field" />
+					<apex:selectList value="{!fRecruit__Form_Rule__c.fRecruit__Field_Name__c}" Id="fieldMap" size="1" required="true">
+						<apex:selectOptions value="{!currentFields}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Form_Rule__c.fRecruit__Condition__c}" style="width:400px;"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Advanced rule" />
+					<apex:inputCheckbox value="{!advanced}" immediate="true" onclick="toggleAdvanced();"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

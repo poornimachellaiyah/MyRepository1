@@ -1,0 +1,271 @@
+<apex:page controller="fHCM2.OrgChartController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <style>
+                .orgChartUser{
+                    text-align: left;
+                    background-color: #ccc;
+                    -moz-border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                    border: 1px solid #000;
+                    padding: 10px;
+                    margin: 10px 0 10px 0px;
+                    width: 168px;
+                    display: inline-block;
+                }
+                .orgChartSection{
+                    text-align: left;
+                    background-color: #eee;
+                    -moz-border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                    border: 1px solid #000;
+                    padding: 5px;
+                    margin: 10px 0 10px 0;
+                }
+                
+                .orgChartSection .orgChartUser{
+                    margin: 5px;
+                    max-width: 160px;
+                }
+                
+                .selectedChartUser{
+                    background-color: #aaa;
+                }
+                .orgChartSection.down{
+                    background-color: #aaa;
+                }
+                
+                .subTeam, .subTeam li{
+                    padding: 0;
+                    margin: 0;
+                    list-style:none;
+                }
+                .subTeam{
+                    background-color: #eee;
+                    width: 178px;
+                    position: relative;
+                    top: -15px;
+                    border: 1px solid black;
+                    -moz-border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                }
+                .subTeam li{
+                    padding-left: 5px;
+                    line-height: 18px;
+                }
+                .subTeamlabel{
+                    display: block;
+                    margin: 2px; 
+                }
+                
+                .subTeam, .orgChartUser{
+                    font-size: 11px !important;
+                }
+                .subTeam a, .orgChartUser a{
+                    color: #0E52A1;
+                    font-weight: bold;
+                    text-decoration: none;
+                }
+                .chartUserText{
+                    float: right;
+                    text-align: right;
+                    width: 110px;
+                }
+                .managementTeam{
+                    background-color: #aaa;
+                }
+                
+                
+                .subteamJobTitle{
+                    font-size: 10px;
+                    line-height: 10px;
+                    position: relative;
+                    top: -3px;
+                }
+            </style>
+            
+        
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <!--<c:ManagementChainUp viewer="{!viewer}" links="{!links}" page="{!links.FairsailProfile}" title="{!$Label.Global_Management}" />-->
+            
+            
+        <apex:pageBlock title="Management" mode="view">
+        <c:Notice viewer="{!viewer}" page="OrgChart" location="Subheader"/>
+        <apex:repeat value="{!managerChain}" var="manager">
+            <apex:outputPanel layout="block" styleClass="orgChartUser">
+            	<c:TeamMemberPopup links="{!links}" person="{!manager.person.person}">
+                <apex:outputLink value="/apex/{!links.OrgChart}?id={!manager.person.Id}" target="_top">
+                    <apex:image value="{!manager.person.PictureURL}" width="44" height="55" rendered="{!manager.person.PictureURL !=null}" />
+                </apex:outputLink>
+                </c:TeamMemberPopup>
+                    <span class="chartUserText">
+                        <c:TeamMemberPopup links="{!links}" person="{!manager.person.person}">
+                        <apex:outputLink value="/apex/{!links.OrgChart}?id={!manager.person.Id}" target="_top">
+                            <div style="width: 110px;">{!manager.person.name}</div>
+                        </apex:outputLink>
+                        </c:TeamMemberPopup>
+                        {!manager.person.Team}<br/>
+                        {!manager.person.JobTitle}
+                    </span>
+            </apex:outputPanel>
+            
+            <apex:image rendered="{!manager.person.Id != viewer.teamMember.Id}" value="{!$Resource.fHCM2__FairsailIcon}/16x16/down.png" style="margin-left: 86px;"/>
+        </apex:repeat>
+    </apex:pageBlock>
+        
+            <c:TeamMemberFind />
+             <c:Notice viewer="{!viewer}" page="OrgChart" location="Subfooter"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!viewer.teammember.name}">
+                    <apex:pageBlockButtons location="top">
+                        <apex:outputPanel >
+                            <apex:form >
+                            <apex:actionFunction name="setLevels" action="{!setLevels}"/>
+                            <apex:selectList value="{!levels}" onchange="setLevels();" size="1">
+                                <apex:selectOptions value="{!availableLevels}" />
+                            </apex:selectList>
+                            <apex:selectList value="{!orderBy}" onchange="setLevels();" size="1">
+								<apex:selectOption itemValue="" itemLabel="{!$ObjectType.fHCM2__Team_Member__c.Fields.Name.label}"/>
+								<apex:selectOption itemValue="fHCM2__Job_Title__c" itemLabel="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Job_Title__c.label}"/>
+								<apex:selectOption itemValue="fHCM2__Team__c" itemLabel="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Team__c.label}"/>
+                            </apex:selectList>
+                        <a href="/apex/{!links.OrgChartPDF}?id={!viewer.teamMember.Id}&levels={!levels}&orderBy={!orderBy}" target="_blank"><image border="0" src="{!$Resource.fHCM2__FairsailIcon}/16x16/pdf.png" title="{!$Label.fhcm2__Global_Create_PDF}"/></a>
+                        </apex:form>
+                        </apex:outputPanel>
+                    </apex:pageBlockButtons>
+                     <c:Notice viewer="{!viewer}" page="OrgChart" location="Header"/>
+                <apex:repeat value="{!chartPages}" var="page">
+                <div style="text-align: center; margin-bottom: 80px;">
+                
+                
+                
+                                    <apex:outputPanel layout="block" styleClass="orgChartUser  selectedChartUser">
+                                    	<c:TeamMemberPopup links="{!links}" person="{!page.top.person.person}">
+                                        <apex:outputLink value="/apex/{!links.OrgChart}?id={!page.top.person.Id}" target="_top">
+                                            <apex:image value="{!page.top.person.PictureURL}" width="44" height="55" rendered="{!page.top.person.PictureURL != null}"/>
+                                        </apex:outputLink>
+                                        </c:TeamMemberPopup>
+                                                    <span class="chartUserText">
+                                                        
+                                                        <c:TeamMemberPopup links="{!links}" person="{!page.top.person.person}">
+                                                        <apex:outputLink value="/apex/{!links.OrgChart}?id={!page.top.person.Id}" target="_top">
+                                                            <div style="width: 110px;">{!page.top.person.name}</div>
+                                                        </apex:outputLink>
+                                                        </c:TeamMemberPopup>
+                                                        {!page.top.person.Team}<br/>
+                                                        {!page.top.person.JobTitle}
+                                                    	</span>
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel layout="block" rendered="{!page.top.up.size > 0}" styleClass="display:inline-block; width: 1px;}">
+                                        <ul class="subTeam managementTeam" style="display: inline-block; position: relative; left: 10px;">
+                                        <span class="subTeamlabel">{!$Label.fhcm2__Process_Org_Chart_Cross_Reports}:</span>
+                                        <apex:repeat value="{!page.top.up}" var="subTeam">
+                                            <li>
+                                                <c:TeamMemberPopup links="{!links}" person="{!subTeam.person.person}">
+                                                <apex:outputLink value="/apex/{!links.OrgChart}?id={!subTeam.person.Id}" target="_top">
+                                                    {!subTeam.person.name}
+                                                </apex:outputLink>
+                                                </c:TeamMemberPopup>
+                                                    <apex:outputPanel rendered="{!LEN(subTeam.person.JobTitle) > 0}">
+                                                        <div class="subteamJobTitle">{!subTeam.person.JobTitle}</div>
+                                                    </apex:outputPanel>
+                                            </li>
+                                        </apex:repeat>
+                                        </ul>
+                                    </apex:outputPanel>
+                
+                    
+                <br/>
+                <apex:image value="{!$Resource.fHCM2__FairsailIcon}/16x16/down.png" style="margin: auto"  rendered="{!page.pageUsers.size > 0}"/>
+        
+            
+            <apex:variable var="count" value="{!1}"/>
+            
+            <apex:outputPanel layout="block" styleClass="orgChartSection" rendered="{!page.pageUsers.size > 0}">
+                <div>
+                <apex:repeat value="{!page.pageUsers}" var="userData">
+                    <div style="display: table-cell;">
+                    
+                    
+                    
+                    
+                                        <apex:outputPanel layout="block" styleClass="orgChartUser">
+                                        	<c:TeamMemberPopup links="{!links}" person="{!userData.person.person}">
+                                            <apex:outputLink value="/apex/{!links.OrgChart}?id={!userData.person.Id}" target="_top">
+                                                <apex:image value="{!userData.person.PictureURL}" width="44" height="55" rendered="{!userData.person.PictureURL != null}"/>
+                                            </apex:outputLink>
+                                            </c:TeamMemberPopup>
+                                                        <span class="chartUserText">
+                                                            
+                                                            <c:TeamMemberPopup links="{!links}" person="{!userData.person.person}">
+                                                            <apex:outputLink value="/apex/{!links.OrgChart}?id={!userData.person.Id}" target="_top">
+                                                                <div style="width: 110px;">{!userData.person.name}</div>
+                                                            </apex:outputLink>
+                                                            </c:TeamMemberPopup>
+                                                            {!userData.person.Team}<br/>
+                                                            {!userData.person.JobTitle}
+                                                        </span>
+                                        </apex:outputPanel>
+                                        
+                                        <apex:outputPanel layout="block" rendered="{!userData.up.size > 0}" >
+                                            <ul class="subTeam managementTeam">
+                                            <span class="subTeamlabel">{!$Label.fhcm2__Process_Org_Chart_Cross_Reports}:</span>
+                                            <apex:repeat value="{!userData.up}" var="subTeam">
+                                                <li>
+                                                    <c:TeamMemberPopup links="{!links}" person="{!subTeam.person.person}">
+                                                    <apex:outputLink value="/apex/{!links.OrgChart}?id={!subTeam.person.Id}" target="_top">
+                                                        {!subTeam.person.name}
+                                                    </apex:outputLink>
+                                                    </c:TeamMemberPopup>
+                                                        <apex:outputPanel rendered="{!LEN(subTeam.person.JobTitle) > 0}">
+                                                            <div class="subteamJobTitle">{!subTeam.person.JobTitle}</div>
+                                                        </apex:outputPanel>
+                                                </li>
+                                            </apex:repeat>
+                                            </ul>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" rendered="{!userData.down.size > 0}">
+                                            <ul class="subTeam">
+                                            <span class="subTeamlabel">{!$Label.fhcm2__Process_Org_Chart_Team}:</span>
+                                            <apex:repeat value="{!userData.down}" var="subTeam">
+                                                <li>
+                                                    <c:TeamMemberPopup links="{!links}" person="{!subTeam.person.person}">
+                                                    <apex:outputLink value="/apex/{!links.OrgChart}?id={!subTeam.person.Id}" target="_top">
+                                                        {!subTeam.person.name}
+                                                    </apex:outputLink>
+                                                    </c:TeamMemberPopup>
+                                                        <apex:outputPanel rendered="{!LEN(subTeam.person.JobTitle) > 0}">
+                                                            <div class="subteamJobTitle">{!subTeam.person.JobTitle}</div>
+                                                        </apex:outputPanel>
+                                                </li>
+                                            </apex:repeat>
+                                            </ul>
+                                        </apex:outputPanel>
+                    
+                    </div>
+                    <apex:outputText escape="false" rendered="{!MOD(count, 3)== 0}" value="{!'</div><div>'}"></apex:outputText>
+                    <apex:variable var="count" value="{!count + 1}"/>
+                </apex:repeat>
+                </div>
+            </apex:outputPanel>
+                </div>
+                
+                </apex:repeat>
+                 <c:Notice viewer="{!viewer}" page="OrgChart" location="Footer"/>
+            </apex:pageBlock>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

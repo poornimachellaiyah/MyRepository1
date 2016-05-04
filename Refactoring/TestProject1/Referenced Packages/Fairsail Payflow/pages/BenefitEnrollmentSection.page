@@ -1,0 +1,59 @@
+<apex:page controller="fpay.BenefitEnrollmentSectionController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+		<div class="pbBody">
+                <apex:pageBlockSection columns="1" title="{!$Label.fHCM2__Process_Benefits}" rendered="{!and(or(viewer.isTeamMember,viewer.isHR), subject.benefits.isUsing)}">
+                    <apex:facet name="header">
+                        <h3 class="process-benefits">{!$Label.fHCM2__Process_Benefits}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!!(subject.Benefits.hasPending || subject.Benefits.isEnrollmentOpen)}">
+                        <apex:outputLink value="/apex/fPay__BenefitEnrollment?teamMemberId={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top">{!$Label.fHCM2__Button_View}</apex:outputLink>
+                        <apex:outputLink value="/apex/fPay__BenefitEnrollmentRequest?teamMemberId={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top">Request Enrollment</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.Benefits.current}" var="benefit">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Provider__c.label}">
+                                {!benefit.Provider}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Plan__c.label}">
+                            {!benefit.Plan}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Policy_Coverage__c.label}">
+                            {!benefit.Coverage}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Employee__c.label}" style="text-align:right;">
+                            <fHCM2:outputNumber value="{!benefit.employeeDeduction}" decimalPlaces="2"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+       				<apex:outputField value="{!subject.employment.fHCM2__Benefit_Enrollment_Reason__c}" rendered="{!subject.benefits.hasEnrollmentRequest}"/>
+       				<apex:outputField value="{!subject.employment.fHCM2__Benefit_Enrollment_Effective_Date__c}" rendered="{!subject.benefits.hasEnrollmentRequest}"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" title="{!$Label.fHCM2__Process_Benefits} - {!$Label.fHCM2__Global_Pending}" rendered="{!and(or(viewer.isTeamMember,viewer.isHR), subject.Benefits.isUsing, (subject.Benefits.hasPending || subject.benefits.isEnrollmentOpen))}">
+                    <apex:facet name="header">
+                        <h3 class="process-benefits">{!$Label.fHCM2__Process_Benefits} - {!$Label.fHCM2__Global_Pending}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!subject.benefits.hasEnrollment}">
+                        <apex:outputLink value="/apex/fPay__BenefitEnrollment?teamMemberId={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top" rendered="{!!subject.Benefits.isEnrollmentOpen}">{!$Label.fHCM2__Button_View}</apex:outputLink>
+                        <apex:outputLink value="/apex/fPay__BenefitEnrollment?teamMemberId={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top" rendered="{!subject.Benefits.isEnrollmentOpen}">{!$Label.Button_Enroll}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.Benefits.pending}" var="benefit">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Provider__c.label}">
+                                {!benefit.Provider}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Plan__c.label}">
+                            {!benefit.Plan}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Policy_Coverage__c.label}">
+                            {!benefit.Coverage}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Benefit__c.Fields.fHCM2__Employee__c.label}" style="text-align:right;">
+                            <fHCM2:outputNumber value="{!benefit.employeeDeduction}" decimalPlaces="2"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </div>    
+	</apex:pageBlock>
+</apex:page>

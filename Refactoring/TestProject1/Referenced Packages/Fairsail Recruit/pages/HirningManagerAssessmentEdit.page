@@ -1,0 +1,258 @@
+<apex:page controller="fRecruit.EditAssessmentController" showHeader="false" standardStylesheets="true" tabStyle="fRecruit__Application__c">
+	<apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'jquery.js')}"/>
+
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Assessment__c.label}" subTitle="{!stageName}" help="http://recruit.help.fairsail.com/topics/EnterAssessment.html" />
+	<apex:form onSubmit="return WarnOfReject();">
+
+
+	<apex:pageBlock title="Sub-stages for {!stageName}" mode="detail" rendered="{!hasSubStages}">
+			<apex:pageBlockButtons location="top">
+				<apex:selectList size="1" id="assessment">
+					<apex:selectOptions value="{!notDoneSubStages}"/>
+				</apex:selectList>
+				<input type="button" value="New Assessment" class="btn" onClick="doAssessment(this);return false;"/>
+			</apex:pageBlockButtons>
+		<table width="100%" class="list">
+			<tbody>
+				<tr class="headerRow">
+					<th scope="col" rowspan="2">Type</th>
+					<th scope="col" rowspan="2">Name</th>
+					<th scope="col" rowspan="2">Required</th>
+					<th scope="col" colspan="{!noSubStages}" style="text-align: center; border-bottom:0px; padding: 0px 0px 0px 0px;">Completed Selection Stages</th>
+					<th scope="col" rowspan="2">Min</th>
+					<th scope="col" rowspan="2">Max</th>
+					<th scope="col" rowspan="2">Mean</th>
+				</tr>
+				<tr class="headerRow">
+					<apex:repeat value="{!subStages}" var="stage">
+						<th scope="col" style="text-align: center;"><apex:outputLink value="/{!stage.Id}">{!stage.Name}</apex:outputLink></th>
+					</apex:repeat>
+				</tr>
+				<apex:repeat value="{!subStageRows}" var="row">
+					<tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+						<td>{!row.type}</td>
+						<td><apex:outputLink value="/{!row.id}">{!row.name}</apex:outputLink></td>
+						<td><c:fRecruitOutputCheckbox value="{!row.required}"/></td>
+						<apex:repeat value="{!row.Items}" var="item">
+							<td align="center">
+								<apex:outputPanel style="color:#a0a0a0;" rendered="{!item.hasRating}"><apex:image value="{!item.ratingIndicator}" alt="{!item.rating}"/> {!item.weightedScore}</apex:outputPanel>
+								<apex:outputPanel rendered="{!!item.hasRating}">&nbsp;</apex:outputPanel>
+							</td>
+						</apex:repeat>
+						<td align="center">
+							{!row.MinimumScore}
+						</td>
+						<td align="center">
+							{!row.MaximumScore}
+						</td>
+						<td align="center">
+							{!row.AverageScore}
+						</td>
+					</tr>
+				</apex:repeat>
+				<tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+					<td style="font-weight:bold;" colspan="3">Score</td>
+					<apex:repeat value="{!subStages}" var="stage">
+						<td style="text-align: center;"><c:outputNumber decimalPlaces="1" value="{!stage.fRecruit__Weighted_Score__c}"/></td>
+					</apex:repeat>
+				</tr> 
+				<tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+					<td style="font-weight:bold;" colspan="3">Weighted Average</td>
+					<apex:repeat value="{!subStages}" var="stage">
+						<td style="text-align: center;">{!stage.fRecruit__Weighted_Average_Score__c}</td>
+					</apex:repeat>
+				</tr>
+			</tbody>
+		</table>
+		<p style="text-align: center">Key:-&nbsp;&nbsp;&nbsp;&nbsp; Exceeds <apex:image value="/img/samples/rating5.gif" />&nbsp;&nbsp; Fully Meets <apex:image value="/img/samples/rating4.gif" />&nbsp;&nbsp; Just Meets <apex:image value="/img/samples/rating3.gif" />&nbsp;&nbsp; Partly Meets <apex:image value="/img/samples/rating2.gif" />&nbsp;&nbsp; Not Met <apex:image value="/img/samples/rating1.gif" /></p>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Interviewers for {!stageName}" mode="detail" rendered="{!hasInterviewers}">
+		<table width="100%" class="list">
+			<tbody>
+				<tr class="headerRow">
+					<th scope="col" rowspan="2">Type</th>
+					<th scope="col" rowspan="2">Name</th>
+					<th scope="col" rowspan="2">Required</th>
+					<th scope="col" colspan="{!interviewers.size}" style="text-align: center; border-bottom:0px; padding: 0px 0px 0px 0px;">Completed Selection Stages</th>
+					<th scope="col" rowspan="2">Min</th>
+					<th scope="col" rowspan="2">Max</th>
+					<th scope="col" rowspan="2">Mean</th>
+				</tr>
+				<tr class="headerRow">
+					<apex:repeat value="{!interviewers}" var="stage">
+						<th scope="col" style="text-align: center;"><apex:outputLink value="/{!stage.Id}">{!stage.Name}</apex:outputLink></th>
+					</apex:repeat>
+				</tr>
+				<apex:repeat value="{!subStageRows}" var="row">
+					<tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+						<td>{!row.type}</td>
+						<td><apex:outputLink value="/{!row.id}">{!row.name}</apex:outputLink></td>
+						<td><c:fRecruitOutputCheckbox value="{!row.required}"/></td>
+						<apex:repeat value="{!row.Items}" var="item">
+							<td align="center">
+								<apex:outputPanel style="color:#a0a0a0;" rendered="{!item.hasRating}"><apex:image value="{!item.ratingIndicator}" alt="{!item.rating}"/> {!item.weightedScore}</apex:outputPanel>
+								<apex:outputPanel rendered="{!!item.hasRating}">&nbsp;</apex:outputPanel>
+							</td>
+						</apex:repeat>
+						<td align="center">
+							{!row.MinimumScore}
+						</td>
+						<td align="center">
+							{!row.MaximumScore}
+						</td>
+						<td align="center">
+							{!row.AverageScore}
+						</td>
+					</tr>
+				</apex:repeat>
+			</tbody>
+		</table>
+		<p style="text-align: center">Key:-&nbsp;&nbsp;&nbsp;&nbsp; Exceeds <apex:image value="/img/samples/rating5.gif" />&nbsp;&nbsp; Fully Meets <apex:image value="/img/samples/rating4.gif" />&nbsp;&nbsp; Just Meets <apex:image value="/img/samples/rating3.gif" />&nbsp;&nbsp; Partly Meets <apex:image value="/img/samples/rating2.gif" />&nbsp;&nbsp; Not Met <apex:image value="/img/samples/rating1.gif" /></p>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Comments made with sub-stages" mode="detail" rendered="{!hasSubStages}">
+		<apex:pageBlockSection title="Criteria Comments" collapsible="true" columns="1" rendered="{!hasCriteriaComments}">
+			<apex:pageBlockTable title="Criteria Comments" value="{!criteriaComments}" var="row">
+				<apex:column headerValue="Criteria Type">{!row.type}</apex:column>
+				<apex:column headerValue="Ctiteria Name">{!row.name}</apex:column>
+				<apex:column headerValue="Assessment">{!row.assessment}</apex:column>
+				<apex:column headerValue="Comment">{!row.comment}</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlockSection>
+		<apex:pageBlockSection title="Assessment Overall Comments" collapsible="true" columns="1" rendered="{!hasAssessmentComments}">
+			<apex:pageBlockTable title="Assessment Overall Comments" value="{!assessmentComments}" var="row">
+				<apex:column headerValue="Assessment">{!row.assessment}</apex:column>
+				<apex:column headerValue="Comment Type">{!row.name}</apex:column>
+				<apex:column headerValue="Comment">{!row.comment}</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Comments made with interviews" mode="detail" rendered="{!hasInterviewers}">
+		<apex:pageBlockSection title="Criteria Comments" collapsible="true" columns="1" rendered="{!hasCriteriaComments}">
+			<apex:pageBlockTable title="Criteria Comments" value="{!criteriaComments}" var="row">
+				<apex:column headerValue="Criteria Type">{!row.type}</apex:column>
+				<apex:column headerValue="Ctiteria Name">{!row.name}</apex:column>
+				<apex:column headerValue="Assessment">{!row.assessment}</apex:column>
+				<apex:column headerValue="Comment">{!row.comment}</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlockSection>
+		<apex:pageBlockSection title="Assessment Overall Comments" collapsible="true" columns="1" rendered="{!hasAssessmentComments}">
+			<apex:pageBlockTable title="Assessment Overall Comments" value="{!assessmentComments}" var="row">
+				<apex:column headerValue="Assessment">{!row.assessment}</apex:column>
+				<apex:column headerValue="Comment Type">{!row.name}</apex:column>
+				<apex:column headerValue="Comment">{!row.comment}</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+
+
+		<apex:pageBlock title="{!stageName}: {!candidateName}" mode="edit" id="theBlock">
+		
+		 <script language="JavaScript">
+					jQuery.noConflict();
+			    	function WarnOfReject() {
+			    		var isRejecting = false;
+						var allPageTags=document.getElementsByTagName("select");
+						for (i=0; i<allPageTags.length; i++) {
+							if (allPageTags[i].id.indexOf("Outcome")>=0) {
+								var decision = allPageTags[i].options[allPageTags[i].selectedIndex].value;
+								if (decision!="")
+									return confirm("You selected '"+decision+"'.  Are you sure?\n\nThis will change the status of this application and may trigger emails.");
+							}
+						}
+						return true;
+			    	}
+			    	function ShowOutcomeFields() {
+			    		var outcome = jQuery('.outcomeField').val();
+			    		var outReason = document.getElementById("{!$Component.theBlock.theBlockSection.OutcomeReason}");
+			    		if (outcome=='Reject' || outcome=='Withdrew' || outcome.indexOf('Not This')==0) {
+			    			outReason.disabled = false;    			
+			    			jQuery('.outcomeNextStage').parent().parent().hide();
+			    		} else if (outcome=='Proceed to Next Stage') {
+			    			jQuery('.outcomeNextStage').parent().parent().show();
+			    			outReason.value = '';
+			    			outReason.disabled = true;
+			    		} else {
+			    			jQuery('.outcomeNextStage').parent().parent().hide();
+			    			outReason.value = '';
+			    			outReason.disabled = true;
+			    		}
+			    	}
+			
+			    	jQuery(document).ready(function() {
+						ShowOutcomeFields();
+					});
+			    	function doAssessment(button) {
+						for (var element=button.previousSibling; element!=null; element=element.previousSibling) {
+							if (String(element.id) != "undefined" && element.id.indexOf("assessment")>=0) {
+								var id = element.options[element.selectedIndex].value;
+								if (id!='')
+									navigateToUrl('/apex/fRecruitassessmentEdit?applicationId={!assessment.Application__c}&selectionStageId='+id);
+							}
+						}
+			    	}
+   		</script>
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!saveAndMove}" value="Save"/>
+				<c:fRecruitPopupButton label="Interview Worksheet" url="/apex/fRecruitinterviewSheet?id={!assessment.fRecruit__Selection_Stage__c}"/>
+				<c:fRecruitPopupButton rendered="false" label="Resume" url="{!resumeUrl}"/>
+				<c:fRecruitPopupButton rendered="{!assessment.fRecruit__Form__c!=null && !assessment.fRecruit__Awaiting_Form__c}" label="Form" url="/apex/fRecruitAssessmentFormView?id={!assessment.fRecruit__Form__c}"/>
+				<apex:outputLink value="{!resumeUrl}" rendered="{!resumeUrl!=null}" target="_blank">Resume</apex:outputLink>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Assessment of selection criteria" columns="1" rendered="{!hasRows}">
+			<apex:pageBlockTable value="{!rows}" var="row">
+				<apex:column headerValue="Type">
+					<apex:outputLabel value="{!row.criteriaType}"/>
+				</apex:column>
+				<apex:column headerValue="Criteria">
+					<apex:outputLabel value="{!row.criteriaName}"/>
+				</apex:column>
+				<apex:column headerValue="Required">
+					<apex:image value="/img/checkbox_checked.gif" rendered="{!row.required}"/>
+					<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!row.required}"/>
+				</apex:column>
+				<apex:column headerValue="Interview Questions" rendered="false">
+					<apex:outputLabel value="{!row.interviewQuestions}"/>
+				</apex:column>
+				<apex:column headerValue="Measure" rendered="{!row.measure!=null}">
+					<apex:outputLabel value="{!row.measure}"/>
+				</apex:column>
+				<apex:column headerValue="Rating">
+					<apex:inputField value="{!row.criteriaAssessment.fRecruit__Rating__c}" required="{!requireEntry}"/>
+				</apex:column>
+				<apex:column headerValue="Comments">
+					<apex:inputField value="{!row.criteriaAssessment.fRecruit__Comments__c}" style="width:400px;"/>
+				</apex:column>
+			</apex:pageBlockTable>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Start Details" columns="1" rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Start_Details.size>0 && EnterStartDetails}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Hiring_Manager_Start_Details}" var="f">
+                   	<apex:inputField value="{!application[f]}" required="{!f.required}" style="{!if(f.type=='textarea','width:400px;','')}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            
+            <apex:inputField value="{!application.fRecruit__Status__c}" style="display:none"/>
+            
+			<apex:pageBlockSection title="Hiring Manager assessment of this stage" columns="1" id="theBlockSection">
+				<apex:repeat value="{!$ObjectType.fRecruit__Assessment__c.FieldSets.fRecruit__Hiring_Manager_Assessment_Edit}" var="f">
+                   	<apex:inputField value="{!assessment[f]}" required="{!f.required}" style="{!if(f.type=='textarea','width:400px;','')}"/>
+                </apex:repeat>
+                
+				<apex:inputField styleClass="outcomeField" id="Outcome" value="{!assessment.fRecruit__Outcome__c}" rendered="{!hasOutcome && hiringManagerHasOutcome}" onChange="ShowOutcomeFields();"/>
+				<apex:inputField id="OutcomeReason" value="{!application.fRecruit__Rejection_Reason__c}" rendered="{!hasOutcome && hiringManagerHasOutcome}"/>
+				<apex:pageBlockSectionItem rendered="{!hasNextStages && hiringManagerHasOutcome}">
+					<apex:outputLabel value="Next stage" for="nextStage"/>
+					<apex:selectList styleClass="outcomeNextStage" value="{!nextStage}" id="nextStage" size="1">
+						<apex:selectOptions value="{!nextStages}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

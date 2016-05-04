@@ -1,0 +1,28 @@
+<apex:page controller="fDL.PicklistExporterController">
+	<apex:sectionHeader title="Picklist Exporter" />
+
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock >
+			Select an object from the drop-down box to show the list of picklist fields. Then select the picklist field you would like to see options for. You can select more than one by control+clicking.
+			<table cellpadding="6" align="center">
+				<tr>
+					<td align="right"><apex:outputLabel value="Object Type" /> <apex:selectList size="1" value="{!objectType}">
+						<apex:actionSupport event="onchange" rerender="fields" />
+						<apex:selectOptions value="{!objectTypeOptions}" />
+					</apex:selectList> <br />
+					<br />
+					Picklist fields<br />
+					<apex:selectList id="fields" size="10" value="{!pickListFields}"
+						multiselect="true" style="width:100%">
+						<apex:actionSupport event="onchange" action="{!updateOutput}"
+							rerender="output" />
+						<apex:selectOptions value="{!pickListFieldOptions}" />
+					</apex:selectList></td>
+					<td>Picklist Options<br /><apex:inputTextArea id="output" value="{!output}"
+						rows="25" cols="50" /></td>
+				</tr>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

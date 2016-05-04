@@ -1,0 +1,24 @@
+<apex:page standardController="fRecruit__Candidate__c" recordSetVar="apps" extensions="fRecruit.NewApplicationsExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Candidate__c.label}" subtitle="New Applications" help="http://recruit.help.fairsail.com/topics/Candidate.html" />
+	<apex:form >
+		<apex:pageBlock title="New Applications" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Number of Candidates Applying"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="Vacancy" />
+					<apex:selectList value="{!vacancyId}" size="1" required="true">
+						<apex:selectOptions value="{!currentVacancies}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

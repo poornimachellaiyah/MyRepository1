@@ -1,0 +1,16 @@
+{!Reference__c.Name}
+
+{!Reference__c.Candidate__c} has applied for a position with our company and has asked us to approach you for a personal character reference. The information requested below will help us to evaluate the applicant. We will hold your comments in strict confidence. Thank you for your cooperation.
+
+Please indicate where known to you:
+
+Your experience of the candadate as regards: ability, conduct, attitude, efficiency, and reliability.
+
+{!Reference__c.Special_Query__c}
+
+Many thanks for your assistance.
+
+Sincerely,
+{!User.FullName}
+{!Organization.Name}
+{!User.Email}

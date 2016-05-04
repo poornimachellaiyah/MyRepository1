@@ -1,0 +1,139 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="fHCM2__Viewport" title="Viewport" />
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!viewer.teamMember.name}" mode="view">
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Team Member" />
+                        <apex:outputText value="{!viewer.teamMember.name}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Email" />
+                        <apex:outputText value="{!viewer.teamMember.email}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Name or Self" />
+                        <apex:outputText value="{!viewer.teamMember.nameOrSelf}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Id" />
+                        <apex:outputText value="{!viewer.teamMember.id}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="User Id" />
+                        <apex:outputText value="{!viewer.teamMember.userId}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isViewer" />
+                        <apex:outputText value="{!viewer.teamMember.isViewer}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isTeamMember" />
+                        <apex:outputText value="{!viewer.isTeamMember}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isManager" />
+                        <apex:outputText value="{!viewer.isManager}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isTeamMemberOrManager" />
+                        <apex:outputText value="{!viewer.isTeamMemberOrManager}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isPrimaryManager" />
+                        <apex:outputText value="{!viewer.isPrimaryManager}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isHigherManager" />
+                        <apex:outputText value="{!viewer.isHigherManager}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isCrossReportManager" />
+                        <apex:outputText value="{!viewer.isCrossReportManager}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isSupervisor" />
+                        <apex:outputText value="{!viewer.isSupervisor}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isMentor" />
+                        <apex:outputText value="{!viewer.isMentor}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isProjectManager" />
+                        <apex:outputText value="{!viewer.isProjectManager}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isDirectReport" />
+                        <apex:outputText value="{!viewer.isDirectReport}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isColleague" />
+                        <apex:outputText value="{!viewer.isColleague}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isHR" />
+                        <apex:outputText value="{!viewer.isHR}"  />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isOther" />
+                        <apex:outputText value="{!viewer.isOther}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="isEdit" />
+                        <apex:outputText value="{!viewer.isEdit}"  />
+                    </apex:pageBlockSectionItem>
+
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasPrimaryManager" />
+                        <apex:outputText value="{!viewer.hasPrimaryManager}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasManagers" />
+                        <apex:outputText value="{!viewer.hasManagers}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasColleagues" />
+                        <apex:outputText value="{!viewer.hasColleagues}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasCrossReportManagers" />
+                        <apex:outputText value="{!viewer.hasCrossReportManagers}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasDirectReports" />
+                        <apex:outputText value="{!viewer.hasDirectReports}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasCrossReports" />
+                        <apex:outputText value="{!viewer.hasCrossReports}"  />
+                    </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="hasAllRelated" />
+                        <apex:outputText value="{!viewer.hasAllRelated}"  />
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Department" />
+                        <apex:outputText value="{!viewer.teamMember.departmentName}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+             </apex:pageBlock>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

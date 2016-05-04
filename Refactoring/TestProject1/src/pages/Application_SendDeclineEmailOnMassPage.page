@@ -1,0 +1,37 @@
+<apex:page StandardController="Application__c" recordSetVar="applications" extensions="Application_MassEmailController">
+
+    <apex:form >   
+         <apex:outputpanel rendered="{!(isRecordNotSelected)}">
+            <apex:pagemessage severity="warning" title="Please select Application records." strength="4"/>  
+            <apex:outputlink value="{!retUrl}" style="margin-left:20px;">Click here</apex:outputlink> to return to previous page.
+        </apex:outputpanel>    
+       
+       <apex:outputPanel rendered="{!NOT(isRecordNotSelected)}" >
+          <apex:pageblock mode="detail" rendered="{!isSelectedRecordFalse}">
+              <apex:pagemessages />           
+              <apex:pagemessage severity="warning" title="Click on [Confirm] to send decline email to the following records or click on [Cancel] to go back to the previous page." strength="4"/>   
+            <apex:pageblocksection />
+                <apex:pageblocktable value="{!lstApplicationFalse}" var="appl">
+                       <apex:column value="{!appl.Name}"/> 
+                      <apex:column value="{!appl.Applicant__c}"/> 
+                       <apex:column value="{!appl.Status__c}"/>
+                      <apex:column value="{!appl.Job__c}"/>
+                     
+                </apex:pageblocktable>
+                <apex:pageblockButtons location="Top" >
+                    <apex:commandButton value="Confirm" action="{!DeclineEmail}" />
+                    <apex:commandButton value="Cancel" action="{!Cancel}"/>
+                </apex:pageblockButtons> 
+           </apex:pageblock>
+        
+         <apex:pageblock mode="detail" rendered="{!NOT(isSelectedRecordFalse)}">
+             <apex:pagemessage severity="warning" title="A decline email was already sent to the selected applications. Another decline email cannot not be sent." strength="4"/>  
+            <apex:outputtext value="Click"/>
+                <apex:outputlink value="{!retUrl}" style="margin-left:3px;">here</apex:outputlink>&nbsp; 
+            <apex:outputtext value="to return to previous page."/>
+           </apex:pageblock>
+        
+        </apex:outputPanel> 
+    </apex:form>
+    
+ </apex:page>

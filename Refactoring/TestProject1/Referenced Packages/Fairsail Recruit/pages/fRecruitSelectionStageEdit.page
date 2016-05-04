@@ -1,0 +1,110 @@
+<apex:page standardController="fRecruit__Selection_Stage__c" extensions="fRecruit.SelectionStageControllerExtension,fRecruit.SetupPoliciesExtensionController,fRecruit.EmailTemplateExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Selection_Stage__c.label} Details" subTitle="{!fRecruit__Selection_Stage__c.Name}" help="http://recruit.help.fairsail.com/topics/EditSelectionStage.html" />
+	<apex:form >
+		<apex:pageBlock title="Edit Selection Stage" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Information" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Vacancy"/>
+					<apex:outputText value="{!fRecruit__Selection_Stage__c.fRecruit__Vacancy__r.Name}"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField style="width:300px;" value="{!fRecruit__Selection_Stage__c.Name}" required="true"/>
+				<apex:inputField style="width:300px;" value="{!fRecruit__Selection_Stage__c.fRecruit__Assessor__c}" />
+				<apex:inputField style="width:500px;" value="{!fRecruit__Selection_Stage__c.fRecruit__Assessment_Notes__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Options" columns="1">
+				<apex:inputField style="width:50px;" value="{!fRecruit__Selection_Stage__c.fRecruit__Order__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Include_In_Scoring__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Part of" />
+					<apex:selectList value="{!fRecruit__Selection_Stage__c.fRecruit__Part_Of__c}" size="1">
+						<apex:selectOptions value="{!selectionStages}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="On Stage Starting" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Send form" />
+					<apex:selectList value="{!fRecruit__Selection_Stage__c.fRecruit__Form_Definition__c}" size="1">
+						<apex:selectOptions value="{!formDefinitions}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="External Test" />
+					<apex:selectList value="{!fRecruit__Selection_Stage__c.fRecruit__External_Test__c}" size="1">
+						<apex:selectOptions value="{!externalTests}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Auto_Create__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Auto_Queue__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Send_References__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Set_Onboarding__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Set_Hired__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Selection_Stage__c.fields.fRecruit__Start_Stage_Email_Template__c.label}" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fRecruit__Selection_Stage__c.fRecruit__Start_Stage_Email_Template__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Show_To_Hiring_Manager__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Is_Hiring_Manager_Stage__c}"/>
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Clear_Contact_Via_Agency__c}" rendered="{!$Setup.Apply_Portal__c.Use_Agencies__c}"/>
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Show_To_Workplace__c}" rendered="{!policies.fRecruit__Use_Workplace__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Is_Workplace_Stage__c}" rendered="{!policies.fRecruit__Use_Workplace__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="On Stage Assessment" columns="1">
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Visualforce_Page__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Require_Entry__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Enter_Start_Details__c}"/>
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Enter_Quality_Assurance__c}"/>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Automatic Stage Actions" columns="1">
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Score_For_Auto_Next_Stage__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Auto Next Stage" />
+					<apex:selectList value="{!fRecruit__Selection_Stage__c.fRecruit__Auto_Next_Stage__c}" size="1">
+						<apex:selectOptions value="{!selectionStages}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Score_For_Auto_Reject__c}" />
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Required_Below_Needs_Auto_Reject__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Outcome Emails" columns="1">
+				<apex:inputField value="{!fRecruit__Selection_Stage__c.fRecruit__Delay_Outcome_Emails__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Selection_Stage__c.fields.fRecruit__On_Hold_Email_Template__c.label}" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fRecruit__Selection_Stage__c.fRecruit__On_Hold_Email_Template__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Selection_Stage__c.fields.fRecruit__Passive_Email_Template__c.label}" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fRecruit__Selection_Stage__c.fRecruit__Passive_Email_Template__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Selection_Stage__c.fields.fRecruit__Not_This_Vacancy_Email_Template__c.label}" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fRecruit__Selection_Stage__c.fRecruit__Not_This_Vacancy_Email_Template__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Selection_Stage__c.fields.fRecruit__Reject_Email_Template__c.label}" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fRecruit__Selection_Stage__c.fRecruit__Reject_Email_Template__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

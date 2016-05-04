@@ -1,0 +1,91 @@
+<apex:page standardController="fHCM2__Team_Member__c" extensions="fHCM2.TeamMemberControllerExtension" standardStylesheets="true" showHeader="true" sidebar="true" title="Team Member">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="Team Member Details" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Personal Details" columns="1">
+                <apex:inputField required="true" value="{!fHCM2__Team_Member__c.fHCM2__First_Name__c}" />
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__Middle_Name__c}" />
+                <apex:inputField required="true" value="{!fHCM2__Team_Member__c.fHCM2__Surname__c}" />
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__Preferred_Name__c}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.fhcm2__Picture}" for="picture" />
+                    <apex:outputPanel >
+                        <apex:selectList value="{!fHCM2__Team_Member__c.fHCM2__Picture__c}" id="picture" size="1">
+                            <apex:selectOptions value="{!currentAttachments}" />
+                        </apex:selectList>
+                        {!$Label.fhcm2__ProcessVerb_Upload_New} <apex:inputFile value="{!picture}" filename="{!filename}" contentType="{!contentType}" accept="gif,jpg,png"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>        
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Standard Details" columns="1">
+                <apex:inputField required="true" value="{!fHCM2__Team_Member__c.fHCM2__Employment_Status__c}" />
+                <apex:pageBlockSectionItem >
+                    <c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Job_Title__c}" />
+                    <c:AutoCompleteRemote objectname="fHCM2__Team_Member__c" primaryField="fHCM2__Job_Title__c">
+                        <apex:inputField id="myInputField" value="{!fHCM2__Team_Member__c.fHCM2__Job_Title__c}"/>
+                    </c:AutoCompleteRemote>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__Manager__c}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="HR Department" for="department" />
+                    <apex:selectList required="true" value="{!fHCM2__Team_Member__c.fHCM2__Department__c}" id="department" size="1">
+                        <apex:selectOptions value="{!currentDepartments}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Team__c}" />
+                    <c:AutoCompleteRemote objectname="fHCM2__Team_Member__c" primaryField="fHCM2__Team__c">
+                        <apex:inputField id="myInputField" value="{!fHCM2__Team_Member__c.fHCM2__Team__c}"/>
+                    </c:AutoCompleteRemote>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields.fHCM2__Location__c}" />
+                    <c:AutoCompleteRemote objectname="fHCM2__Team_Member__c" primaryField="fHCM2__Location__c">
+                        <apex:inputField id="myInputField" value="{!fHCM2__Team_Member__c.fHCM2__Location__c}"/>
+                    </c:AutoCompleteRemote>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Force.com User Details" columns="1">
+                <apex:outputPanel layout="none" rendered="{!!hasUser}"><b>Either:</b> link to an existing user</apex:outputPanel>
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__User__c}" />
+                <apex:outputPanel layout="none" rendered="{!fHCM2__Team_Member__c.fHCM2__User__c==null}"><b>Or:</b> enter details to create a new user (all below plus email address)</apex:outputPanel>
+                <apex:inputField style="width:400px" value="{!fHCM2__Team_Member__c.fHCM2__Username__c}" rendered="{!hasUser}"/>
+                <apex:pageBlockSectionItem rendered="{!fHCM2__Team_Member__c.fHCM2__User__c==null}">
+                    <apex:outputLabel value="User Profile" for="profile" />
+                    <apex:selectList value="{!fHCM2__Team_Member__c.fHCM2__User_Profile__c}" id="profile" size="1">
+                        <apex:selectOptions value="{!currentProfiles}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__Salesforce_Access__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Other Details" columns="1">
+               <apex:repeat value="{!$ObjectType.fHCM2__Team_Member__c.FieldSets.fHCM2__New_Hire}" var="f">
+                    <apex:inputField value="{!fHCM2__Team_Member__c[f]}" />
+               </apex:repeat>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+             <script>
+               jQuery.noConflict();
+               jQuery(document).ready(function(){
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-100; i < now.getFullYear()+20;i++) {
+                             var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     });
+             </script>
+</apex:page>

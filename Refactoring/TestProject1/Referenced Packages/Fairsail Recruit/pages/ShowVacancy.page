@@ -1,0 +1,141 @@
+<apex:page standardController="fRecruit__Vacancy__c" showHeader="false" standardStylesheets="false" extensions="fRecruit.VacancyApplyControllerExtension">
+
+<style>
+.mainPageDiv {
+	margin: 0pt auto; 
+	width: 800px; 
+	position: relative;
+}
+body {
+	background-color:#FFFFFF;
+	font-family:'Arial','Helvetica',sans-serif;
+	font-size:75%;
+	margin:0;
+}
+.apply {
+	border: 1px solid #808080;
+	margin: 20px auto;
+}
+.apply td {
+	font-family:'Arial','Helvetica',sans-serif;
+	font-size:90%;
+}
+.apply input {
+	font-family:'Arial','Helvetica',sans-serif;
+	font-size:90%;
+}
+.labelCol  {
+	text-align: right;
+	vertical-align:top;
+	padding-right: 20px;
+	width: 120px;
+	font-size:90%;
+	font-weight:bold;
+}
+.dataCol  {
+	text-align: left;
+	vertical-align:top;
+	font-size:90%;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family:'Arial','Helvetica',sans-serif;
+	font-size:100%;
+}
+h2, h3, h4, h5, h6 {
+	color:#4F9241;
+}
+h1 {
+	font-size:140%;
+}
+h2 {
+	font-size:120%;
+}
+td {
+	vertical-align:top;
+} 
+</style>
+	
+<div class="mainPageDiv">
+	<h1>{!$Organization.Name} - Vacancy Details/Apply</h1>
+	
+	<table cellpadding="3" cellspacing="0" border="0" width="100%">
+	<tr>
+	<td width="67%">
+	<h2>{!fRecruit__Vacancy__c.Name}</h2>
+
+	<apex:pageBlock mode="details">
+
+		<apex:pageBlockSection title="Vacancy Details" columns="1">
+			<apex:outputField value="{!fRecruit__Vacancy__c.Name}"/>
+			<apex:outputField value="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Company__c}" rendered="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Company__c!=''}"/>
+			<apex:outputField value="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Location_City__c}" rendered="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Location_City__c!=''}"/>
+			<apex:outputField value="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Region__c}" rendered="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Region__c!=''}"/>
+		</apex:pageBlockSection>
+	
+		<apex:pageBlockSection title="Job Details" columns="1">
+			<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Description__c}" rendered="{!fRecruit__Vacancy__c.fRecruit__Description__c!=''}"/>
+			<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Key_Responsibilities__c}" rendered="{!fRecruit__Vacancy__c.fRecruit__Key_Responsibilities__c!=''}"/>
+		</apex:pageBlockSection>
+	
+		<apex:pageBlockSection title="Company Details" columns="1" rendered="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Description__c!=''}">
+			<apex:outputField value="{!fRecruit__Vacancy__c.Workplace__r.fRecruit__Description__c}"/>
+		</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Employment Type" columns="1">
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Recent_Graduate__c}" rendered="{!fRecruit__Vacancy__c.fRecruit__Recent_Graduate__c}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Employment_Type__c}"  rendered="{!fRecruit__Vacancy__c.fRecruit__Employment_Type__c!=''}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Duration__c}"  rendered="{!fRecruit__Vacancy__c.fRecruit__Duration__c!=''}"/>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Compensation Package" columns="1">
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Currency_Code__c}"   rendered="{!fRecruit__Vacancy__c.fRecruit__Currency_Code__c!=''}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Minimum__c}"   rendered="{!fRecruit__Vacancy__c.fRecruit__Salary_Minimum__c>0}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Maximum__c}"   rendered="{!fRecruit__Vacancy__c.fRecruit__Salary_Maximum__c>0}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Period__c}"   rendered="{!fRecruit__Vacancy__c.fRecruit__Salary_Period__c!=''}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Benefits__c}" style="width:400px;" rendered="{!fRecruit__Vacancy__c.fRecruit__Includes_Benefits__c}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_OTE__c}"  rendered="{!fRecruit__Vacancy__c.fRecruit__Salary_OTE__c}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_ProRata__c}"  rendered="{!fRecruit__Vacancy__c.fRecruit__Salary_ProRata__c}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Salary_Negotiable__c}"  rendered="{!fRecruit__Vacancy__c.fRecruit__Salary_Negotiable__c}"/>
+			</apex:pageBlockSection>
+	</apex:pageBlock>
+	
+	</td>
+	<td width="33%">
+
+	<p><apex:outputLink value="VacancyList">&lt;&lt; Back to Vacancy List</apex:outputLink></p>
+	
+	<apex:form >
+			<table cellpadding="5" cellspacing="0" border="0" class="apply">
+				<tr >
+					<td style="text-align:right;width:33%;"></td>
+					<td style="font-weight:bold;">Enter your contact details to apply for this job (* Required entries)</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;font-weight:bold;"><apex:outputLabel value="First Name *" for="firstName"/></td>
+					<td><apex:inputText id="firstName" value="{!firstName}" size="20" maxlength="39" /></td>
+				</tr>
+				<tr >
+					<td style="text-align:right;font-weight:bold;"><apex:outputLabel value="Last Name *" for="lastName"/></td>
+					<td><apex:inputText id="lastName" value="{!surname}" size="20" maxlength="40" /></td>
+				</tr>
+				<tr >
+					<td style="text-align:right;font-weight:bold;"><apex:outputLabel value="Email *" for="email"/></td>
+					<td><apex:inputText id="email" value="{!email}" size="30" maxlength="255" /></td>
+				</tr>
+				<tr >
+					<td style="text-align:right;"></td>
+					<td><apex:pageMessages id="errorMessages" /></td>
+				</tr>
+				<tr >
+					<td style="text-align:right;"></td>
+					<td><apex:commandButton action="{!apply}" value="Apply" disabled="{!hasSuccessfullyApplied}"/></td>
+				</tr>
+			</table>
+	</apex:form>
+	
+	</td>
+	</tr>
+	</table>
+
+</div>
+</apex:page>

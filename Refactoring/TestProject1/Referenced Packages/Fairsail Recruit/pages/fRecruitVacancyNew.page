@@ -1,0 +1,30 @@
+<apex:page standardController="fRecruit__Vacancy__c" extensions="fRecruit.NewVacancyControllerExtension,fRecruit.SetupPoliciesExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label}" subtitle="New" help="http://recruit.help.fairsail.com/topics/NewVacancy.html" Description="Create a new vacancy to start off the recruitment process.  Type in the name of the vacancy and then choose the previous vacancy that most closely resembles the new one.  If you leave that blank then you will need to specify all the selection criteria and stages from scratch."/>
+	<apex:form >
+		<apex:pageBlock title="New {!$ObjectType.fRecruit__Vacancy__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pagemessages />
+
+			<apex:pageBlockSection title="Create new {!$ObjectType.fRecruit__Vacancy__c.label}" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.Name.label}" for="name"/>
+					<apex:inputText id="name" value="{!name}" required="true" size="80" maxlength="80"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Workplace__c}" rendered="{!policies.fRecruit__Use_Workplace__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Copy criteria and stages from" for="vacancy"/>
+					<apex:outputPanel styleClass="{!IF(RequireTemplateOnNewVacancy,'requiredInput','')}" layout="block">
+						<apex:outputPanel styleClass="requiredBlock" layout="block" rendered="{!RequireTemplateOnNewVacancy}"/>
+						<apex:selectList id="vacancy" value="{!vacancyId}" multiselect="false" size="1" required="{!RequireTemplateOnNewVacancy}" label="Copy criteria and stages from">
+							<apex:selectOptions value="{!currentList}"/>
+						</apex:selectList>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

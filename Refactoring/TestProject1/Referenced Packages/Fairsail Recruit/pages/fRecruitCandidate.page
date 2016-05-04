@@ -1,0 +1,280 @@
+<apex:page standardController="fRecruit__Candidate__c" extensions="fRecruit.CandidateControllerExtension,fRecruit.SetupPoliciesExtensionController" showHeader="{!!IsWx}" sidebar="{!!IsWx}" >
+
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Candidate__c.label}" subtitle="{!fRecruit__Candidate__c.Name}" help="http://recruit.help.fairsail.com/topics/Candidate.html"/>
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Candidate__c.label}" mode="details">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!edit}" 		value="Edit" 	rendered="{!!IsWx}"	/>
+				<apex:commandButton action="{!delete}" 		value="Delete" 	rendered="{!!IsWx}"	onClick="return confirm('Are you sure you wish to delete this record?');" />
+				<apex:commandButton value="Cancel" 	rendered="{!IsWx}"	immediate="true" onClick="window.location.href ='{!Back}'; return false;"/>
+			</apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Information" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Information.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Information}" var="f">
+                   	<apex:outputField value="{!fRecruit__Candidate__c[f]}"/>
+                </apex:repeat>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Candidate__c.fields.fRecruit__Unique_Id__c.label}"/>
+					<apex:outputLink target="_blank" value="{!fRecruit__Candidate__c.fRecruit__Candidate_Portal_URL__c}" disabled="{!IsWx}">{!fRecruit__Candidate__c.fRecruit__Unique_Id__c}</apex:outputLink>
+				</apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Contact Information" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Contact_Information.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Contact_Information}" var="f">
+                   	<apex:outputField value="{!fRecruit__Candidate__c[f]}"/>
+                </apex:repeat>
+				<apex:pageBlockSectionItem rendered="{!!isblank(fRecruit__Candidate__c.fRecruit__Home_Post_Code__c) && !isblank(fRecruit__Candidate__c.fRecruit__Home_Country__c)}">
+					<apex:outputLabel value="Home"/>
+					<apex:outputLink target="_blank" value="http://maps.google.com/maps?q={!fRecruit__Candidate__c.fRecruit__Home_Post_Code__c},{!fRecruit__Candidate__c.fRecruit__Home_Country__c}">Google Map</apex:outputLink>
+				</apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Agency Details" columns="2" rendered="{!$Setup.Apply_Portal__c.Use_Agencies__c && !isblank(fRecruit__Candidate__c.fRecruit__Agency__c)}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Candidate__c.fields.fRecruit__Agency__c.label}"/>
+					<apex:outputLink target="_blank" value="{!fRecruit__Candidate__c.fRecruit__Agency__c}" disabled="{!IsWx}">{!fRecruit__Candidate__c.Agency__r.Name}</apex:outputLink>
+				</apex:pageBlockSectionItem>
+                <apex:outputField value="{!fRecruit__Candidate__c.fRecruit__Agency_Email__c}"/>
+                <apex:outputField value="{!fRecruit__Candidate__c.fRecruit__Agency_Contact_Name__c}"/>
+                <apex:outputField value="{!fRecruit__Candidate__c.Agency__r.fRecruit__Primary_Contact_Phone__c}" rendered="{!!isblank(fRecruit__Candidate__c.Agency__r.fRecruit__Primary_Contact_Phone__c)}"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Initial Details" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Initial_Details.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Initial_Details}" var="f">
+                    <apex:outputField value="{!fRecruit__Candidate__c[f]}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Current Position" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Current_Position.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Current_Position}" var="f">
+                   	<apex:outputField value="{!fRecruit__Candidate__c[f]}"/>
+                </apex:repeat>
+				<apex:pageBlockSectionItem rendered="{!!isblank(fRecruit__Candidate__c.fRecruit__Current_Post_Code__c) && !isblank(fRecruit__Candidate__c.fRecruit__Home_Country__c)}">
+					<apex:outputLabel value="Home"/>
+					<apex:outputLink target="_blank" value="http://maps.google.com/maps?q={!fRecruit__Candidate__c.fRecruit__Current_Post_Code__c},{!fRecruit__Candidate__c.fRecruit__Home_Country__c}">Google Map</apex:outputLink>
+				</apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+	<apex:pageBlock title="{!$ObjectType.fRecruit__Resume_Job_History__c.label}" mode="details" >
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Resume_Job_History__r}" var="row">
+			<apex:column headerValue="{!$ObjectType.fRecruit__Resume_Education__c.fields.Name.label}">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}"><c:outputDate value="{!row.fRecruit__Start_Date__c}"  format="MMM YYYY"/><apex:outputText value=" - "/><c:outputDate value="{!row.fRecruit__End_Date__c}"  format="MMM YYYY"/></apex:outputLink>
+			</apex:column>
+			<apex:column value="{!row.fRecruit__Company_Name__c}"/>
+			<apex:column value="{!row.fRecruit__Title__c}"/>
+			<apex:column value="{!row.fRecruit__Description__c}"/>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="{!$ObjectType.fRecruit__Resume_Education__c.label}" mode="details" >
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Resume_Education__r}" var="row">
+			<apex:column headerValue="{!$ObjectType.fRecruit__Resume_Education__c.fields.Name.label}">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}"><c:outputDate value="{!row.fRecruit__Start_Date__c}" format="MMM YYYY"/><apex:outputText value=" - "/><c:outputDate value="{!row.fRecruit__End_Date__c}"  format="MMM YYYY"/></apex:outputLink>
+			</apex:column>
+			<apex:column value="{!row.fRecruit__Institution_Name__c}"/>
+			<apex:column value="{!row.fRecruit__Degree__c}"/>
+			<apex:column value="{!row.fRecruit__Fields_of_Study__c}"/>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+
+            <apex:pageBlockSection title="Additional Details" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Details_Top.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Details_Top}" var="f">
+                   	<apex:outputField value="{!fRecruit__Candidate__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+		<apex:inputHidden value="{!fRecruit__Candidate__c.fRecruit__ResumeId__c}" />
+	</apex:form>
+<!-- 
+	<apex:pageBlock title="Resumes" mode="details">
+		<apex:pageBlockTable value="{!Candidate__c.fRecruit__Resumes__r}" var="row">
+			<apex:column headerValue="Application No">
+				<apex:outputLink value="/{!row.id}" target="_blank" disabled="{!IsWx}">{!row.title}</apex:outputLink>
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+ -->
+	<apex:pageBlock title="Applications" mode="details">
+			<apex:pageBlockButtons rendered="{!!IsWx}">
+				<c:fRecruitLinkButton label="New" url="/{!$ObjectType.fRecruit__Application__c.keyPrefix}/e?candidateId={!fRecruit__Candidate__c.Id}&retURL=%2F{!fRecruit__Candidate__c.Id}" />
+			</apex:pageBlockButtons>
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Applications__r}" var="row">
+			<apex:column headerValue="Application No">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Vacancy">
+				<apex:outputLink value="/{!row.fRecruit__Vacancy__c}" disabled="{!IsWx}" >{!row.fRecruit__Vacancy__r.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Status">
+				<apex:outputLabel value="{!row.fRecruit__Status__c}" />
+			</apex:column>
+			<apex:column headerValue="Current Stage">
+				<apex:outputLabel value="{!row.fRecruit__Selection_Stage__r.Name}" />
+			</apex:column>
+			<apex:column headerValue="Current Assessor">
+				<apex:outputLabel value="{!row.fRecruit__Current_Assessor__r.Name}" />
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+	
+
+	<apex:pageBlock title="Assessment Events" mode="details"  >
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Assessment_Event_Bookings__r}" var="row">
+			<apex:column headerValue="Booking No">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Assessment Event">
+				<apex:outputLink value="/{!row.fRecruit__Assessment_Event__c}" disabled="{!IsWx}">{!row.fRecruit__Assessment_Event__r.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column value="{!row.fRecruit__Assessment_Event__r.fRecruit__Start_Date_Time__c}"/>
+			<apex:column value="{!row.fRecruit__Assessment_Event__r.fRecruit__Location__c}"/>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Candidate Interest" mode="details"  >
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Candidate_Interests__r}" var="row">
+			<apex:column headerValue="Nomination">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column value="{!row.fRecruit__Search_Text__c}"/>
+			<apex:column value="{!row.fRecruit__Search_Location__c}"/>
+			<apex:column value="{!row.fRecruit__Search_Map__c}"/>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Nominations" mode="details" >
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Nominations__r}" var="row">
+			<apex:column headerValue="Nomination">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column value="{!row.fRecruit__Vacancy__c}"/>
+			<apex:column value="{!row.fRecruit__Relationship__c}"/>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Placements in Opportunities" mode="details" rendered="{!policies.fRecruit__Use_Opportunity_Placement__c}">
+		<apex:pageBlockButtons location="top" rendered="{!!IsWx}">
+			<td class="pbButton"><c:fRecruitLinkButton label="New Placement" url="/{!$ObjectType.fRecruit__Opportunity_Placement__c.keyPrefix}/e?candidateId={!fRecruit__Candidate__c.Id}&retURL=%2F{!fRecruit__Candidate__c.Id}" /></td>
+		</apex:pageBlockButtons>
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.Opportunity_Placements__r}" var="row">
+			<apex:column headerValue="Action">
+				<apex:outputLink value="/{!row.Id}/e" disabled="{!IsWx}">Edit</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Name">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Opportunity">
+				<apex:outputLink value="/{!row.fRecruit__Opportunity__c}" disabled="{!IsWx}">{!row.Opportunity__r.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Contact">
+				<apex:outputLink value="/{!row.fRecruit__Contact__c}" disabled="{!IsWx}">{!row.Contact__r.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Status">
+				<c:outputDate stringValue="{!row.fRecruit__Status__c}" />
+			</apex:column>
+			<apex:column headerValue="Interview Date">
+				<c:outputDate stringValue="{!row.fRecruit__Interview_Start__c}" />
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Hire Checks" mode="details">
+			<apex:pageBlockButtons rendered="{!!IsWx}">
+				<td class="pbButton"><c:fRecruitLinkButton label="Edit" url="/apex/fRecruitHireChecks?candidateId={!fRecruit__Candidate__c.Id}&retURL=%2F{!fRecruit__Candidate__c.Id}" /></td>
+			</apex:pageBlockButtons>
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__Hire_Checks__r}" var="row">
+			<apex:column headerValue="Name">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Status">
+				<apex:outputLabel value="{!row.fRecruit__Status__c}" />
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Referees" mode="details">
+			<apex:pageBlockButtons rendered="{!!IsWx}">
+				<td class="pbButton"><c:fRecruitLinkButton label="New" url="/{!$ObjectType.fRecruit__Reference__c.keyPrefix}/e?candidateId={!fRecruit__Candidate__c.Id}&retURL=%2F{!fRecruit__Candidate__c.Id}" /></td>
+			</apex:pageBlockButtons>
+		<apex:pageBlockTable value="{!fRecruit__Candidate__c.fRecruit__References__r}" var="row">
+			<apex:column headerValue="Application">
+				<apex:outputField value="{!row.fRecruit__Application__c}" />
+			</apex:column>
+			<apex:column headerValue="Vacancy">
+				<apex:outputField value="{!row.Application__r.fRecruit__Vacancy__c}" />
+			</apex:column>
+			<apex:column headerValue="Name">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Type">
+				<apex:outputLabel value="{!row.fRecruit__Type__c}" />
+			</apex:column>
+			<apex:column headerValue="Email">
+				<apex:outputLabel value="{!row.fRecruit__Email__c}" />
+			</apex:column>
+			<apex:column headerValue="Contact After Offer">
+				<c:fRecruitOutputCheckbox value="{!row.fRecruit__Contact_After_Offer__c}"/>
+			</apex:column>
+			<apex:column headerValue="Email Sent">
+				<c:fRecruitOutputCheckbox value="{!row.fRecruit__Send_Email__c}"/>
+			</apex:column>
+			<apex:column headerValue="Start Date">
+				<c:outputDate stringValue="{!row.fRecruit__Start_Date__c}" />
+			</apex:column>
+            <apex:column headerValue="Awaiting Form">
+                <c:fRecruitOutputCheckbox value="{!row.fRecruit__Awaiting_Form__c}" />
+            </apex:column>
+			<apex:column headerValue="Accepted">
+				<c:fRecruitOutputCheckbox value="{!row.fRecruit__Accepted__c}"/>
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Stage Form(s)" mode="details" rendered="{!forms.size>0}">
+		<apex:pageBlockTable value="{!forms}" var="row">
+			<apex:column headerValue="Name">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Form">
+				<apex:outputLabel value="{!row.Form_Definition__r.Name}" />
+			</apex:column>
+			<apex:column headerValue="Completed">
+				<c:outputDate stringValue="{!row.fRecruit__Completed_Date__c}" />
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+
+	<apex:pageBlock title="Candidate Emails" mode="details">
+        <apex:pageBlockButtons rendered="{!!IsWx}">
+			<c:fRecruitLinkButton label="Email" url="/apex/fRecruitCandidateAdhocEmail?id={!fRecruit__Candidate__c.Id}" />
+        </apex:pageBlockButtons>
+		<apex:pageBlockTable value="{!emails}" var="row">
+			<apex:column headerValue="Subject">
+				<apex:outputLink value="/{!row.Id}" disabled="{!IsWx}">{!row.Name}</apex:outputLink>
+			</apex:column>
+			<apex:column headerValue="Received">
+				<apex:outputLabel value="{!row.CreatedDate}" />
+			</apex:column>
+			<apex:column headerValue="From">
+				<apex:outputLabel value="{!row.fRecruit__Email__c}" />
+			</apex:column>
+			<apex:column headerValue="To">
+				<apex:outputLabel value="{!row.fRecruit__To__c}" />
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+	
+	<apex:pageBlock title="Additional Details" mode="details" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Details_Bottom.size>0}">
+	            <apex:pageBlockSection columns="2" >
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Details_Bottom}" var="f">
+                    	<apex:outputField value="{!fRecruit__Candidate__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+	</apex:pageBlock>
+
+	<apex:relatedList list="NotesAndAttachments" 	rendered="{!!IsWx}"/>
+    <apex:relatedList list="OpenActivities"  		rendered="{!!IsWx}"/>
+    <apex:relatedList list="ActivityHistories"		rendered="{!!IsWx}"/>
+
+</apex:page>

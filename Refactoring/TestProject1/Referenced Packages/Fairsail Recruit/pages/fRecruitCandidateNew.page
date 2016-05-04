@@ -1,0 +1,43 @@
+<apex:page standardController="fRecruit__Candidate__c">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Candidate__c.label} Details" subTitle="New" help="http://recruit.help.fairsail.com/topics/NewCandidate.html" Description="Enter the personal details of the new candidate.   You will then be able to attach their CV or resume and to link them to one or more vacancies.  Applications received by email will have this record created automatically."/>
+	<apex:form >
+		<apex:pageBlock title="Candidate Details" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pagemessages />
+
+            <apex:pageBlockSection title="Information" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Information.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Information}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Contact Information" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Contact_Information.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Contact_Information}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Initial Details" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Initial_Details.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Initial_Details}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Current Position" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Current_Position.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Current_Position}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional Details" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Edit.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Edit}" var="f">
+                    	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}"  rendered="{!f!='fRecruit__ResumeId__c'}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

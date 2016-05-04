@@ -1,0 +1,3 @@
+<apex:page standardController="fHCM2__Team_Member__c" action="{!'/apex/fHCM2__TeamMemberEditNewHire?retURL='+urlencode($CurrentPage.parameters.retURL)}">
+	<apex:outputLink value="{!'/apex/fHCM2__TeamMemberEditNewHire?retURL='+urlencode($CurrentPage.parameters.retURL)}">View</apex:outputLink>
+</apex:page>

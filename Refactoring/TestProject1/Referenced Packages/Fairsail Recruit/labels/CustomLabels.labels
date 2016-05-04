@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Agency_Duplicate_Candidate</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Duplicate Candidate</shortDescription>
+        <value>That candidate is already known to us</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Fail_Qualifying_Questions</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Fail Qualifying Questions</shortDescription>
+        <value>The candidate does not meet the minimum requirements</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Invalid_Reference</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Invalid Reference</shortDescription>
+        <value>You must be a valid registered agency to submit candidates</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Job</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Job</shortDescription>
+        <value>Job Details</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Job_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Job List</shortDescription>
+        <value>Current Vacancies</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Job_List_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Job List Top</shortDescription>
+        <value>Here are our current vacancies.  Use search to find the job you wish to submit candidates.  Click the job name to see more details and to submit the candidate.</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Job_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Job Top</shortDescription>
+        <value>Full details of the job.</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Portal</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Portal</shortDescription>
+        <value>Agency Portal</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Submit_Another_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Submit Another Button</shortDescription>
+        <value>Submit Another</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Submit_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Submit Button</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>Agency_Submitted</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agency Submitted</shortDescription>
+        <value>Thank you for submitting the candidate</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Accept_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Accept Button</shortDescription>
+        <value>Accept</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Add_Facebook</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Add to Facebook</shortDescription>
+        <value>Add to Facebook</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Add_LinkedIn</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Add to LinkedIn</shortDescription>
+        <value>Add to LinkedIn</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Add_Request_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Add Request Button</shortDescription>
+        <value>Add Alert</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Add_Twitter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Add to Twitter</shortDescription>
+        <value>Add to Twitter</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Apply</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Apply</shortDescription>
+        <value>Apply for Job</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Apply_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Apply Button</shortDescription>
+        <value>Apply</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Apply_Job</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Apply Job</shortDescription>
+        <value>Information about your application</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Apply_Qualification</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Apply Qualification</shortDescription>
+        <value>Information about yourself</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Apply_Require_All</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Apply Require All</shortDescription>
+        <value>You must answer all the questions</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Apply_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Apply Top</shortDescription>
+        <value>To apply, answer the questions below (if any) and click &quot;Save&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Attach_LinkedIn_Profile</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Attach LinkedIn Profile</shortDescription>
+        <value>Attach LinkedIn Profile</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Attach_LinkedIn_Profile_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Attach LinkedIn Profile Message</shortDescription>
+        <value>Click here to authorise us viewing your LinkedIn profile as part of your application</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Attach_Resume</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Attach Resume</shortDescription>
+        <value>Attach Resume</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Been_Rejected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Been Rejected</shortDescription>
+        <value>You were unsuccessful with a prior application and cannot apply for this job.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Book_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Book Button</shortDescription>
+        <value>Book</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Booked</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Booked</shortDescription>
+        <value>Booked</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Cancel_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Cancel_Request_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Cancel Request Button</shortDescription>
+        <value>Cancel Alert</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Cancel_Request_Warning</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Cancel Request Warning</shortDescription>
+        <value>We will no longer inform you of new vacancies matching this request, are you sure?</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Candidate_Reference_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Candidate Reference Not Found</shortDescription>
+        <value>Candidate reference not found</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Candidate_Registered_Already</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Candidate Registered Already</shortDescription>
+        <value>You have registered already.  Please enter your candidate reference number.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Confirm_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Confirm Button</shortDescription>
+        <value>Confirm</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Decline_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Decline Button</shortDescription>
+        <value>Decline</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Edit_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Edit Button</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Emails_Dont_Match</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Emails Dont Match</shortDescription>
+        <value>The double-entry emails do not match</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Express_Interest</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Express Interest</shortDescription>
+        <value>Vacancy Alerts</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Express_Interest_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Express Interest Top</shortDescription>
+        <value>Tell us what you seek and we will email you when we have a vacancy that matches.  Add alerts for all your areas of interest.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Fail_Qualify</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Fail Qualify</shortDescription>
+        <value>Sorry, you are not eligible to apply for this vacancy.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_First_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply First Button</shortDescription>
+        <value>First</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Has_Applied</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Has Applied</shortDescription>
+        <value>You have already applied for this.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Job</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Job</shortDescription>
+        <value>Job Details</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Job_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Job List</shortDescription>
+        <value>Current Vacancies</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Job_List_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Job List Top</shortDescription>
+        <value>Here are our current vacancies.  Use search to find the job you wish to apply for.  Click the job name to see more details and to apply.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Job_Registration_Info</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Job Registration Info</shortDescription>
+        <value>Registration Information</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Job_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Job Top</shortDescription>
+        <value>Full details of the job.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Last_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Last Button</shortDescription>
+        <value>Last</value>
+    </labels>
+    <labels>
+        <fullName>Apply_LinkedIn_Post_Alert</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply LinkedIn Post Alert</shortDescription>
+        <value>Please check we have attached the correct details to contact you about your application, and then click &quot;Register&quot;</value>
+    </labels>
+    <labels>
+        <fullName>Apply_LinkedIn_Profile_Attached</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply LinkedIn Profile Attached</shortDescription>
+        <value>LinkedIn profile attached</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Multiple_Applications</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Multiple Applications</shortDescription>
+        <value>You cannot apply for this job as you have other active applications.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Application</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Application</shortDescription>
+        <value>My Application</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details</shortDescription>
+        <value>My Details</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details_Events</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details Events</shortDescription>
+        <value>Events booked or to be booked by you</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details_External_Tests</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details External Tests</shortDescription>
+        <value>Tests to be completed by you</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details_Forms</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details Forms</shortDescription>
+        <value>Forms to be completed by you</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details_No_Application</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details No Application</shortDescription>
+        <value>Now we have your contact details please pick an option below (if available) or on the other pages in the left hand menu.  When ready please start your application on the Job Details page selected from our Current Vacancies.  We look forward to meeting you.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details_References</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details References</shortDescription>
+        <value>References we are waiting for</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_Details_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My Details Top</shortDescription>
+        <value>Please keep us informed of changes to your contact details below.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_My_History</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply My History</shortDescription>
+        <value>My History</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Next_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Next Button</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>Apply_No_Longer_Active</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply No Longer Active</shortDescription>
+        <value>That job is no longer open for applications.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nominate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Nominate</shortDescription>
+        <value>Nominate Someone</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nominate_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Nominate Button</shortDescription>
+        <value>Nominate Someone</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nominate_Top</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Nominate Top</shortDescription>
+        <value>Nominate someone you know for the vacancy</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nomination_Nominator</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Apply Nomination Nominator</shortDescription>
+        <value>About yourself</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nomination_Nominee</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Nomination Nominee</shortDescription>
+        <value>About the person you are nominating</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nomination_Other</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Apply Nomination Other</shortDescription>
+        <value>Other information for your nomination</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Nomination_Thanks</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Apply Nomination Thanks</shortDescription>
+        <value>Thank you for your nomination</value>
+    </labels>
+    <labels>
+        <fullName>Apply_None_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply None Found</shortDescription>
+        <value>None found</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Page_i_Of_n</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Page i of N</shortDescription>
+        <value>Page {0} of {1}</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Please_Confirm</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please Confirm</shortDescription>
+        <value>Please Confirm</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Please_Enter_Twice</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Please Enter Twice</shortDescription>
+        <value>Please enter the email twice</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Portal</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Portal</shortDescription>
+        <value>Applicant Portal</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Previous_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Previous Button</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Qualification_Not_Met</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Qualification Not Met</shortDescription>
+        <value>Qualification not met</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register</shortDescription>
+        <value>Get Started</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Register</shortDescription>
+        <value>Sign up for alerts</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Interest_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Interest Message</shortDescription>
+        <value>{0} and we will email you when we have a suitable new vacancy</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Reference_Button</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Reference Button</shortDescription>
+        <value>Go</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Reference_Tab</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Reference Tab</shortDescription>
+        <value>Enter your candidate reference number</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Reference_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Reference Top</shortDescription>
+        <value>Welcome back.  Please enter your candidate reference.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Register_Button</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Register Button</shortDescription>
+        <value>Register</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Register_Tab</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Register Tab</shortDescription>
+        <value>Register as a new candidate</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Register_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Register Top</shortDescription>
+        <value>In order to apply for jobs on this site you must first register. Please complete the details below.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Reminder_Button</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Reminder Button</shortDescription>
+        <value>Remind</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Reminder_Tab</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Reminder Tab</shortDescription>
+        <value>Reminder of your candidate reference number</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Reminder_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Reminder Top</shortDescription>
+        <value>If you have forgotten your reference, enter the email you registered and we will send a reminder.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Section_1</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Section 1</shortDescription>
+        <value>Details about you</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Section_2</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Section 2</shortDescription>
+        <value>Marketing and equal opportunities information</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Section_3</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Section 3</shortDescription>
+        <value>Other information</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Register_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Register Top</shortDescription>
+        <value>Please do not register again if you have already done so or been given a candidate reference number. If you know your reference please enter it. If you can&apos;t remember please ask for a reminder.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Registration_Info_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Registration Info Top</shortDescription>
+        <value>Please enter the following additional registration information.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Reminder_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reminder Not Found</shortDescription>
+        <value>Please call our support team for your candidate reference</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Replace_Resume</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Replace Resume</shortDescription>
+        <value>Replace Resume</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Require_Resume</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Require Resume</shortDescription>
+        <value>You must attach an up-to-date resume</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Save_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Save Button</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Search_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Search Button</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Sent_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Sent Reminder</shortDescription>
+        <value>A reminder will be sent to the registered email address</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Social_Network_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Social Network Message</shortDescription>
+        <value>Great vacancy {0} hiring now</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Submit_Application_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Submit Application Button</shortDescription>
+        <value>Submit Application</value>
+    </labels>
+    <labels>
+        <fullName>Apply_UnBook_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply UnBook Button</shortDescription>
+        <value>UnBook</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Withdraw</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Withdraw</shortDescription>
+        <value>Withdraw Application</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Withdraw_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Withdraw Button</shortDescription>
+        <value>Withdraw</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Withdraw_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Withdraw Top</shortDescription>
+        <value>We are sorry you wish to withdraw.  Please enter the details below and click &quot;withdraw&quot; and we will cancel your application.</value>
+    </labels>
+    <labels>
+        <fullName>Apply_Your_Active_Alerts</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Apply Your Active Alerts</shortDescription>
+        <value>Your Active Alerts</value>
+    </labels>
+    <labels>
+        <fullName>Email_Reminders_Body_For_Approval</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email Reminders Body For Approval</shortDescription>
+        <value>${FName}, &lt;/br&gt;&lt;/br&gt;
+
+  You need to 
+  &lt;a href=&apos;${ProcessLink}&apos;&gt;Approve or Reject the ${processName} process&lt;/a&gt;&lt;/br&gt;&lt;/br&gt;
+
+Or &lt;a href=&apos;${ReassignLink}&apos;&gt;Reassign the ${processName} approval to another user&lt;/a&gt;&lt;/br&gt;&lt;/br&gt;
+
+Thanks &lt;/br&gt;
+Fairsail HR System</value>
+    </labels>
+    <labels>
+        <fullName>Email_Reminders_Subject_For_Approval</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email Reminders Subject For Approval</shortDescription>
+        <value>Fairsail Approval Reminder</value>
+    </labels>
+    <labels>
+        <fullName>Geolocate_Confirm_Location</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Geolocate Confirm Location</shortDescription>
+        <value>Confirm Location</value>
+    </labels>
+    <labels>
+        <fullName>Geolocate_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Geolocate Not Found</shortDescription>
+        <value>That location was not found.  Please enter a valid value for {0}</value>
+    </labels>
+    <labels>
+        <fullName>Geolocate_Of</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Geolocate Of</shortDescription>
+        <value>Of</value>
+    </labels>
+    <labels>
+        <fullName>Geolocate_Searching</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Geolocate Searching</shortDescription>
+        <value>Searching</value>
+    </labels>
+    <labels>
+        <fullName>Hiring_Manager_Job_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hiring Manager Job List</shortDescription>
+        <value>Your Vacancies</value>
+    </labels>
+    <labels>
+        <fullName>Internal_Job</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Job</shortDescription>
+        <value>Job Details</value>
+    </labels>
+    <labels>
+        <fullName>Internal_Job_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Job List</shortDescription>
+        <value>Current Vacancies</value>
+    </labels>
+    <labels>
+        <fullName>Internal_Job_List_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Job List Top</shortDescription>
+        <value>Here are our current internal vacancies.  Use search to find the job for which you wish to apply.  Click the job name to see more details and to apply.</value>
+    </labels>
+    <labels>
+        <fullName>Internal_Job_Top</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Job Top</shortDescription>
+        <value>Full details of the job.</value>
+    </labels>
+    <labels>
+        <fullName>Internal_Portal</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Job Portal</shortDescription>
+        <value>Internal Portal</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,444 @@
+<apex:page controller="Contact_SearchTalentController" tabstyle="Talent_Search__tab"  id="TalentSearch">
+<script>
+function checkAll(cb)
+{
+   var inputElem = document.getElementsByTagName("input");
+   //alert(inputElem);
+   for(var i=0;i<inputElem.length;i++)
+     {
+             //alert(inputElem[i].id.indexOf("selectLine1"));
+             if(inputElem[i].id.indexOf("selectLine1")!=-1)
+                   inputElem[i].checked = cb.checked;
+      }
+      
+      
+      CountRecords();
+}
+
+function CountRecords(){
+    var inputElem = document.getElementsByTagName("input");
+    var totalrecords=0;
+    for(var i=0;i<inputElem.length;i++)
+     {
+             //alert(inputElem[i].id.indexOf("selectLine1"));
+             if(inputElem[i].id.indexOf("selectLine1")!=-1 && inputElem[i].checked==true)
+                totalrecords=totalrecords+1;
+      }
+      //alert(" total records:"+totalrecords);
+      var countRec = document.getElementById("TalentSearch:j_id1:FilteredRecs:totalSelectedContacts").value;
+      //alert(countRec);
+      document.getElementById("TalentSearch:j_id1:FilteredRecs:totalSelectedContacts").value=totalrecords;
+      document.getElementById("TalentSearch:j_id1:FilteredRecs:recordcount").innerHTML="Number of contacts selected: "+totalrecords;
+      
+      
+}
+function OpenHelp(){
+    newwindow=window.open('/apex/ContactFilterLogicHelp','Filter Logic Help','width=800,height=600');
+    if (window.focus) {newwindow.focus()}
+    return false;
+}
+</script>
+<head>
+<style>
+.conheader{
+    font-size: 1.1em;
+    font-weight:bold;
+    font-color:#000000;
+}
+body {
+    //font-family: 'Arial','Helvetica',sans-serif;
+    font-size: 75%;
+}
+.Custom11Tab .pageTitleIcon, .individualPalette .Custom11Block .pageTitleIcon{
+    background-image: url("/img/sprites/master.png");
+    background-position: 0 -1022px;
+    height: 32px;
+    width: 32px;
+}
+.list td, .list th, body.oldForecast .list .last td, body.oldForecast .list .last th {
+    border-bottom: 1px solid #E3DEB8;
+    color: #333333;
+    padding: 0px 0px 1px 0px;
+}
+.dataCell {
+    margin-left: 10px;
+}
+.bPageBlock .pbTitle {
+    color: #222222;
+    //font-size: 1.1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 30%;
+    font-weight:bold;
+}
+body .bPageBlock .pbTitle h2, body .bPageBlock .pbTitle h3{
+font-size: 1.2em;
+font-color:#000000;
+}
+</style>
+</head>
+<apex:form >
+    <div class="bPageTitle">
+        <div class="ptBody secondaryPalette brandSecondaryBrd">
+            <div class="content">
+                <img src="/s.gif" class="pageTitleIcon" title="Contact" alt="Contact" />
+                <h1 class="pageType">Talent Search</h1>
+                <span class="titleSeparatingColon">:</span>
+                <h2 class="pageDescription">Search And Engage With Contacts</h2>
+                <div class="blank"></div>
+            </div>
+        </div>
+    </div>
+    <!-- <apex:sectionheader title="Talent Search" subtitle="Search And Engage With Contacts"/> -->
+    
+    <apex:pagemessages escape="false" id="errmsg"/>
+    <apex:pageblock id="filtersec" > 
+    
+        <apex:pageblockbuttons location="Bottom">
+            <apex:commandbutton value="Filter" action="{!SearchContacts}" rerender="FilteredRecs,filtersec,errmsg" status="loadingStatus"/>
+                <apex:commandbutton value="Cancel" action="{!GenerateLabelFieldMapping}" rerender="filtersec,FilteredRecs" status="loadingStatus"/> 
+        </apex:pageblockbuttons>
+        
+         <div class="conheader"><h3>Step 1. Specify Contact Filter Criteria</h3></div> 
+         <!--<div ><h2 class="conheader">Step 1. Specify Contact Filter  Criteria:FilterLogicExpression={!FilterLogicExpression};Query= {!contactQueryString}  </h2></div>-->
+        <br/>
+        
+        <table>
+            <tr>
+                <th></th>
+                <th>Field</th>
+                <th>Operator</th>
+                <th>Value</th>
+                <th></th>
+                <th>Filter logic</th>
+                
+            </tr>
+            <apex:repeat value="{!filterOptions}" var="fo"> 
+            <tr>
+                <td>{!fo.filterNumber}</td>
+                <td>
+                    <apex:selectlist value="{!fo.fieldLabel}" size="1" style="width: 300px;">
+                        <apex:selectoptions value="{!Fields}"/>
+                        <apex:actionsupport event="onchange" action="{!FieldTypeFinder}" rerender="filtersec">
+                            <apex:param value="Contact" assignto="{!selectedFilter}" name="findfields"/>
+                        </apex:actionsupport>
+                    </apex:selectlist>
+                </td>
+                <td>
+                    <apex:selectlist value="{!fo.selectedOperator}" size="1" style="width: 130px;">
+                        <apex:selectoptions value="{!fo.Availableoperators}"/>
+                    </apex:selectlist>
+                </td>
+                <td>
+                    <apex:selectlist style="width: 200px;" value="{!fo.searchInput}" size="1" rendered="{!if(fo.FieldType=='PICKLIST' || fo.FieldType=='MULTIPICKLIST',true,false)}">
+                        <apex:selectoptions value="{!fo.picklistOptions}"/>
+                    </apex:selectlist>
+                    <apex:selectlist style="width: 200px;" value="{!fo.searchInput}" size="1" rendered="{!if(fo.FieldType=='BOOLEAN',true,false)}">
+                        <apex:selectOption itemValue="" itemLabel="-None-"/>
+                        <apex:selectOption itemValue="True" itemLabel="True"/>
+                        <apex:selectOption itemValue="False" itemLabel="False"/>
+                    </apex:selectlist>
+                    <apex:inputfield value="{!fo.con[fo.fieldName]}" rendered="{!if(fo.FieldType=='REFERENCE',true,false)}"/>
+                    <apex:inputtext style="width: 200px;" value="{!fo.searchInput}" rendered="{!if(fo.FieldType!='PICKLIST' && fo.FieldType!='BOOLEAN' && fo.FieldType!='MULTIPICKLIST' && fo.FieldType!='REFERENCE' ,true,false)}"/>
+                </td>
+                <!--<td>  rendered="{!DisplayLogicFiltersColumns}"
+                    <apex:selectlist value="{!fo.FilterLogic}" size="1" rendered="{!if(fo.filterNumber<filterOptions.size,true,false)}">
+                        <apex:selectOption itemValue="AND" itemLabel="AND"/>
+                        <apex:selectOption itemValue="OR" itemLabel="OR"/>
+                    </apex:selectlist>
+                </td>
+                  -->
+                  <td>&nbsp;</td>
+                  <td> 
+                    <apex:outputtext value="AND"   rendered="{!if(fo.filterNumber<filterOptions.size && DisplayLogicFiltersColumns==true,true,false)}"/>
+                    
+                </td> 
+            </tr>
+            </apex:repeat>
+            
+            <tr>
+            
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <apex:commandlink value="Add Row" action="{!AddFilter}"  rerender="filtersec" rendered="{!(filterOptions.size<=9)}"/>
+                    <apex:outputtext value="Add Row"  rendered="{!(filterOptions.size>9)}"/>&nbsp;|&nbsp;
+                    <apex:outputtext value="Remove Row"  rendered="{!(filterOptions.size<6)}"/>
+                    <apex:commandlink value="Remove Row" action="{!RemoveFilter}"  rerender="filtersec" rendered="{!(filterOptions.size>5)}">
+                        <apex:param value="true" assignto="{!fo.isSelected}" name="delrow"/>
+                    </apex:commandlink> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:commandlink value="Add Filter Logic"  rerender="filtersec" rendered="{!DisplayLogicFiltersColumns}">
+                        <apex:param value="false" assignto="{!DisplayLogicFiltersColumns}" name="addlogfil"/>
+                    </apex:commandlink>
+                    <apex:commandlink value="Clear Filter Logic" action="{!clearContactFilterLogic}" rerender="filtersec" rendered="{!NOT(DisplayLogicFiltersColumns)}">
+                        <apex:param value="true" assignto="{!DisplayLogicFiltersColumns}" name="clearlogfil"/>
+                    </apex:commandlink>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:outputpanel rendered="{!NOT(DisplayLogicFiltersColumns)}">
+                        <table>
+                            <tr>
+                                <td><apex:inputtext value="{!FilterLogicExpression}" style="width: 500px;"  /></td>
+                                <td><apex:outputlink value="#" style="color: blue;text-decoration:none;" onclick="OpenHelp()"  title="Tips (New Window)"> Tips <img src="/s.gif" alt="Help" class="helpIcon" title="Help" /></apex:outputlink></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><apex:image value="{!$Resource.Report_Boolean_Filter}" style="width: 500px;"/></td>
+                            </tr>
+                        </table>
+                         
+                    </apex:outputpanel>
+                    
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <!-- Skill Filter section -->
+        <div class="conheader"><h3>Step 2. Specify Skill Filter Criteria</h3></div>
+        <!-- <div ><h2 class="conheader">Step 2. Specify Skill Filter Criteria:SkillFilterLogicExpression={!SkillFilterLogicExpression};query= {!skillQueryString}</h2></div> -->
+        <br/>
+        
+        <table>
+            <tr>
+                <th></th>
+                <th>Field</th>
+                <th>Operator</th>
+                <th>Value</th>
+                <th></th>
+                <th>Filter logic</th>
+                
+            </tr>
+            <apex:repeat value="{!SkillfilterOptions}" var="fo">  
+            <tr>
+                <td>{!fo.filterNumber}</td>
+                <td>
+                    <apex:selectlist value="{!fo.fieldLabel}" size="1" style="width: 300px;">
+                        <apex:selectoptions value="{!SkillFields}"/>
+                        <apex:actionsupport event="onchange" action="{!FieldTypeFinder}" rerender="filtersec">
+                            <apex:param value="Skill__c" assignto="{!selectedFilter}" name="findSkillfields"/>
+                        </apex:actionsupport>
+                    </apex:selectlist>
+                </td>
+                <td>
+                    <apex:selectlist value="{!fo.selectedOperator}" size="1" style="width: 130px;">
+                        <apex:selectoptions value="{!fo.Availableoperators}"/>
+                    </apex:selectlist>
+                </td>
+                <td>
+                    <apex:selectlist style="width: 200px;" value="{!fo.searchInput}" size="1" rendered="{!if(fo.Fieldname=='name',true,false)}">
+                        <apex:selectoptions value="{!AllSkills}"/>
+                    </apex:selectlist>
+                    <apex:selectlist style="width: 200px;" value="{!fo.searchInput}" size="1" rendered="{!if(fo.FieldType=='PICKLIST' && fo.Fieldname!='name',true,false)}">
+                        <apex:selectoptions value="{!fo.picklistOptions}"/>
+                    </apex:selectlist>
+                    <apex:selectlist style="width: 200px;" value="{!fo.searchInput}" size="1" rendered="{!if(fo.FieldType=='BOOLEAN' && fo.Fieldname!='name',true,false)}">
+                        <apex:selectOption itemValue="" itemLabel="-None-"/>
+                        <apex:selectOption itemValue="True" itemLabel="True"/>
+                        <apex:selectOption itemValue="False" itemLabel="False"/>
+                    </apex:selectlist>
+                    <apex:inputtext style="width: 200px;" value="{!fo.searchInput}" rendered="{!if(fo.FieldType!='PICKLIST' && fo.FieldType!='BOOLEAN' && fo.Fieldname!='name',true,false)}"/>
+                </td>
+                <!--  
+                <td>
+                    <apex:selectlist value="{!fo.FilterLogic}" size="1" rendered="{!if(fo.filterNumber<SkillfilterOptions.size,true,false)}">
+                        <apex:selectOption itemValue="AND" itemLabel="AND"/>
+                        <apex:selectOption itemValue="OR" itemLabel="OR"/>
+                    </apex:selectlist>
+                </td>
+                -->
+                <td>&nbsp;</td>
+                  <td> 
+                    <apex:outputtext value="AND"   rendered="{!if(fo.filterNumber<skillfilterOptions.size && SkillDisplayLogicFiltersColumns==true,true,false)}"/>
+                    
+                </td>
+            </tr>
+            </apex:repeat>
+            
+            <tr>
+            
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <apex:commandlink value="Add Row" action="{!AddSkillFilter}"  rerender="filtersec" rendered="{!(SkillfilterOptions.size<=9)}"/>
+                    <apex:outputtext value="Add Row"  rendered="{!(SkillfilterOptions.size>9)}"/>&nbsp;|&nbsp;
+                    <apex:outputtext value="Remove Row"  rendered="{!(SkillfilterOptions.size<6)}"/>
+                    <apex:commandlink value="Remove Row" action="{!RemoveSkillFilter}"  rerender="filtersec" rendered="{!(SkillfilterOptions.size>5)}">
+                        <apex:param value="true" assignto="{!fo.isSelected}" name="delrow"/>
+                    </apex:commandlink>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <apex:commandlink value="Add Filter Logic"  rerender="filtersec" rendered="{!SkillDisplayLogicFiltersColumns}">
+                        <apex:param value="false" assignto="{!SkillDisplayLogicFiltersColumns}" name="addlogfil"/>
+                    </apex:commandlink>
+                    <apex:commandlink value="Clear Filter Logic"  action="{!clearSkillFilterLogic}"  rerender="filtersec" rendered="{!NOT(SkillDisplayLogicFiltersColumns)}">
+                        <apex:param value="true" assignto="{!SkillDisplayLogicFiltersColumns}" name="clearlogfil"/>
+                    </apex:commandlink>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:outputpanel rendered="{!NOT(SkillDisplayLogicFiltersColumns)}">
+                        <table>
+                            <tr>
+                                <td><apex:inputtext value="{!SkillFilterLogicExpression}" style="width: 500px;"  /></td>
+                                <td><apex:outputlink value="#" style="color: blue;text-decoration:none;" onclick="OpenHelp()" title="Tips (New Window)"> Tips <img src="/s.gif" alt="Help" class="helpIcon" title="Help" /> </apex:outputlink></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><apex:image value="{!$Resource.Report_Boolean_Filter}" style="width: 500px;"/></td>
+                            </tr>
+                        </table>
+                         
+                    </apex:outputpanel>
+                    
+                </td>
+            </tr>
+        </table>
+        
+        </apex:pageblock>
+        
+         <apex:actionStatus id="loadingStatus">
+                  <apex:facet name="start" >                
+                      <apex:outputpanel >  <img src="/img/loading.gif" /> &nbsp;Processing..</apex:outputpanel>
+                  </apex:facet>           
+                  <apex:facet name="stop"/>                  
+        </apex:actionStatus>
+        
+         <apex:pageblock title="Step 3. Select Contacts And Action" id="FilteredRecs">
+         
+        
+            <apex:pageblockbuttons location="Top">
+                 <apex:commandbutton value="Invite to Job" action="{!redirectForInviteToJob}" />  
+                <apex:commandbutton value="Assign to Job" action="{!redirectForjobAssignment}"/>
+                 
+            </apex:pageblockbuttons>
+             
+ 
+            <apex:actionfunction name="calselectedrec" rerender="FilteredRecs" />
+          <!--  <apex:actionfunction name="calselectedrec" action="{!CountSelectedrecords}" rerender="FilteredRecs" status="loadingStatus"/>  --> 
+            <apex:outputpanel rendered="{!contactList.size==0}">
+                <apex:outputtext value="No records to display." style="font-weight: bold;"/> 
+            </apex:outputpanel> 
+            
+            <apex:outputpanel rendered="{!IsthresholdReachecd}">
+                <apex:outputtext style="font-weight: bold;" value="The number of contacts matching the selected filter criteria is above 100. Please refine your search."/>
+            </apex:outputpanel>
+            
+            <apex:outputpanel rendered="{!NOT(IsthresholdReachecd) && contactList.size>0}">
+            
+                <br/>
+                <apex:image value="{!$Resource.InfoIcon}" rendered="{!contactList.size>0}" width="15px" height="15px" style="padding-right:5px;"/><apex:outputtext value="Number of contacts matching the filter entry criteria: {!contactList.size} "/>
+            
+                <apex:image value="{!$Resource.TickIcon}" rendered="{!contactList.size>0}" width="15px" height="15px" style="padding-left:40px;padding-right:5px;"/><apex:outputtext value="Number of contacts selected: {!totalSelectedContacts}" id="recordcount"/> <apex:inputhidden value="{!totalSelectedContacts}" id="totalSelectedContacts"/>
+                <br/>
+                <br/>
+                
+                <!-- dynamic sorting pageblocktable--------------->
+                <apex:pageblocktable value="{!contactList}" var="con" style="cell-padding:2px 2px 2px 2px;">
+                    <apex:column style="padding-left: 5px;">
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="checkAll(this)"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!con.isSelected}" id="selectLine1" onclick="CountRecords()"/>
+                    <!--    <apex:actionsupport event="onclick" action="{!CountSelectedrecords}" rerender="FilteredRecs" />  -->
+                    </apex:column>
+                    <apex:column style="padding-left: 5px;">
+                        <apex:facet name="header" >
+                            <apex:commandLink value="Name" action="{!SortContactRecords}" reRender="FilteredRecs">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Name'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Name'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Name" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Name', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputlink value="/{!con.filteredcontact.id}">{!con.filteredcontact.name}</apex:outputlink>
+                    </apex:column>
+                    <apex:column style="padding-left: 5px;">
+                        <apex:facet name="header" >
+                            <apex:commandLink value="Primary Type" action="{!SortContactRecords}" reRender="FilteredRecs">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Primary_Type__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Primary_Type__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Primary_Type__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Primary_Type__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputtext value="{!con.filteredcontact.Primary_Type__c}"/>
+                    </apex:column>
+                    <apex:column style="padding-left: 5px;">
+                        <apex:facet name="header" >
+                            <apex:commandLink value="Available From" action="{!SortContactRecords}" reRender="FilteredRecs">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Available_From__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Available_From__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Available_From__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Available_From__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!con.filteredcontact.Available_From__c}"  /></apex:outputText>
+                    </apex:column>
+                    <apex:column style="padding-left: 5px;">
+                        <apex:facet name="header" >
+                            <apex:commandLink value="Available To" action="{!SortContactRecords}" reRender="FilteredRecs">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Available_To__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Available_To__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Available_To__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Available_To__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!con.filteredcontact.Available_To__c}"  /></apex:outputText>
+                    </apex:column>
+                    
+                    <apex:column style="padding-left: 5px;">
+                        <apex:facet name="header" >
+                            <apex:commandLink value="Returned Volunteer" action="{!SortContactRecords}" reRender="FilteredRecs">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Returned_Volunteer__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Returned_Volunteer__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Returned_Volunteer__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Returned_Volunteer__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputfield value="{!con.filteredcontact.Returned_Volunteer__c}" />
+                    </apex:column>
+                </apex:pageblocktable>
+                <!--dynamin sorting pgt ends-------- Returned_Volunteer__c ------------------------------------>
+                
+            </apex:outputpanel>
+            
+        </apex:pageblock>
+        
+        
+    
+</apex:form>
+</apex:page>

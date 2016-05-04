@@ -1,0 +1,116 @@
+<apex:page controller="fHCM2.EmergencyContactControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.EmergencyContacts.isUsing}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">           
+            
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Emergency_Contacts}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="EmergencyContact" location="Subheader"/>
+                <apex:pageBlockSection columns="1">
+        
+            
+            <apex:repeat value="{!subject.EmergencyContacts.EmergencyContacts}" var="EmergencyContact">
+                <c:DetailListBar title="{!EmergencyContact.Name}" value="/apex/{!links.EmergencyContact}?TeamMemberId={!viewer.teamMember.Id}&id={!EmergencyContact.Id}">
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Relation__c.label}" value="{!EmergencyContact.Relation}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.Name.label}" value="{!EmergencyContact.Name}" />
+                </c:DetailListBar>
+            </apex:repeat>
+            
+             </apex:pageBlockSection>
+             <c:Notice viewer="{!viewer}" page="EmergencyContact" location="Subfooter"/>
+        </apex:pageBlock>
+            
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:form rendered="{!viewer.isTeamMemberOrManager}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!Contact_Relation}" mode="edit">
+                	<c:Notice viewer="{!viewer}" page="EmergencyContact" location="Header"/>
+                    <apex:pageBlockSection title="{!Contact_Name}" columns="1">
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.Name.label}"/>
+                            <apex:inputText value="{!Contact_Name}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Priority_To_Call__c.label}"/>
+                            <apex:selectList value="{!Contact_PriorityToCall}" size="1" required="true">
+                                  <apex:selectOptions value="{!Priorities}"/>
+                            </apex:selectList>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Email__c.label}"/>
+                            <apex:inputText value="{!Contact_Email}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Phone__c.label}"/>
+                            <apex:inputText value="{!Contact_Phone}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Work_Phone__c.label}"/>
+                            <apex:inputText value="{!Contact_WorkPhone}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Mobile_Phone__c.label}"/>
+                            <apex:inputText value="{!Contact_MobilePhone}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Alternative_Phone__c.label}"/>
+                            <apex:inputText value="{!Contact_AlternativePhone}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Relation__c.label}"/>
+                            <apex:selectList value="{!Contact_Relation}" size="1" required="true">
+                                  <apex:selectOptions value="{!Relations}"/>
+                            </apex:selectList>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_1__c.label}"/>
+                            <apex:inputText value="{!Contact_Address1}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_2__c.label}"/>
+                            <apex:inputText value="{!Contact_Address2}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_3__c.label}"/>
+                            <apex:inputText value="{!Contact_Address3}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_City__c.label}"/>
+                            <apex:inputText value="{!Contact_AddressCity}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_Region__c.label}"/>
+                            <apex:inputText value="{!Contact_AddressRegion}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_Postal_Code__c.label}"/>
+                            <apex:inputText value="{!Contact_AddressPostalCode}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="false">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Emergency_Contact__c.Fields.fHCM2__Address_Country__c.label}"/>
+                            <apex:inputText value="{!Contact_AddressCountry}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                    </apex:pageBlockSection>
+                    <c:Notice viewer="{!viewer}" page="EmergencyContact" location="Footer"/>
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton action="{!saveNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!isNew}"/>
+                        <apex:commandButton action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

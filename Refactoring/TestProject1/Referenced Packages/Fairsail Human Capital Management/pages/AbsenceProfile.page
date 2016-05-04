@@ -1,0 +1,174 @@
+<apex:page controller="fHCM2.AbsenceProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Absence Profile">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.AbsenceProfile}" title="{!$Label.fhcm2__Time_Off}" hidePicture="true" noticePage="AbsenceProfile"/>
+
+        </apex:define>
+
+        <apex:define name="widePanel">
+        <style>
+            .bPageBlock .detailList .dataCol1 {
+                width: 27%;
+                margin-right: 2%;
+                padding: 0px 10px 0px 2px;
+            }
+            
+            .bPageBlock .detailList .dataCol {
+                width: 37%;
+                padding: 0px 10px 0px 2px;
+            }
+            
+            .bPageBlock .labelCol {
+                padding: 0px 0px 0px 2px;
+            }
+            .person-section-right {
+                width: 100%;
+            }
+            
+            .mCalendar{
+            width: 138px !important;
+            float: left;
+            margin: 4px !important;
+            font-size: 10px;
+            }
+            
+            .mCalendar .body{
+            padding: 0 !important;
+            }
+            .mCalendar .header td {
+                font-weight: normal;
+            }
+      </style>
+
+
+                <apex:pageMessages />
+                <apex:pageBlock title="{!$Label.fhcm2__Year_View}" mode="view" rendered="{!viewer.isTeamMemberOrManager}">
+					<c:Notice viewer="{!viewer}" page="AbsenceProfile" location="Header"/>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Team_Member}" columns="1">
+                        <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                            <apex:outputLink value="/apex/{!links.VacationTeam}?Id={!viewer.teamMember.Id}" target="_top" >{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                        </apex:outputPanel>
+
+                        <c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.Id}" picture="{!viewer.teamMember.pictureUrl}">
+                        	<h4>{!substitute($Label.fhcm2__Process_Absence_Time_Off,'{0}',if(subject.absences.inHours,'(' + $Label.fhcm2__Global_Hours + ')','(' + $Label.fhcm2__Global_Days + ')'))}</h4>
+                            <apex:pageBlockSection columns="1" collapsible="False">
+                                <apex:pageBlockSectionItem dataStyle="padding-left:10px;" rendered="{!subject.absences.daysCarriedOver!=0 && !subject.absences.accrueContinuously}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Carried_Over}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.daysCarriedOver}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem dataStyle="padding-left:10px;" rendered="{!subject.absences.selfBase+subject.absences.base!=0 && !subject.absences.accrueContinuously}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Base}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.selfBase+subject.absences.base}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem dataStyle="padding-left:10px;" rendered="{!!subject.absences.accrueContinuously}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Annual_Allowance}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.daysPerYear}"/>
+                                </apex:pageBlockSectionItem>
+                                 <apex:pageBlockSectionItem dataStyle="padding-left:10px;" rendered="{!!subject.absences.accrueContinuously && round(subject.absences.daysPerYearProRata,2)!=round(subject.absences.daysPerYear,2) && subject.absences.daysPerYearProRata>0}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Pro_Rata}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.daysPerYearProRata}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem dataStyle="padding-left:10px;" rendered="{!subject.absences.SelfVacationCompensation>0 && !subject.absences.accrueContinuously}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Compensation}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.SelfVacationCompensation}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem dataStyle="padding-left:10px;" rendered="{!!subject.absences.accrueContinuously && !subject.absences.usingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Taken_Already}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.daysTaken}"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageblockSectionItem dataStyle="padding-left:10px;" rendered="{!!subject.absences.usingPattern}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Balance}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!((subject.absences.daysPerYearProRata + subject.absences.daysCarriedOver + subject.absences.SelfVacationCompensation + subject.absences.selfBase + subject.absences.base) - subject.absences.daysTaken)}"
+                                         style="color:{!IF(((subject.absences.daysPerYearProRata + subject.absences.daysCarriedOver + subject.absences.SelfVacationCompensation + subject.absences.selfBase + subject.absences.base) - subject.absences.daysTaken) < 0, 'red', 'auto')};"
+                                    />
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem dataStyle="padding-left:10px;" rendered="{!subject.absences.showAccrual}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Accrued_Balance}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.accruedTotal}"
+                                        style="color:{!IF(subject.absences.accruedTotal < 0, 'red', 'auto')};"
+                                    />
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem dataStyle="padding-left:10px;" rendered="{!subject.absences.showYearEndBalance && !isblank(subject.absences.yearEndTotal)}">
+                                    <apex:outputLabel value="{!$Label.fhcm2__Process_Absence_Year_End_Balance}"></apex:outputLabel>
+                                    <c:outputNumber decimalPlaces="2" fixed="false" value="{!subject.absences.yearEndTotal}"
+                                        style="color:{!IF(subject.absences.yearEndTotal < 0, 'red', 'auto')};"
+                                    />
+                                </apex:pageblockSectionItem>
+                             </apex:pageBlockSection>
+                        </c:PersonSection>
+                    </apex:pageBlockSection>
+                
+                <apex:outputPanel rendered="{!or(subject.absences.isUsingVacation, subject.absences.isUsingAbsence)}">
+                    
+                <apex:form >
+               	<table>
+                    <apex:repeat value="{!subject.absences.keys}" var="key">
+                    	<tr>
+                        <td style="padding: 2px 10px;">
+                            {!if(key.name=='Vacation',$Label.fhcm2__Process_Vacations,$Label.fhcm2__Process_Absences)}
+                        </td>
+                        <td style="padding: 2px 10px;">
+                            <c:KeyBlock color="{!if(key.name == 'Vacation','#0E52A1','#00d000')}"/>
+                        </td>
+                        <td style="padding: 2px 10px;">
+                        	<apex:commandButton onClick="parent.location='/apex/{!links.Absence}?teamMemberId={!viewer.teamMember.Id}&request=Vacation'; return false;" rendered="{!viewer.isTeamMemberOrManager && key.name == 'Vacation' && subject.absences.isUsingVacation}" value="{!$Label.fhcm2__Button_New}"/>
+                            <apex:commandButton onClick="parent.location='/apex/{!links.Absence}?teamMemberId={!viewer.teamMember.Id}&request=Absence'; return false;" rendered="{!viewer.isTeamMemberOrManager && key.name != 'Vacation' && subject.absences.isUsingAbsence}" value="{!$Label.fhcm2__Button_New}"/>
+						</td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+                </apex:form>
+                
+                </apex:outputPanel>
+                    
+                <div style="height: {!CEILING(monthsLoop.size / 4)*150}px;">
+                    <apex:repeat value="{!monthsLoop}" var="monthDate">
+                        <c:CalendarComponent links="{!links}" viewer="{!viewer}" previews="{!absencePreviews}" browse="false" specMonth="{!monthDate}" pattern="{!pattern}"/>
+                    </apex:repeat>
+                </div>
+
+                    <apex:outputLink value="/apex/{!links.AbsenceProfile}?id={!viewer.teamMember.Id}&year={!Year - 1}" style="margin-left: 100px;">{{!$Label.fhcm2__Previous_Year}}</apex:outputLink>
+                    <apex:outputLink value="/apex/{!links.AbsenceProfile}?id={!viewer.teamMember.Id}&year={!Year + 1}" style="float: right; margin-right: 120px;">{{!$Label.fhcm2__Next_Year}}</apex:outputLink>
+                    
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absence_Accrual_Log}" columns="1" rendered="{!subject.absences.usingPattern}">
+	                    <apex:pageBlockTable value="{!subject.absences.log}" var="logItem" rows="100">
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Date}">
+	                            <c:outputDate dateValue="{!logItem.logDate}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Event}">
+	                            <apex:outputText value="{!logItem.event}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Amount}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.amount}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Accrual}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.accrual}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Carry_Over}" rendered="{!subject.absences.AccrualBalance.hasCarryOver}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.carryOver}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Time_In_Lieu}" rendered="{!subject.absences.AccrualBalance.hasTimeInLieu}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.timeInLieu}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Next_Accrual}" rendered="{!subject.absences.accrualBalance.useNextAccrual}">
+	                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.nextAccrual}"/>
+	                        </apex:column>
+	                    </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    
+                   	<c:Notice viewer="{!viewer}" page="AbsenceProfile" location="Footer"/>
+                </apex:pageBlock>
+
+            
+        </apex:define>
+    </apex:composition>
+</apex:page>

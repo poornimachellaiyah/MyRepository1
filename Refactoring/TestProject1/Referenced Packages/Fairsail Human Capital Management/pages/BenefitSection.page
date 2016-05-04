@@ -1,0 +1,5 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+		<c:FieldSetTable objectids="{!subject.Benefits.currentIds}" fields="{!$ObjectType.fHCM2__Benefit__c.fieldsets.fHCM2__Team_Member_Details}" columns="1" title="{!$Label.fhcm2__Process_Benefits}" rendered="{!and(viewer.isTeamMemberOrManager, subject.benefits.isUsing)}"/>
+	</apex:pageBlock>
+</apex:page>

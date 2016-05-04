@@ -1,0 +1,53 @@
+<apex:page standardController="fRecruit__Form_Definition__c" Extensions="fRecruit.FormDefinitionEditExtensionController">
+<html>
+<head>
+ <apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'jquery.js')}"/>
+ <apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'autoresize.jquery.min.js')}"/>
+ <apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'jquery-ui-1.7.2.custom.min.js')}"/>
+ <apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'form_editor.js')}"/>
+ <apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'form_editor.config.js')}"/>
+ <apex:stylesheet value="{!URLFOR($Resource.fRecruit__FormGen, 'form_editor.css')}"/>
+ 
+    <script type="text/javascript">
+    var imgUrl = "{!URLFOR($Resource.fRecruit__FormGen, 'images')}";
+    </script>
+</head>
+<body>
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Form_Definition__c.label}" subtitle="{!fRecruit__Form_Definition__c.Name}" help="http://recruit.help.fairsail.com/topics/Candidate.html" />
+	<ul id="menu">
+		<li class="newPage_Button">New Page
+		</li>
+		<li class="newQuestion_Button">New Question
+		</li>
+		<li class="newOption_Button">New Option
+		</li>
+		<li class="saveForm_Button">Save
+		</li>
+		<li class="advancedMode_Button">Advanced Mode
+		</li>
+		<li class="newButton_Button">New Button
+		</li>
+		<li class="newMessage_Button">New Message
+		</li>
+		<li class="newFormula_Button">New Formula
+		</li>
+		<li class="newParameter_Button">New Parameter
+		</li>
+	</ul>
+	<div id="directory_structureWrapper">
+		<ul id="directory_structure">
+		</ul>
+	</div>
+	<div id="edit_windowWrapper"><div id="edit_window">
+	</div></div>
+<!--<textarea id="xml"></textarea>-->
+<apex:form >
+<div class="xmlContentInput">
+<apex:inputText value="{!definitionXml}" />
+</div>
+<apex:commandButton value="Submit" action="{!saveDefinition}"/>
+</apex:form>
+</body>
+</html>
+
+</apex:page>

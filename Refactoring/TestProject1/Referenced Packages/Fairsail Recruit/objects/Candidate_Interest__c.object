@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Request by candidate to contact about new vacancies</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Apply_Express_Interest</fullName>
+        <availableFields>
+            <field>Minimum_Salary__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Search_Country__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>When a potential candidate expresses interest in the applicant portal</description>
+        <displayedFields>
+            <field>Search_Text__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Apply Express Interest</label>
+    </fieldSets>
+    <fields>
+        <fullName>Candidate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Candidate</label>
+        <referenceTo>Candidate__c</referenceTo>
+        <relationshipLabel>Candidate Interests</relationshipLabel>
+        <relationshipName>Candidate_Interests</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Distance_Unit__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Distance Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Miles</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kilometers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Latitude__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Latitude</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longtitude__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Longitude</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Distance__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum distance from candidates&apos; center of interest</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum distance from candidates&apos; center of interest</inlineHelpText>
+        <label>Maximum Distance</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Minimum_Salary__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Minimum Salary</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Search_City__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Search City</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Country__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Search Country</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Location__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>text(Maximum_Distance__c)+ text(Distance_Unit__c) + &apos; of &apos; + if(isblank( Search_Region__c), Search_Postal_Code__c ,  Search_City__c + &apos;, &apos;+ Search_Region__c + &apos; &apos; + Search_Postal_Code__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Search Location</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Map__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isblank(Latitude__c) || isblank(Longtitude__c) , null,
+HYPERLINK(
+&apos;http://maps.google.com/maps?q=&apos;+ text(Latitude__c) +&apos;+&apos;+ text(Longtitude__c) +&apos;&amp;ll=&apos;+ text(Latitude__c) +&apos;,&apos;+ text(Longtitude__c) +&apos;&amp;z=9&apos;
+,
+IMAGE( &apos;https://maps.googleapis.com/maps/api/staticmap?center=&apos;+ text(Latitude__c) +&apos;,&apos;+ text(Longtitude__c) +&apos;&amp;zoom=10&amp;size=100x100&amp;sensor=false&amp;markers=color:blue|&apos;+ text(Latitude__c) +&apos;,&apos;+ text(Longtitude__c), &apos;Vacancy Location&apos; ,100, 100)
+,
+&apos;_blank&apos;
+)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Search Map</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Postal_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Center of the area of interest for vacancies.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Center of the area of interest for vacancies.</inlineHelpText>
+        <label>Search Postal Code</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Region__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Search Region</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Keywords that will appear in Vacancies of interest.  Simply type keywords or use AND and OR between words to specify logical searches.  Use &quot;&quot; to surround phrases.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Keywords that will appear in Vacancies of interest.  Simply type keywords or use AND and OR between words to specify logical searches.  Use &quot;&quot; to surround phrases.</inlineHelpText>
+        <label>Search Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Candidate Interest</label>
+    <nameField>
+        <displayFormat>CI{00000}</displayFormat>
+        <label>Candidate Interest</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Candidate Interests</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

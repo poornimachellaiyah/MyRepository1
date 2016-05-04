@@ -1,0 +1,42 @@
+<apex:page controller="fRecruit.ScheduleController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label}" subTitle="{!vacancy.Name}" help="http://recruit.help.fairsail.com/topics/MapCriteriaToStages.html" />
+
+	<apex:form >
+		<apex:pageBlock title="Schedule of which criteria is assessed at each stage" mode="edit" rendered="{!hasRows}">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+			<table width="100%" class="list">
+				<tbody>
+					<tr class="headerRow">
+						<th rowspan="2">Criteria Type</th>
+						<th rowspan="2">Criteria Name</th>
+						<th style="text-align: center;" rowspan="2">Required</th>
+						<th colspan="{!noStages}" style="text-align: center; border-bottom:0px; padding: 0px 0px 0px 0px;">Criteria Assessed in Selection Stage</th>
+					</tr>
+					<tr class="headerRow">
+						<apex:repeat value="{!firstRow}" var="row">
+							<apex:repeat value="{!row.Items}" var="item">
+								<th class="headerRow" style="text-align: center; white-space:normal;">{!item.name}</th>
+							</apex:repeat>
+						</apex:repeat>
+					</tr>
+					<apex:repeat value="{!Rows}" var="row">
+						<tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+							<td>{!row.type}</td>
+							<td>{!row.name}</td>
+							<td style="text-align: center;">
+							    <apex:image value="/img/checkbox_checked.gif" rendered="{!row.required}"/>
+							    <apex:image value="/img/checkbox_unchecked.gif" rendered="{!!row.required}"/>
+							</td>
+							<apex:repeat value="{!row.Items}" var="item">
+								<td style="text-align: center;"><apex:inputCheckbox value="{!item.selected}" /></td>
+							</apex:repeat>
+						</tr>
+					</apex:repeat>
+				</tbody>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

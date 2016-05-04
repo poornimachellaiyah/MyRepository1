@@ -1,0 +1,94 @@
+<apex:page controller="fpay.BenefitEnrollmentController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Benefit Enrollment">
+
+	<script type="text/javascript">
+		function doClick(sAction){
+			if(true){
+				parent.postMessage(sAction, "*");
+			}
+		}
+	</script>
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <style>
+            	.statusDone{     
+	            	background-color: #80FF80;
+	            	text-align:center;
+ 				}
+            	.statusRequired{     
+	            	background-color: #FF8080;
+	            	text-align:center;
+ 				}
+            	.statusPending{     
+	            	background-color: #FEB73A;
+	            	text-align:center;
+ 				}
+ 				.list .headerRow th {
+ 					white-space: pre-wrap;
+ 				}
+            </style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <fHCM2:fairsailBanner viewer="{!viewer}" links="{!links}" rendered="{!!viewer.WXIsActive}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="Benefits" mode="view">
+	       		<apex:outputText escape="false" value="{!enrollment.instructions}"/>
+       		</apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+	       	<apex:outputPanel layout="None">
+			    <apex:form >
+			        <apex:pageMessages />
+			        <apex:pageBlock title="{!enrollment.name}" mode="view">
+						<apex:pageBlockButtons location="bottom">
+							<input type="button" value="Cancel" class="btn" onClick="if({!viewer.WXIsActive} == true){doClick('wxClose');}else{navigateToUrl('/apex/{!UILink}'); return false;}"/>
+							<apex:commandButton action="{!submit}" disabled="{!!enrollment.isDone || enrollment.isReadOnly || enrollment.continuousEnrollment}" value="Submit Elections to HR" onclick="var message='{!JSINHTMLENCODE(enrollment.confirmmessage)}'; return (message.length==0 || confirm(message));"/>
+	                        <apex:outputPanel rendered="{!true || enrollment.isDone}"><a href="/apex/BenefitEnrollmentPDF?teamMemberId={!enrollment.teamMemberId}" target="_blank"><image border="0" src="{!$Resource.fHCM2__FairsailIcon}/16x16/pdf.png" title="{!$Label.fHCM2__Global_Create_PDF}"/></a></apex:outputPanel>
+						</apex:pageBlockButtons>
+		        		<apex:outputText escape="false" value="{!enrollment.closedMessage}" rendered="{!!enrollment.isOpen}"/>
+		        		<apex:outputText escape="false" value="{!enrollment.description}"/>
+	                    <apex:pageBlockTable value="{!enrollment.visibleTypes}" var="row">
+	                        <apex:column headerValue="Section">
+                        		<a href="{!row.link}&RETurl={!urlencode(enrollment.link)}">{!row.name}</a>
+	                        </apex:column>
+	                        <apex:column headerValue="Benefit Selected">
+                        		<a href="{!row.currentPlan.link}&RETurl={!urlencode(enrollment.link)}">{!row.currentPlan.name}</a>
+	                        </apex:column>
+	                        <apex:column headerValue="Coverage">
+	                        	<apex:outputText value="{!row.currentCoverage}" />
+	                        </apex:column>
+	                        <apex:column headerValue="Estimated Cost" style="text-align:right;">
+	                        	<fHCM2:outputNumber decimalPlaces="2" value="{!row.currentDeduction}" />
+	                        </apex:column>
+	                        <apex:column headerValue="Estimated Employer Cost" style="text-align:right;" rendered="{!enrollment.showEmployerCost}">
+	                        	<fHCM2:outputNumber decimalPlaces="2" value="{!row.currentEmployerCost}" />
+	                        </apex:column>
+	                        <apex:column headerValue="Selection Completed">
+	                        	<apex:outputPanel layout="block" styleClass="status{!row.status}">
+		                        	<fHCM2:outputCheckbox value="{!row.isDone}" />
+	                        	</apex:outputPanel>
+	                        </apex:column>
+	                    </apex:pageBlockTable>
+	                    <p>&nbsp;</p>
+		        		<apex:pageBlockSection columns="1">
+		        			<apex:pageBlockSectionItem >
+		        				<apex:outputLabel value="Total Estimated Cost"/>
+		        				<fHCM2:outputNumber decimalPlaces="2" value="{!enrollment.currentDeduction}" />
+		        			</apex:pageBlockSectionItem>
+		        			<apex:pageBlockSectionItem rendered="{!enrollment.showEmployerCost}">
+		        				<apex:outputLabel value="Total Estimated Employer Cost"/>
+		        				<fHCM2:outputNumber decimalPlaces="2" value="{!enrollment.currentEmployerCost}" />
+		        			</apex:pageBlockSectionItem>
+		        		</apex:pageBlockSection>
+				    </apex:pageBlock>
+			    </apex:form>
+        	</apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+</apex:page>

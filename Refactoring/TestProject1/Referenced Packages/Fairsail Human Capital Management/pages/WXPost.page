@@ -1,0 +1,5 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false">
+     <script type='text/javascript'>   
+           parent.postMessage('{!$CurrentPage.parameters.wxAction}',"*");
+     </script>     
+</apex:page>

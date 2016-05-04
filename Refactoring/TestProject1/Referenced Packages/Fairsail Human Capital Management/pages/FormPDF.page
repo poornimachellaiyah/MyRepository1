@@ -1,0 +1,84 @@
+<apex:page controller="fHCM2.FormViewController" renderAs="pdf" standardStylesheets="false" showHeader="false" sidebar="false" >
+
+<apex:composition template="fHCM2__fairsailTemplatePDF">
+
+        <apex:define name="styleExtra">
+		    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__Form_zip,'Form/form.css')}" />
+             <style>
+				@page {
+				    @top-left {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:10pt;
+				        content: "{!definition.title}";
+				    }
+				    @top-right {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:10pt;
+				        content: "{!definition.subTitle}";
+				    }
+				}
+				td {
+					padding: 10px 15px; 
+				}
+				b {
+					color: #6E97C7;
+				}
+				<apex:outputText value="{!definition.style}" escape="false" rendered="{!!hasError}"/>
+            </style>
+        </apex:define>
+
+
+<apex:define name="widePanel">
+			<apex:repeat value="{!pages}" var="page">
+					<table style="width:width:100%;">
+						<apex:outputPanel layout="none" rendered="{!!isblank(page.definition.buttonText)}">
+                        <tr>
+                            <td colspan="2"><apex:outputText styleClass="pbTitle" value="{!page.definition.buttonText}" escape="false" /></td>
+                        </tr>
+                        </apex:outputPanel>
+ 						<apex:outputPanel layout="none" rendered="{!!isblank(page.definition.buttonText)}">
+                        <tr>
+                            <td colspan="2"><apex:outputText styleClass="pagePreText" value="{!page.definition.preText}" escape="false" /></td>
+                        </tr>
+                        </apex:outputPanel>
+						<apex:repeat value="{!page.QuestionLines}" var="question">
+ 							<apex:outputPanel layout="none" rendered="{!!isblank(question.definition.title)}">
+                            <tr>
+                                <td colspan="2"><apex:outputText styleClass="questionTitle" value="{!question.definition.title}" escape="false" /></td>
+                            </tr>
+                            </apex:outputPanel>
+ 							<apex:outputPanel layout="none" rendered="{!!isblank(question.definition.subTitle)}">
+                            <tr>
+                                <td colspan="2"><apex:outputText styleClass="questionSubTitle" value="{!question.definition.subTitle}" escape="false" /></td>
+                            </tr>
+                            </apex:outputPanel>
+ 							<apex:outputPanel layout="none" rendered="{!!isblank(question.definition.preText)}">
+                            <tr>
+                                <td style="width:50%;">&nbsp;</td>
+                                <td style="width:50%;"><apex:outputText styleClass="questionPreText" value="{!question.definition.preText}" escape="false" /></td>
+                            </tr>
+                            </apex:outputPanel>
+							<tr>
+								<td style="width:50%;" align="right" valign="top"><apex:outputText styleClass="questionPrompt{!if(question.definition.required,'Required','')}" value="{!question.definition.prompt}" escape="false" /></td>
+								<td style="width:50%;" align="left" valign="top">
+										<apex:outputText value="{!question.htmlDataItem}" escape="false" />&nbsp;
+								</td>
+							</tr>
+ 							<apex:outputPanel layout="none" rendered="{!!isblank(question.definition.postText)}">
+                           <tr>
+                                <td style="width:50%;">&nbsp;</td>
+                                <td style="width:50%;"><apex:outputText styleClass="questionPostText" value="{!question.definition.postText}" escape="false" /></td>
+                            </tr>
+                            </apex:outputPanel>
+						</apex:repeat>
+						<apex:outputPanel layout="none" rendered="{!!isblank(page.definition.postText)}">
+                        <tr>
+                            <td colspan="2"><apex:outputText styleClass="pagePostText" value="{!page.definition.postText}" escape="false" /></td>
+                        </tr>
+                        </apex:outputPanel>
+					</table>
+			</apex:repeat>
+		
+</apex:define>
+</apex:composition>
+</apex:page>

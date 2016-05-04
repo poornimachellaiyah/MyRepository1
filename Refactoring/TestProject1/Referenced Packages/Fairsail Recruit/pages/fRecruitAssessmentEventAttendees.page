@@ -1,0 +1,45 @@
+<apex:page standardcontroller="fRecruit__Assessment_Event__c" extensions="fRecruit.AssessmentEventAttendeeExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Assessment_Event__c.label} Details" subTitle="{!fRecruit__Assessment_Event__c.Name}" help="http://recruit.help.fairsail.com/topics/EditReference.html" />
+	<apex:form >
+		<apex:pageBlock title="Assessment Event Attendance Sheet" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Information" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Assessment Event No"/>
+					<apex:outputText value="{!fRecruit__Assessment_Event__c.Name}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Selection Stage"/>
+					<apex:outputLink value="/{!fRecruit__Assessment_Event__c.fRecruit__Selection_Stage__c}">{!fRecruit__Assessment_Event__c.Selection_Stage__r.Name}</apex:outputLink>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Date"/>
+					<c:outputDate stringValue="{!fRecruit__Assessment_Event__c.fRecruit__Start_Date__c}" />
+				</apex:pageBlockSectionItem>
+				
+				<apex:outputField style="width:400px" value="{!fRecruit__Assessment_Event__c.fRecruit__Location__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockTable value="{!attendees}" var="row">
+				<apex:column headerValue="Application No">
+					<apex:outputLink value="/{!row.Id}">{!row.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column headerValue="Candidate">
+					<apex:outputText value="{!row.candidateName}"/>
+				</apex:column>
+				<apex:column headerValue="Attended">
+					<apex:inputCheckbox value="{!row.attended}" />
+				</apex:column>
+				<apex:column headerValue="Not Attended">
+					<apex:inputCheckbox value="{!row.notAttended}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

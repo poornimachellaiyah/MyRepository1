@@ -1,0 +1,107 @@
+<apex:page standardController="fpay__Download_Map__c" extensions="fpay.DownloadMapExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Payroll Map Configure">
+	<apex:sectionHeader title="Mapping HCM to Download Files" subtitle="{!fpay__Download_Map__c.Payroll_Service__r.Name}"/>
+	<br />
+	<apex:form >
+		<apex:variable value="{!fpay__Download_Map__c.Id}" var="id"/>
+		<apex:actionFunction action="{!ChangeHCMObject}" name="ChangeHCMObject" immediate="true" />
+		<apex:actionFunction action="{!ChangeSelectObject}" name="ChangeSelectObject" immediate="true" />
+		<apex:actionFunction action="{!ChangeDownloadFile}" name="ChangeDownloadFile" immediate="true" />
+
+		<apex:pageBlock title="{!fpay__Download_Map__c.Payroll_Service__r.Name} Configure" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+				<apex:commandButton action="{!xdelete}" value="Delete" rendered="{!fpay__Download_Map__c.Id!=null}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="The value in:" columns="1">
+				<apex:inputhidden value="{!fpay__Download_Map__c.fpay__Payroll_Service__c}"/>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="HCM Object" />
+					<apex:selectList value="{!fpay__Download_Map__c.fpay__HCM_Object__c}" size="1" id="hcmobject" onChange="ChangeHCMObject();">
+						<apex:selectOptions value="{!HCMObjectOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="HCM Field" />
+					<apex:selectList value="{!fpay__Download_Map__c.fpay__HCM_Field__c}" size="1" id="HCMField">
+						<apex:selectOptions value="{!HCMFieldOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Default__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="is download as:" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Download File" />
+					<apex:selectList value="{!fpay__Download_Map__c.fpay__Download_File__c}" id="downloadfile" size="1" onChange="ChangeDownloadFile();">
+						<apex:selectOptions value="{!Files}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Repeat__c}"  id="Repeat" rendered="{!!isXMLFormat}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Sub-Group" />
+					<apex:selectList value="{!fpay__Download_Map__c.fpay__Group__c}" id="Group" size="1">
+						<apex:selectOptions value="{!groupOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fpay__Download_Map__c.Name}" required="true" id="Name"/>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Position__c}"  id="Position" rendered="{!!isXMLFormat}"/>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Order__c}"  id="Order"/>
+
+
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Node_Name__c}"  id="nodeName" rendered="{!isXMLFormat}"/>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Node_Type__c}"  id="nodeType" rendered="{!isXMLFormat}"/>
+				<apex:pageBlockSectionItem rendered="{!isXMLFormat}">
+					<apex:outputLabel value="Node Parent" />
+					<apex:selectList value="{!fpay__Download_Map__c.fpay__Node_Parent__c}"  id="parentNode" size="1">
+						<apex:selectOptions value="{!parentNodes}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="on condition:" columns="1">
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Select_Object__c}" id="selectobject" onChange="ChangeSelectObject();" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Select Field" />
+					<apex:selectList value="{!fpay__Download_Map__c.fpay__Select_Field__c}" size="1" id="SelectField">
+						<apex:selectOptions value="{!SelectFieldOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Select_Value__c}"  id="Value"/>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Changes_Only__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="with options:" columns="1">
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Length__c}"  id="Length"/>
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Format__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Translate_By_Substrings__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__To_Upper__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Character_Set__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Single_Space__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Scale__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Left_Pad_Character__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Validation__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Prefix__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Postfix__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__New_Loop_After__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__New_Record_After__c}" />
+				<apex:inputField value="{!fpay__Download_Map__c.fpay__Record_Loop_Counter__c}" />
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Translation for this value" mode="details" rendered="{!!isblank(fpay__Download_Map__c.Id)}">
+				<apex:pageBlockButtons location="top">
+					<input type="button" value="New" class="btn" onClick="navigateToUrl('/apex/downloadtranslateedit?downloadMapId={!id}&retURL=%2fapex%2fdownloadMapEdit%3fid%3d{!id}'); return false;" />
+				</apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!fpay__Download_Map__c.Download_Translation__r}" var="row">
+				<apex:column headerValue="Original value">
+					<apex:outputLink value="/apex/downloadtranslateedit?id={!row.Id}&retURL=%2fapex%2fDownloadMapEdit%3fid%3d{!id}">{!row.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column headerValue="Replacement">
+					<apex:outputLabel value="{!row.fpay__Replacement__c}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+
+	</apex:form>
+</apex:page>

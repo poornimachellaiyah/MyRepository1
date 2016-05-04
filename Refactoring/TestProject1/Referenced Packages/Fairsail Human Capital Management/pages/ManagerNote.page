@@ -1,0 +1,93 @@
+<apex:page controller="fHCM2.ManagerNoteController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.managerNotes.isUsing}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+		    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__jqueryUI, '/css/overcast/jquery-ui-1.10.3.custom.min.css')}"/>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}"/>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/autoresize.jquery.js')}"/>
+            <script language="javascript">
+				jQuery(document).ready(function(){
+					jQuery('.autoResize').autoResize({}).trigger('change');
+				});
+            </script>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Global_Details}" mode="view">
+	        	<c:Notice viewer="{!viewer}" page="ManagerNote" location="Subheader"/>
+	        	<apex:form >
+                <apex:pageBlockSection title="{!$Label.fhcm2__Process_Manager_Notes_Recent}" columns="1">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar" rendered="{!and(!isNew,subject.managerNotes.editPermitted)}">
+                        <apex:outputLink value="/apex/{!links.ManagerNote}?teamMemberId={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!subject.managerNotes.current}" var="item" rows="10">
+                        <c:DetailListBar title="{!item.Name}" value="/apex/{!links.ManagerNote}?id={!item.Id}" rendered="{!item.id<>id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Manager_Note__c.Fields.fHCM2__Comment__c.label}" value="{!item.comment}" style="white-space:pre-wrap;"/>
+							<c:DetailListItem label="{!$Label.fhcm2__Global_Attached_File}" rendered="{!!isblank(item.filename)}"><apex:commandLink target="_blank" action="{!item.DownloadAttachment}" >{!item.filename}</apex:commandLink></c:DetailListItem>
+                        </c:DetailListBar>
+                    </apex:repeat>
+                 	</apex:outputPanel>
+                </apex:pageBlockSection>
+                </apex:form>
+	        	<c:Notice viewer="{!viewer}" page="ManagerNote" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+
+        <apex:define name="widePanel">
+            <apex:form rendered="{!(viewer.isManager && showManager) || (viewer.isTeamMember && showTeamMember) || viewer.isHR}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!$Label.fhcm2__Process_Manager_Note}" mode="view">
+                	<c:Notice viewer="{!viewer}" page="ManagerNote" location="Header"/>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!canEdit}"/>
+                        <apex:commandButton immediate="true" action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew && canEdit}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                        <c:PersonSection page="{!links.PersonalProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                            </apex:panelGrid>
+                            </c:PersonSection>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!canEdit}">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Manager_Note__c.fields.fHCM2__Show_Team_Member__c.label}" />
+							<apex:inputCheckbox value="{!showTeamMember}"/>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Manager_Note__c.fields.fHCM2__Comment__c.label}" />
+							<apex:inputTextArea value="{!comment}" styleClass="autoResize"/>
+						</apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1" rendered="{!!canEdit}">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Manager_Note__c.fields.fHCM2__Comment__c.label}" />
+							<apex:outputText value="{!comment}" style="white-space:pre-wrap;"/>
+						</apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                	<apex:pageBlockSection columns="1">
+						<apex:pageBlockSectionItem rendered="{!!isblank(filename)}">
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Attached_File}" />
+							<apex:commandLink target="_blank" action="{!DownloadAttachment}" >{!filename}</apex:commandLink>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem rendered="{!canEdit}">
+							<apex:outputLabel value="{!if(isblank(filename),$Label.fhcm2__Global_Attached_File,$Label.fhcm2__Button_Replace)}" />
+							<apex:inputFile value="{!content}" filename="{!filename}" contentType="{!contentType}"/>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+                    <c:Notice viewer="{!viewer}" page="ManagerNote" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

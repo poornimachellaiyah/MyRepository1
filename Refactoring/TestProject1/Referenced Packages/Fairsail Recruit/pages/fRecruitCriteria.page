@@ -1,0 +1,103 @@
+<apex:page controller="fRecruit.NewCriteriaController" tabStyle="fRecruit__Vacancy__c">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label}" subTitle="{!vacancy.Name}" help="http://recruit.help.fairsail.com/topics/SelectionCriteria.html" />
+	<apex:form >
+		<apex:pageBlock title="Criteria from Library" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+			<apex:tabPanel switchType="client" selectedTab="Competency" id="theTabPanel">
+				<apex:tab label="Competencies" name="Competency" rendered="{!hasCompetencyList}">
+					<apex:pageBlock title="Competencies from Library" mode="edit">
+						<apex:pageBlockTable title=""  value="{!competencyList}" var="criteria">
+							<apex:column headerValue="Criteria" width="60%">
+								<apex:outputLabel value="{!criteria.name}"/>
+							</apex:column>
+							<apex:column headerValue="Assessed for candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.selected}"/>
+							</apex:column>
+							<apex:column headerValue="Required by all candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.required}"/>
+							</apex:column>
+						</apex:pageBlockTable>			
+					</apex:pageBlock>
+				</apex:tab>
+				<apex:tab label="Skills" name="Skill" rendered="{!hasSkillList}">
+					<apex:pageBlock title="Skills from Library" mode="edit">
+						<apex:pageBlockTable title=""  value="{!skillList}" var="criteria">
+							<apex:column headerValue="Criteria" width="60%">
+								<apex:outputLabel value="{!criteria.name}"/>
+							</apex:column>
+							<apex:column headerValue="Assessed for candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.selected}"/>
+							</apex:column>
+							<apex:column headerValue="Required by all candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.required}"/>
+							</apex:column>
+						</apex:pageBlockTable>			
+					</apex:pageBlock>
+				</apex:tab>
+				<apex:tab label="Experience" name="Experience" rendered="{!hasExperienceList}">
+					<apex:pageBlock title="Experience from Library" mode="edit">
+						<apex:pageBlockTable title=""  value="{!experienceList}" var="criteria">
+							<apex:column headerValue="Criteria" width="60%">
+								<apex:outputLabel value="{!criteria.name}"/>
+							</apex:column>
+							<apex:column headerValue="Assessed for candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.selected}"/>
+							</apex:column>
+							<apex:column headerValue="Required by all candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.required}"/>
+							</apex:column>
+						</apex:pageBlockTable>			
+					</apex:pageBlock>
+				</apex:tab>
+				<apex:tab label="Knowledge" name="Knowledge" rendered="{!hasKnowledgeList}">
+					<apex:pageBlock title="Knowledge from Library" mode="edit">
+						<apex:pageBlockTable title=""  value="{!knowledgeList}" var="criteria">
+							<apex:column headerValue="Criteria" width="60%">
+								<apex:outputLabel value="{!criteria.name}"/>
+							</apex:column>
+							<apex:column headerValue="Assessed for candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.selected}"/>
+							</apex:column>
+							<apex:column headerValue="Required by all candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.required}"/>
+							</apex:column>
+						</apex:pageBlockTable>			
+					</apex:pageBlock>
+				</apex:tab>
+				<apex:tab label="Qualifications" name="Qualification" rendered="{!hasQualificationList}">
+					<apex:pageBlock title="Qualifications from Library" mode="edit">
+						<apex:pageBlockTable title=""  value="{!qualificationList}" var="criteria">
+							<apex:column headerValue="Criteria" width="60%">
+								<apex:outputLabel value="{!criteria.name}"/>
+							</apex:column>
+							<apex:column headerValue="Assessed for candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.selected}"/>
+							</apex:column>
+							<apex:column headerValue="Required by all candidates" width="20%">
+								<apex:inputCheckbox value="{!criteria.required}"/>
+							</apex:column>
+						</apex:pageBlockTable>			
+					</apex:pageBlock>
+				</apex:tab>
+				<apex:tab label="Other" name="Other" rendered="{!hasOtherList}">
+					<apex:pageBlock title="Other attributes from Library" mode="edit">
+						<apex:pageBlockTable title=""  value="{!otherList}" var="other">
+							<apex:column headerValue="Criteria" width="60%">
+								<apex:outputLabel value="{!other.name}"/>
+							</apex:column>
+							<apex:column headerValue="Assessed for candidates" width="20%">
+								<apex:inputCheckbox value="{!other.selected}"/>
+							</apex:column>
+							<apex:column headerValue="Required by all candidates" width="20%">
+								<apex:inputCheckbox value="{!other.required}"/>
+							</apex:column>
+						</apex:pageBlockTable>			
+					</apex:pageBlock>
+				</apex:tab>
+			</apex:tabPanel>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

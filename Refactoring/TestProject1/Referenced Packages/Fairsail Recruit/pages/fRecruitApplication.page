@@ -1,0 +1,260 @@
+<apex:page standardController="fRecruit__Application__c" extensions="fRecruit.ApplicationControllerExtension,fRecruit.SetupPoliciesExtensionController">
+    <script language="JavaScript">
+        function doAssessment(button) {
+            for (var element=button.previousSibling; element!=null; element=element.previousSibling) {
+                if (String(element.id) != "undefined" && element.id.indexOf("assessment")>=0) {
+                    var id = element.options[element.selectedIndex].value;
+                    if (id!='')
+                        navigateToUrl('/apex/fRecruitAssessmentEdit?applicationId={!applicationId}&selectionStageId='+id);
+                }
+            }
+        }
+   </script>
+    <apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="{!fRecruit__Application__c.Name}" help="http://recruit.help.fairsail.com/topics/Application.html" />
+    <apex:form >
+        <apex:pageBlock title="{!$ObjectType.fRecruit__Application__c.label}" mode="detail">
+            <apex:pageBlockButtons >
+                <c:fRecruitLinkButton label="Edit" url="/{!applicationId}/e" />
+                <apex:commandButton action="{!delete}" value="Delete" onClick="return confirm('Are you sure you wish to delete this record?');"/>
+                <c:fRecruitLinkButton label="Email" url="/apex/fRecruitApplicationAdhocEmail?id={!applicationId}" />
+                <apex:commandButton value="Show To Hiring Manager" action="{!showToHiringManager}" rendered="{!fRecruit__Application__c.fRecruit__Show_To_Hiring_Manager__c!=true && HasShowHiringManager}"/>
+                <apex:commandButton value="Add to Queue" action="{!addToQueue}" rendered="{!hasQueue && !inQueue}"/>
+                <apex:commandButton value="Remove from Queue" action="{!removeFromQueue}" rendered="{!hasQueue && inQueue}"/>
+                <c:fRecruitLinkButton label="Delayed Email" url="/apex/fRecruitSendDelayedApplicationEmails?id={!applicationId}" rendered="{!!isblank(fRecruit__Application__c.fRecruit__Delayed_Outcome_Email__c)}"/>
+                <c:fRecruitLinkButton label="Job Offer" url="/apex/fRecruitMakeOffer?id={!applicationId}"/>
+            </apex:pageBlockButtons>
+
+
+            <apex:pageBlockSection title="Details" columns="2" rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Details.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Details}" var="f">
+                   	<apex:outputField value="{!fRecruit__Application__c[f]}" rendered="{!f!='fRecruit__Candidate__r.fRecruit__Resume__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!(!isblank(fRecruit__Application__c.fRecruit__Candidate_ResumeId__c)) && f=='fRecruit__Candidate__r.fRecruit__Resume__c'}">
+						<apex:outputLabel value="Resume"/>
+						<apex:outputText value="{!fRecruit__Application__c.Candidate__r.fRecruit__Resume__c}" escape="false"/>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="In Queue"/>
+                    <c:fRecruitOutputCheckbox value="{!inQueue}"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Offer Signed Date"/>
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                         <apex:param value="{!fRecruit__Application__c.fRecruit__Offer_Signed_Date__c}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Agency Details" columns="2" rendered="{!$Setup.Apply_Portal__c.Use_Agencies__c && !isblank(fRecruit__Application__c.Candidate__r.fRecruit__Agency__c)}">
+                <apex:outputField value="{!fRecruit__Application__c.Candidate__r.Agency__r.Name}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Candidate__c.fields.fRecruit__Agency__c.label}"/>
+					<apex:outputLink target="_blank" value="{!fRecruit__Application__c.Candidate__r.fRecruit__Agency__c}">{!fRecruit__Application__c.Candidate__r.Agency__r.Name}</apex:outputLink>
+				</apex:pageBlockSectionItem>
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Contact_Via_Agency__c}"/>
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Agency_Contact_Name__c}"/>
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Agency_Email__c}"/>
+                <apex:outputField value="{!fRecruit__Application__c.Candidate__r.Agency__r.fRecruit__Primary_Contact_Phone__c}" rendered="{!!isblank(fRecruit__Application__c.Candidate__r.Agency__r.fRecruit__Primary_Contact_Phone__c)}"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional Details" columns="2" rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Details_Top.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Details_Top}" var="f">
+                   	<apex:outputField value="{!fRecruit__Application__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+	
+            <apex:inputHidden value="{!fRecruit__Application__c.fRecruit__Candidate_ResumeId__c}" />
+
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Interview/Assessment Event" mode="detail">
+            <apex:pageBlockButtons location="top">
+                <c:fRecruitLinkButton label="New Interview" url="/apex/fRecruitInterviewNew?applicationId={!applicationId}"  rendered="{!!hasAssessmentEvent && !hasCurrentEvent}"/>
+               <!--  <c:fRecruitLinkButton label="Edit Interview" url="/{!interview.Id}/e" rendered="{!!hasAssessmentEvent && hasCurrentEvent && Application__c.External_Interviewer__c==null}"/>  -->
+                <c:fRecruitLinkButton label="Edit Interview" url="/apex/fRecruitInterviewEdit?applicationId={!applicationId}" rendered="{!!isblank(interview.Id)}"/> 
+                <c:fRecruitLinkButton label="New External Interview" url="/apex/fRecruitExternalInterviewNew?id={!applicationId}"  rendered="{!!false && hasAssessmentEvent && !hasCurrentEvent}"/>
+                <c:fRecruitLinkButton label="Edit External Interview" url="/apex/fRecruitExternalInterviewNew?id={!applicationId}"  rendered="{!!false && hasAssessmentEvent && hasCurrentEvent && fRecruit__Application__c.fRecruit__External_Interviewer__c!=null}"/>
+                <c:fRecruitLinkButton label="New Assessment Event" url="/apex/fRecruitAssessmentEventBooking?applicationId={!applicationId}" rendered="{!hasAssessmentEvent && !hasCurrentEvent}"/>
+                <c:fRecruitLinkButton label="Edit Assessment Event" url="/apex/fRecruitAssessmentEventBooking?applicationId={!applicationId}" rendered="{!hasAssessmentEvent && hasCurrentEvent}"/>
+                <c:fRecruitLinkButton label="Assign Interviewers" url="/apex/fRecruitInterviewersNew?applicationId={!applicationId}"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Details" columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Date"/>
+                    <c:outputDate stringValue="{!fRecruit__Application__c.fRecruit__Interview_Date__c}" format="dd MMM yyyy HH:mm"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Interview_Status__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Interview_Location__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Interviewer__c}" rendered="{!!hasAssessmentEvent && fRecruit__Application__c.fRecruit__External_Interviewer__c==null}"/>
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__External_Interviewer__c}" rendered="{!!hasAssessmentEvent && fRecruit__Application__c.fRecruit__External_Interviewer__c!=null}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockTable title="Interviewers" value="{!interviewers}" var="row" rendered="{!interviewers.size>0}">
+                <apex:column headerValue="Action"><apex:outputLink value="/apex/fRecruitInterviewersAssessmentEdit?id={!row.Id}&retURL=%2F{!fRecruit__Application__c.Id}">Assess</apex:outputLink></apex:column>
+                <apex:column headerValue="Interviewer Name"><apex:outputLink value="/{!row.Id}">{!row.Name}</apex:outputLink></apex:column>
+                <apex:column headerValue="Interview Date/Time"><c:outputDate stringValue="{!row.fRecruit__Interview_Date__c}"  format="dd MMM yyyy HH:mm"/></apex:column>
+                <apex:column headerValue="Completed Date"> <c:outputDate value="{!row.fRecruit__Completed_Date__c}"/></apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+    <apex:pageBlock title="Assessments" mode="detail" rendered="{!hasRows}">
+            <apex:pageBlockButtons location="top">
+                <c:fRecruitLinkButton label="Current Assessment" url="/apex/fRecruitAssessmentEdit?applicationId={!applicationId}&selectionStageId={!fRecruit__Application__c.fRecruit__Selection_Stage__c}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:selectList size="1" id="assessment" style="margin-right:0;padding-right:0">
+                    <apex:selectOptions value="{!notDoneStages}"/>
+                </apex:selectList><input type="button" value="New Assessment" class="btn" style="margin-left:0;padding-left:0;" onClick="doAssessment(this);return false;"/>
+            </apex:pageBlockButtons>
+        <table width="100%" class="list">
+            <tbody>
+                <tr class="headerRow">
+                    <th scope="col" rowspan="2">Type</th>
+                    <th scope="col" rowspan="2">Name</th>
+                    <th scope="col" rowspan="2">Required</th>
+                    <th scope="col" colspan="{!noStages}" style="text-align: center; border-bottom:0px; padding: 0px 0px 0px 0px;">Assessments To Date</th>
+                </tr>
+                <tr class="headerRow">
+                    <apex:repeat value="{!stages}" var="stage">
+                        <th scope="col" style="text-align: center;"><apex:outputLink value="/{!stage.Id}">{!stage.Name}</apex:outputLink></th>
+                    </apex:repeat>
+                </tr>
+                <apex:repeat value="{!Rows}" var="row">
+                    <tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                        <td>{!row.type}</td>
+                        <td><apex:outputLink value="/{!row.id}">{!row.name}</apex:outputLink></td>
+                        <td><c:fRecruitOutputCheckbox value="{!row.required}"/></td>
+                        <apex:repeat value="{!row.Items}" var="item">
+                            <td align="center">
+                                <apex:outputPanel style="color:#a0a0a0;" rendered="{!item.HasScore}"><apex:image value="{!item.ratingIndicator}" alt="{!item.rating}"/> {!item.weightedScore}</apex:outputPanel>
+                                <apex:outputPanel rendered="{!!item.HasScore}">&nbsp;</apex:outputPanel>
+                            </td>
+                        </apex:repeat>
+                    </tr>
+                </apex:repeat>
+                <tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                    <td style="font-weight:bold;" colspan="3">Score</td>
+                    <apex:repeat value="{!stages}" var="stage">
+                        <td style="text-align: center;"><c:outputNumber decimalPlaces="1" value="{!stage.fRecruit__Weighted_Score__c}"/></td>
+                    </apex:repeat>
+                </tr> 
+                <tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                    <td style="font-weight:bold;" colspan="3">Weighted Average</td>
+                    <apex:repeat value="{!stages}" var="stage">
+                        <td style="text-align: center;">{!stage.fRecruit__Weighted_Average_Score__c}</td>
+                    </apex:repeat>
+                </tr>
+                <tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                    <td style="font-weight:bold;" colspan="3">Outcome</td>
+                    <apex:repeat value="{!stages}" var="stage">
+                        <td style="text-align: center;">{!stage.fRecruit__Outcome__c}</td>
+                    </apex:repeat>
+                </tr>
+            </tbody>
+        </table>
+        <p style="text-align: center">Key:-&nbsp;&nbsp;&nbsp;&nbsp; Exceeds <apex:image value="/img/samples/rating5.gif" />&nbsp;&nbsp; Fully Meets <apex:image value="/img/samples/rating4.gif" />&nbsp;&nbsp; Just Meets <apex:image value="/img/samples/rating3.gif" />&nbsp;&nbsp; Partly Meets <apex:image value="/img/samples/rating2.gif" />&nbsp;&nbsp; Not Met <apex:image value="/img/samples/rating1.gif" /></p>
+    </apex:pageBlock>
+    </apex:form>
+
+    <apex:pageBlock title="Comments made with assessments" mode="detail">
+        <apex:pageBlockSection title="Criteria Comments" collapsible="true" columns="1" rendered="{!hasCriteriaComments}">
+            <apex:pageBlockTable title="Criteria Comments" value="{!criteriaComments}" var="row">
+                <apex:column headerValue="Criteria Type">{!row.type}</apex:column>
+                <apex:column headerValue="Criteria Name">{!row.name}</apex:column>
+                <apex:column headerValue="Assessment">{!row.assessment}</apex:column>
+                <apex:column headerValue="Comment">{!row.comment}</apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Assessment Overall Comments" collapsible="true" columns="1" rendered="{!hasAssessmentComments}">
+            <apex:pageBlockTable title="Assessment Overall Comments" value="{!assessmentComments}" var="row">
+                <apex:column headerValue="Assessment">{!row.assessment}</apex:column>
+                <apex:column headerValue="Comment Type">{!row.name}</apex:column>
+                <apex:column headerValue="Comment">{!row.comment}</apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Placements in Workplaces" mode="details" rendered="{!policies.fRecruit__Use_Placement__c}">
+        <apex:pageBlockButtons location="top">
+            <td class="pbButton"><c:fRecruitLinkButton label="New Placement" url="/{!$ObjectType.fRecruit__Placement__c.keyPrefix}/e?applicationId={!fRecruit__Application__c.Id}&retURL=%2F{!fRecruit__Application__c.Id}" /></td>
+        </apex:pageBlockButtons>
+        <apex:pageBlockTable value="{!placements}" var="row">
+            <apex:column headerValue="Action">
+                <apex:outputLink value="/{!row.Id}/e">Edit</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Name">
+                <apex:outputLink value="/{!row.Id}">{!row.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Workplace">
+                <apex:outputLink value="/{!row.fRecruit__Workplace__c}">{!row.Workplace__r.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Status">
+                <c:outputDate stringValue="{!row.fRecruit__Status__c}" />
+            </apex:column>
+            <apex:column headerValue="Interview Date">
+                <c:outputDate stringValue="{!row.fRecruit__Interview_Start__c}" />
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Forms" mode="details" rendered="{!forms.size>0}">
+        <apex:pageBlockTable value="{!forms}" var="row">
+            <apex:column headerValue="Name">
+                <apex:outputLink value="/{!row.Id}">{!row.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Form">
+                <apex:outputLabel value="{!row.Form_Definition__r.Name}" />
+            </apex:column>
+            <apex:column headerValue="Sent">
+                <c:outputDate stringValue="{!row.fRecruit__Start_Date__c}" />
+            </apex:column>
+            <apex:column headerValue="Last Reminder">
+                <c:outputDate stringValue="{!row.fRecruit__Reminder_Date__c}" />
+            </apex:column>
+            <apex:column headerValue="Completed">
+                <c:outputDate stringValue="{!row.fRecruit__Completed_Date__c}" />
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="External Tests" mode="details" rendered="{!externalTests.size>0}">
+        <apex:pageBlockTable value="{!externalTests}" var="row">
+            <apex:column headerValue="Name">
+                <apex:outputLink value="/{!row.Id}">{!row.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Test">
+                <apex:outputLabel value="{!row.External_Test__r.Name}" />
+            </apex:column>
+            <apex:column headerValue="Started">
+                <c:outputDate stringValue="{!row.createddate}" />
+            </apex:column>
+            <apex:column headerValue="Completed">
+                <c:outputDate stringValue="{!row.fRecruit__Completed_Date__c}" />
+            </apex:column>
+            <apex:column headerValue="Results">
+                <apex:outputPanel layout="block">
+                	<apex:repeat value="{!row.External_Test_Assessments__r}" var="result">
+                		<apex:outputPanel layout="block">
+                			{!result.Name}={!result.fRecruit__Score__c}
+                		</apex:outputPanel>
+                	</apex:repeat>
+                </apex:outputPanel>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Additional Details" mode="details"  rendered="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Details_Bottom.size>0}">
+            <apex:pageBlockSection columns="2">
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Application_Details_Bottom}" var="f">
+                   	<apex:outputField value="{!fRecruit__Application__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+	</apex:pageBlock>
+
+	<apex:relatedList list="ProcessSteps" subject="{!fRecruit__Application__c.Id}" rendered="{!policies.fRecruit__Require_Offer_Approval__c==true}">
+		<apex:facet name="header">&nbsp;</apex:facet>
+		<apex:facet name="footer">&nbsp;</apex:facet>
+   	</apex:relatedList>
+    <apex:relatedList list="NotesAndAttachments" />
+    <apex:relatedList list="OpenActivities" />
+    <apex:relatedList list="ActivityHistories"/>
+</apex:page>

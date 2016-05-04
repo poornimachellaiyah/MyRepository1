@@ -1,0 +1,477 @@
+<apex:page controller="Job_ListPageController" tabstyle="Job__c" id="thepage" sidebar="{!ShowHeaderandSidebar}" showheader="{!ShowHeaderandSidebar}">           
+  <head>
+      
+ <script>
+     function noenter(mode, ev) 
+     {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) 
+        {
+            if (mode == 'keywordsearch')
+            {
+                JobSearchJS();
+            }
+            else
+            {
+                FilterJobs();
+            }
+            
+            return false;
+        } 
+        else 
+        {
+            return true;
+        }
+      }   
+  
+     function JobSearchJS()
+     {
+        var x=document.getElementById("searchText").value;
+        SearchFunction(x);
+     }
+     
+     function FilterJobs()
+     {
+        document.getElementById("searchText").value='';
+        findJob();
+     }   
+      
+  </script> 
+  
+       
+<style>
+.conheader{
+    font-size: 1.1em;
+    font-weight:bold;
+    font-color:#000000;
+}
+body {
+    //font-family: 'Arial','Helvetica',sans-serif;
+    font-size: 75%;
+    //width:752px;
+    width: 100%;
+    font-family: Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.Custom11Tab .pageTitleIcon, .individualPalette .Custom11Block .pageTitleIcon{
+    background-image: url("/img/sprites/master.png");
+    background-position: 0 -1022px;
+    height: 32px;
+    width: 32px;
+}
+.list td, .list th, body.oldForecast .list .last td, body.oldForecast .list .last th {
+    border-bottom: 1px solid #E3DEB8;
+    color: #333333;
+    padding: 0px 0px 1px 0px;
+}
+.dataCell {
+    margin-left: 10px;
+}
+.bPageBlock .pbTitle {
+    color: #222222;
+    //font-size: 1.1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 30%;
+    font-weight:bold;
+}
+body .bPageBlock .pbTitle h2, body .bPageBlock .pbTitle h3{
+font-size: 1.2em;
+font-color:#000000;
+}
+.pbBody table.list tr.dataRow td {
+    border-width: 0px 0px 1px;
+    vertical-align: middle;
+    //padding-top: 5px;
+    padding: 4px 2px 4px 5px;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+}
+
+.quickfindContainer .quickfindInput {
+    background-image: url(/img/func_icons/util/search16.png);
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+    padding-left: 22px;
+    padding-top: 2px;
+    height: 20px;
+    border: 2px inset;
+}
+
+
+.quickfindContainer {
+    min-height: 20px;
+    padding-top: 5px;
+}
+
+#setupSearch.ghostText {
+color: #7d7d84;
+}
+
+.setupSearch {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 92%;
+    height: 20px;
+    margin-left: 2px;
+    border-style: solid;
+    border-color: #858585 #c1c1c1 #d8d8d8;
+    border-width: 1px;
+    width: 165px;
+    clear:both;
+}
+
+.lookupIcon{
+     cursor:pointer;
+}
+.lookupIcon {
+    background-image: url("/img/func_icons/util/lookup20.gif");
+    width: 18px;
+    height: 17px;
+    background-position: left top;
+}
+
+.jobopp {
+    font-size: 1.3em; 
+    font-weight: bold;   
+} 
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+}
+.phead{
+    margin-left:10px;     
+    border-radius: 5px;
+    border-top-style:none;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+}
+
+.apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+    margin: 0;
+}
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+    background-color: #F8F8F8;
+    border-bottom: 0 solid #EAEAEA;
+    border-left: 0 solid #EAEAEA;
+    border-radius: 4px 4px 4px 4px;
+    border-right: 0 solid #EAEAEA;
+}
+.Custom47Tab .secondaryPalette, .individualPalette .Custom47Block .secondaryPalette {
+    background-color: #8AB64E;
+    border-color: #F8F8F8;
+}
+</style>
+
+</head>  
+    
+<body>
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T3NFTL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T3NFTL');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K2HP3N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2HP3N');</script>
+<!-- End Google Tag Manager --> 
+
+<!-- start of changes by Raghu on 08/01/2016 -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTG9W3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTG9W3');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W26NX9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W26NX9');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NG74VT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NG74VT');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTJMND"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTJMND');</script>
+<!-- End Google Tag Manager -->
+<!-- End of Changes by Raghu -->
+
+    <apex:form id="searchFormId" >    
+        <apex:actionfunction name="SearchFunction" action="{!SearchFunction}" status="loadingStatus1" rerender="resultsBlock,pgBlck">
+                <apex:param name="x" value="x" assignTo="{!SearchBoxText}" />
+         </apex:actionfunction>
+         
+         <apex:actionfunction name="findJob" action="{!searchJobs}" rerender="searchResultTable,resultsBlock,pgBlck"  status="loadingStatus1"/>
+        
+        
+       <div class="div-wrapper"> 
+            <table width="100%">                             
+                    <td align="right">
+                    <table>
+                        <tr>
+                            <td>
+                                Keyword search
+                            </td>
+                            <td>
+                                <input id="searchText" class="setupSearch" placeholder="Search..." onkeypress="return noenter('keywordsearch', event);" > </input>
+                            </td>
+                            <td>
+                                <img src="/s.gif" alt="Search Jobs" class="lookupIcon" onblur="this.className = 'lookupIcon';"  onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title="Search Jobs"  onclick="JobSearchJS()">
+                                </img>
+                            </td>
+                        </tr>
+                    </table>     
+                </td>
+            
+            </table> 
+ 
+        <apex:pageMessages id="pgMsg" />
+            <apex:outputpanel id="pgBlck">
+            <div class="phead">
+                <table width="100%">   
+                <tr>
+                   <td width="50"><img id="headerImage" src="https://vso--c.eu1.content.force.com/servlet/servlet.ImageServer?id=015D0000003ZnPf&oid=00DD0000000o0JM&lastMod=1418648284000"></img></td>
+                
+                   <td><div class="jobopp" style="margin-left: -10px;">&nbsp;
+                            VSO Vacancies
+                        </div> </td>
+                </tr>
+                </table>           
+                 <br/>    
+                <apex:outputText style="font-family: Verdana;" value="Our latest employee and volunteer vacancies are listed below."/><br/>
+                <br/>
+                <apex:outputtext style="font-family: Verdana;" value="If you’d like to volunteer but can’t find a suitable role, you can complete a general application (the location is listed as “various countries”) and we’ll be in touch.  "/><br/>
+                <br/>
+                <apex:outputtext style="font-family: Verdana;" Value="Our"/>&nbsp;<a href="{!URLFOR($Setup.VSO_Settings__c.Site_URL__c)}/JobAlertRegistration">job alerts email service</a>&nbsp;<apex:outputtext style="font-family: Verdana;" Value="will automatically let you know when the next employee or volunteer role is available."/><br/>
+                <br/>  <br/>  
+                <div>
+                
+                   <table >
+                        <tr>
+                            <th>Job type</th>
+                            <th>Region</th>
+                            <th>Country</th>
+                            <th>Job category</th>
+                           <!--  <th>Skill</th> 
+                            <th>Start date</th> -->
+                      </tr>
+                    
+                      <tr>  
+                         <td>   
+                             <apex:selectList value="{!selectedJobType}" size="1" multiselect="false" style="width: 160px;" onkeypress="return noenter('filtercriteria', event);">
+                                    <apex:selectOption itemValue="" itemLabel="--All--"/>
+                                    <apex:selectOption itemValue="Employee" itemLabel="Employee"/>
+                                    <apex:selectOption itemValue="Volunteer" itemLabel="Volunteer"/>
+                                    <apex:selectOption itemValue="Consultant" itemLabel="Consultant"/>                               
+                             
+                                   <!-- Narpavi-TPT-(11-Dec-2015)-Added for E-Volunteer 
+                                   To display the E-Volunteer job in job board  -->                             
+                                    <apex:selectOption itemValue="E-Volunteer" itemLabel="E-Volunteer"/> 
+                            </apex:selectList>
+ 
+                          </td>
+                         
+                          <td>   
+                             <apex:selectList value="{!strSelectedRegion}" size="1" multiselect="false" style="width: 160px;" onkeypress="return noenter('filtercriteria', event);">
+                                    <apex:selectOptions value="{!AllRegions}"/>
+                                    <apex:actionsupport event="onchange" rerender="pgBlck"/>
+                             </apex:selectList>
+                         </td>
+                          <td>   
+                             <apex:selectList value="{!selectedCountries}" size="1" multiselect="false" style="width: 160px;" onkeypress="return noenter('filtercriteria', event);">
+                                    <apex:selectOptions value="{!countries}"/>
+                             </apex:selectList>
+                        </td>
+                            <td>   
+                             <apex:selectList value="{!strSkillGroup}" size="1" multiselect="false" style="width: 160px;" onkeypress="return noenter('filtercriteria', event);"> 
+                                    <apex:selectOptions value="{!AllSkillGroup}"/>
+                             </apex:selectList>
+                        </td>
+                        <!-- 
+                          <td>   
+                             <apex:selectList value="{!selectedStartDate}" size="1" multiselect="false" style="width: 160px;"> 
+                                    <apex:selectOptions value="{!StartDatesOfJobs}"/>
+                             </apex:selectList>
+ 
+                          </td>
+                          --> 
+                          <td> 
+                            <!--   <apex:commandButton onclick="FilterJobs()" value="Search" action="{!searchJobs}" rerender="searchResultTable,resultsBlock,pgBlck"  status="loadingStatus1" />  -->
+                            <input type="button" value="Search" onclick="FilterJobs()"/>
+                            
+                          </td>
+                      </tr>     
+                </table> 
+                </div>
+                <br/> 
+                </div>
+           </apex:outputpanel>
+       
+        
+        <apex:actionStatus id="loadingStatus1">
+                  <apex:facet name="start" >                
+                      <apex:outputpanel > <img src="/img/loading.gif" /> &nbsp;Processing..</apex:outputpanel> 
+                  </apex:facet>           
+                  <apex:facet name="stop"/>                  
+        </apex:actionStatus>
+       
+        <apex:outputpanel id="resultsBlock">
+        <div class="pdetails"> 
+        <apex:pageblock >
+        <div class="jobopp" style="margin-left: -10px;">
+                            VSO vacancies matching your search criteria
+                        </div>  
+         <br/>  
+            <apex:outputtext style="font-family: Verdana;" value="Below are our current vacancies that match your search criteria. You can sort them by clicking on the header of any of the columns. Click on the Job Title name to find out more about a specific job and apply now." rendered="{!NOT(lstFilteredJobs.size==0)}"/>  
+            <br/> 
+            <br/> 
+               
+                    <apex:pageblocktable value="{!lstFilteredJobs}" var="j" rendered= "{!NOT(ISNULL(lstFilteredJobs)) && lstFilteredJobs.size > 0}" first="{!currentPage}" rows="{!pageSize}" id="searchResultTable">
+                        <apex:column style="padding-left: 5px;">
+                            <apex:facet name="header" >
+                            <apex:commandLink value="Job title" action="{!SortJobRecords}" reRender="searchResultTable" status="lodingStatus">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Job_Title__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Job_Title__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Job_Title__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Job_Title__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputlink value="/apex/Job_DetailsPage?jid={!J.id}{!if($CurrentPage.parameters.m != null, '&m=' + $CurrentPage.parameters.m, null)}">{!j.Job_Title__c}</apex:outputlink>
+                        </apex:column> 
+                        
+                        <apex:column style="padding-left: 5px;">
+                            <apex:facet name="header" >
+                            <apex:commandLink value="Country" action="{!SortJobRecords}" reRender="searchResultTable" status="lodingStatus">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Country__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Country__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Country__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Country__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputtext value="{!j.Country__r.name}" />
+                        </apex:column> 
+                       <!-- 
+                        <apex:column style="padding-left: 5px;">
+                            <apex:facet name="header" >
+                            <apex:commandLink value="Projected Duration Weeks" action="{!SortJobRecords}" reRender="searchResultTable" status="lodingStatus">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Projected_Duration_Weeks__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Projected_Duration_Weeks__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Projected_Duration_Weeks__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Projected_Duration_Weeks__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputtext value="{!j.Projected_Duration_Weeks__c}" />
+                        </apex:column> 
+                         --> 
+                        <apex:column style="padding-left: 5px;">
+                            <apex:facet name="header" >
+                            <apex:commandLink value="Type" action="{!SortJobRecords}" reRender="searchResultTable" status="lodingStatus">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Type__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Type__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Type__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Type__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!j.Type__c}"/>
+                          
+                        </apex:column> 
+                        
+                        <apex:column style="padding-left: 5px;">
+                            <apex:facet name="header" >
+                            <apex:commandLink value="Application closing date" action="{!SortJobRecords}" reRender="searchResultTable" status="lodingStatus">
+                                <apex:outputText escape="false" rendered="{!sortBy=='Application_Closing_Date__c'&&sortDir=='ASC'}">
+                                    <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                </apex:outputText>
+                                <apex:outputText escape="false" rendered="{!sortBy=='Application_Closing_Date__c'&&sortDir=='DESC'}">
+                                    <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                </apex:outputText>
+                                <apex:param value="Application_Closing_Date__c" name="column1" assignTo="{!sortBy}" />
+                                <apex:param value="{!IF(sortDir=='ASC'&&sortBy=='Application_Closing_Date__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                            </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!j.Application_Closing_Date__c}"  /></apex:outputText>
+                          
+                        </apex:column> 
+                        
+                        
+            </apex:pageblocktable>
+            
+            <apex:outputpanel rendered="{!lstFilteredJobs.size==0}">
+                <apex:outputtext style="font-family: Verdana;"> 
+                There are currently no job opportunities that match your search criteria – please revise your criteria and search again or register for job alerts <a href="{!URLFOR($Setup.VSO_Settings__c.Site_URL__c)}/JobAlertRegistration">here</a>.
+               
+                </apex:outputtext>
+                                
+            </apex:outputpanel> 
+            </apex:pageblock>
+            </div>
+        </apex:outputpanel> 
+        </div>
+          
+        </apex:form>
+        </body>
+</apex:page>

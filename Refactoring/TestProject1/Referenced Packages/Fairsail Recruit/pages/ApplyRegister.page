@@ -1,0 +1,224 @@
+<apex:page controller="fRecruit.ApplyRegisterController" cache="false" action="{!onLoad}" showHeader="false" sidebar="false" standardStylesheets="true" language="{!languageSetter.locale}">
+
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+    <script type="text/javascript" src="/resource/json/JSON-js-master/json2.js"/>
+    <apex:outputPanel layout="none" rendered="{!!isblank(LinkedInAPIKey) && $Setup.Apply_Portal__c.Use_Apply_With_LinkedIn__c}">
+        <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+              api_key: {!LinkedInAPIKey}
+              onLoad: onLinkedInLoad
+        </script>
+        <script type="text/javascript">            
+            
+            // 1. Runs when the JavaScript framework is loaded
+              function onLinkedInLoad() {
+                IN.Event.on(IN, "auth", onLinkedInAuth);
+              }
+        
+              // 2. Runs when the viewer has authenticated
+              function onLinkedInAuth() {
+                var get_these_fields = new Array();
+                get_these_fields.push("firstName");
+                get_these_fields.push("lastName");
+                get_these_fields.push("location");
+                get_these_fields.push("skills");
+                get_these_fields.push("educations");
+                get_these_fields.push("phone-numbers");
+                get_these_fields.push("email-address");
+                get_these_fields.push("three-past-positions");
+                get_these_fields.push("three-current-positions");
+                get_these_fields.push("languages");
+                get_these_fields.push("public-profile-url");
+                get_these_fields.push("summary");
+                get_these_fields.push("main-address");
+                
+        
+                IN.API.Profile("me").fields(get_these_fields).result(displayProfiles);
+              }
+        	
+        	  var linkedInProfileJSON;
+        	
+              // 3. Runs when the Profile() API call returns successfully
+              function displayProfiles(profiles) {
+                member = profiles.values[0];
+                onCallBack(member);
+              }
+            
+            function onCallBack(p1) {
+                var allPageTags=document.getElementsByTagName("input");
+                for (i=0; i<allPageTags.length; i++) {
+                    if (allPageTags[i].id.indexOf("linkedInJSON")>=0) allPageTags[i].value = JSON.stringify(p1);
+                    if (allPageTags[i].id.indexOf("fRecruit__First_Name__c")>=0 && allPageTags[i].value=='') allPageTags[i].value = p1.firstName;
+                    if (allPageTags[i].id.indexOf("fRecruit__Surname__c")>=0 && allPageTags[i].value=='') allPageTags[i].value = p1.lastName;
+                    if (allPageTags[i].id.indexOf("fRecruit__Email__c")>=0 && allPageTags[i].value=='') allPageTags[i].value = p1.emailAddress;
+                    if (allPageTags[i].id.indexOf("fRecruit__Phone__c")>=0 && allPageTags[i].value=='' && p1.phoneNumbers._total >0) allPageTags[i].value = p1.phoneNumbers.values[0].phoneNumber;
+                }
+                jQuery('#LinkedInButton').hide();
+                jQuery('#LinkedInButtonPrompt').hide();
+                jQuery('#linkedInLabel').hide();
+                jQuery('#LinkedInMessage').show();
+                if ('{!jsencode($Label.Apply_LinkedIn_Post_Alert)}'!='.') alert('{!jsencode($Label.Apply_LinkedIn_Post_Alert)}');
+				//console.log(p1);
+                methodOneInJavascript(JSON.stringify(p1));
+            }
+            
+        </script>
+        
+        
+        
+        
+    </apex:outputPanel>
+    <style>
+        input[type="text"] {
+            width:300px;
+        }
+        textarea {
+            width:400px;
+        }
+    </style>
+    <c:IfHasNotice locale="{!languageSetter.locale}"  page="ApplyRegister" location="Right">
+        <style>
+            .bodyColumn { width:600px; }
+            .rightColumn { display:table-cell; width:200px; padding-left:10px;}
+        </style>
+    </c:IfHasNotice>
+      <apex:stylesheet value="{!portalURL}"/>
+    
+</apex:define>
+
+<apex:define name="header">
+    <c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyRegister" location="Header" />
+</apex:define>
+
+<apex:define name="left">
+    <c:ApplyMenu locale="{!languageSetter.locale}"  uniqueId="{!$CurrentPage.parameters.uid}" portal="{!portal}"/>
+    <c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyRegister" location="Left" />
+</apex:define>
+
+<apex:define name="right">
+    <c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyRegister" location="Right" />
+</apex:define>
+
+<apex:define name="body">
+    <apex:sectionHeader title="{!$Label.frecruit__Apply_Portal+CandidateName}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Apply_Register}"/>
+    <c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyRegister" location="Top" />
+    <p>{!$Label.frecruit__Apply_Register_Top}</p>     
+    <apex:pageMessages />
+
+
+    <!-- <p><apex:outputText value="{!linkedInJSON}" id="showstate" /></p>  -->
+
+    <apex:form >
+
+	    <apex:actionFunction action="{!methodOne}" name="methodOneInJavascript" rerender="showstate">
+	        <apex:param name="firstParam" assignTo="{!linkedInJSON}" value="" />
+	    </apex:actionFunction>
+    
+    </apex:form>
+
+	
+
+    <apex:form >
+
+    
+    <!-- "{!!isblank(LinkedInAPIKey) && $Setup.Apply_Portal__c.Use_Apply_With_LinkedIn__c}" -->
+        <!-- <apex:inputHidden id="linkedInJSON" value="{!linkedInJSON}" rendered="false"/> -->
+        
+       <!-- <apex:inputHidden value="{!linkedInJSON}" id="linkedInJSON" />  --> 
+        
+        <apex:tabPanel switchType="client" value="{!tab}">
+            <apex:tab label="{!$Label.frecruit__Apply_Register_Register_Tab}" name="register">
+                <p>{!$Label.frecruit__Apply_Register_Register_Top}</p>
+				
+                <apex:pageBlock mode="edit">
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!register}" value="{!$Label.frecruit__Apply_Register_Register_Button}"/>
+                        
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1">
+                            <apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Apply_Registration}" var="f">
+                                <apex:pageBlockSectionItem >
+                                    <c:FieldLabelHelp field="{!$ObjectType.fRecruit__Candidate__c.Fields[f]}"/>
+                                    <apex:outputPanel >
+                                        <apex:inputField rendered="{!f=='fRecruit__Email__c'}" id="fRecruit__Email__c" value="{!record[f]}" required="{!f.Required}" />
+                                        <apex:inputField rendered="{!f=='fRecruit__First_Name__c'}" id="fRecruit__First_Name__c" value="{!record[f]}" required="{!f.Required}" />
+                                        <apex:inputField rendered="{!f=='fRecruit__Surname__c'}" id="fRecruit__Surname__c" value="{!record[f]}" required="{!f.Required}" />
+                                        <apex:inputField rendered="{!f=='fRecruit__Phone__c'}" id="fRecruit__Phone__c" value="{!record[f]}" required="{!f.Required}" />
+                                        <apex:inputField rendered="{!f!='fRecruit__Email__c' && f!='fRecruit__First_Name__c' && f!='fRecruit__Surname__c' && f!='fRecruit__Phone__c'}" value="{!record[f]}" required="{!f.Required}" />
+                                        <apex:outputPanel rendered="{!HasDoubleEmail && f=='fRecruit__Email__c'}" layout="block" styleClass="{!if(f.required,'requiredInput','')}">
+                                            <apex:outputPanel layout="block" styleClass="requiredBlock" rendered="{!f.required}"></apex:outputPanel>
+                                            <apex:inputText id="fRecruit__Email__c2" value="{!doubleEmail}"/>
+                                            <br/>{!$Label.frecruit__Apply_Please_Enter_Twice}
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            </apex:repeat>
+                        <apex:pageBlockSectionItem rendered="{!!isblank(LinkedInAPIKey) && $Setup.Apply_Portal__c.Use_Apply_With_LinkedIn__c}">
+                            <apex:outputLabel id="linkedInLabel" value="{!$Label.frecruit__Apply_Attach_LinkedIn_Profile}"/>
+                            <apex:outputPanel layout="block">
+                                <apex:outputPanel layout="none">
+								<div id="LinkedInButton">
+                                
+                                <!-- 3. Displays a button to let the viewer authenticate -->
+                                <script type="IN/Login"></script>
+                                
+                                
+                                </div>
+                                
+                                <!-- <div id="LinkedInButtonPrompt">{!$Label.Apply_Attach_LinkedIn_Profile_Message}</div> -->
+                                </apex:outputPanel>
+                                <div id="LinkedInMessage" style="{!if(isnull(linkedInJSON),'display:none','')};">
+                                    {!$Label.frecruit__Apply_LinkedIn_Profile_Attached}
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!$Setup.Apply_Portal__c.Use_Resume_On_Register__c}">
+                            <apex:outputLabel value="{!$Label.frecruit__Apply_Attach_Resume}"/>
+                            <apex:outputPanel layout="block" styleClass="{!if(requireResume,'requiredInput','')}">
+                                <apex:outputPanel layout="block" styleClass="requiredBlock" rendered="{!requireResume}"></apex:outputPanel>
+                                <apex:inputFile value="{!fileContent}" filename="{!fileName}" contentType="{!contentType}"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:tab>
+            <apex:tab label="{!$Label.frecruit__Apply_Register_Reference_Tab}" name="reference">
+                <p>{!$Label.frecruit__Apply_Register_Reference_Top}</p>
+                <apex:inputText value="{!uid}" style="width:100px; margin-left:150px;" id="uidReference"/>
+                <apex:commandButton action="{!reference}" immediate="true" value="{!$Label.frecruit__Apply_Register_Reference_Button}" style="margin-left:5px;"/>
+            </apex:tab>
+            <apex:tab label="{!$Label.frecruit__Apply_Register_Reminder_Tab}" name="reminder" rendered="{!!isblank($Setup.Apply_Portal__c.Reminder_Template__c)}">
+                <p>{!$Label.frecruit__Apply_Register_Reminder_Top}</p>
+                <apex:inputText value="{!email}" style="margin-left:150px;" id="emailReminder"/>
+                <apex:commandButton action="{!reminder}" immediate="true" value="{!$Label.frecruit__Apply_Register_Reminder_Button}" style="margin-left:5px;"/>
+            </apex:tab>
+        </apex:tabPanel>
+
+    </apex:form>
+
+    <c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyRegister" location="Bottom" />
+</apex:define>
+
+<apex:define name="footer">
+    <c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyRegister" location="Footer" />
+             <script type="text/javascript">
+                  
+                    function changeYears() {     
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         for(var i=1901; i < 2020;i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+                     window.onload = changeYears;
+             </script>
+</apex:define>
+
+</apex:composition>
+
+</apex:page>

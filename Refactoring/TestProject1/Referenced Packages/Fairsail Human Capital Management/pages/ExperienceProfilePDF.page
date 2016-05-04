@@ -1,0 +1,45 @@
+<apex:page controller="fHCM2.ExperienceProfileController" renderAs="{!blankvalue($CurrentPage.parameters.renderAs,'pdf')}" standardStylesheets="true" showHeader="false" sidebar="false" title="Team Member Profile" rendered="{!subject.experience.isUsing}">
+
+    <apex:composition template="fHCM2__fairsailTemplatePDF">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+           <style>
+				@page {
+				    @top-left {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:11pt;
+				        content: "{!$Label.fhcm2__Process_Work_History}";
+				    }
+				    @top-right {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:11pt;
+				        content: "{!viewer.TeamMember.Name}";
+				    }
+				}
+            </style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Work_History}" mode="view">
+        
+            <c:Notice viewer="{!viewer}" page="ExperienceProfilePDF" location="Header"/>
+            <apex:repeat value="{!history}" var="Experience">
+                <apex:pageBlockSection title="{!Experience.fHCM2__Title__c}" columns="1">
+					<apex:repeat value="{!$ObjectType.fHCM2__Experience__c.FieldSets.fHCM2__Experience_Details}" var="f">
+                        <apex:outputField value="{!Experience[f]}" rendered="{!!contains(f,'Title__c')}"/>
+                    </apex:repeat>
+	             </apex:pageBlockSection>
+	             </apex:repeat>
+            	<c:Notice viewer="{!viewer}" page="ExperienceProfilePDF" location="Footer"/>
+             </apex:pageBlock>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,50 @@
+<apex:page controller="fHCM2.JobDescriptionControllerExtension" renderAs="{!blankvalue($CurrentPage.parameters.renderAs,'pdf')}" standardStylesheets="true" showHeader="false" sidebar="false" title="Team Member Profile" rendered="{!subject.currentJobDescription.isUsing}">
+
+    <apex:composition template="fHCM2__fairsailTemplatePDF">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+           <style>
+				@page {
+				    @top-left {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:11pt;
+				        content: "{!$Label.fhcm2__Process_Job_Description}";
+				    }
+				    @top-right {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:11pt;
+				        content: "{!viewer.TeamMember.Name}";
+				    }
+				}
+				.labelCol {
+					vertical-align:top;
+					padding-right:20px;
+				}
+            </style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+
+        <apex:define name="widePanel">
+            <apex:pageBlock mode="view">       
+            <c:Notice viewer="{!viewer}" page="JobDescriptionPDF" location="Header"/>
+				<apex:pageBlockSection columns="1" >
+					<apex:repeat value="{!$ObjectType.fHCM2__Job_Description__c.FieldSets.fHCM2__Job_Description}" var="f">
+						<apex:outputField value="{!currentJob[f]}" rendered="{!f.type!='textarea'}"/>
+						<apex:pageBlockSectionItem rendered="{!f.type=='textarea'}">
+							<apex:outputLabel value="{!f.label}"/>
+							<apex:outputText escape="false" value="{!currentJob[f]}"/>
+						</apex:pageBlockSectionItem>
+        	    	</apex:repeat>
+        	    </apex:pageBlockSection>
+            <c:Notice viewer="{!viewer}" page="JobDescriptionPDF" location="Footer"/>
+            </apex:pageBlock>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

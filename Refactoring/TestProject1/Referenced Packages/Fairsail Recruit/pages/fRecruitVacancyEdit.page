@@ -1,0 +1,306 @@
+<apex:page standardController="fRecruit__Vacancy__c" extensions="fRecruit.SetupPoliciesExtensionController,fRecruit.EmailTemplateExtensionController,fRecruit.VacancyGeolocateExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label} Details" subTitle="{!fRecruit__Vacancy__c.Name}" help="http://recruit.help.fairsail.com/topics/EditVacancy.html" />
+	<apex:form >
+
+		<apex:pageBlock title="Requisition" mode="edit" rendered="{!(policies.fRecruit__Use_Job_Requisition__c && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c))}">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pagemessages />
+
+            <apex:pageBlockSection title="Requisition Details" columns="1" id="locationAreaReq">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Requisition_Edit}" var="f">
+                   	<apex:inputField value="{!fRecruit__Vacancy__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:600px;','')}" rendered="{!f!='fRecruit__Location_Postal_Code__c' && f!='fRecruit__Location_Country__c'}"/>
+
+					<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Country__c}" rendered="{!f=='fRecruit__Location_Country__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__Location_Postal_Code__c'}">
+						<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Location_Postal_Code__c.label}" />
+						<apex:outputPanel >
+							<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c}"/>
+
+ 							<apex:actionStatus id="locateStatusReq" rendered="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true}">
+								<apex:facet name="start" >
+									{!$Label.Geolocate_Searching}...<img src="/apexpages/devmode/img/saveStatus.gif" />
+								</apex:facet>
+								<apex:facet name="stop">
+									<apex:commandButton action="{!locate}" value="{!$Label.frecruit__Geolocate_Confirm_Location}" status="locateStatusReq" rerender="locationAreaReq"/>
+								</apex:facet>
+							</apex:actionStatus>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__Location_Postal_Code__c'}">
+						<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Location_Region__c.label}" />
+						<apex:inputText value="{!fRecruit__Vacancy__c.fRecruit__Location_Region__c}" disabled="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true && (isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) || (!isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) && !isblank(fRecruit__Vacancy__c.fRecruit__Location_Region__c)))}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__Location_Postal_Code__c'}">
+						<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Location_City__c.label}" />
+						<apex:inputText value="{!fRecruit__Vacancy__c.fRecruit__Location_City__c}" disabled="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true && (isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) || (!isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) && !isblank(fRecruit__Vacancy__c.fRecruit__Location_City__c)))}"/>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem rendered="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true && f=='fRecruit__Location_Postal_Code__c'}">
+						<apex:outputLabel value="Map" />
+						<apex:outputLink value="http://maps.google.com/maps?q={!fRecruit__Vacancy__c.fRecruit__Latitude__c}+{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}&ll={!fRecruit__Vacancy__c.fRecruit__Latitude__c},{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}&z=9" rendered="{!!isblank(fRecruit__Vacancy__c.fRecruit__Latitude__c) && !isblank(fRecruit__Vacancy__c.fRecruit__Longtitude__c)}" target="_blank"><apex:image value="//maps.googleapis.com/maps/api/staticmap?center={!fRecruit__Vacancy__c.fRecruit__Latitude__c},{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}&zoom=10&size=200x200&sensor=false&markers=color:blue|{!fRecruit__Vacancy__c.fRecruit__Latitude__c},{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}" /></apex:outputLink>
+					</apex:pageBlockSectionItem>
+
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Vacancy Details" mode="edit" rendered="{!!(policies.fRecruit__Use_Job_Requisition__c && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c))}">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pagemessages />
+
+			<apex:pageBlockSection title="Information" columns="1">
+				<apex:inputField value="{!fRecruit__Vacancy__c.Name}" required="true"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Workplace__c}" rendered="{!policies.fRecruit__Use_Workplace__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Status__c}" />
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Vacancy_No__c}" />
+				
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Stage Options" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="From Email Address" />
+					<apex:selectList value="{!fRecruit__Vacancy__c.fRecruit__From_Email_Address__c}" size="1">
+						<apex:selectOptions value="{!currentOrgWideEmailAddress}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Reference_Form_Definition__c}"/>
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Offer_Template__c}"/>
+			</apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Key People" columns="1" rendered="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Key_People.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Key_People}" var="f">
+                   	<apex:inputField value="{!fRecruit__Vacancy__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:400px;','')}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Location" columns="1" id="locationArea">
+				<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Country__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Location_Postal_Code__c.label}" />
+					<apex:outputPanel >
+						<apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c}"/>
+
+ 						<apex:actionStatus id="locateStatus" rendered="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true}">
+							<apex:facet name="start" >
+								{!$Label.Geolocate_Searching}...<img src="/apexpages/devmode/img/saveStatus.gif" />
+							</apex:facet>
+							<apex:facet name="stop">
+								<apex:commandButton action="{!locate}" value="{!$Label.frecruit__Geolocate_Confirm_Location}" status="locateStatus" rerender="locationArea"/>
+							</apex:facet>
+						</apex:actionStatus>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Location_Region__c.label}" />
+					<apex:inputText value="{!fRecruit__Vacancy__c.fRecruit__Location_Region__c}" disabled="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true && (isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) || (!isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) && !isblank(fRecruit__Vacancy__c.fRecruit__Location_Region__c)))}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Location_City__c.label}" />
+					<apex:inputText value="{!fRecruit__Vacancy__c.fRecruit__Location_City__c}" disabled="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true && (isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) || (!isblank(fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c) && !isblank(fRecruit__Vacancy__c.fRecruit__Location_City__c)))}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!policies.fRecruit__Use_Vacancy_Geolocation__c==true}">
+					<apex:outputLabel value="Map" />
+					<apex:outputLink value="http://maps.google.com/maps?q={!fRecruit__Vacancy__c.fRecruit__Latitude__c}+{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}&ll={!fRecruit__Vacancy__c.fRecruit__Latitude__c},{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}&z=9" rendered="{!!isblank(fRecruit__Vacancy__c.fRecruit__Latitude__c) && !isblank(fRecruit__Vacancy__c.fRecruit__Longtitude__c)}" target="_blank"><apex:image value="//maps.googleapis.com/maps/api/staticmap?center={!fRecruit__Vacancy__c.fRecruit__Latitude__c},{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}&zoom=10&size=200x200&sensor=false&markers=color:blue|{!fRecruit__Vacancy__c.fRecruit__Latitude__c},{!fRecruit__Vacancy__c.fRecruit__Longtitude__c}" /></apex:outputLink>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Job Description" columns="1" rendered="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Job_Description.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Job_Description}" var="f">
+                   	<apex:inputField value="{!fRecruit__Vacancy__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Employment Type" columns="1" rendered="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Employment_Type.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Employment_Type}" var="f">
+                   	<apex:inputField value="{!fRecruit__Vacancy__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Compensation Package" columns="1" rendered="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Compensation_Package.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Compensation_Package}" var="f">
+                   	<apex:inputField value="{!fRecruit__Vacancy__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__Currency_Code__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__Currency_Code__c'}">
+						<apex:outputLabel value="Currency" />
+						<apex:selectList id="currency" value="{!fRecruit__Vacancy__c.fRecruit__Currency_Code__c}" size="1">
+							<apex:selectOption itemValue="AFN" itemLabel="Afghanistan Afghani" />
+							<apex:selectOption itemValue="ALL" itemLabel="Albania Lek" />
+							<apex:selectOption itemValue="DZD" itemLabel="Algeria Dinar" />
+							<apex:selectOption itemValue="AOA" itemLabel="Angola Kwanza" />
+							<apex:selectOption itemValue="ARS" itemLabel="Argentina Peso" />
+							<apex:selectOption itemValue="AMD" itemLabel="Armenia Dram" />
+							<apex:selectOption itemValue="AWG" itemLabel="Aruba Guilder" />
+							<apex:selectOption itemValue="AUD" itemLabel="Australia Dollar" />
+							<apex:selectOption itemValue="AZN" itemLabel="Azerbaijan New Manat" />
+							<apex:selectOption itemValue="BSD" itemLabel="Bahamas Dollar" />
+							<apex:selectOption itemValue="BHD" itemLabel="Bahrain Dinar" />
+							<apex:selectOption itemValue="BDT" itemLabel="Bangladesh Taka" />
+							<apex:selectOption itemValue="BBD" itemLabel="Barbados Dollar" />
+							<apex:selectOption itemValue="BYR" itemLabel="Belarus Ruble" />
+							<apex:selectOption itemValue="BZD" itemLabel="Belize Dollar" />
+							<apex:selectOption itemValue="BMD" itemLabel="Bermuda Dollar" />
+							<apex:selectOption itemValue="BTN" itemLabel="Bhutan Ngultrum" />
+							<apex:selectOption itemValue="BOB" itemLabel="Bolivia Boliviano" />
+							<apex:selectOption itemValue="BAM" itemLabel="Bosnia and Herzegovina Convertible Marka" />
+							<apex:selectOption itemValue="BWP" itemLabel="Botswana Pula" />
+							<apex:selectOption itemValue="BRL" itemLabel="Brazil Real" />
+							<apex:selectOption itemValue="BND" itemLabel="Brunei Darussalam Dollar" />
+							<apex:selectOption itemValue="BGN" itemLabel="Bulgaria Lev" />
+							<apex:selectOption itemValue="BIF" itemLabel="Burundi Franc" />
+							<apex:selectOption itemValue="KHR" itemLabel="Cambodia Riel" />
+							<apex:selectOption itemValue="CAD" itemLabel="Canada Dollar" />
+							<apex:selectOption itemValue="CVE" itemLabel="Cape Verde Escudo" />
+							<apex:selectOption itemValue="KYD" itemLabel="Cayman Islands Dollar" />
+							<apex:selectOption itemValue="CLP" itemLabel="Chile Peso" />
+							<apex:selectOption itemValue="CNY" itemLabel="China Yuan Renminbi" />
+							<apex:selectOption itemValue="COP" itemLabel="Colombia Peso" />
+							<apex:selectOption itemValue="KMF" itemLabel="Comoros Franc" />
+							<apex:selectOption itemValue="CDF" itemLabel="Congo/Kinshasa Franc" />
+							<apex:selectOption itemValue="CRC" itemLabel="Costa Rica Colon" />
+							<apex:selectOption itemValue="HRK" itemLabel="Croatia Kuna" />
+							<apex:selectOption itemValue="CUC" itemLabel="Cuba Convertible Peso" />
+							<apex:selectOption itemValue="CUP" itemLabel="Cuba Peso" />
+							<apex:selectOption itemValue="CZK" itemLabel="Czech Republic Koruna" />
+							<apex:selectOption itemValue="DKK" itemLabel="Denmark Krone" />
+							<apex:selectOption itemValue="DJF" itemLabel="Djibouti Franc" />
+							<apex:selectOption itemValue="DOP" itemLabel="Dominican Republic Peso" />
+							<apex:selectOption itemValue="XCD" itemLabel="East Caribbean Dollar" />
+							<apex:selectOption itemValue="EGP" itemLabel="Egypt Pound" />
+							<apex:selectOption itemValue="SVC" itemLabel="El Salvador Colon" />
+							<apex:selectOption itemValue="ERN" itemLabel="Eritrea Nakfa" />
+							<apex:selectOption itemValue="ETB" itemLabel="Ethiopia Birr" />
+							<apex:selectOption itemValue="EUR" itemLabel="Euro Member Countries" />
+							<apex:selectOption itemValue="FKP" itemLabel="Falkland Islands (Malvinas) Pound" />
+							<apex:selectOption itemValue="FJD" itemLabel="Fiji Dollar" />
+							<apex:selectOption itemValue="GMD" itemLabel="Gambia Dalasi" />
+							<apex:selectOption itemValue="GEL" itemLabel="Georgia Lari" />
+							<apex:selectOption itemValue="GHS" itemLabel="Ghana Cedi" />
+							<apex:selectOption itemValue="GIP" itemLabel="Gibraltar Pound" />
+							<apex:selectOption itemValue="GTQ" itemLabel="Guatemala Quetzal" />
+							<apex:selectOption itemValue="GGP" itemLabel="Guernsey Pound" />
+							<apex:selectOption itemValue="GNF" itemLabel="Guinea Franc" />
+							<apex:selectOption itemValue="GYD" itemLabel="Guyana Dollar" />
+							<apex:selectOption itemValue="HTG" itemLabel="Haiti Gourde" />
+							<apex:selectOption itemValue="HNL" itemLabel="Honduras Lempira" />
+							<apex:selectOption itemValue="HKD" itemLabel="Hong Kong Dollar" />
+							<apex:selectOption itemValue="HUF" itemLabel="Hungary Forint" />
+							<apex:selectOption itemValue="ISK" itemLabel="Iceland Krona" />
+							<apex:selectOption itemValue="INR" itemLabel="India Rupee" />
+							<apex:selectOption itemValue="IDR" itemLabel="Indonesia Rupiah" />
+							<apex:selectOption itemValue="IRR" itemLabel="Iran Rial" />
+							<apex:selectOption itemValue="IQD" itemLabel="Iraq Dinar" />
+							<apex:selectOption itemValue="IMP" itemLabel="Isle of Man Pound" />
+							<apex:selectOption itemValue="ILS" itemLabel="Israel Shekel" />
+							<apex:selectOption itemValue="JMD" itemLabel="Jamaica Dollar" />
+							<apex:selectOption itemValue="JPY" itemLabel="Japan Yen" />
+							<apex:selectOption itemValue="JEP" itemLabel="Jersey Pound" />
+							<apex:selectOption itemValue="JOD" itemLabel="Jordan Dinar" />
+							<apex:selectOption itemValue="KZT" itemLabel="Kazakhstan Tenge" />
+							<apex:selectOption itemValue="KES" itemLabel="Kenya Shilling" />
+							<apex:selectOption itemValue="KPW" itemLabel="Korea (North) Won" />
+							<apex:selectOption itemValue="KRW" itemLabel="Korea (South) Won" />
+							<apex:selectOption itemValue="KWD" itemLabel="Kuwait Dinar" />
+							<apex:selectOption itemValue="KGS" itemLabel="Kyrgyzstan Som" />
+							<apex:selectOption itemValue="LAK" itemLabel="Laos Kip" />
+							<apex:selectOption itemValue="LVL" itemLabel="Latvia Lat" />
+							<apex:selectOption itemValue="LBP" itemLabel="Lebanon Pound" />
+							<apex:selectOption itemValue="LSL" itemLabel="Lesotho Loti" />
+							<apex:selectOption itemValue="LRD" itemLabel="Liberia Dollar" />
+							<apex:selectOption itemValue="LYD" itemLabel="Libya Dinar" />
+							<apex:selectOption itemValue="LTL" itemLabel="Lithuania Litas" />
+							<apex:selectOption itemValue="MOP" itemLabel="Macau Pataca" />
+							<apex:selectOption itemValue="MKD" itemLabel="Macedonia Denar" />
+							<apex:selectOption itemValue="MGA" itemLabel="Madagascar Ariary" />
+							<apex:selectOption itemValue="MWK" itemLabel="Malawi Kwacha" />
+							<apex:selectOption itemValue="MYR" itemLabel="Malaysia Ringgit" />
+							<apex:selectOption itemValue="MVR" itemLabel="Maldives (Maldive Islands) Rufiyaa" />
+							<apex:selectOption itemValue="MRO" itemLabel="Mauritania Ouguiya" />
+							<apex:selectOption itemValue="MUR" itemLabel="Mauritius Rupee" />
+							<apex:selectOption itemValue="MXN" itemLabel="Mexico Peso" />
+							<apex:selectOption itemValue="MDL" itemLabel="Moldova Leu" />
+							<apex:selectOption itemValue="MNT" itemLabel="Mongolia Tughrik" />
+							<apex:selectOption itemValue="MAD" itemLabel="Morocco Dirham" />
+							<apex:selectOption itemValue="MZN" itemLabel="Mozambique Metical" />
+							<apex:selectOption itemValue="MMK" itemLabel="Myanmar (Burma) Kyat" />
+							<apex:selectOption itemValue="NAD" itemLabel="Namibia Dollar" />
+							<apex:selectOption itemValue="NPR" itemLabel="Nepal Rupee" />
+							<apex:selectOption itemValue="ANG" itemLabel="Netherlands Antilles Guilder" />
+							<apex:selectOption itemValue="NZD" itemLabel="New Zealand Dollar" />
+							<apex:selectOption itemValue="NIO" itemLabel="Nicaragua Cordoba" />
+							<apex:selectOption itemValue="NGN" itemLabel="Nigeria Naira" />
+							<apex:selectOption itemValue="NOK" itemLabel="Norway Krone" />
+							<apex:selectOption itemValue="OMR" itemLabel="Oman Rial" />
+							<apex:selectOption itemValue="PKR" itemLabel="Pakistan Rupee" />
+							<apex:selectOption itemValue="PAB" itemLabel="Panama Balboa" />
+							<apex:selectOption itemValue="PGK" itemLabel="Papua New Guinea Kina" />
+							<apex:selectOption itemValue="PYG" itemLabel="Paraguay Guarani" />
+							<apex:selectOption itemValue="PEN" itemLabel="Peru Nuevo Sol" />
+							<apex:selectOption itemValue="PHP" itemLabel="Philippines Peso" />
+							<apex:selectOption itemValue="PLN" itemLabel="Poland Zloty" />
+							<apex:selectOption itemValue="QAR" itemLabel="Qatar Riyal" />
+							<apex:selectOption itemValue="RON" itemLabel="Romania New Leu" />
+							<apex:selectOption itemValue="RUB" itemLabel="Russia Ruble" />
+							<apex:selectOption itemValue="RWF" itemLabel="Rwanda Franc" />
+							<apex:selectOption itemValue="SHP" itemLabel="Saint Helena Pound" />
+							<apex:selectOption itemValue="WST" itemLabel="Samoa Tala" />
+							<apex:selectOption itemValue="STD" itemLabel="São Tomé and Príncipe Dobra" />
+							<apex:selectOption itemValue="SAR" itemLabel="Saudi Arabia Riyal" />
+							<apex:selectOption itemValue="SPL*" itemLabel="Seborga Luigino" />
+							<apex:selectOption itemValue="RSD" itemLabel="Serbia Dinar" />
+							<apex:selectOption itemValue="SCR" itemLabel="Seychelles Rupee" />
+							<apex:selectOption itemValue="SLL" itemLabel="Sierra Leone Leone" />
+							<apex:selectOption itemValue="SGD" itemLabel="Singapore Dollar" />
+							<apex:selectOption itemValue="SBD" itemLabel="Solomon Islands Dollar" />
+							<apex:selectOption itemValue="SOS" itemLabel="Somalia Shilling" />
+							<apex:selectOption itemValue="ZAR" itemLabel="South Africa Rand" />
+							<apex:selectOption itemValue="LKR" itemLabel="Sri Lanka Rupee" />
+							<apex:selectOption itemValue="SDG" itemLabel="Sudan Pound" />
+							<apex:selectOption itemValue="SRD" itemLabel="Suriname Dollar" />
+							<apex:selectOption itemValue="SZL" itemLabel="Swaziland Lilangeni" />
+							<apex:selectOption itemValue="SEK" itemLabel="Sweden Krona" />
+							<apex:selectOption itemValue="CHF" itemLabel="Switzerland Franc" />
+							<apex:selectOption itemValue="SYP" itemLabel="Syria Pound" />
+							<apex:selectOption itemValue="TWD" itemLabel="Taiwan New Dollar" />
+							<apex:selectOption itemValue="TJS" itemLabel="Tajikistan Somoni" />
+							<apex:selectOption itemValue="TZS" itemLabel="Tanzania Shilling" />
+							<apex:selectOption itemValue="THB" itemLabel="Thailand Baht" />
+							<apex:selectOption itemValue="TOP" itemLabel="Tonga Pa'anga" />
+							<apex:selectOption itemValue="TTD" itemLabel="Trinidad and Tobago Dollar" />
+							<apex:selectOption itemValue="TND" itemLabel="Tunisia Dinar" />
+							<apex:selectOption itemValue="TRY" itemLabel="Turkey Lira" />
+							<apex:selectOption itemValue="TMT" itemLabel="Turkmenistan Manat" />
+							<apex:selectOption itemValue="TVD" itemLabel="Tuvalu Dollar" />
+							<apex:selectOption itemValue="UGX" itemLabel="Uganda Shilling" />
+							<apex:selectOption itemValue="UAH" itemLabel="Ukraine Hryvna" />
+							<apex:selectOption itemValue="AED" itemLabel="United Arab Emirates Dirham" />
+							<apex:selectOption itemValue="GBP" itemLabel="United Kingdom Pound" />
+							<apex:selectOption itemValue="USD" itemLabel="United States Dollar" />
+							<apex:selectOption itemValue="UYU" itemLabel="Uruguay Peso" />
+							<apex:selectOption itemValue="UZS" itemLabel="Uzbekistan Som" />
+							<apex:selectOption itemValue="VUV" itemLabel="Vanuatu Vatu" />
+							<apex:selectOption itemValue="VEF" itemLabel="Venezuela Bolivar Fuerte" />
+							<apex:selectOption itemValue="VND" itemLabel="Viet Nam Dong" />
+							<apex:selectOption itemValue="YER" itemLabel="Yemen Rial" />
+							<apex:selectOption itemValue="ZMK" itemLabel="Zambia Kwacha" />
+							<apex:selectOption itemValue="ZWD" itemLabel="Zimbabwe Dollar" />
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional Details" columns="1" rendered="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Vacancy_Edit.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Vacancy_Edit}" var="f">
+                   	<apex:inputField value="{!fRecruit__Vacancy__c[f]}" required="{!f.required}" style="{!if(f.type=='textarea','width:400px;','')}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

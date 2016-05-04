@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Application__c.Candidate__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Application__c.Vacancy__c</field>
+    </columns>
+    <columns>
+        <field>Application__c.Interview_Date__c</field>
+    </columns>
+    <columns>
+        <field>Application__c.Interviewer__c</field>
+    </columns>
+    <columns>
+        <field>Application__c.Interview_Location__c</field>
+    </columns>
+    <columns>
+        <field>Application__c.Interview_Duration_Minutes__c</field>
+    </columns>
+    <description>What interviews are scheduled?</description>
+    <filter>
+        <criteriaItems>
+            <column>Application__c.Interview_Date__c</column>
+            <operator>lessOrEqual</operator>
+            <value>TODAY</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Interviews</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Application__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Application__c.Interview_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

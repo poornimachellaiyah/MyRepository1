@@ -1,0 +1,36 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+		<apex:pageBlockSection columns="1" rendered="{!and(subject.metrics.isUsing,viewer.isTeamMemberOrManager)}">
+			<apex:facet name="header">
+				<h3 class="process-performance-review">{!$Label.fhcm2__Process_Metrics_Review}</h3>
+			</apex:facet>
+			<apex:outputPanel layout="block" styleClass="wideButtonBar">
+				<apex:outputLink value="/apex/{!links.MetricsReview}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(or(subject.metrics.currentReview.isCompleted,!subject.metrics.has),viewer.isEdit,viewer.IsManager,subject.metrics.newMetricsReviewPermitted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+				<apex:outputLink value="/apex/{!links.MetricsReview}?id={!subject.metrics.currentReview.id}" target="_top" rendered="{!subject.metrics.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+			</apex:outputPanel>
+                    <apex:pageBlockSectionItem rendered="{!subject.metrics.has && subject.metrics.currentReview.action!=null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Metrics_Review__c.Fields.fHCM2__Manager_Action__c.label}" />
+                        <apex:outputText style="color:red;text-weight:bold;" value="{!subject.metrics.currentReview.managerAction}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.metrics.has}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Metrics_Review__c.Fields.fHCM2__Review_Date__c.label}" />
+                        <c:outputDate dateValue="{!subject.metrics.currentReview.reviewDate}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockTable value="{!subject.metrics.currentReview.assessments}" var="assessment" rendered="{!subject.metrics.has}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Metric__c.Fields.fHCM2__Area__c.label}" value="{!assessment.metric.area}" rendered="{!subject.metrics.currentReview.hasArea}"/>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Metric__c.label}">
+                            {!assessment.metric.name}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Metric_Assessment__c.Fields.fHCM2__Achievement__c.label}">{!assessment.value}{!assessment.level}<c:TrafficLight status="{!assessment.color}"/>{!assessment.achievement}</apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <c:ChartPercentAxis width="150px" />
+                            </apex:facet>
+                            <c:ChartRow width="150px" height="5px" color="#e0e0e0">
+                                <c:ChartBlock color="green" percent="{!assessment.percentage}"/>
+                            </c:ChartRow>
+                        </apex:column>
+                    </apex:pageBlockTable>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

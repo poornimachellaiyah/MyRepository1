@@ -1,0 +1,67 @@
+<apex:page standardController="fHCM2__Successor__c" extensions="fHCM2.SuccessionControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Target" rendered="{!subject.succession.isUsing}">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="Succession" mode="view" rendered="{!viewer.isManager}">
+				<c:Notice viewer="{!viewer}" page="SuccessionPlan" location="Subheader"  />
+				<apex:pageBlockSection title="Successors" columns="1" rendered="{!subject.succession.hasSuccessors}">
+					<apex:repeat value="{!subject.succession.successors}" var="item">
+	                    <c:DetailListBar title="{!item.name}" value="{!links.SuccessionPlan+'?id='+item.id}">
+							<c:DetailListItem label="{!$ObjectType.fHCM2__Successor__c.fields.fHCM2__Readiness_Rating__c.label}" value="{!item.readiness}"/>
+						</c:DetailListBar>
+					</apex:repeat>
+	    		</apex:pageBlockSection>
+				<apex:pageBlockSection title="Succeeds To" columns="1" rendered="{!subject.succession.hasSucceeds}">
+					<apex:repeat value="{!subject.succession.succeeds}" var="item">
+	                    <c:DetailListBar title="{!item.name}" value="{!links.SuccessionPlan+'?id='+item.id}">
+							<c:DetailListItem label="{!$ObjectType.fHCM2__Successor__c.fields.fHCM2__Readiness_Rating__c.label}" value="{!item.readiness}"/>
+						</c:DetailListBar>
+					</apex:repeat>
+	    		</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="SuccessionPlan" location="Subfooter"  />
+	    	</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+			<apex:form rendered="{!viewer.isManager}">
+				<apex:pageBlock title="Current" id="myform">
+					<apex:pageBlockButtons >
+						<apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!viewer.isEdit}" styleClass="inputsubmit" />
+						<apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!viewer.isEdit}" styleClass="inputsubmit" />
+						<apex:commandButton id="delete" action="{!myDelete}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!viewer.isEdit && fHCM2__Successor__c.Id!=null}" styleClass="inputsubmit" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+					</apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="SuccessionPlan" location="Header"  />
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!fHCM2__Successor__c.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+						</c:PersonSection>
+					</apex:pageBlockSection>
+					
+					<apex:pageBlockSection title="Successor" columns="1">
+						<apex:inputField value="{!fHCM2__Successor__c.fHCM2__Successor__c}" required="true" rendered="{!viewer.isEdit && isblank(fHCM2__Successor__c.Id)}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit || !isblank(fHCM2__Successor__c.Id)}">
+							<apex:outputLabel value="{!$ObjectType.Successor__c.fields.Successor__c.label }" />
+							<c:PersonIcon page="{!links.FairsailProfile}" name="{!fHCM2__Successor__c.Successor__r.Name}" value="{!fHCM2__Successor__c.Successor__r.Id}" picture="{!fHCM2__Successor__c.Successor__r.fHCM2__Picture_URL__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!fHCM2__Successor__c.fHCM2__Readiness_Rating__c}" required="true" rendered="{!viewer.isEdit}" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isEdit}">
+							<apex:outputLabel value="{!$ObjectType.Successor__c.fields.Readiness_Rating__c.label }" />
+							<apex:outputText value="{!fHCM2__Successor__c.fHCM2__Readiness_Rating__c}" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+				</apex:pageBlock>
+			</apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!fHCM2__Successor__c}" page="{!links.FairsailProfile}" rendered="{!viewer.isManager}"/>
+			<c:Notice viewer="{!viewer}" page="SuccessionPlan" location="Footer"  />
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

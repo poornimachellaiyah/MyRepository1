@@ -1,0 +1,107 @@
+<apex:page standardController="fRecruit__Vacancy__c" extensions="fRecruit.JobBoardPostControllerExtension">
+
+    <apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label} Sourcing" subTitle="{!fRecruit__Vacancy__c.Name}" help="http://recruit.help.fairsail.com/topics/PostToJobBoard.html" />
+
+    <apex:form >
+        <apex:pageBlock title="Advertise Vacancy" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+                <apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!post}" value="Save and Post"/>
+            </apex:pageBlockButtons>
+
+			<apex:pagemessages />
+    
+            <apex:pageBlockSection title="Details" columns="1">
+                <apex:outputField value="{!fRecruit__Vacancy__c.Name}"/>
+                <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Vacancy_No__c}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Candidate_Portal_URL__c.label}" />
+                    <apex:outputLink value="{!fRecruit__Vacancy__c.fRecruit__Candidate_Portal_URL__c}" target="_blank">{!fRecruit__Vacancy__c.fRecruit__Candidate_Portal_URL__c}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Job Board Attributes" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Job_Sector__c.label}" />
+                    <apex:selectList value="{!fRecruit__Vacancy__c.fRecruit__Job_Sector__c}" size="1">
+                        <apex:selectOptions value="{!JobSectorOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>                
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.fRecruit__Vacancy__c.fields.fRecruit__Industry__c.label}" />
+                    <apex:selectList value="{!fRecruit__Vacancy__c.fRecruit__Industry__c}" size="1">
+                        <apex:selectOptions value="{!IndustryOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>                
+
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Country__c}" />
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Region__c}" />
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_City__c}" />
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Location_Postal_Code__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Place on Portals and Job Boards" columns="1">
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Advertise__c}"/>
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Candidate_Portal__c}"/>
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Advertise_Internally__c}"/>
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Advertise_On_Jobing__c}" rendered="{!hasJobing}"/>
+                <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Advertise_On_Jobing__c}" rendered="{!!hasJobing}"/>
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Applications_Close_Date__c}" />
+            </apex:pageBlockSection>
+ 
+            <apex:pageBlockSection title="Invite Agencies" columns="2" rendered="{!hasAgencies}">
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Advertise_to_Agencies__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=" " />
+                    <apex:outputLabel value=" " />
+                </apex:pageBlockSectionItem>
+                <apex:repeat value="{!agencyInvitations}" var="item">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Invite {!item.agencyRecord.Name}" />
+                        <apex:outputPanel layout="none">
+                            <apex:inputCheckbox value="{!item.isInvited}" rendered="{!!item.wasInvited}"/>
+                            <c:fRecruitOutputCheckbox value="{!item.wasInvited}" rendered="{!item.wasInvited}"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!item.agencyRecord.Name} Invited Date" />
+                        <c:outputDate value="{!item.invitationRecord.createdDate}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            
+             <apex:pageBlockSection title="Post up to CareerBuilder Job Boards" columns="2">
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Post_To_CareerBuilder__c}" rendered="{!hasCareerBuilder}"/>
+                <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Post_To_CareerBuilder__c}" rendered="{!!hasCareerBuilder}"/>
+                <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__CareerBuilder_Post_Date__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Post up to LinkedIn Job Boards" columns="2">
+                 <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Post_To_LinkedIn__c}" rendered="{!hasLinkedIn}"/>
+                <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Post_To_LinkedIn__c}" rendered="{!!hasLinkedIn}"/>
+                <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__LinkedIn_Post_Date__c}"/>
+             </apex:pageBlockSection>
+                
+             <apex:pageBlockSection title="Post up to Monster Job Boards" columns="2">  
+                <apex:inputField value="{!fRecruit__Vacancy__c.fRecruit__Post_To_Monster__c}" rendered="{!hasMonster}"/>
+				<apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Post_To_Monster__c}" rendered="{!!hasMonster}"/>
+                <apex:inputCheckbox value="{!careerAdNetworkUS}" label="CAN (Career Ad Network ) to Monster UK" rendered="{!IF((jobBoard.fRecruit__Monster_User_Id__c!=null && jobBoard.fRecruit__Monster_Password__c!=null && hasMonsterLocations), true, false)}" />
+	            <apex:inputCheckbox value="{!careerAdNetworkUK}" label="CAN (Career Ad Network ) to Monster US" rendered="{!IF((jobBoard.fRecruit__Monster_User_Id__c!=null && jobBoard.fRecruit__Monster_Password__c!=null && hasMonsterLocations), true, false)}" />
+		       <apex:outputField value="{!fRecruit__Vacancy__c.fRecruit__Monster_Post_Date__c}" label="Monster Post Date" />
+             </apex:pageBlockSection>   
+             
+             <apex:pageBlockSection columns="1" rendered="{!IF((jobBoard.fRecruit__Monster_User_Id__c!=null && jobBoard.fRecruit__Monster_Password__c!=null), true, false)}">  
+             <apex:pageBlockSectionItem rendered="{!hasMonsterLocations}">
+	             <apex:outputLabel value="Monster Posting Locaitons" />
+		             <c:MonsterMultiCheck >
+			                   <apex:inputText value="{!locationsIds}" id="myLocationsIds" style="display:none;"  rendered="{!hasMonster}" />
+			         </c:MonsterMultiCheck>
+		         </apex:pageBlockSectionItem> 
+	          </apex:pageBlockSection>     
+
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

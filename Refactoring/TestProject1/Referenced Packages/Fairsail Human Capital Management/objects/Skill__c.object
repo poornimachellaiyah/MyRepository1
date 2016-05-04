@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A skill either possessed or required by a team member.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Manager_Action_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (Manager_Action__c==&apos;&apos;,null,&apos;Manager: &apos;+Manager_Action__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approved_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date on which the skill level was approved by the manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date on which the skill level was approved by the manager</inlineHelpText>
+        <label>Approved Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Approver__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Approver</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipLabel>Skills (Approver)</relationshipLabel>
+        <relationshipName>Skills</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Area__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Skill_Library_Item__r.Area__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Area</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bar_Chart__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Histogram of skill by the team member</description>
+        <externalId>false</externalId>
+        <formula>if (Percentage__c&gt;=0,
+IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Barcolor.gif&quot;, &quot;&quot;, 10, 2)&amp;IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Averagecolor.gif&quot;, &quot;&quot;, 10, round(Percentage__c * 150,0))&amp;IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Barcolor.gif&quot;, &quot;&quot;, 10, 150-round(Percentage__c * 150,0))
+,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Histogram of skill by the team member</inlineHelpText>
+        <label>Bar Chart</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Experience__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Description of the experience this team member has relevant to the skill</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of the experience this team member has relevant to the skill</inlineHelpText>
+        <label>Experience</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Expiry_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Expiry Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isnull(Approved_Date__c) &amp;&amp;  if(Team_Member__r.Policy__c==null,  OR(Team_Member__r.Department__r.Policy__r.Manager_Confirms_Skills__c==true,Team_Member__r.Department__r.Policy__r.Authenticate_Skill_Approval__c==true), OR(Team_Member__r.Policy__r.Manager_Confirms_Skills__c==true,Team_Member__r.Policy__r.Authenticate_Skill_Approval__c==true)), datevalue(LastModifiedDate), 
+if( !isnull( Expiry_Date__c) &amp;&amp;  Expiry_Date__c &lt;= today(), Expiry_Date__c, null )
+)</formula>
+        <label>Manager Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isnull(Approved_Date__c) &amp;&amp;  if(Team_Member__r.Policy__c==null, Team_Member__r.Department__r.Policy__r.Manager_Confirms_Skills__c==true, if(OR(Team_Member__r.Policy__r.Manager_Confirms_Skills__c==true, Team_Member__r.Policy__r.Authenticate_Skill_Approval__c==true),true,false)), &apos;Confirm&apos;, 
+if( !isnull( Expiry_Date__c) &amp;&amp;  Expiry_Date__c &lt;= today(), &apos;Renew&apos;, null)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The maximum score for this skill from the rating scale</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum score for this skill from the rating scale</inlineHelpText>
+        <label>Maximum Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mentor_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If set, this team member is a mentor for others learning this skill.  The level determines what they are able to do for development and training for other team members learning this skill.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If set, this team member is a mentor for others learning this skill.  The level determines what they are able to do for development and training for other team members learning this skill.</inlineHelpText>
+        <label>Mentor Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Authorize</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score of skill by this team member expressed as a percentage of the maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1, Score__c&gt;=1),round((Score__c -1)/ (Maximum_Score__c-1),2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score of skill by this team member expressed as a percentage of the maximum score</inlineHelpText>
+        <label>Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Scale_Label__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Scale_Response__r.Label__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Scale Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Scale_Response__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>What level of skill has this team member got?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What level of skill has this team member got?</inlineHelpText>
+        <label>Level</label>
+        <referenceTo>Scale_Response__c</referenceTo>
+        <relationshipLabel>Skills</relationshipLabel>
+        <relationshipName>Skills</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score of skill by this team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The score of skill by this team member</inlineHelpText>
+        <label>Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Skill_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Item in the skill library to which this skill relates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Item in the skill library to which this skill relates</inlineHelpText>
+        <label>Skill Library Item</label>
+        <referenceTo>Skill_Library_Item__c</referenceTo>
+        <relationshipLabel>Skills</relationshipLabel>
+        <relationshipName>Skill</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Team member with this skill</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Team member with this skill</inlineHelpText>
+        <label>Team Member</label>
+        <referenceTo>Team_Member__c</referenceTo>
+        <relationshipLabel>Skills</relationshipLabel>
+        <relationshipName>Skill</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Skill</label>
+    <nameField>
+        <label>Skill</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Skills</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Fairsail__c</fullName>
+        <label>Fairsail</label>
+    </sharingReasons>
+</CustomObject>

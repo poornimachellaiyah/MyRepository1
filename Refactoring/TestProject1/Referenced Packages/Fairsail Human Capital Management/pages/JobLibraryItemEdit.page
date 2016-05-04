@@ -1,0 +1,29 @@
+<apex:page standardController="fHCM2__Job_Library_Item__c" extensions="fHCM2.JobLibraryItemExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Job_Library_Item__c.label}" subTitle="{!fHCM2__Job_Library_Item__c.Name}" help="/apex/Help?obj=fHCM2__Job_Library_Item__c" />
+	<apex:form >
+		<apex:pagemessages />
+		<apex:pageBlock title="Edit" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+				<apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="{!$ObjectType.fHCM2__Job_Library_Item__c.label}" columns="1" >
+				<apex:inputField value="{!fHCM2__Job_Library_Item__c.Name}"/>
+				<apex:repeat value="{!jobLibraryFields}" var="f">
+					<apex:pageBlockSectionItem rendered="{!!isFormula[f]}">
+						<c:FieldLabelHelp name="{!f}" object="{!fHCM2__Job_Library_Item__c}"/>
+						<apex:outputPanel >
+							<c:ProxyFieldInput extensible="true" proxyname="{!f}" proxyobject="{!fHCM2__Job_Library_Item__c}" object="{!teamMemberRecord}" name="{!f}" rendered="{!isTeamMember[f]}" original="fHCM2__Manager__c"/>
+							<c:ProxyFieldInput extensible="true" proxyname="{!f}" proxyobject="{!fHCM2__Job_Library_Item__c}" object="{!employmentRecord}" name="{!f}" rendered="{!!isTeamMember[f]}"/>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:repeat>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Enter an effective date only if adding to the job history of team members linked to this job, otherwise leave the date blank." columns="1">
+				<apex:inputField value="{!fHCM2__Job_Library_Item__c.fHCM2__Effective_Date__c}"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

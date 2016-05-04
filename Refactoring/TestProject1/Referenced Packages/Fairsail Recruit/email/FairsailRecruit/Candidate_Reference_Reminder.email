@@ -1,0 +1,6 @@
+Your candidate reference is {!Candidate__c.Unique_Id__c}
+
+{!Candidate__c.Candidate_Portal_URL__c}
+
+Sincerely,
+{!Organization.Name}

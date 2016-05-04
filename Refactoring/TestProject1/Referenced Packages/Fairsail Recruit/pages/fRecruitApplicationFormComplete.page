@@ -1,0 +1,30 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="fRecruit.ApplicationFormController" action="{!init}">
+
+<apex:composition template="fRecruit__FormTemplate">
+
+<apex:define name="header">
+<style><apex:outputText value="{!definition.style}" escape="false" rendered="{!!hasError}"/></style>
+</apex:define>
+
+<apex:define name="body">
+    <apex:outputPanel layout="block" rendered="{!hasError}" styleClass="errors">
+        <p>{!error}</p>
+    </apex:outputPanel>
+
+    <apex:outputPanel id="pagePanel" layout="block" rendered="{!!hasError}">
+        <apex:stylesheet value="{!definition.stylesheet}" />
+
+        <apex:sectionHeader title="{!definition.title}" subTitle="{!definition.subTitle}" />
+
+        <apex:outputPanel styleClass="completed" layout="block">
+            <apex:outputText value="{!message}" escape="false" />
+        </apex:outputPanel>
+
+        <apex:outputPanel styleClass="formPostText" layout="block">
+            <apex:outputText value="{!definition.postText}" escape="false" />
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+</apex:define>
+</apex:composition>
+</apex:page>

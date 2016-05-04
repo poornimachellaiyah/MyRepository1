@@ -1,0 +1,73 @@
+<apex:page cache="false" renderAs="pdf" controller="fpay.BenefitEnrollmentController" standardStylesheets="false" showHeader="false" sidebar="false" title="Benefit Enrollment">
+<html>
+	<head>
+        	<style>
+				@page {
+				  size: 8.5in 11in;
+				  margin: 10%;
+				 
+				  @top-left {
+				    content: "{!enrollment.name} : {!viewer.TeamMember.Name}";
+				  }
+				  @top-right {
+				    content: "Page " counter(page);
+				  }
+				}
+        		.tableLeft {
+        			vertical-align: top;
+        			width: 200px;
+        			padding-top:10px;
+        			padding-right:20px;
+        		}
+        		.tableRight {
+        			vertical-align: top;
+        			width: 400px;
+        			padding-top:10px;
+        			padding-left:20px;
+        		}
+        	</style>
+</head>
+<body>
+       
+                    <apex:repeat value="{!enrollment.visibleTypes}" var="row">
+		        		<apex:pageBlock title="{!row.name}">
+		        		<table>
+		        			<tr>
+		        				<td class="tableLeft">Selection</td>
+		        				<td class="tableRight">{!row.currentPlan.supplierName} {!row.currentPlan.name}</td>
+		        			</tr>
+		        			<tr >
+		        				<td class="tableLeft">Coverage</td>
+		        				<td class="tableRight">{!row.currentCoverage}</td>
+		        			</tr>
+		        			<apex:outputPanel layout="none" rendered="{!row.currentBeneficiaries.size>0}">
+		        			<tr>
+		        				<td class="tableLeft">Dependants Covered</td>
+		        				<td class="tableRight"><apex:outputPanel >
+				                    <apex:repeat value="{!row.currentBeneficiaries}" var="dependant">
+				                    	{!dependant.name}<br/>
+									</apex:repeat>
+		        				</apex:outputPanel></td>
+		        			</tr>
+		        			</apex:outputPanel>
+		        			<tr >
+		        				<td class="tableLeft">Estimated Cost (per pay period)</td>
+		        				<td class="tableRight"><apex:outputPanel ><fHCM2:outputNumber decimalPlaces="2" value="{!row.currentDeduction}" /></apex:outputPanel></td>
+		        			</tr>
+		        			<apex:outputPanel layout="none" rendered="{!!isblank(row.currentPlan.enrollmentInstructions)}">
+		        			<tr>
+		        				<td class="tableLeft">Enrollment Instructions</td>
+		        				<td class="tableRight"><apex:outputPanel >
+			                    	<apex:outputText escape="false" value="{!row.currentPlan.enrollmentInstructions}"/>
+		        				</apex:outputPanel></td>
+		        			</tr>
+		        			</apex:outputPanel>
+		        		</table>
+		        		</apex:pageBlock>
+	                    <p>&nbsp;</p>
+		        	</apex:repeat>
+
+					<h4>Total Estimated Cost&nbsp;<fHCM2:outputNumber decimalPlaces="2" value="{!enrollment.currentDeduction}" /></h4>
+</body>
+</html>
+</apex:page>

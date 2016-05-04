@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>APP_NAME</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>APP_NAME</shortDescription>
+        <value>CFTsys3</value>
+    </labels>
+    <labels>
+        <fullName>Audit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Audit</shortDescription>
+        <value>Audit</value>
+    </labels>
+    <labels>
+        <fullName>Audit_manually</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Audit manually</shortDescription>
+        <value>Audit on demand</value>
+    </labels>
+    <labels>
+        <fullName>Audit_manually_summary</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Audit manually summary</shortDescription>
+        <value>Use the following options to audit your database on demand</value>
+    </labels>
+    <labels>
+        <fullName>Audit_now</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Audit now</shortDescription>
+        <value>Audit now</value>
+    </labels>
+    <labels>
+        <fullName>Audit_overview</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Audit overview</shortDescription>
+        <value>Overview</value>
+    </labels>
+    <labels>
+        <fullName>Audit_summary</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Audit summary</shortDescription>
+        <value>The audit process select all your Account and Contact records for screening. You can schedule the process to run at a suitable time according to your business needs.</value>
+    </labels>
+    <labels>
+        <fullName>Force_Transaction</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Force Transaction</shortDescription>
+        <value>Force TX</value>
+    </labels>
+    <labels>
+        <fullName>Record_details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Record_details</shortDescription>
+        <value>Record details</value>
+    </labels>
+    <labels>
+        <fullName>Setup</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup</shortDescription>
+        <value>Setup</value>
+    </labels>
+    <labels>
+        <fullName>Setup_API_KEY</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup API KEY</shortDescription>
+        <value>API Key</value>
+    </labels>
+    <labels>
+        <fullName>Setup_API_USERNAME</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup API USERNAME</shortDescription>
+        <value>API Username</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Account_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup Account Status</shortDescription>
+        <value>Account Status</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Australia_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_Australia_List</shortDescription>
+        <value>Consolidated list (Australia)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Canada_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_Canada_List</shortDescription>
+        <value>Consolidated lists (Canada)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Current_Threshold</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_Current_Threshold</shortDescription>
+        <value>Current value (%)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_EU_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_EU_List</shortDescription>
+        <value>Consolidated list (EU)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_List_Available</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup List Available</shortDescription>
+        <value>Lists Available</value>
+    </labels>
+    <labels>
+        <fullName>Setup_New_Threshold</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_New_Threshold</shortDescription>
+        <value>New value (%)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Scheduler_summary</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup Scheduler summary</shortDescription>
+        <value>The schedulers manage all the background processes to communicate with the API, load the Transactions queue and handle all Suspects results. Activate/Deactivate them according your needs.</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Schedulers</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup Schedulers</shortDescription>
+        <value>Setup Schedulers</value>
+    </labels>
+    <labels>
+        <fullName>Setup_Suspect_Threshold</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_Suspect_Threshold</shortDescription>
+        <value>Suspect Threshold</value>
+    </labels>
+    <labels>
+        <fullName>Setup_UK_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_UK_List</shortDescription>
+        <value>Consolidated List of Targets (UK)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_UN_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_UN_List</shortDescription>
+        <value>Consolidated United Nations list (Worldwide)</value>
+    </labels>
+    <labels>
+        <fullName>Setup_USA_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setup_USA_List</shortDescription>
+        <value>OFAC&apos;s SDN (USA)</value>
+    </labels>
+</CustomLabels>

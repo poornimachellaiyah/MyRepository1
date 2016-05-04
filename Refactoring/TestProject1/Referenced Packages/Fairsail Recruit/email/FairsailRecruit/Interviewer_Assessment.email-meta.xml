@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Interviewer Assessment</name>
+    <style>none</style>
+    <subject>Interview of {!Interviewer__c.Candidate_Name__c} for {!Interviewer__c.Vacancy_Name__c}</subject>
+    <type>text</type>
+</EmailTemplate>

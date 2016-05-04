@@ -1,0 +1,113 @@
+<apex:page controller="fHCM2.ObjectiveControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Objective Collaboration" rendered="{!subject.objectives.isUsing && !isblank(currentitem.collaborativeObjectiveId)}">
+
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__jqueryUI, '/css/overcast/jquery-ui-1.10.3.custom.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/autoresize.jquery.js')}"/>
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__ProcessItem_Objective}" mode="view">
+	        	<c:Notice viewer="{!viewer}" page="Objective" location="Subheader"/>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Collaborators}" columns="1" rendered="{!currentitem.collaborators.size>0}">
+	                    <apex:outputPanel layout="block">
+	                    	<apex:repeat value="{!currentitem.collaborators}" var="person">
+	                    		<c:PersonIcon person="{!person}" page="{!links.fairsailProfile}"/>
+	                    	</apex:repeat>
+	                    </apex:outputPanel>
+                    </apex:pageBlockSection>
+
+	        	<c:Notice viewer="{!viewer}" page="Objective" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+                <apex:pageBlock title="{!$Label.fhcm2__Global_Collaboration}">
+
+                     <apex:pageBlockButtons >
+            <apex:form >
+                        <apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!and(!isClosed,viewer.isTeamMemberOrManager)}" styleClass="inputsubmit" />
+			</apex:form>
+                    </apex:pageBlockButtons>
+
+		        	<c:Notice viewer="{!viewer}" page="Objective" location="Header"/>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Description}" columns="1" rendered="{!viewer.isTeamMemberOrManager || objective.fHCM2__Is_Private__c==false || currentItem.IsCollaborator}">
+	                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+	                        <apex:outputLink value="/apex/{!links.Objective}?id={!currentitem.id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+	                    </apex:outputPanel>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Name.label }" />
+                            <apex:outputText value="{!objective.Name}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Description__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Description__c}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Measure__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Measure__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+		        	
+		        	<c:feed entityId="{!currentitem.collaborativeObjectiveId}" viewer="{!viewer}" links="{!links}"/>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Process_Contributing_Objectives}" columns="1" rendered="{!currentItem.hasChildren}">
+                    <apex:outputPanel rendered="{!viewer.isTeamMemberOrManager || currentItem.IsCollaborator}">
+                    <apex:repeat value="{!currentItem.children}" var="other">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Team_Member__c.label}">
+                              	<apex:outputLink value="{!links.FairsailProfile+'?Id='+other.teamMember.Id}">{!other.teamMember.Name}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" value="{!other.Action}" style="color:red;"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!other.Achievement}" rendered="{!!isblank(other.Achievement)}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}">
+                                <c:TrafficLight status="{!other.progressStatus}"/>
+                                <apex:outputText value="{!other.progress}" />
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!other.priority}" rendered="{!other.priority!='' && viewer.isManager}"/>
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!(viewer.isTeamMemberOrManager || currentItem.IsCollaborator)}">
+                    <apex:repeat value="{!currentItem.children}" var="other">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Team_Member__c.label}">
+                              	<apex:outputLink value="{!links.FairsailProfile+'?Id='+other.teamMember.Id}">{!other.teamMember.Name}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+ 
+               
+                   <apex:outputPanel style="color:red;text-weight:bold;" rendered="{!hasErrors}">{!$Label.fhcm2__Global_Error}: {!errors}</apex:outputPanel>
+                </apex:pageBlock>
+
+         	<c:Notice viewer="{!viewer}" page="Objective" location="Footer"/>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,57 @@
+<apex:page standardController="fHCM2__PDF_Template__c" extensions="fHCM2.PDFTemplateController" tabStyle="fHCM2__PDF_Template__c">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__PDF_Template__c.label}" subTitle="{!fHCM2__PDF_Template__c.Name}" help="http://recruit.help.fairsail.com" />
+	<apex:form >
+		<apex:pageBlock mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pagemessages />
+
+			<apex:pageBlockSection title="Information" columns="2">
+				<apex:inputField value="{!fHCM2__PDF_Template__c.Name}" />
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Margin_Top__c}" />
+				<apex:outputPanel ></apex:outputPanel>
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Margin_Left__c}" />
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Page_Size__c}" />
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Margin_Right__c}" />
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Font_Size__c}" />
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Margin_Bottom__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Content" columns="1">
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Header__c}" />
+				<apex:repeat value="{!sections}" var="item">
+					<apex:pageBlockSectionItem >
+						<apex:outputPanel >Section&nbsp;<c:outputNumber value="{!item.section.fHCM2__Order__c}"/></apex:outputPanel>
+						<apex:outputPanel >
+							<apex:commandButton action="{!item.add}" value="New" />
+							<apex:commandButton action="{!item.remove}" value="Delete" onClick="return confirm('Are you sure you wish to delete this section?');"/>
+							&nbsp;&nbsp;
+							<apex:commandButton action="{!item.top}" value="First" disabled="{!item.index==0}"/>
+							<apex:commandButton action="{!item.up}" value="Up" disabled="{!item.index==0}"/>
+							<apex:commandButton action="{!item.down}" value="Down" disabled="{!item.index+1==sections.size}"/>
+							<apex:commandButton action="{!item.bottom}" value="Last" disabled="{!item.index+1==sections.size}"/>
+							&nbsp;&nbsp;Layout:
+							<apex:inputField value="{!item.section.fHCM2__Layout__c}"/>
+							&nbsp;&nbsp;Condition:
+							<apex:inputField value="{!item.section.fHCM2__Condition__c}" style="width:300px;"/>
+							<br/>
+							&nbsp;&nbsp;Repeat:
+							<apex:inputField value="{!item.section.fHCM2__Related_List__c}" style="width:200px;"/>
+							&nbsp;&nbsp;Sort By:
+							<apex:inputField value="{!item.section.fHCM2__Related_List_Sort_Field__c}" style="width:140px;"/>
+							&nbsp;&nbsp;Condition:
+							<apex:inputField value="{!item.section.fHCM2__Related_List_Condition__c}" style="width:300px;"/>
+							<br/>
+							<apex:inputField value="{!item.section.fHCM2__Body__c}" />
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:repeat>
+				<apex:inputField value="{!fHCM2__PDF_Template__c.fHCM2__Footer__c}" />
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

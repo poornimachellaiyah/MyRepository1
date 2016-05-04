@@ -1,0 +1,84 @@
+<apex:page controller="fHCM2.TeamMemberDetailsController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" action="{!selectUI}">
+
+	<apex:include pageName="{!$Page.FairsailIncludes}"/>
+    <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    <apex:outputPanel id="pagePanel" layout="block" style="margin:0 auto;width:800px; position:relative; z-index:0">
+        <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody>
+            <tr><td valign="top" class="thinPanelTD">
+
+
+            <apex:pageBlock title="{!$Label.fhcm2__Global_Details}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="PersonalDetails" location="Subheader"/>
+                <apex:image value="{!viewer.teamMember.PictureUrl}" width="190" rendered="{!viewer.teamMember.PictureUrl!=null}" />
+                <c:Notice viewer="{!viewer}" page="PersonalDetails" location="Subfooter"/>
+            </apex:pageBlock>
+
+
+                </td>
+                <td class="gapPanelTD">&nbsp;</td>
+                <td valign="top" class="widePanelTD">
+
+
+            <apex:form rendered="{!viewer.isTeamMember && viewer.departmentPolicy.fHCM2__Modify_Home_Address__c}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!viewer.teamMember.name}" mode="edit">
+					<c:Notice viewer="{!viewer}" page="PersonalDetails" location="Header"/>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Home_Details}" columns="1">
+						<apex:repeat value="{!FieldsetTeamMemberPersonalDetails}" var="f">
+	                        <apex:inputField value="{!Member[f]}" />
+						</apex:repeat>                    
+
+						<apex:repeat value="{!FieldsetTeamMemberPersonalDetailsGated}" var="f">
+	                        <apex:outputField value="{!Member[f]}" rendered="{!!isblank(Member[f]) && viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && f!='fHCM2__Social_Security_Number__c'}"/>
+	                        <apex:inputField value="{!Member[f]}" rendered="{!isblank(Member[f]) || !viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c}"/>
+	                        <apex:pageBlockSectionItem rendered="{!!isblank(Member[f]) && viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && f=='fHCM2__Social_Security_Number__c'}">
+	                        	<apex:outputlabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Social_Security_Number__c.label}"/>
+	                        	<apex:outputText value="***************{!right(Member.fHCM2__Social_Security_Number__c,4)}" />
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>                    
+
+
+						<apex:repeat value="{!FieldsetEmploymentPersonalDetails}" var="f">
+	                        <apex:inputField value="{!Employment[f]}" />
+						</apex:repeat>                    
+						<apex:repeat value="{!FieldsetEmploymentPersonalDetailsGated}" var="f">
+	                        <apex:outputField value="{!Employment[f]}" rendered="{!!isblank(Employment[f]) && viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c}"/>
+	                        <apex:inputField value="{!Employment[f]}" rendered="{!isblank(Employment[f]) || !viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c}"/>
+						</apex:repeat>                    
+
+                    </apex:pageBlockSection>
+					<c:Notice viewer="{!viewer}" page="PersonalDetails" location="Footer"/>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+             <script type="text/javascript">
+                  
+                    function changeYears() {     
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-100; i < now.getFullYear()+20;i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+                     window.onload = changeYears;
+             </script>
+
+
+                </td></tr>
+            </tbody>
+        </table>
+        <c:FairsailFooter />
+    </apex:outputPanel>
+    <apex:outputPanel styleClass="imageLoader"/>
+
+</apex:page>

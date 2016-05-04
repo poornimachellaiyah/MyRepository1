@@ -1,0 +1,170 @@
+<apex:page controller="fHCM2.ObjectiveTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Objective Profile" rendered="{!teamMember.isUsing}">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.ObjectiveProfile}" title="Objectives" hidePicture="true" noticePage="ObjectiveProfile"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <style>
+.bPageBlock .detailList .dataCol1 {
+    width: 27%;
+    margin-right: 2%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .detailList .dataCol {
+    width: 37%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .labelCol {
+    padding: 0px 0px 0px 2px;
+}
+.person-section-right {
+    width: 100%;
+}
+</style>
+            <apex:form >
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Objectives}">
+                <apex:pageBlockButtons >
+                    <apex:outputPanel ><a href="/apex/{!links.ObjectiveProfilePDF}?id={!viewer.teammember.Id}" target="_blank"><image border="0" src="{!$Resource.fHCM2__FairsailIcon}/16x16/pdf.png" title="{!$Label.fhcm2__Global_Create_PDF}"/></a></apex:outputPanel>
+                </apex:pageBlockButtons>
+				<c:Notice viewer="{!viewer}" page="ObjectiveProfile" location="Header"/>
+                <p>&nbsp;</p>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_Team_Member}" columns="1">
+					<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}"/>
+                </apex:pageBlockSection>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Objectives_Current_Objectives}</h2>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.Objective}?teamMemberId={!viewer.teamMember.id}&retURL={!urlencode('/apex/'+links.ObjectiveProfile+'?id='+viewer.teamMember.id)}" target="_top" rendered="{!or(viewer.isTeamMember,viewer.isEdit)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.ObjectiveTeam}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!teamMember.working}" var="tmobjective">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmobjective.name}" value="/apex/{!links.Objective}?id={!tmobjective.id}&retURL={!urlencode('/apex/'+links.ObjectiveProfile+'?id='+viewer.teamMember.id)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!tmobjective.strategicObjective!=''}">
+                                	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(tmobjective.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!tmobjective.strategicObjective}</apex:outputLink>
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+                                </c:DetailListItem>
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmobjective.name}" value="/apex/{!links.Objective}?id={!tmobjective.id}&retURL={!urlencode('/apex/'+links.ObjectiveProfile+'?id='+viewer.teamMember.id)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!tmobjective.strategicObjective!=''}">
+                                	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(tmobjective.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!tmobjective.strategicObjective}</apex:outputLink>
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+			                   <apex:pageBlockTable value="{!tmobjective.milestones}" var="milestone" rendered="{!viewer.isTeamMemberOrManager && tmobjective.hasMilestones}">
+			                        <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}" value="{!milestone.name}"/>
+			                        <apex:column >
+			                            <apex:facet name="header">
+			                                <c:ChartPercentAxis width="150px" />
+			                            </apex:facet>
+			                            <c:chartBar percent="{!milestone.progress}" width="150px"/>
+			                        </apex:column>
+			                        <apex:column style="white-space:nowrap;" headerValue="End">
+			                            <c:outputDate dateValue="{!milestone.endDate}" />
+			                        </apex:column>
+			                    </apex:pageBlockTable>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!tmobjective.status}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!tmobjective.description}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!tmobjective.measure}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!tmobjective.contributesTo}" rendered="{!tmobjective.contributesTo!=''}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!tmobjective.priority}" rendered="{!tmobjective.priority!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmobjective.endDate}"/>
+                                </c:DetailListItem>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!teamMember.hasRecent}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Objectives_Previous}</h2>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!teamMember.recent}" var="tmobjective">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmobjective.name}" value="/apex/{!links.Objective}?id={!tmobjective.id}&retURL={!urlencode('/apex/'+links.ObjectiveProfile+'?id='+viewer.teamMember.id)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!tmobjective.strategicObjective!=''}">
+                                	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(tmobjective.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!tmobjective.strategicObjective}</apex:outputLink>
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+			                   <apex:pageBlockTable value="{!tmobjective.milestones}" var="milestone" rendered="{!viewer.isTeamMemberOrManager && tmobjective.hasMilestones}">
+			                        <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}" value="{!milestone.name}"/>
+			                        <apex:column >
+			                            <apex:facet name="header">
+			                                <c:ChartPercentAxis width="150px" />
+			                            </apex:facet>
+			                            <c:chartBar percent="{!milestone.progress}" width="150px"/>
+			                        </apex:column>
+			                        <apex:column style="white-space:nowrap;" headerValue="End">
+			                            <c:outputDate dateValue="{!milestone.endDate}" />
+			                        </apex:column>
+			                    </apex:pageBlockTable>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+                                </c:DetailListItem>
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmobjective.name}" value="/apex/{!links.Objective}?id={!tmobjective.id}&retURL={!urlencode('/apex/'+links.ObjectiveProfile+'?id='+viewer.teamMember.id)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!tmobjective.strategicObjective!=''}">
+                                	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(tmobjective.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!tmobjective.strategicObjective}</apex:outputLink>
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Manager_Comments__c.label}" value="{!tmobjective.managerComments}" rendered="{!tmobjective.managerComments!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Team_Member_Comments__c.label}" value="{!tmobjective.teamMemberComments}" rendered="{!tmobjective.teamMemberComments!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!tmobjective.status}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!tmobjective.description}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!tmobjective.measure}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!tmobjective.contributesTo}" rendered="{!tmobjective.contributesTo!=''}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!tmobjective.priority}" rendered="{!tmobjective.priority!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmobjective.endDate}"/>
+                                </c:DetailListItem>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                </apex:outputPanel>
+				<c:Notice viewer="{!viewer}" page="ObjectiveProfile" location="Footer"/>
+           </apex:pageBlock>
+        </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

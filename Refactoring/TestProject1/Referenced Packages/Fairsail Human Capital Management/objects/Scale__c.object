@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The rating scales used for indicators and skills.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Above_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the competency and indicator in the online questionnaire</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the competency and indicator in the online questionnaire</inlineHelpText>
+        <label>Above Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Below_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears after the competency and indicator in the online questionnaire</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears after the competency and indicator in the online questionnaire</inlineHelpText>
+        <label>Below Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the comment in the online questionnaire</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the comment in the online questionnaire</inlineHelpText>
+        <label>Comment Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Development_Need_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the development need in the online questionnairet</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the development need in the online questionnaire</inlineHelpText>
+        <label>Development Need Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Format__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The format that the rating scale will take in the online questionnaire.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The format that the rating scale will take in the online questionnaire.</inlineHelpText>
+        <label>Format</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Vertical Radio Buttons</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Horizontal Radio Buttons</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drop Down Menu</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slider Bar Scale</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Has_Comments__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if comments will be asked for with the reply</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if comments will be asked for with the reply</inlineHelpText>
+        <label>Has Comments</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Development_Needs__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if development needs will be asked for with the reply</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if development needs will be asked for with the reply</inlineHelpText>
+        <label>Has Development Needs</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Stengths__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Do not use</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do not use</inlineHelpText>
+        <label>Deprecated</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Has_Strengths__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if strengths will be asked for with the reply</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if strengths will be asked for with the reply</inlineHelpText>
+        <label>Has Strengths</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lowest_First__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked place the rating scale with the lowest value first (or on the left).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked place the rating scale with the lowest value first (or on the left).</inlineHelpText>
+        <label>Lowest First</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The maximum score of all the possible responses</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum score of all the possible responses</inlineHelpText>
+        <label>Maximum Score</label>
+        <summarizedField>Scale_Response__c.Score__c</summarizedField>
+        <summaryForeignKey>Scale_Response__c.Scale__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Minimum_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The minimum score of all the possible responses</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The minimum score of all the possible responses</inlineHelpText>
+        <label>Minimum Score</label>
+        <summarizedField>Scale_Response__c.Score__c</summarizedField>
+        <summaryForeignKey>Scale_Response__c.Scale__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>NA_First__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked place the &quot;not applicable&quot; entry first in the rating scale.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked place the &quot;not applicable&quot; entry first in the rating scale.</inlineHelpText>
+        <label>NA First</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Responses__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of responses in the scale</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of responses in the scale</inlineHelpText>
+        <label>Number of Responses</label>
+        <summaryForeignKey>Scale_Response__c.Scale__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Permit_No_Response__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked the assessor is not required to give a response to the rating scale</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked the assessor is not required to give a response to the rating scale</inlineHelpText>
+        <label>Permit No Response</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Scale_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the rating scale in the online questionnaire</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the rating scale in the online questionnaire</inlineHelpText>
+        <label>Scale Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Above_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the competency and indicator in the online questionnaire for a self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the competency and indicator in the online questionnaire for a self assessment</inlineHelpText>
+        <label>Self Above Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Below_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears after the competency and indicator in the online questionnaire for a self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears after the competency and indicator in the online questionnaire for a self assessment</inlineHelpText>
+        <label>Self Below Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Comment_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the comment in the online questionnaire for a self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the comment in the online questionnaire for a self assessment</inlineHelpText>
+        <label>Self Comment Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Development_Need_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the development need in the online questionnaire for a self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the development need in the online questionnaire for a self assessment</inlineHelpText>
+        <label>Self Development Need Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Scale_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the rating scale in the online questionnaire for a self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the rating scale in the online questionnaire for a self assessment</inlineHelpText>
+        <label>Self Scale Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Self_Strength_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the strength in the online questionnaire for a self assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the strength in the online questionnaire for a self assessment</inlineHelpText>
+        <label>Self Strength Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Strength_Prompt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prompt that appears before the strength in the online questionnaire</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prompt that appears before the strength in the online questionnaire</inlineHelpText>
+        <label>Strength Prompt</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>Scale</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Scale Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Scales</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

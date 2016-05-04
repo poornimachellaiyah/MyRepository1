@@ -1,0 +1,37 @@
+<apex:page controller="fResource.ResourceNeedLinkController" tabStyle="fResource__Resource_Need__c">
+	<apex:sectionHeader subtitle="{!currentPlan.Name}" title="{!$ObjectType.fResource__Resource_Plan__c.label}"/>
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="Assign team member to open/left/hiring Resource Need">
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Cancel" action="{!cancel}"/>
+				<apex:commandButton value="Assign {!$ObjectType.fResource__Resource_Need__c.label}" action="{!assign}"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Team Member" columns="1">
+				<apex:outputField value="{!currentTeamMember.Name}"/>
+				<apex:outputField value="{!currentTeamMember.fHCM2__Job_Title__c}"/>
+				<apex:outputField value="{!currentTeamMember.fHCM2__Manager__c}"/>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Resource Needs" columns="1">
+				<div>
+					<style>
+						.srow:hover {background-color:#CFEEF8}
+					</style>
+					<table>
+						<td style="width:25px;padding:0px;">&nbsp;</td>
+						<td style="font-weight:bold;width:100px;padding:0px;">Status</td>
+						<td style="font-weight:bold;width:200px;padding:0px;">Job Title</td>
+						<td style="font-weight:bold;width:200px;padding:0px;">Manager</td>
+						<td style="font-weight:bold;width:200px;padding:0px;">Former Team Member</td>
+					</table>
+					<apex:selectRadio value="{!replaceId}" layout="pageDirection">
+						<apex:selectOptions value="{!replaceList}"/>
+					</apex:selectRadio>
+				</div>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,33 @@
+<apex:page controller="fRecruit.HiringManagerJobListController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+		<div class="pbBody">
+                <apex:pageBlockSection columns="1" title="{!$Label.frecruit__Hiring_Manager_Job_List}">
+                    <apex:facet name="header">
+                        <h3 class="process-vacancies">{!$Label.frecruit__Hiring_Manager_Job_List}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/fRecruit__HiringManagerRequisition" target="_top">New</apex:outputLink>
+                    </apex:outputPanel>
+ 					<apex:pageBlockTable value="{!vacancies}" var="vacancy" rendered="{!vacancies.size>0}" styleClass="jobListPanel">
+						<apex:column headerValue="Action" style="vertical-align: top;">
+							<apex:outputLink value="{!'/apex/fRecruit__HiringManagerRequisition?id='+vacancy.Id}" target="_top" rendered="{!isblank(vacancy.fRecruit__Submitted_Date__c)}">[Edit]</apex:outputLink>
+						</apex:column>
+						<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Hiring_Manager_List}" var="f">
+							<apex:column headerValue="{!f.label}" rendered="{!f!='Name'}" style="vertical-align: top;">
+								<apex:outputPanel >
+									<c:outputDate value="{!vacancy[f]}" rendered="{!f.type=='date'}"/>
+									<apex:outputfield value="{!vacancy[f]}" rendered="{!(f.type!='Text' || !contains(vacancy[f],'<img')) && f.type!='date'}"/>
+									<apex:outputText value="{!vacancy[f]}" escape="false" rendered="{!f.type=='Text' && contains(vacancy[f] && f.type!='date','<img')}"/>
+								</apex:outputPanel>
+							</apex:column>
+							<apex:column headerValue="{!f.label}" rendered="{!f=='Name'}" style="vertical-align: top;">
+								<apex:outputLink value="{!'/apex/fRecruit__HiringManagerJob?id='+vacancy.Id}" target="_blank">{!vacancy.Name}</apex:outputLink>
+							</apex:column>
+						</apex:repeat>
+					</apex:pageBlockTable>
+					</apex:outputPanel>
+                </apex:pageBlockSection>
+        </div>
+    </apex:pageBlock>  
+</apex:page>

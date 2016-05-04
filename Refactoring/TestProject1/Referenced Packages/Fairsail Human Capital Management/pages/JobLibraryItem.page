@@ -1,0 +1,18 @@
+<apex:page standardController="fHCM2__Job_Library_Item__c" extensions="fHCM2.JobLibraryItemExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Job_Library_Item__c.label}" subTitle="{!fHCM2__Job_Library_Item__c.Name}" help="/apex/Help?obj=fHCM2__Job_Library_Item__c" />
+	<apex:form >
+		<apex:pageBlock title="{!$Label.fhcm2__Global_Details}" mode="details">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!edit}" value="{!$Label.fhcm2__Button_Edit}" />
+				<apex:commandButton action="{!delete}" value="{!$Label.fhcm2__Button_Delete}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="{!$ObjectType.fHCM2__Job_Library_Item__c.label}" columns="1" >
+				<apex:repeat value="{!jobLibraryFields}" var="f">
+					<apex:outputField value="{!fHCM2__Job_Library_Item__c[f]}"/>
+				</apex:repeat>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

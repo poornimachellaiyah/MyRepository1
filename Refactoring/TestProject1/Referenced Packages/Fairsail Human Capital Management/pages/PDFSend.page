@@ -1,0 +1,75 @@
+<apex:page controller="fHCM2.PDFTemplateSendController" standardStylesheets="true" showHeader="true" sidebar="true" title="Send PDF" tabStyle="fHCM2__PDF_Template__c">
+    <apex:includeScript value="{!$Resource.fHCM2__FairsailUI}"/>
+    <script>
+    	function menable(id) {melementSet(id,false);}
+		function mdisable(id) {melementSet(id,true);}
+		function melementSet(id,value) {
+			var elements = getElementsByNameAndId("select",id);
+			for (var i=0; i<elements.length; i++)
+			elements[i].disabled=value;
+			elements = getElementsByNameAndId("input",id);
+			for (var i=0; i<elements.length; i++)
+			elements[i].disabled=value;
+		} 
+    </script>
+	<apex:sectionHeader title="{!TeamMemberName}" subtitle="Send PDF" />
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!send}" value="{!$Label.fhcm2__Button_Send}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="PDF" columns="1" rendered="{!isblank(PDFBody)}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="PDF Template"/>
+					<apex:outputPanel >
+                    <apex:selectList id="templateId" value="{!PDFTemplateId}" size="1" onChange="if (selectedIndex==0) menable('currentId'); else mdisable('currentId');" disabled="{!!isblank(PDFBody)}">
+                        <apex:selectOptions value="{!PDFTemplates}" />
+                    </apex:selectList>
+                    <apex:commandButton id="othertemplateId" action="{!preview}" value="Preview" disabled="{!!isblank(PDFBody)}"/>
+                    &nbsp;&nbsp;&nbsp;<apex:outputLink value="{!urlfor($Action.PDF_Template__c.New)}">[{!$Label.fhcm2__Button_New}]</apex:outputLink>
+                    </apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="or Previous PDF"/>
+                    <apex:selectList id="currentId" value="{!CurrentPDFId}" size="1" onChange="if (selectedIndex==0) {menable('templateId');menable('othertemplateId'); } else { mdisable('templateId');mdisable('othertemplateId');}" disabled="{!!isblank(PDFBody)}">
+                        <apex:selectOptions value="{!PDFAttachments}" />
+                    </apex:selectList>
+				</apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="PDF" columns="1" rendered="{!!isblank(PDFBody)}">
+            	<apex:outputPanel >
+            		<apex:inputTextArea value="{!PDFBody}" richtext="true"/>
+            	</apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Covering Email" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="To Team Member"/>
+					<apex:inputCheckbox value="{!toTeamMember}" disabled="{!!hasTeamMember}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="To Team Member Home"/>
+					<apex:inputCheckbox value="{!toHome}" disabled="{!!hasHome}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="To Manager"/>
+					<apex:inputCheckbox value="{!toManager}" disabled="{!!hasManager}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="CC"/>
+					<apex:inputText value="{!cc}" style="width:150px;"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Subject"/>
+					<apex:inputText value="{!subject}" style="width:500px;"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Covering Email"/>
+					<apex:inputTextArea value="{!body}" style="width:500px;height:150px;"/>
+				</apex:pageBlockSectionItem>
+	        </apex:pageBlockSection>
+	    </apex:pageBlock>
+	</apex:form>
+</apex:page>

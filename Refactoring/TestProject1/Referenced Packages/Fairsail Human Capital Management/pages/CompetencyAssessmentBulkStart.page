@@ -1,0 +1,28 @@
+<apex:page standardController="fHCM2__Team_Member__c" recordSetVar="apps" extensions="fHCM2.CompetencyAssessmentStartController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Team_Member__c.label}" subtitle="{!$Label.fhcm2__Process_Competency_Assessment_Start}" help="/apex/Help?obj=fHCM2__Team_Member__c" />
+	<apex:form >
+		<apex:pageBlock title="{!$Label.fhcm2__Process_Competency_Assessment_Start}" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+				<apex:commandButton action="{!send}" value="{!$Label.fhcm2__Button_Initiate}" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.fhcm2__Process_Number_To_Start}"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="{!$Label.fhcm2__Global_Job_Profile}" />
+					<apex:selectList value="{!template.fHCM2__Job_Profile__c}" size="1" required="true">
+						<apex:selectOptions value="{!jobProfiles}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+				<apex:inputField value="{!template.fHCM2__End_Date__c}"/>
+				<apex:inputField value="{!template.fHCM2__Close_Date__c}"/>
+				
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

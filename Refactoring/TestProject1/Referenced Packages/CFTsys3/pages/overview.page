@@ -1,0 +1,133 @@
+<apex:page showHeader="true" sidebar="true" standardStylesheets="false" doctype="html-5.0">
+
+  <apex:includeScript value="{!URLFOR($Resource.cftsys__CFTsys3, '/jquery/js/jquery-1.11.3.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.cftsys__CFTsys3, '/bootstrap3/js/bootstrap.min.js')}"/>
+  <apex:stylesheet value="{!URLFOR($Resource.CFTsys3, 
+              '/bootstrap3/css/bootstrap-theme.min.css')}"/>
+  <apex:stylesheet value="{!URLFOR($Resource.CFTsys3, 
+              '/bootstrap3/css/bootstrap.min.css')}"/>
+
+    <style>
+        #text {
+          font-size: 15px;
+          color: #806D6D;
+        }
+    </style>
+    
+  <div class="bs">
+    <div class="container" style="width: 100%;padding-left: 0px;padding-right: 0px;">
+      
+      <div class="page-header" style="margin-top: 10px;">
+          <h1>CFTsys 3  <small>Overview</small></h1>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body" style="height: 340px;">
+          
+            <div class="row" style=" margin-left: 5px; margin-right: 5px;">
+               <div class="col-md-12">
+                              <p class="lead" id="text">
+                                  This application was 100% built over Salesforce.com platform by <a href="http://altergaia.com/" target="_blank">Altergaia</a> and it features:
+                              </p>
+                           
+                           
+                            <ul class="lead" id="text">
+                                <li>Search for SDNs between your contacts and accounts</li>
+                                <li>Keep updated with SDN lists new releases</li>
+                                <li>Set the threshold to define the matching accuracy</li>
+                                <li>Configurable with automatic search schedules and alerts</li>
+                            </ul>
+                           
+                            <p class="lead" id="text">
+                                  This app was specifically designed to help you screen your accounts and contacts for terrorists and narcotics traffickers included in the lists you have contracted (U.N., U.S.A., U.K., E.C., Australia and Canada). These lists shall update automatically as they are modified from time to time. 
+
+                              </p>
+                           
+                 </div>
+            </div>
+                  
+
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="http://altergaia.com/"><apex:image url="{!URLFOR($Resource.CFTsys3,
+                              'images/Altergaia_logo.png')}" width="165" height="115"/></a> 
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <p class="lead" id="text" style="margin-top: 45px;"><a id="test" href="#" onclick="submitForm();">ENHANCE YOUR PROTECTION - GET MORE LISTS! - I need help</a></p>
+                  </div>
+
+                  <div class="col-md-3">
+                    <a href="http://altergaia.com/portfolio-item/cftsys/"><apex:image url="{!URLFOR($Resource.CFTsys3,
+                              'images/CFTsys_logo.png')}" width="165" height="115" style="margin-left: 40px;"/></a> 
+                  </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <strong>Thanks!</strong>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-success">
+            <h5>You will be contacted soon, by the <a href="http://altergaia.com/" target="_blank">Altergaia</a> Sales Team, in order to enhance your protection and get more lists!</h5>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+</div>
+
+
+<form action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" id="webToLead">
+
+  <input type="hidden" name="oid" value="00DE0000000dyMm"/> 
+
+  <input type="hidden" value="{!$User.FirstName}"  id="first_name" maxlength="40" name="first_name" size="20"/>
+  <input type="hidden" value="{!$User.LastName}" id="last_name" maxlength="80" name="last_name" size="20"/>
+
+  <input type="hidden" value="{!$User.Email}"  id="email" maxlength="80" name="email" size="20"/>
+  <input type="hidden" value="{!$User.CompanyName}" id="company" maxlength="40" name="company" size="20"/>
+
+  <input type="hidden" name="description" value="CUSTOMER SUBMITING FOR NEW CFTSYS3 PROTECTION LISTS!" />
+
+  <input type="hidden" name="lead_source" value="CFTSys3 New License Submit" />
+
+  <input type="submit" name="submitButton" id="subButton"/>
+
+  </form>
+
+  <script>
+    var link = document.getElementById("subButton");
+    link.style.display = 'none'; 
+  </script>
+
+  <script>
+  $(document).ready(function(){
+      $("#test").click(function(){
+          $("#myModal").modal();
+          setTimeout(function(){
+              document.getElementById("webToLead").submit(function(){
+              return false;
+            });
+          },3000);
+          
+      });
+  });
+  </script>
+                    
+                                
+</apex:page>

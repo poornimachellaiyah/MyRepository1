@@ -1,0 +1,80 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!and(subject.developmentNeeds.isUsing,viewer.isTeamMemberOrManager)}">
+                    <apex:facet name="header">
+                        <h3 class="process-development-need">{!$Label.fhcm2__Process_Development_Needs}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" rendered="{!subject.currentCompetencyAssessment.isUsing}">
+	                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+	                    	<h4 style="float:left;margin-left:5px;">{!$Label.fhcm2__Process_Development_Need_Competency}</h4>
+	                        <apex:outputLink value="/apex/{!links.Competency}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(viewer.isEdit,viewer.isManager,subject.currentCompetencyAssessment.hasCompleted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+	                        <apex:outputLink value="/apex/{!links.DevelopmentNeedProfile}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+	                    </apex:outputPanel>
+	                    <apex:pageBlockTable value="{!subject.developmentNeeds.currentCompetencyNeed}" var="developmentNeed" rendered="{!subject.developmentNeeds.currentCompetencyNeed.size>0}">
+	                        <apex:column headerValue="Name">
+	                            <apex:outputLink value="/apex/{!links.DevelopmentNeed}?id={!developmentNeed.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!developmentNeed.name}</apex:outputLink>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Button_Actions}" style="color:red;text-weight:bold;" value="{!developmentNeed.action}"/>
+	                        <apex:column headerValue="Current" rendered="{!subject.developmentNeeds.hasScores}" >
+	                            <apex:outputText value="{!developmentNeed.ScaleResponse}" rendered="{!developmentNeed.needType!='Development Objective'}"/>
+	                        </apex:column>
+	                        <apex:column rendered="{!subject.developmentNeeds.hasScores}">
+	                            <apex:facet name="header">
+	                                <c:ChartPercentAxis width="150px"  rendered="{!subject.developmentNeeds.hasScores}"/>
+	                            </apex:facet>
+	                            <c:ChartRow width="150px" height="5px" color="#e0e0e0" rendered="{!developmentNeed.needType!='Development Objective'}">
+	                                <c:ChartBlock color="green" percent="{!developmentNeed.percentage}"/>
+	                                <c:ChartBlock color="red" percent="{!developmentNeed.gapPercentage}"/>
+	                            </c:ChartRow>
+	                        </apex:column>
+	                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" rendered="{!subject.skills.isUsing}">
+	                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+	                    	<h4 style="float:left;margin-left:5px;">{!$Label.fhcm2__Process_Development_Need_Skill}</h4>
+	                        <apex:outputLink value="/apex/{!links.Skill}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(viewer.isEdit,viewer.isManager)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+	                        <apex:outputLink value="/apex/{!links.DevelopmentNeedProfile}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+	                    </apex:outputPanel>
+	                    <apex:pageBlockTable value="{!subject.developmentNeeds.currentSkillNeed}" var="developmentNeed" rendered="{!subject.developmentNeeds.currentSkillNeed.size>0}">
+	                        <apex:column headerValue="Name">
+	                            <apex:outputLink value="/apex/{!links.DevelopmentNeed}?id={!developmentNeed.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!developmentNeed.name}</apex:outputLink>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Button_Actions}" style="color:red;text-weight:bold;" value="{!developmentNeed.action}"/>
+	                        <apex:column headerValue="Current" rendered="{!subject.developmentNeeds.hasScores}" >
+	                            <apex:outputText value="{!developmentNeed.ScaleResponse}" rendered="{!developmentNeed.needType!='Development Objective'}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Global_Required_Level}" rendered="{!subject.developmentNeeds.hasScores}">
+	                            <apex:outputText value="{!developmentNeed.requiredScaleResponse}"/>
+	                        </apex:column>
+	                        <apex:column headerValue="Gap" rendered="{!subject.developmentNeeds.hasScores}">
+	                            <c:outputNumber decimalPlaces="1" value="{!developmentNeed.gap}"/>
+	                        </apex:column>
+	                        <apex:column rendered="{!subject.developmentNeeds.hasScores}">
+	                            <apex:facet name="header">
+	                                <c:ChartPercentAxis width="150px"  rendered="{!subject.developmentNeeds.hasScores}"/>
+	                            </apex:facet>
+	                            <c:ChartRow width="150px" height="5px" color="#e0e0e0" rendered="{!developmentNeed.needType!='Development Objective'}">
+	                                <c:ChartBlock color="green" percent="{!developmentNeed.percentage}"/>
+	                                <c:ChartBlock color="red" percent="{!developmentNeed.gapPercentage}"/>
+	                            </c:ChartRow>
+	                        </apex:column>
+	                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" rendered="{!viewer.departmentPolicy.fHCM2__Use_Development_Objectives__c}">
+	                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+	                    	<h4 style="float:left;margin-left:5px;">{!$Label.fhcm2__Process_Development_Need_Objective}</h4>
+	                        <apex:outputLink value="/apex/{!links.DevelopmentNeed}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!subject.developmentNeeds.newDevelopmentObjectivePermitted}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+	                        <apex:outputLink value="/apex/{!links.DevelopmentNeedProfile}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+	                    </apex:outputPanel>
+	                    <apex:pageBlockTable value="{!subject.developmentNeeds.currentDevelopmentObjective}" var="developmentNeed" rendered="{!subject.developmentNeeds.currentDevelopmentObjective.size>0}">
+	                        <apex:column headerValue="Name">
+	                            <apex:outputLink value="/apex/{!links.DevelopmentNeed}?id={!developmentNeed.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!developmentNeed.name}</apex:outputLink>
+	                        </apex:column>
+	                        <apex:column headerValue="{!$Label.fhcm2__Button_Actions}" style="color:red;text-weight:bold;" value="{!developmentNeed.action}"/>
+	                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

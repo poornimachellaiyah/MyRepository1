@@ -1,0 +1,565 @@
+<apex:page renderAs="{!RenderMethod}" controller="fHCM2.PerformanceReviewController" standardStylesheets="true" showHeader="false" sidebar="false" title="Performance Review" rendered="{!subject.currentPerformanceReview.isUsing}">
+
+    <apex:composition template="fHCM2__fairsailTemplatePDF">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <style>
+				@page {
+				    @top-left {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:10pt;
+				        content: "{!$Label.fhcm2__Process_Performance_Review_PDF}";
+				    }
+				    @top-right {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:10pt;
+				        content: "{!viewer.TeamMember.Name}";
+				    }
+				}
+				td {
+					padding: 10px 15px; 
+				}
+				b {
+					color: #6E97C7;
+				}
+            </style>
+        </apex:define>
+    
+        <apex:define name="widePanel">
+             <apex:pageBlock >
+             	<c:Notice viewer="{!viewer}" page="PerformanceReviewPDF" location="Header"/>
+
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Previous_Objectives}" columns="1" rendered="{!subject.objectives.recent.size>0}">
+					<apex:outputPanel >
+						<apex:repeat value="{!subject.objectives.recent}" var="tmobjective">
+								<c:DetailListHeader title="{!tmobjective.name}" style="border-bottom: 1px solid #e0e0e0;"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!tmobjective.description}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!tmobjective.measure}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" value="{!tmobjective.strategicObjective}" rendered="{!tmobjective.strategicObjective!=''}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!tmobjective.contributesTo}" rendered="{!tmobjective.contributesTo!=''}"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!tmobjective.priority}" rendered="{!tmobjective.priority!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmobjective.endDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$Label.fhcm2__Process_Objectives_Review_Of_Progress}" rendered="{!tmobjective.CommentsHistory.size>0 && viewer.isTeamMemberOrManager}">
+                                	
+                                	<table style="width:600px;">
+                                	<apex:repeat value="{!tmobjective.CommentsHistory}" var="item">
+                                	<tr>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;"><c:outputDate dateValue="{!item.theDate}"/></td>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;">{!item.who}</td>
+                                		<td style="font-size:10pt;width:300px;white-space:pre-wrap;vertical-align:top;">{!item.comments}</td>
+                                	</tr>
+                                	</apex:repeat> 
+                                	</table>
+                                	
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+			                   <apex:pageBlockTable value="{!tmobjective.milestones}" var="milestone" rendered="{!viewer.isTeamMemberOrManager && tmobjective.hasMilestones}">
+			                        <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}" value="{!milestone.name}"/>
+			                        <apex:column >
+			                            <apex:facet name="header">
+			                                <c:ChartPercentAxis width="150px" />
+			                            </apex:facet>
+			                            <c:chartBar percent="{!milestone.progress}" width="150px"/>
+			                        </apex:column>
+			                        <apex:column style="white-space:nowrap;" headerValue="End">
+			                            <c:outputDate dateValue="{!milestone.endDate}" />
+			                        </apex:column>
+			                    </apex:pageBlockTable>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+									<apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+								</c:DetailListItem>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!tmobjective.status}" />
+						</apex:repeat>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+
+				<apex:outputPanel layout="none" rendered="{!subject.objectives.recent.size>0}">
+				<apex:outputPanel layout="block" style="page-break-before: always;"/>
+				</apex:outputPanel>
+				
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Ranked_By_Overall_Strength}" columns="1" rendered="{!subject.currentCompetencyAssessment.hasCompleted && subject.currentCompetencyAssessment.hasScores}">
+                        <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.competencies}" var="competency">
+                            <apex:column headerValue="{!$Label.fhcm2__ProcessItem_Development_Need}" rendered="{!viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c}">
+                                <apex:image value="/img/checkbox_{!if(competency.hasNeed, '', 'un')}checked.gif"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__ProcessItem_Competency}">
+                                {!competency.Name}
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Self}" rendered="{!subject.currentCompetencyAssessment.hasSelf}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.selfScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!subject.currentCompetencyAssessment.hasManager}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.managerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!subject.currentCompetencyAssessment.hasMentor}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.mentorScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!subject.currentCompetencyAssessment.hasDirectReport}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.directReportScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!subject.currentCompetencyAssessment.hasColleague}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.colleagueScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!subject.currentCompetencyAssessment.hasCustomer}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.customerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!subject.currentCompetencyAssessment.hasOther}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.otherScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                                <c:outputNumber decimalPlaces="1" value="{!competency.averageScore}"/>
+                            </apex:column>
+                            <apex:column rendered="{!competency.hasScores}">
+                                <apex:facet name="header">
+                                    <c:ChartPercentAxis width="150px" />
+                                </apex:facet>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasSelf}" percent="{!competency.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasManager}" percent="{!competency.managerPercentage}" color="ManagerColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasMentor}" percent="{!competency.mentorPercentage}" color="MentorColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasDirectReport}" percent="{!competency.directReportPercentage}" color="DirectReportColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasColleague}" percent="{!competency.colleaguePercentage}" color="ColleagueColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasCustomer}" percent="{!competency.customerPercentage}" color="CustomerColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasOther}" percent="{!competency.otherPercentage}" color="OtherColor" width="150px"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Average_Frequency__c.label}" style="white-space: nowrap;" rendered="{!competency.hasScores && subject.currentCompetencyAssessment.has360}">
+                                <apex:outputText value="{!competency.frequency}" />
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+
+                    <apex:outputPanel layout="block" style="page-break-before: always;" rendered="{!and(subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.hasComparison,subject.currentCompetencyAssessment.hasScores)}"/>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Agreed_Strengths}" columns="1" rendered="{!and(subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.hasComparison,subject.currentCompetencyAssessment.hasScores)}">
+                        <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.knownStrengths}" rows="5" var="indicator" columnsWidth="100px,240px,50px,50px,160px">
+                            <apex:column value="{!indicator.competency.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Competency}" />
+                            <apex:column value="{!indicator.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Indicator}" />
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Self}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.selfScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.managerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.mentorScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.directReportScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.colleagueScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.customerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.otherScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.averageScore}"/>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">
+                                    <c:ChartPercentAxis width="150px" />
+                                </apex:facet>
+                                <c:chartBar percent="{!indicator.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar percent="{!indicator.managerPercentage}" color="ManagerColor" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.mentorPercentage}" color="MentorColor" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.directReportPercentage}" color="DirectReportColor" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.colleaguePercentage}" color="ColleagueColor" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.customerPercentage}" color="CustomerColor" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.otherPercentage}" color="OtherColor" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.Percentage}" color="averageColor" rendered="{!subject.currentCompetencyAssessment.hasAverage}" width="150px"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Unrealised_Strengths}" columns="1" rendered="{!and(subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.hasComparison,subject.currentCompetencyAssessment.hasScores)}">
+                        <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.unknownStrengths}" rows="5" var="indicator" columnsWidth="100px,240px,50px,50px,160px">
+                            <apex:column value="{!indicator.competency.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Competency}" />
+                            <apex:column value="{!indicator.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Indicator}" />
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Self}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.selfScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.managerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.mentorScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.directReportScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.colleagueScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.customerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.otherScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.averageScore}"/>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">
+                                    <c:ChartPercentAxis width="150px" />
+                                </apex:facet>
+                                <c:chartBar percent="{!indicator.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar percent="{!indicator.managerPercentage}" color="ManagerColor" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.mentorPercentage}" color="MentorColor" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.directReportPercentage}" color="DirectReportColor" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.colleaguePercentage}" color="ColleagueColor" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.customerPercentage}" color="CustomerColor" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.otherPercentage}" color="OtherColor" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.Percentage}" color="averageColor" rendered="{!subject.currentCompetencyAssessment.hasAverage}" width="150px"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Agreed_Development_Areas}" columns="1" rendered="{!and(subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.hasComparison,subject.currentCompetencyAssessment.hasScores)}">
+                        <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.knownWeaknesses}" rows="5" var="indicator" columnsWidth="100px,240px,50px,50px,160px">
+                            <apex:column value="{!indicator.competency.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Competency}" />
+                            <apex:column value="{!indicator.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Indicator}" />
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Self}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.selfScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.managerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.mentorScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.directReportScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.colleagueScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.customerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.otherScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.averageScore}"/>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">
+                                    <c:ChartPercentAxis width="150px" />
+                                </apex:facet>
+                                <c:chartBar percent="{!indicator.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar percent="{!indicator.managerPercentage}" color="ManagerColor" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.mentorPercentage}" color="MentorColor" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.directReportPercentage}" color="DirectReportColor" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.colleaguePercentage}" color="ColleagueColor" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.customerPercentage}" color="CustomerColor" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.otherPercentage}" color="OtherColor" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.Percentage}" color="averageColor" rendered="{!subject.currentCompetencyAssessment.hasAverage}" width="150px"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Potential_Blindspots}" columns="1" rendered="{!and(subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.hasComparison,subject.currentCompetencyAssessment.hasScores)}">
+                        <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.unknownWeaknesses}" rows="5" var="indicator" columnsWidth="100px,240px,50px,50px,160px">
+                            <apex:column value="{!indicator.competency.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Competency}" />
+                            <apex:column value="{!indicator.Name}" headerValue="{!$Label.fhcm2__ProcessItem_Indicator}" />
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Self}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.selfScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.managerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.mentorScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.directReportScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.colleagueScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.customerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.otherScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.averageScore}"/>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">
+                                    <c:ChartPercentAxis width="150px" />
+                                </apex:facet>
+                                <c:chartBar percent="{!indicator.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar percent="{!indicator.managerPercentage}" color="ManagerColor" rendered="{!and(subject.currentCompetencyAssessment.hasManager,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.mentorPercentage}" color="MentorColor" rendered="{!and(subject.currentCompetencyAssessment.hasMentor,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.directReportPercentage}" color="DirectReportColor" rendered="{!and(subject.currentCompetencyAssessment.hasDirectReport,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.colleaguePercentage}" color="ColleagueColor" rendered="{!and(subject.currentCompetencyAssessment.hasColleague,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.customerPercentage}" color="CustomerColor" rendered="{!and(subject.currentCompetencyAssessment.hasCustomer,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.otherPercentage}" color="OtherColor" rendered="{!and(subject.currentCompetencyAssessment.hasOther,!subject.currentCompetencyAssessment.hasAverage)}" width="150px"/>
+                                <c:chartBar percent="{!indicator.Percentage}" color="averageColor" rendered="{!subject.currentCompetencyAssessment.hasAverage}" width="150px"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+
+                    <apex:outputPanel layout="block" style="page-break-before: always;" rendered="{!subject.currentCompetencyAssessment.hasCompleted && subject.currentCompetencyAssessment.hasScores}"/>
+
+                    <apex:repeat value="{!subject.currentCompetencyAssessment.competencies}" var="competency">
+                    <apex:pageBlockSection title="{!substitute($Label.fhcm2__Process_Competency_Assessment_Indicators_By_Strength, '{0}', competency.name)}" columns="1" rendered="{!subject.currentCompetencyAssessment.hasCompleted && subject.currentCompetencyAssessment.hasScores}">
+                        <apex:pageBlockTable value="{!competency.indicators}" var="indicator">
+                            <apex:column headerValue="{!$Label.fhcm2__ProcessItem_Indicator}">
+                                {!indicator.Name}
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Self}" rendered="{!subject.currentCompetencyAssessment.hasSelf}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.selfScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!subject.currentCompetencyAssessment.hasManager}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.managerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!subject.currentCompetencyAssessment.hasMentor}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.mentorScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!subject.currentCompetencyAssessment.hasDirectReport}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.directReportScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!subject.currentCompetencyAssessment.hasColleague}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.colleagueScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!subject.currentCompetencyAssessment.hasCustomer}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.customerScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!subject.currentCompetencyAssessment.hasOther}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.otherScore}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                                <c:outputNumber decimalPlaces="1" value="{!indicator.averageScore}"/>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">
+                                    <c:ChartPercentAxis width="150px" />
+                                </apex:facet>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasSelf}" percent="{!indicator.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasManager}" percent="{!indicator.managerPercentage}" color="ManagerColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasMentor}" percent="{!indicator.mentorPercentage}" color="MentorColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasDirectReport}" percent="{!indicator.directReportPercentage}" color="DirectReportColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasColleague}" percent="{!indicator.colleaguePercentage}" color="ColleagueColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasCustomer}" percent="{!indicator.customerPercentage}" color="CustomerColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasOther}" percent="{!indicator.otherPercentage}" color="OtherColor" width="150px"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Average_Frequency__c.label}" style="white-space: nowrap;" rendered="{!subject.currentCompetencyAssessment.has360}">
+                                <apex:outputText value="{!indicator.frequency}" />
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    </apex:repeat>
+                        
+                    <apex:outputPanel layout="block" style="page-break-before: always;" rendered="{!subject.currentCompetencyAssessment.hasCompleted && subject.currentCompetencyAssessment.hasScores}"/>
+
+                    <apex:repeat value="{!subject.currentCompetencyAssessment.competencies}" var="competency">
+					<apex:pageBlockSection title="{!substitute($Label.fhcm2__Process_Competency_Assessment_Comments_For,'{0}',competency.name)}" columns="1" rendered="{!subject.currentCompetencyAssessment.hasCompleted && competency.commentsHas}">
+						<apex:pageBlockTable value="{!competency.comments}" var="comment">
+							<apex:column headerValue="{!$Label.fhcm2__ProcessItem_Indicator}" rendered="{!competency.commentsHasIndicator && competency.indicators.size>1}">
+								<apex:outputText value="{!comment.indicator.name}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Reporting_Relationship__c.label}" rendered="{!subject.currentCompetencyAssessment.assessors.size>1}">
+								<apex:outputText value="{!comment.reportingRelationship}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Strength__c.label}" rendered="{!competency.commentsHasStrength}">
+								<apex:outputText value="{!comment.strength}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Development_Need__c.label}" rendered="{!competency.commentsHasDevelopmentNeed}">
+								<apex:outputText value="{!comment.developmentNeed}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Comment__c.label}" rendered="{!competency.commentsHasComment}">
+								<apex:outputText value="{!comment.comment}"/>
+							</apex:column>
+						</apex:pageBlockTable>
+					</apex:pageBlockSection>
+					</apex:repeat>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Overall_Comments}" columns="1" rendered="{!and(subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.comments.size>0)}">
+                        <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.comments}" var="comment">
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Reporting_Relationship__c.label}" rendered="{!subject.currentCompetencyAssessment.assessors.size>1}">
+                                <apex:outputText value="{!comment.reportingRelationship}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Strength__c.label}" rendered="{!subject.currentCompetencyAssessment.commentsHasStrength}">
+                                <apex:outputText value="{!comment.strength}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Development_Need__c.label}" rendered="{!subject.currentCompetencyAssessment.commentsHasDevelopmentNeed}">
+                                <apex:outputText value="{!comment.developmentNeed}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Comment__c.label}" rendered="{!subject.currentCompetencyAssessment.commentsHasComment}">
+                                <apex:outputText value="{!comment.comment}"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    
+
+				<apex:outputPanel layout="none" rendered="{!subject.currentCompetencyAssessment.hasCompleted}">
+				<apex:outputPanel layout="block" style="page-break-before: always;"/>
+				</apex:outputPanel>
+
+
+            	<c:FieldSetSection objectid="{!performanceReview.id}" fields="{!FieldsetPerformanceReviewAdditionalDetails}" title="{!$Label.fhcm2__Process_Performance_Review_Additional_Details}" rendered="{!FieldsetPerformanceReviewAdditionalDetails!='[]'}"/>
+
+                <apex:pageBlockSection rendered="{!hasSelf && viewer.isTeamMemberOrManager && (isSelfRevealed || isSelfCompleted || viewer.isTeamMember)}" title="{!$Label.fhcm2__Process_Performance_Review_Self_Comments}" columns="1">
+					<apex:outputPanel >
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Training__c}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Training__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Training__c}" />
+				 	<c:DetailListItem rendered="{!FieldsetSelfPerformanceReviewSelfPerformanceReview.size==0}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Review__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Review__c}" />
+					<apex:repeat value="{!FieldsetSelfPerformanceReviewSelfPerformanceReview}" var="f">
+					 	<c:DetailListItem label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields[f].label}" value="{!performanceReview.Self_Performance_Review__r[f]}" />
+					</apex:repeat>
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Strengths__c}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Strengths__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Strengths__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Development_Needs__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Development_Needs__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Action_Plan__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Action_Plan__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Career_Aspirations__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Career_Aspirations__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Training__c}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Training__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Training__c}" />
+				 	<c:DetailListItem rendered="{!!isblank(performanceReview.Self_Performance_Review__r.fHCM2__Final_Comment__c)}" label="{!$ObjectType.fHCM2__Self_Performance_Review__c.fields.fHCM2__Final_Comment__c.label}" value="{!performanceReview.Self_Performance_Review__r.fHCM2__Final_Comment__c}" />
+					</apex:outputPanel>
+                 </apex:pageBlockSection>
+             
+             	<apex:outputPanel layout="none" rendered="{!viewer.isTeamMemberOrManager && (isSelfRevealed || isSelfCompleted || viewer.isTeamMember) && (isRevealed || isCompleted || viewer.isManager)}">    
+             		<div class="pageTable" style="page-break-after:always;"></div>
+             	</apex:outputPanel>
+             
+                 <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Manager_Comments_And_Rating}" columns="1" rendered="{!viewer.isTeamMemberOrManager && (isRevealed || isCompleted || viewer.isManager)}">
+					<apex:outputPanel >
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Training__c}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Training__c.label}" value="{!performanceReview.fHCM2__Training__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Rating__c}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Rating__c.label}" value="{!performanceReview.fHCM2__Rating__c}" />
+				 	<c:DetailListItem rendered="{!FieldsetPerformanceReviewPerformanceReview.size==0}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Review__c.label}" value="{!performanceReview.fHCM2__Review__c}" />
+					<apex:repeat value="{!FieldsetPerformanceReviewPerformanceReview}" var="f">
+					 	<c:DetailListItem label="{!$ObjectType.fHCM2__Performance_Review__c.fields[f].label}" value="{!performanceReview[f]}" />
+					</apex:repeat>
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Strengths__c}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Strengths__c.label}" value="{!performanceReview.fHCM2__Strengths__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Development_Needs__c}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Development_Needs__c.label}" value="{!performanceReview.fHCM2__Development_Needs__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Action_Plan__c}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Action_Plan__c.label}" value="{!performanceReview.fHCM2__Action_Plan__c}" />
+				 	<c:DetailListItem rendered="{!viewer.departmentPolicy.fHCM2__Review_Career_Aspirations__c}" label="{!$ObjectType.fHCM2__Performance_Review__c.fields.fHCM2__Career_Aspirations__c.label}" value="{!performanceReview.fHCM2__Career_Aspirations__c}" />
+					</apex:outputPanel>
+                 </apex:pageBlockSection>
+
+
+				<apex:outputPanel layout="none" rendered="{!subject.objectives.active.size>0}">
+				<apex:outputPanel layout="block" style="page-break-before: always;"/>
+				</apex:outputPanel>
+
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Current_Objectives}" columns="1" rendered="{!subject.objectives.active.size>0}">
+					<apex:outputPanel >
+						<apex:repeat value="{!subject.objectives.active}" var="tmobjective">
+								<c:DetailListHeader title="{!tmobjective.name}" style="border-bottom: 1px solid #e0e0e0;"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!tmobjective.description}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!tmobjective.measure}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" value="{!tmobjective.strategicObjective}" rendered="{!tmobjective.strategicObjective!=''}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!tmobjective.contributesTo}" rendered="{!tmobjective.contributesTo!=''}"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!tmobjective.priority}" rendered="{!tmobjective.priority!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmobjective.endDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$Label.fhcm2__Process_Objectives_Review_Of_Progress}" rendered="{!tmobjective.CommentsHistory.size>0 && viewer.isTeamMemberOrManager}">
+                                	
+                                	<table style="width:600px;">
+                                	<apex:repeat value="{!tmobjective.CommentsHistory}" var="item">
+                                	<tr>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;"><c:outputDate dateValue="{!item.theDate}"/></td>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;">{!item.who}</td>
+                                		<td style="font-size:10pt;width:300px;white-space:pre-wrap;vertical-align:top;">{!item.comments}</td>
+                                	</tr>
+                                	</apex:repeat> 
+                                	</table>
+                                	
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+			                   <apex:pageBlockTable value="{!tmobjective.milestones}" var="milestone" rendered="{!viewer.isTeamMemberOrManager && tmobjective.hasMilestones}">
+			                        <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}" value="{!milestone.name}"/>
+			                        <apex:column >
+			                            <apex:facet name="header">
+			                                <c:ChartPercentAxis width="150px" />
+			                            </apex:facet>
+			                            <c:chartBar percent="{!milestone.progress}" width="150px"/>
+			                        </apex:column>
+			                        <apex:column style="white-space:nowrap;" headerValue="End">
+			                            <c:outputDate dateValue="{!milestone.endDate}" />
+			                        </apex:column>
+			                    </apex:pageBlockTable>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+									<apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+								</c:DetailListItem>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!tmobjective.status}" />
+						</apex:repeat>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+
+				<apex:outputPanel layout="none" rendered="{!subject.DevelopmentNeeds.Current.size>0}">
+				<apex:outputPanel layout="block" style="page-break-before: always;"/>
+				</apex:outputPanel>
+
+               <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!subject.currentCompetencyAssessment.isUsing && subject.DevelopmentNeeds.CurrentCompetencyNeed.size>0}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Current} - {!$Label.fhcm2__Process_Development_Need_Competency}</h2>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.CurrentCompetencyNeed}" var="tmDevelopmentNeed">
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" style="border-top: 1px solid #e0e0e0;"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Action__c.label}" value="{!tmDevelopmentNeed.action}" rendered="{!!isblank(tmDevelopmentNeed.action)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.targetDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}"/>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!subject.skills.isUsing && subject.DevelopmentNeeds.CurrentSkillNeed.size>0}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Current} - {!$Label.fhcm2__Process_Development_Need_Skill}</h2>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.CurrentSkillNeed}" var="tmDevelopmentNeed">
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" style="border-top: 1px solid #e0e0e0;"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Action__c.label}" value="{!tmDevelopmentNeed.action}" rendered="{!!isblank(tmDevelopmentNeed.action)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.targetDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}"/>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!viewer.departmentPolicy.fHCM2__Use_Development_Objectives__c && subject.DevelopmentNeeds.CurrentDevelopmentObjective.size>0}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Current} - {!$Label.fhcm2__Process_Development_Need_Objective}</h2>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.CurrentDevelopmentObjective}" var="tmDevelopmentNeed">
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" style="border-top: 1px solid #e0e0e0;"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Action__c.label}" value="{!tmDevelopmentNeed.action}" rendered="{!!isblank(tmDevelopmentNeed.action)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.targetDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}"/>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+
+                 <c:Notice viewer="{!viewer}" page="PerformanceReviewPDF" location="Header"/>
+            </apex:pageBlock>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

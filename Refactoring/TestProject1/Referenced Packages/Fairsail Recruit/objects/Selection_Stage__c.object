@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>fRecruitSelectionStageEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>fRecruitSelectionStageNew</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>fRecruitSelectionStageView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Assessment_Notes__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Notes for the assessor or interviewer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Notes for the assessor or interviewer</inlineHelpText>
+        <label>Assessment Notes</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Assessor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>User that is responsible for performing this assessment step.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>User that is responsible for performing this assessment step.</inlineHelpText>
+        <label>Assessor</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Schedule</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Create__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Create the assessment record when an application moves to this stage.  Use to trigger workflow.  The record is also created if there is a form linked to this stage.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Create the assessment record when an application moves to this stage.  Use to trigger workflow.  The record is also created if there is a form linked to this stage.</inlineHelpText>
+        <label>Auto Create</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Next_Stage__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Stage to move to if scoring specified score.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Stage to move to if scoring specified score.</inlineHelpText>
+        <label>Auto Next Stage</label>
+        <referenceTo>Selection_Stage__c</referenceTo>
+        <relationshipLabel>Selection Stages (Auto Selection Stage)</relationshipLabel>
+        <relationshipName>Selection_Stages</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Queue__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Automatically set the In Queue checkbox for this assessment stage when the applicant enters the stage.  Must be set along with Auto Create</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically set the In Queue checkbox for this assessment stage when the applicant enters the stage.  Must be set along with Auto Create</inlineHelpText>
+        <label>Auto Queue</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Clear_Contact_Via_Agency__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set the application to contact the candidate directly rather than via the agency</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set the application to contact the candidate directly rather than via the agency</inlineHelpText>
+        <label>Clear Contact Via Agency</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Delay_Outcome_Emails__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Delay sending the Reject, Not This Vacancy and On Hold emails until manually processed from the applications tab.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Delay sending the Reject, Not This Vacancy and On Hold emails until manually processed from the applications tab.</inlineHelpText>
+        <label>Delay Outcome Emails</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enter_Quality_Assurance__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use quality assurance on assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use quality assurance on assessment</inlineHelpText>
+        <label>Enter Quality Assurance</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enter_Start_Details__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enter Start Details</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>External_Test__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>External test that happens during this stage</description>
+        <externalId>false</externalId>
+        <inlineHelpText>External test that happens during this stage</inlineHelpText>
+        <label>External Test</label>
+        <referenceTo>External_Test__c</referenceTo>
+        <relationshipLabel>Selection Stages</relationshipLabel>
+        <relationshipName>Selection_Stages</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Form_Definition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Definition of form that is sent to candidate during this stage.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Definition of form that is sent to candidate during this stage.</inlineHelpText>
+        <label>Form For Candidate</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Selection Stages</relationshipLabel>
+        <relationshipName>R00N40000001tGt6EAE</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Include_In_Scoring__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Whether to include this stage&apos;s scores in the total score for this application.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Whether to include this stage&apos;s scores in the total score for this application.</inlineHelpText>
+        <label>Include In Scoring</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Hiring_Manager_Stage__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This stage requires an assessment by the hiring manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This stage requires an assessment by the hiring manager</inlineHelpText>
+        <label>Is Hiring Manager Stage</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Workplace_Stage__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This stage is assessed by a workplace portal user</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This stage is assessed by a workplace portal user</inlineHelpText>
+        <label>Is Workplace Stage</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Not_This_Vacancy_Email_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Not This Vacancy  Email Template</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Applicants_Assessed__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of applicants that have been assessed for this stage of selection for the vacancy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of applicants that have been assessed for this stage of selection for the vacancy</inlineHelpText>
+        <label>Number Applicants Assessed</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Applicants_Held__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of applicants that have been put on hold at this stage of selection for the vacancy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of applicants that have been put on hold at this stage of selection for the vacancy</inlineHelpText>
+        <label>Number Applicants Held</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Applicants_Rejected__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of applicants that have been rejected at this stage of selection for the vacancy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of applicants that have been rejected at this stage of selection for the vacancy</inlineHelpText>
+        <label>Number Applicants Rejected</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>On_Hold_Email_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>On Hold Email Template</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Order of the stages</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Order of the stages.</inlineHelpText>
+        <label>Order</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Part_Of__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>This selection stage is part of another stage, for example an exercise of an assessment centre.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This selection stage is part of another stage, for example an exercise of an assessment centre.</inlineHelpText>
+        <label>Part Of</label>
+        <referenceTo>Selection_Stage__c</referenceTo>
+        <relationshipLabel>Sub Selection Stages</relationshipLabel>
+        <relationshipName>R00N40000001tPXmEAM2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Passive_Email_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Email template to send if candidate passive</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Email template to send if candidate passive</inlineHelpText>
+        <label>Passive Email Template</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reject_Email_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Reject Email Template</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Require_Entry__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Require entry of all scores before the assessment can be saved</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Require entry of all scores before the assessment can be saved</inlineHelpText>
+        <label>Require Entry</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Required_Below_Needs_Auto_Reject__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set application to reject if any required criteria are less than that required for the vacancy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set application to reject if any required criteria are less than that required for the vacancy</inlineHelpText>
+        <label>Required Below Needs Auto Reject</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Score_For_Auto_Next_Stage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Automatically move to the next stage if the score is equals or isScore For Next Stage above this value.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically move to the next stage if the score is equals or is above this value.</inlineHelpText>
+        <label>Score For Auto Next Stage</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_For_Auto_Reject__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If the score is equals or is less than this number, automatically set the application to reject.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If the score is equals or is less than this number, automatically set the application to reject.</inlineHelpText>
+        <label>Score For Auto Reject</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Send_References__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Send the references when the candidate reaches this stage</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Send the references when the candidate reaches this stage</inlineHelpText>
+        <label>Send References</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Set_Hired__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set candidate and application to Hired when the application reaches this stage.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set candidate and application to Hired when the application reaches this stage.</inlineHelpText>
+        <label>Set Hired</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Set_Onboarding__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set candidate and application to Onboarding when the application reaches this stage.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set candidate and application to Onboarding when the application reaches this stage.</inlineHelpText>
+        <label>Set Onboarding</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_To_Hiring_Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>When checked, any applications reaching this stage will be shown to the hiring manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked, any applications reaching this stage will be shown to the hiring manager</inlineHelpText>
+        <label>Show To Hiring Manager</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_To_Workplace__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Sets &quot;Show To Workplace&quot; in the application when an application reaches this stage.  Makes extra information available to the workplace portal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sets &quot;Show To Workplace&quot; in the application when an application reaches this stage.  Makes extra information available to the workplace portal.</inlineHelpText>
+        <label>Show To Workplace</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Stage_Email_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Stage Email Template</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vacancy__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Vacancy</label>
+        <referenceTo>Vacancy__c</referenceTo>
+        <relationshipName>Selection_Stage</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Visualforce_Page__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Optional visualforce page displayed to assess this stage.  If not entered this defaults to the standard assessment page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Optional visualforce page displayed to assess this stage.  If not entered this defaults to the standard assessment page.</inlineHelpText>
+        <label>Visualforce Page</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Selection Stage</label>
+    <nameField>
+        <label>Stage Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Selection Stages</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Vacancy__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Vacancy__c</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Interview_Sheet</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Interview Sheet</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/fRecruitInterviewSheet?id={!Selection_Stage__c.Id}</url>
+    </webLinks>
+</CustomObject>

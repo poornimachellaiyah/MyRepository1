@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>if( Resource_Need__c.Budget_Annual_Salary_Reporting__c:SUM=0.0, null, Resource_Need__c.Annual_Variance_Reporting__c:SUM / Resource_Need__c.Budget_Annual_Salary_Reporting__c:SUM)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Annual Variance %</masterLabel>
+        <scale>1</scale>
+    </aggregates>
+    <columns>
+        <field>CHILD_NAME</field>
+    </columns>
+    <columns>
+        <field>Resource_Need__c.Team_Member__c</field>
+    </columns>
+    <columns>
+        <field>Resource_Need__c.Manager__c</field>
+    </columns>
+    <columns>
+        <field>Resource_Need__c.Currency__c</field>
+    </columns>
+    <columns>
+        <field>Resource_Need__c.Budget_Salary_Amount__c</field>
+    </columns>
+    <columns>
+        <field>Resource_Need__c.Actual_Salary_Amount__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Resource_Need__c.Budget_Annual_Salary_Reporting__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Resource_Need__c.Actual_Annual_Salary_Reporting__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Resource_Need__c.Annual_Variance_Reporting__c</field>
+    </columns>
+    <description>Difference between budget and actual salaries by team</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CUST_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Resource_Need__c.Team__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Resource_Need__c.Job_Title__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Budget vs Actual By Team</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$Resource_Plan__c$Resource_Need__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>Resource_Need__c.Currency__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

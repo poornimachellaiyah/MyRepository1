@@ -1,0 +1,43 @@
+<apex:page standardController="fHCM2__Competency_Library_Item__c" extensions="fHCM2.TrainingOptionsControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Training Option">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<c:Notice viewer="{!viewer}" page="TrainingOptions" location="Subheader"  />
+			<c:Notice viewer="{!viewer}" page="TrainingOptions" location="Subfooter"  />
+		</apex:define>
+
+		<apex:define name="widePanel">
+				<apex:pageBlock title="Training Options" id="myform">
+					<c:Notice viewer="{!viewer}" page="TrainingOptions" location="Header"  />
+					<apex:pageBlockSection title="Development Area" columns="1">
+						<apex:outputField value="{!fHCM2__Competency_Library_Item__c.Name}"/>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="Options" columns="1">
+							<apex:repeat value="{!fHCM2__Competency_Library_Item__c.Competency_Training_Options__r}" var="option">
+								<c:TwinSectionA >
+									<c:DetailListHeader title="{!option.name}" value="{!option.Training_Library_Item__r.fHCM2__URL__c}"/>
+									<c:DetailListItem label="Type" value="{!option.Training_Library_Item__r.fHCM2__Type__c}"/>
+								</c:TwinSectionA>
+								<c:TwinSectionB >
+									<c:DetailListHeader title="{!option.name}" value="{!option.Training_Library_Item__r.fHCM2__URL__c}"/>
+									<c:DetailListItem label="Type" value="{!option.Training_Library_Item__r.fHCM2__Type__c}"/>
+									<c:DetailListItem label="Supplier" value="{!option.Training_Library_Item__r.fHCM2__Supplier__c}" rendered="{!option.Training_Library_Item__r.fHCM2__Supplier__c!=''}"/>
+									<c:DetailListItem label="Description" value="{!option.Training_Library_Item__r.fHCM2__Description__c}"/>
+								</c:TwinSectionB>
+							</apex:repeat>
+					</apex:pageBlockSection>
+					<c:Notice viewer="{!viewer}" page="TrainingOptions" location="Footer"  />
+				</apex:pageBlock>
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

@@ -1,0 +1,21 @@
+<apex:page standardController="fRecruit__Interviewer__c">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Interviewer__c.label}" subtitle="{!fRecruit__Interviewer__c.Name}" help="http://recruit.help.fairsail.com/topics/EditInterviewer.html"/>
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Interviewer__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:outputField value="{!fRecruit__Interviewer__c.Assessment__r.Application__r.fRecruit__Candidate__c}" rendered="{!!isblank(fRecruit__Interviewer__c.Id)}"/>
+				<apex:outputField value="{!fRecruit__Interviewer__c.Assessment__r.Application__r.fRecruit__Vacancy__c}" rendered="{!!isblank(fRecruit__Interviewer__c.Id)}"/>
+				<apex:outputField value="{!fRecruit__Interviewer__c.Assessment__r.fRecruit__Application__c}" rendered="{!!isblank(fRecruit__Interviewer__c.Id)}"/>
+				<apex:outputField value="{!fRecruit__Interviewer__c.fRecruit__Assessment__c}"/>
+				<apex:inputField value="{!fRecruit__Interviewer__c.fRecruit__User__c}"/>
+				<apex:inputField value="{!fRecruit__Interviewer__c.fRecruit__Interview_Date__c}"/>
+             </apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

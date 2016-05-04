@@ -1,0 +1,25 @@
+<apex:page controller="fHCM2.EmploymentTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Members" rendered="{!subject.EmploymentIsUsing}" action="{!selectUI}">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="Employment" title="{!$Label.fhcm2__Process_Employment_Details}" noticePage="Employment"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+	            <apex:pageBlock title="{!viewer.teamMember.name}" rendered="{!viewer.IsManager && viewer.departmentPolicy.fHCM2__Employment_Is_Active__c==true}">
+	            	<c:Notice viewer="{!viewer}" page="Employment" location="Header"  />
+	            	<c:FieldSetSection objectid="{!viewer.teamMember.id}" fields="{!FieldsetTeamMemberTableFullDetails}" title="{!$Label.fhcm2__Team_Member_EmploymentDetails}" rendered="{!$ObjectType.fHCM2__Team_Member__c.FieldSets.fHCM2__TeamMemberTableDetails.size>0}"/>
+					<c:Notice viewer="{!viewer}" page="Employment" location="Footer"  />
+	            </apex:pageBlock>
+        </apex:define>
+   
+    </apex:composition>
+</apex:page>

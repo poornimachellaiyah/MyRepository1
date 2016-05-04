@@ -1,0 +1,22 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.Objective}" title="Clone Objective" targetLinks="true" extra="?objectiveId={!$CurrentPage.parameters.objectiveID}"/>
+            <p>Click on the person receiving this cloned objective</p>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

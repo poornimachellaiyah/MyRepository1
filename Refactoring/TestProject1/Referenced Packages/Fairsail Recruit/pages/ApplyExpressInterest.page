@@ -1,0 +1,119 @@
+<apex:page controller="fRecruit.ApplyExpressInterestController" action="{!init}" cache="false" showHeader="false" sidebar="false" standardStylesheets="true" language="{!languageSetter.locale}">
+
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+	<style>
+		input[type="text"] {
+			width:300px;
+		}
+	</style>
+	<c:IfHasNotice locale="{!languageSetter.locale}"  page="ApplyExpressInterest" location="Right">
+		<style>
+			.bodyColumn { width:600px; }
+			.rightColumn { display:table-cell; width:200px; padding-left:10px;}
+		</style>
+	</c:IfHasNotice>
+	<apex:stylesheet value="{!portalURL}"/>
+	
+</apex:define>
+
+<apex:define name="header">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyExpressInterest" location="Header" />
+</apex:define>
+
+<apex:define name="left">
+	<c:ApplyMenu locale="{!languageSetter.locale}" uniqueId="{!$CurrentPage.parameters.uid}" portal="{!portal}"/>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyExpressInterest" location="Left" />
+</apex:define>
+
+<apex:define name="right">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyExpressInterest" location="Right" />
+</apex:define>
+
+<apex:define name="body">
+	<apex:sectionHeader title="{!$Label.frecruit__Apply_Portal+CandidateName}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Apply_Express_Interest}"/>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyExpressInterest" location="Top" />
+	<apex:pageMessages />
+	<apex:form >
+				<p>{!$Label.frecruit__Apply_Express_Interest_Top}</p>
+
+				<apex:pageBlock title="{!$Label.frecruit__Apply_Your_Active_Alerts}" rendered="{!!editMode}">
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton action="{!addNew}" value="{!$Label.frecruit__Apply_Add_Request_Button}"/>
+				</apex:pageBlockButtons>
+					<apex:pageBlockTable value="{!previous}" var="item" rendered="{!previous.size>0}">
+						<apex:column headerValue="" style="vertical-align: top;">
+							<apex:outputPanel rendered="{!interest.id!=item.interest.id}">
+								<apex:commandButton action="{!item.edit}" value="{!$Label.frecruit__Apply_Edit_Button}"/>
+								<apex:commandButton action="{!item.cancelRequest}" value="{!$Label.frecruit__Apply_Cancel_Request_Button}" onClick="return confirm('{!$Label.frecruit__Apply_Cancel_Request_Warning}');"/>
+							</apex:outputPanel>
+						</apex:column>
+						<apex:repeat value="{!$ObjectType.fRecruit__Candidate_Interest__c.FieldSets.fRecruit__Apply_Express_Interest}" var="f">
+							<apex:column headerValue="{!f.label}" style="vertical-align: top;">
+								<apex:outputPanel >
+									<c:outputDate value="{!item.interest[f]}" rendered="{!f.type=='date'}"/>
+									<apex:outputfield value="{!item.interest[f]}" rendered="{!(f.type!='Text' || !contains(item.interest[f],'<img')) && f.type!='date'}"/>
+									<apex:outputText value="{!item.interest[f]}" escape="false" rendered="{!f.type=='Text' && contains(item.interest[f] && f.type!='date','<img')}"/>
+								</apex:outputPanel>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fRecruit__Candidate_Interest__c.Fields.fRecruit__Search_Postal_Code__c.label}" style="vertical-align: top;" rendered="{!$Setup.Apply_Portal__c.Use_Express_Interest_Geolocation__c}">
+								<apex:outputPanel >
+									<apex:outputLink value="http://maps.google.com/maps?q={!item.interest.fRecruit__Latitude__c}+{!item.interest.fRecruit__Longtitude__c}&ll={!item.interest.fRecruit__Latitude__c},{!item.interest.fRecruit__Longtitude__c}&z=9" rendered="{!!isblank(item.interest.fRecruit__Latitude__c) && !isblank(item.interest.fRecruit__Longtitude__c)}" target="_blank"><apex:image style="vertical-align:top;margin-left:20px;" value="//maps.googleapis.com/maps/api/staticmap?center={!item.interest.fRecruit__Latitude__c},{!item.interest.fRecruit__Longtitude__c}&zoom=8&size=100x100&sensor=false&markers=color:blue|{!item.interest.fRecruit__Latitude__c},{!item.interest.fRecruit__Longtitude__c}" /></apex:outputLink>
+									&nbsp;&nbsp;&nbsp;<apex:outputfield value="{!item.interest.fRecruit__Maximum_Distance__c}"/>
+									&nbsp;<apex:outputfield value="{!item.interest.fRecruit__Distance_Unit__c}"/>
+									&nbsp;{!$Label.Geolocate_Of}&nbsp;&nbsp;<apex:outputfield value="{!item.interest.fRecruit__Search_Postal_Code__c}"/>
+								</apex:outputPanel>
+							</apex:column>
+						</apex:repeat>
+					</apex:pageBlockTable>
+				</apex:pageBlock>
+				
+				<apex:pageBlock rendered="{!editMode}">
+					<apex:pageBlockButtons location="bottom">
+						<apex:commandButton action="{!save}" value="{!$Label.frecruit__Apply_Save_Button}"/>
+						<apex:commandButton action="{!cancel}" value="{!$Label.frecruit__Apply_Cancel_Button}" rendered="{!previous.size!=0}"/>
+					</apex:pageBlockButtons>
+					<apex:pageBlockSection columns="1" id="locationArea">
+							<apex:repeat value="{!$ObjectType.fRecruit__Candidate_Interest__c.FieldSets.fRecruit__Apply_Express_Interest}" var="f">
+								<apex:pageBlockSectionItem >
+									<c:FieldLabelHelp field="{!$ObjectType.fRecruit__Candidate_Interest__c.Fields[f]}"/>
+				                    <apex:inputField value="{!interest[f]}" required="{!f.Required}"/>
+				                </apex:pageBlockSectionItem>
+			                </apex:repeat>
+
+							<apex:pageBlockSectionItem rendered="{!$Setup.Apply_Portal__c.Use_Express_Interest_Geolocation__c}">
+								<c:FieldLabelHelp field="{!$ObjectType.fRecruit__Candidate_Interest__c.Fields.fRecruit__Search_Postal_Code__c}"/>
+								<apex:outputPanel >
+									<apex:inputField value="{!interest.fRecruit__Maximum_Distance__c}" style="width:50px;"/>
+									<apex:inputField value="{!interest.fRecruit__Distance_Unit__c}"/>
+									&nbsp;{!$Label.Geolocate_Of}&nbsp;&nbsp;<apex:inputField value="{!interest.fRecruit__Search_Postal_Code__c}" style="width:150px;"/>
+									<apex:actionStatus id="locateStatus">
+										<apex:facet name="start" >
+											{!$Label.Geolocate_Searching}...<img src="/apexpages/devmode/img/saveStatus.gif" />
+										</apex:facet>
+										<apex:facet name="stop">
+											<apex:commandButton action="{!locate}" value="{!$Label.frecruit__Geolocate_Confirm_Location}" status="locateStatus" rerender="locationArea"/>
+										</apex:facet>
+									</apex:actionStatus>
+								</apex:outputPanel>
+							</apex:pageBlockSectionItem>
+							<apex:pageBlockSectionItem rendered="{!$Setup.Apply_Portal__c.Use_Express_Interest_Geolocation__c}">
+								<apex:outputLabel value="Selected Location" />
+								<apex:outputLink value="http://maps.google.com/maps?q={!interest.fRecruit__Latitude__c}+{!interest.fRecruit__Longtitude__c}&ll={!interest.fRecruit__Latitude__c},{!interest.fRecruit__Longtitude__c}&z=9" rendered="{!!isblank(interest.fRecruit__Latitude__c) && !isblank(interest.fRecruit__Longtitude__c)}" target="_blank"><apex:image value="//maps.googleapis.com/maps/api/staticmap?center={!interest.fRecruit__Latitude__c},{!interest.fRecruit__Longtitude__c}&zoom=10&size=400x400&sensor=false&markers=color:blue|{!interest.fRecruit__Latitude__c},{!interest.fRecruit__Longtitude__c}" /></apex:outputLink>
+							</apex:pageBlockSectionItem>
+							
+			        </apex:pageBlockSection>
+			    </apex:pageBlock>
+			    
+	</apex:form>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyExpressInterest" location="Bottom" />
+</apex:define>
+
+<apex:define name="footer">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyExpressInterest" location="Footer" />
+</apex:define>
+
+</apex:composition>
+
+</apex:page>

@@ -1,0 +1,289 @@
+<apex:page controller="fHCM2.MetricsReviewController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Metrics Review" rendered="{!subject.metrics.isUsing}">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    		<style>
+    			.metricsTable textarea {width:250px;}
+    			.metricsTable th, .metricsTable td {padding: 5px; vertical-align:top;}
+    			.metricsTable .dateInput {white-space: normal;}
+    		</style>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+		    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/autoresize.jquery.js')}"/>
+            <script language="javascript">
+            	jQuery.noConflict();
+				jQuery(document).ready(function(){
+					jQuery('.autoResize').autoResize({}).trigger('change');
+				});
+				function recalcDo(area) {
+					var count = 0;
+					var sum = 0.0;
+					jQuery(".metricItem").each(
+							    function(){
+							    	var val = jQuery(this).val();
+							    	if (val!='') {
+							    		sum += Number(val);
+							    		count++;
+							    	}
+							    });
+					jQuery("#overallAverage").html(count>0 ? String(Math.round(sum/count*10.0)/10.0) : "");
+					if (area=='') return;
+					count = 0;
+					sum = 0.0;
+					jQuery("."+area).each(
+							    function(){
+							    	var val = jQuery(this).val();
+							    	if (val!='') {
+							    		sum += Number(val);
+							    		count++;
+							    	}
+							    });
+					jQuery("#"+area).html(count>0 ? String(Math.round(sum/count*10.0)/10.0) : "");
+				}
+            </script>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Metrics_Review}" mode="view" rendered="{!viewer.isTeamMemberOrManager}">
+           	 <c:Notice viewer="{!viewer}" page="MetricsReview" location="Subheader"/>
+
+             <apex:pageBlockSection title="{!$Label.fhcm2__Process_Metrics_Review} {!$Label.fhcm2__Global_History}" columns="1">
+                 <apex:repeat value="{!subject.metrics.metricReviews}" var="other">
+                     <c:DetailListBar title="{!other.Name}" value="/apex/{!links.MetricsReview}?id={!other.Id}" rendered="{!other.Id!=currentMetricsReview.id}">
+                      	<c:DetailListItem label="{!$ObjectType.fHCM2__Metrics_Review__c.Fields.fHCM2__Overall_Comment__c.label}" rendered="{!!isblank(other.overallComment)}">
+                      		{!other.overallComment}
+                      	</c:DetailListItem>
+                     </c:DetailListBar>
+                 </apex:repeat>
+             </apex:pageBlockSection>
+
+             <apex:pageBlockSection title="{!$ObjectType.fHCM2__Metric__c.label} {!$Label.fhcm2__Global_History}" columns="1">
+                 <apex:repeat value="{!subject.metrics.metrics}" var="other">
+                     <c:DetailListBar title="{!other.Name}">
+                     	<apex:repeat value="{!other.assessments}" var="assessment">
+                         <c:DetailListItem label="{!assessment.review.name}" rendered="{!assessment.review.id!=currentMetricsReview.id}">
+                         	{!assessment.value}{!assessment.level}<br/><c:TrafficLight status="{!assessment.color}"/>{!assessment.achievement}
+                         </c:DetailListItem>
+                        </apex:repeat>
+                     </c:DetailListBar>
+                 </apex:repeat>
+             </apex:pageBlockSection>
+
+             <c:Notice viewer="{!viewer}" page="MetricsReview" location="Subfooter"/>
+            </apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+           	<c:Notice viewer="{!viewer}" page="MetricsReview" location="Header"  />
+            <apex:form >
+	            <apex:pageBlock title="{!viewer.teamMember.name}">
+	                <apex:pageMessages />
+	                <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!viewer.isManager && viewer.isEdit}" />
+                        <apex:commandButton action="{!sign}" value="{!$Label.fhcm2__Button_Sign}" rendered="{!viewer.isManager && viewer.isEdit && !hasSigned}" onclick="return confirm('{!JSINHTMLENCODE($Label.fhcm2__Process_Performance_Review_Freeze_Warning)}');"/>
+                        <apex:commandButton action="{!sign}" value="{!$Label.fhcm2__Button_Sign}" rendered="{!viewer.isTeamMember && !TeamMemberToSign}" />
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+	                
+<!-- Section if editable -->
+
+	                <apex:pageBlockSection columns="1"  rendered="{!viewer.IsManager && viewer.IsEdit}">
+						<apex:inputField value="{!currentMetricsReview.fHCM2__Review_Date__c}" rendered="{!!hasSigned}"/>
+						<apex:pageBlockSectionItem rendered="{!hasSigned}">
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Metrics_Review__c.Fields.fHCM2__Review_Date__c.label}"/>
+							<c:outputDate dateValue="{!currentMetricsReview.fHCM2__Review_Date__c}"/>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+					<apex:outputPanel layout="none" rendered="{!!hasSigned && viewer.IsManager && viewer.IsEdit}">
+						<table style="width:100%;" class="metricsTable">
+						<tr style="background-color:#C4D2E8;">
+							<th>{!$ObjectType.Metric__c.fields.Name.label}</th>
+							<th>{!$ObjectType.Metric_Assessment__c.fields.Achievement__c.label}</th>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Manager_Review}" var="f">
+								<th>{!$ObjectType.fHCM2__Metric_Assessment__c.fields[f].label}</th>
+							</apex:repeat>
+						</tr>
+						<apex:variable var="lastArea" value=""/>
+	 					<apex:repeat value="{!metrics}" var="row" rendered="{!!hasSigned && viewer.IsManager && viewer.IsEdit}">
+	 					<apex:outputPanel layout="none" rendered="{!row.metric.fHCM2__Area__c!=lastArea && !isblank(row.metric.fHCM2__Area__c)}">
+	 						<tr style="background-color:#e0e0e0;">
+	 							<td style="font-weight: bold;">{!row.metric.fHCM2__Area__c}</td>
+	 							<apex:outputPanel layout="none" rendered="{!viewer.departmentPolicy.fHCM2__Show_Metrics_Area_Average__c==true}">
+	 								<td  id="{!substitute(row.metric.Area__c,' ','_')}">{!$Label.Global_Average}: {!averages[row.metric.Area__c].average}</td>
+	 							</apex:outputPanel>
+	 						</tr>
+	 					</apex:outputPanel>
+	 					<tr>
+							<td>
+								<apex:outputField value="{!row.metric.Name}"/>
+							</td> 
+							<td>
+								<c:TrafficLightInput inputType="input" required="{!row.metric.fHCM2__Required_Value__c}" margin="{!row.metric.fHCM2__Margin__c}" minimum="{!row.metric.fHCM2__Minimum__c}"  maximum="{!row.metric.fHCM2__Maximum__c}" rendered="{!row.metric.fHCM2__Measure__c=='Number'}">
+									<apex:inputText styleClass="{!substitute(row.metric.fHCM2__Area__c,' ','_')} metricItem" value="{!row.AchievedValue}" style="width:50px;" onKeyUp="recalcDo('{!substitute(row.metric.fHCM2__Area__c,' ','_')}');" onChange="recalcDo('{!substitute(row.metric.fHCM2__Area__c,' ','_')}');"/>
+								</c:TrafficLightInput>
+								<apex:selectList value="{!row.metricAssessment.fHCM2__Achieved_Level__c}" size="1" rendered="{!row.metric.fHCM2__Measure__c=='Scale'}">
+									<apex:selectOptions value="{!scaleOptions[row.metric.fHCM2__Scale__c]}"/>
+								</apex:selectList>
+								<apex:inputField value="{!row.metricAssessment.fHCM2__Comment__c}" styleClass="autoResize" rendered="{!row.metric.fHCM2__Measure__c=='Text'}"/>
+							</td>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Manager_Review}" var="f">
+								<td>
+									<apex:inputField value="{!row.metricAssessment[f]}" styleClass="autoResize" required="{!f.required}"/>
+								</td> 
+							</apex:repeat>
+						</tr>
+						<apex:variable var="lastArea" value="{!row.metric.fHCM2__Area__c}"/>
+						</apex:repeat>
+						<apex:outputPanel layout="none" rendered="{!viewer.departmentPolicy.fHCM2__Show_Metrics_Average__c==true}">
+ 							<tr style="background-color:#e0e0e0;"><td>{!$Label.fhcm2__Global_Average}</td><td id="overallAverage">{!overallAverage.average}</td></tr>
+ 						</apex:outputPanel>
+						</table>
+					</apex:outputPanel>
+					
+					<apex:outputPanel layout="none" rendered="{!hasSigned && viewer.IsManager && viewer.IsEdit}">
+						<table style="width:100%;" class="metricsTable">
+						<tr style="background-color:#C4D2E8;">
+							<th>{!$ObjectType.Metric__c.fields.Name.label}</th>
+							<th>{!$ObjectType.Metric_Assessment__c.fields.Achievement__c.label}</th>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Manager_Review}" var="f">
+								<th>{!$ObjectType.fHCM2__Metric_Assessment__c.fields[f].label}</th>
+							</apex:repeat>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Outcome}" var="f">
+								<th>{!$ObjectType.fHCM2__Metric_Assessment__c.fields[f].label}</th>
+							</apex:repeat>
+						</tr>
+						<apex:variable var="lastArea" value=""/>
+	 					<apex:repeat value="{!metrics}" var="row" rendered="{!viewer.IsManager && viewer.IsEdit}">
+	 					<apex:outputPanel layout="none" rendered="{!row.metric.fHCM2__Area__c!=lastArea && !isblank(row.metric.fHCM2__Area__c)}">
+	 						<tr style="background-color:#e0e0e0;">
+	 							<td style="font-weight: bold;">{!row.metric.fHCM2__Area__c}</td>
+	 							<apex:outputPanel layout="none" rendered="{!viewer.departmentPolicy.fHCM2__Show_Metrics_Area_Average__c==true}">
+	 								<td  id="{!substitute(row.metric.Area__c,' ','_')}">{!$Label.Global_Average}: {!averages[row.metric.Area__c].average}</td>
+	 							</apex:outputPanel>
+	 						</tr>
+	 					</apex:outputPanel>
+	 					<tr>
+							<td>
+								<apex:outputField value="{!row.metric.Name}"/>
+							</td> 
+							<td>
+								{!row.assessmentItem.value}{!row.assessmentItem.level}<c:TrafficLight status="{!row.assessmentItem.color}"/>{!row.assessmentItem.achievement}
+							</td>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Manager_Review}" var="f">
+								<td>
+									<apex:outputField value="{!row.metricAssessment[f]}"/>
+								</td> 
+							</apex:repeat>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Outcome}" var="f">
+								<td>
+									<apex:inputField value="{!row.metricAssessment[f]}" styleClass="autoResize" required="{!f.required}"/>
+								</td> 
+							</apex:repeat>
+						</tr>
+						<apex:variable var="lastArea" value="{!row.metric.fHCM2__Area__c}"/>
+						</apex:repeat>
+						<apex:outputPanel layout="none" rendered="{!viewer.departmentPolicy.fHCM2__Show_Metrics_Average__c==true}">
+ 							<tr style="background-color:#e0e0e0;"><td>{!$Label.fhcm2__Global_Average}</td><td id="overallAverage">{!overallAverage.average}</td></tr>
+ 						</apex:outputPanel>
+						</table>
+					</apex:outputPanel>
+					
+	                <apex:pageBlockSection columns="1" rendered="{!viewer.IsManager && viewer.IsEdit}">
+						<apex:repeat value="{!$ObjectType.fHCM2__Metrics_Review__c.FieldSets.fHCM2__Manager_Review}" var="f">
+							<apex:inputField value="{!currentMetricsReview[f]}" styleClass="autoResize" rendered="{!!hasSigned}"/>
+							<apex:outputField value="{!currentMetricsReview[f]}" rendered="{!hasSigned}"/>
+						</apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Global_Attachment}" rendered="{!viewer.IsManager && viewer.IsEdit}">
+						<apex:pageBlockSectionItem rendered="{!!isblank(filename)}">
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Attached_File}" />
+							<apex:outputLink value="{!fileurl}" >{!filename}</apex:outputLink>
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem rendered="{!!hasSigned}">
+							<apex:outputLabel value="{!if(isblank(filename),$Label.fhcm2__Global_Attached_File,$Label.fhcm2__Button_Replace)}" />
+							<apex:inputFile value="{!content}" filename="{!filename}" contentType="{!contentType}"/>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+<!-- Section if not editable -->
+
+	                <apex:pageBlockSection columns="1" rendered="{!!(viewer.IsManager && viewer.IsEdit)}">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$ObjectType.fHCM2__Metrics_Review__c.Fields.fHCM2__Review_Date__c.label}"/>
+							<c:outputDate dateValue="{!currentMetricsReview.fHCM2__Review_Date__c}"/>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+					<apex:outputPanel layout="none" rendered="{!!(viewer.IsManager && viewer.IsEdit)}">
+						<table style="width:100%;" class="metricsTable">
+						<tr style="background-color:#C4D2E8;">
+							<th>{!$ObjectType.Metric__c.fields.Name.label}</th>
+							<th>{!$ObjectType.Metric_Assessment__c.fields.Achievement__c.label}</th>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Manager_Review}" var="f">
+								<th>{!$ObjectType.fHCM2__Metric_Assessment__c.fields[f].label}</th>
+							</apex:repeat>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Outcome}" var="f" rendered="{!hasSigned}">
+								<th>{!$ObjectType.fHCM2__Metric_Assessment__c.fields[f].label}</th>
+							</apex:repeat>
+						</tr>
+						<apex:variable var="lastArea" value=""/>
+	 					<apex:repeat value="{!metrics}" var="row" rendered="{!viewer.IsManager && viewer.IsEdit}">
+	 					<apex:outputPanel layout="none" rendered="{!row.metric.fHCM2__Area__c!=lastArea && !isblank(row.metric.fHCM2__Area__c)}">
+	 						<tr style="background-color:#e0e0e0;">
+	 							<td style="font-weight: bold;">{!row.metric.fHCM2__Area__c}</td>
+	 							<apex:outputPanel layout="none" rendered="{!viewer.departmentPolicy.fHCM2__Show_Metrics_Area_Average__c==true}">
+	 								<td  id="{!substitute(row.metric.Area__c,' ','_')}">{!$Label.Global_Average}: {!averages[row.metric.Area__c].average}</td>
+	 							</apex:outputPanel>
+	 						</tr>
+	 					</apex:outputPanel>
+	 					<tr>
+							<td>
+								<apex:outputField value="{!row.metric.Name}"/>
+							</td> 
+							<td>
+								{!row.assessmentItem.value}{!row.assessmentItem.level}<c:TrafficLight status="{!row.assessmentItem.color}"/>{!row.assessmentItem.achievement}
+							</td>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Manager_Review}" var="f">
+								<td>
+									<apex:outputField value="{!row.metricAssessment[f]}"/>
+								</td> 
+							</apex:repeat>
+							<apex:repeat value="{!$ObjectType.fHCM2__Metric_Assessment__c.FieldSets.fHCM2__Outcome}" var="f" rendered="{!hasSigned}">
+								<td>
+									<apex:outputField value="{!row.metricAssessment[f]}" styleClass="autoResize"/>
+								</td> 
+							</apex:repeat>
+						</tr>
+						<apex:variable var="lastArea" value="{!row.metric.fHCM2__Area__c}"/>
+						</apex:repeat>
+						<apex:outputPanel layout="none" rendered="{!viewer.departmentPolicy.fHCM2__Show_Metrics_Average__c==true}">
+ 							<tr style="background-color:#e0e0e0;"><td>{!$Label.fhcm2__Global_Average}</td><td id="overallAverage">{!overallAverage.average}</td></tr>
+ 						</apex:outputPanel>
+						</table>
+					</apex:outputPanel>
+
+	                <apex:pageBlockSection columns="1" rendered="{!!(viewer.IsManager && viewer.IsEdit)}">
+						<apex:repeat value="{!$ObjectType.fHCM2__Metrics_Review__c.FieldSets.fHCM2__Manager_Review}" var="f">
+							<apex:outputField value="{!currentMetricsReview[f]}"/>
+						</apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Global_Attachment}" rendered="{!!(viewer.IsManager && viewer.IsEdit)}">
+						<apex:pageBlockSectionItem rendered="{!!isblank(filename)}">
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Attached_File}" />
+							<apex:outputLink value="{!fileurl}" >{!filename}</apex:outputLink>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+	            </apex:pageBlock>
+			</apex:form>
+			<c:Notice viewer="{!viewer}" page="MetricsReview" location="Footer"  />
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

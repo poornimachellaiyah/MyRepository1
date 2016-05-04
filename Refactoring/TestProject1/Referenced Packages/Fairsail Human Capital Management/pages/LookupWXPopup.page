@@ -1,0 +1,35 @@
+<apex:page controller="fHCM2.InternalCommunicationWXLookup" showHeader="false" >
+	<apex:pageBlock title="WX Internal Communication">
+          <apex:pageBlockTable value="{!settings}" var="ic">
+			    <apex:column >
+                	<apex:outputLink value="#" onclick="fillIn('{!ic.Name}', '{!ic.Id}')">{!ic.Name}</apex:outputLink>   
+                </apex:column>
+		   </apex:pageBlockTable>           
+	</apex:pageBlock>
+        <script>
+        
+        function fillIn(name, id)
+   {
+      var winMain=window.opener;
+      if (null==winMain)
+      {
+         winMain=window.parent.opener;
+      }
+      var ele=winMain.document.getElementById('{!$CurrentPage.parameters.namefield}');
+      ele.value=name;
+      ele=winMain.document.getElementById('{!$CurrentPage.parameters.idfield}');
+      ele.value=id;
+      CloseWindow();
+   }
+ 
+   function CloseWindow()
+   {
+      var winMain=window.opener;
+      if (null==winMain)
+      {
+         winMain=window.parent.opener;
+      }
+      winMain.closeLookupPopup();
+   }
+        </script>
+</apex:page>

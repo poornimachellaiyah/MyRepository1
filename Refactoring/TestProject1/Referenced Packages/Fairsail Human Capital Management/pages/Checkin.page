@@ -1,0 +1,68 @@
+<apex:page controller="fHCM2.CheckinController" action="{!action}" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">           
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.Checkin}" title="{!$Label.fhcm2__Process_Checkin}" noticePage="Checkin"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:form >
+               	<c:Notice viewer="{!viewer}" page="Checkin" location="Header"/>
+                <apex:pageMessages />
+                <apex:pageBlock title="{!$Label.fhcm2__Process_Checkin}" mode="edit">
+                        <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                            <apex:outputLink value="/apex/{!links.CheckinTeam}?Id={!viewer.teamMember.Id}" target="_top" >{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                        </apex:outputPanel>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Current}" columns="1">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Status}"/>
+							<apex:outputPanel >
+								<apex:outputLabel value="{!status}" rendered="{!isCheckedIn || workLocations.size<=2 || !viewer.isTeamMemberOrManager}"/>
+								<apex:outputPanel rendered="{!viewer.isTeamMemberOrManager}">
+									<apex:selectList value="{!workLocationId}" size="1" onChange="window.location='/apex/{!links.Checkin}?id={!viewer.teamMember.Id}&action=in&workLocationId='+this.value+'&retURL={!urlencode(retURL)}'" rendered="{!!isCheckedIn && workLocations.size>2}">
+										<apex:selectOptions value="{!workLocations}"/>
+		                            </apex:selectList>
+									<c:LinkButton url="/apex/{!links.Checkin}?id={!viewer.teamMember.Id}&action=in&retURL={!urlencode(retURL)}" rendered="{!!isCheckedIn && workLocations.size<=2}" label="{!$Label.fhcm2__Button_Check_In}"/>
+									<c:LinkButton url="/apex/{!links.Checkin}?id={!viewer.teamMember.Id}&action=out&retURL={!urlencode(retURL)}" rendered="{!isCheckedIn}" label="{!$Label.fhcm2__Button_Check_Out}"/>
+					    		</apex:outputPanel>
+					    	</apex:outputPanel>
+			    		</apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_History}" columns="1">
+                    <apex:pageBlockTable value="{!subject.checkins.recent}" var="item">
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Date}">
+                        	<c:outputDate dateTimeValue="{!item.timeIn}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Check_In__c.Fields.fHCM2__Work_Location__c.label}">
+                        	{!item.workLocation}
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Check_In__c.Fields.fHCM2__Time_In__c.label}">
+                        	<c:outputDate dateTimeValue="{!item.timeIn}" format="HH:mm"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Check_In__c.Fields.fHCM2__Time_Out__c.label}">
+                        	<c:outputDate dateTimeValue="{!item.timeOut}" format="HH:mm"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Check_In__c.Fields.fHCM2__Duration__c.label}">
+                        	{!item.durationFormat}
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+	            <c:Notice viewer="{!viewer}" page="Checkin" location="Footer"/>
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

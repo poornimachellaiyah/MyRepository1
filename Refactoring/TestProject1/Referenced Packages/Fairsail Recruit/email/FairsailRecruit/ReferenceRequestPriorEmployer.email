@@ -1,0 +1,26 @@
+{!Reference__c.Name}
+
+{!Reference__c.Candidate__c} has applied for a position with our company and indicates previous employment with your firm. The information requested below will help us to evaluate the applicant. We will hold your comments in strict confidence. Thank you for your cooperation.
+
+Please indicate:
+
+1. Position held with your firm
+
+2. Dates of starting and leaving your employment
+
+3. The final salary
+
+4. Your experience of the candadate as regards: ability, conduct, attitude, efficiency, attendance, and punctuality.
+
+5. The reason for leaving.
+
+6. Would you re-hire? If not, why not?
+
+{!Reference__c.Special_Query__c}
+
+Many thanks for your assistance.
+
+Sincerely,
+{!User.FullName}
+{!Organization.Name}
+{!User.Email}

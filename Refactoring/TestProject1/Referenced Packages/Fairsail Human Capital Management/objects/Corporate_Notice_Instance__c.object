@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Internal communication specific information about a WX Process</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Confirm_When_Read__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Team Member should confirm that they have read and understood the Corporate Notice</description>
+        <externalId>false</externalId>
+        <label>Confirm When Read</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Corporate_Notice__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Internal Communication</label>
+        <referenceTo>Corporate_Notice__c</referenceTo>
+        <relationshipName>Corporate_Notice_Instances</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Hide_When_Read__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Hide Process Instance once user has confirmed that they have read the Corporate Notice</description>
+        <externalId>false</externalId>
+        <label>Hide When Read</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Level_Down__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Level Down</description>
+        <externalId>false</externalId>
+        <label>Deprecated Level Down</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Locale__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Locale</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Locale</inlineHelpText>
+        <label>Deprecated Locale</label>
+        <picklist>
+            <picklistValues>
+                <fullName>da</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>de</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>es</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>fi</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>fr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>it</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ja</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ko</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>nl_NL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>pt_BR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ru</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>sv</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>th</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>zh_CN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>zh_TW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Location</inlineHelpText>
+        <label>Deprecated Location</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Header</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Footer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SubHeader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SubFooter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Policy_Group__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Policy Group</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Policy Group</inlineHelpText>
+        <label>Deprecated Policy Group</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Policy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Policy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Policy</inlineHelpText>
+        <label>Deprecated Policy</label>
+        <referenceTo>Policy__c</referenceTo>
+        <relationshipName>Corporate_Notice_Instances</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Process_Instance__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Process Instance</label>
+        <referenceTo>Process_Instance__c</referenceTo>
+        <relationshipName>Corporate_Notice_Instances</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Scale__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Rating Scale used to scope the internal communication</description>
+        <externalId>false</externalId>
+        <label>Deprecated Scale</label>
+        <referenceTo>Scale__c</referenceTo>
+        <relationshipLabel>Internal Communication Instances</relationshipLabel>
+        <relationshipName>Internal_Communication_Instances</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Team Member will get an action to Score the Internal Communication.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this if you want to make Scoring mandatory.</inlineHelpText>
+        <label>Score has Action</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Title_In_Detail__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Show Title In Detail</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_To_Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show To Manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show To Manager</inlineHelpText>
+        <label>Deprecated Show To Manager</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_To_Other__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show To Other</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show To Other</inlineHelpText>
+        <label>Deprecated Show To Other</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_to_Team_Member__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show to Team Member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show to Team Member</inlineHelpText>
+        <label>Deprecated Show to Team Member</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Internal Communication Instance</label>
+    <nameField>
+        <displayFormat>CNPI-{0000}</displayFormat>
+        <label>Internal Communication Instance Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Internal Communication Instances</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Confirm_With_Hide</fullName>
+        <active>true</active>
+        <errorConditionFormula>Confirm_When_Read__c = false  &amp;&amp; Hide_When_Read__c = true</errorConditionFormula>
+        <errorMessage>Team Members must be able confirm in order to hide an Internal Communication</errorMessage>
+    </validationRules>
+</CustomObject>

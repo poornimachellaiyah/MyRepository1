@@ -1,0 +1,91 @@
+<apex:page standardController="fRecruit__Form__c" showHeader="false" standardStylesheets="true" extensions="fRecruit.FormExtensionController">
+	<style>
+.bPageBlock {
+	clear: none;
+	background-color: #ffffff;
+	background-image: none;
+	border-top: 0px;
+	margin: 0pt 0pt 0pt 0px;
+	padding: 0pt 0pt 0pt 0px;
+	padding-bottom: 0px;
+}
+
+.bPageBlock .pbTitle {
+	margin: 0pt 0pt 0pt 0px;
+	padding: 5pt 0pt 5pt 0px;
+	width
+	100%;
+}
+
+.bPageBlock .pbHeader {
+	background-color: #e0e0e0;
+	background-image: none;
+	margin: 0pt 0pt 0pt 0px;
+	padding: 0pt 5pt 0pt 5px;
+	margin-top: 20px;
+	orphans: 20;
+}
+
+.bPageBlock .pbBody {
+	background-color: #ffffff;
+	background-image: none;
+	margin: 0pt 0pt 0pt 0px;
+	padding: 0pt 0pt 0pt 0px;
+}
+
+.bPageBlock .pbFooter {
+	background-color: #ffffff;
+	background-image: none;
+	margin: 0pt 0pt 0pt 0px;
+	padding: 0pt 5pt 0pt 5px;
+}
+
+.pbSubheader {
+	background-color: #a0a0a0;
+	padding: 4pt 5px 2pt 10px;
+	margin: 10px 0pt 0pt 0px;
+	orphans: 20;
+}
+
+.pbSubheader h3 {
+	color: #3B5998;
+}
+
+.mainTitle {
+	font-size: 150%;
+}
+
+.bPageBlock .detailList .data2Col {
+	padding: 0px 0px 0px 0px;
+}
+
+@media print {
+	.noPrint {
+		display: none;
+	}
+}
+</style>
+	<input type="button" class="noPrint" value="Print Me"
+		onclick="window.print();return false;" />
+	<apex:pageBlock title="{!fRecruit__Form__c.fRecruit__Form_Definition__r.Name}: {!fRecruit__Form__c.fRecruit__Actor__c}"
+		mode="details">
+		<apex:pageBlockSection title="Details" columns="2">
+			<apex:outputField value="{!fRecruit__Form__c.Name}" />
+			<apex:outputField value="{!fRecruit__Form__c.fRecruit__EncodeId__c}" />
+			<apex:outputField value="{!fRecruit__Form__c.fRecruit__Start_Date__c}" />
+			<apex:outputField value="{!fRecruit__Form__c.fRecruit__Completed_Date__c}" />
+		</apex:pageBlockSection>
+		<apex:repeat value="{!pages}" var="page">
+			<apex:pageBlockSection title="{!page.definition.buttonText}" columns="1">
+				<table style="width:100%;">
+					<apex:repeat value="{!page.QuestionLines}" var="question">
+						<tr>
+							<td style="font-size:91%; font-weight: bold; border-top: 1px solid #E3DEB8; padding-right:20px; width:33%;" align="right" valign="top"><apex:outputText value="{!if(isnull(question.definition.prompt),question.definition.preText,question.definition.prompt)}" escape="false" /></td>
+							<td style="font-size:91%; border-top: 1px solid #E3DEB8; width:67%;" align="left" valign="top"><apex:outputText value="{!question.htmlDataItem}" escape="false" /></td>
+						</tr>
+					</apex:repeat>
+				</table>
+			</apex:pageBlockSection>
+		</apex:repeat>
+	</apex:pageBlock>
+</apex:page>

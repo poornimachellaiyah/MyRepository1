@@ -1,0 +1,38 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!and(subject.currentPerformanceReview.isUsing,viewer.isTeamMemberOrManager)}">
+                    <apex:facet name="header">
+                        <h3 class="process-performance-review">{!$Label.fhcm2__Process_Performance_Review}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.PerformanceReview}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(or(subject.currentPerformanceReview.status=='Completed',!subject.currentPerformanceReview.has),viewer.isEdit,subject.currentPerformanceReview.newPermitted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.PerformanceReview}?id={!subject.currentPerformanceReview.id}" target="_top" rendered="{!subject.currentPerformanceReview.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.SelfPerformanceReview}?id={!subject.currentPerformanceReview.selfId}" target="_top" Rendered="false">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.managerAction!=null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Performance_Review__c.Fields.fHCM2__Manager_Action__c.label}" />
+                        <apex:outputText style="color:red;text-weight:bold;" value="{!subject.currentPerformanceReview.managerAction}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.teamMemberAction!=null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Performance_Review__c.Fields.fHCM2__Team_Member_Action__c.label}" />
+                        <apex:outputText style="color:red;text-weight:bold;" value="{!subject.currentPerformanceReview.teamMemberAction}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.has}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Performance_Review__c.Fields.fHCM2__Status__c.label}" />
+                        <apex:outputText value="{!subject.currentPerformanceReview.status}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.has && viewer.departmentPolicy.fHCM2__Review_Rating__c}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Performance_Review__c.Fields.fHCM2__Rating__c.label}" />
+                        <apex:outputText value="{!subject.currentPerformanceReview.rating}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.has}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Performance_Review__c.Fields.fHCM2__Review__c.label}" />
+                        <apex:outputText value="{!subject.currentPerformanceReview.managerReview}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentPerformanceReview.hasSelfReview}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Self_Performance_Review__c.Fields.fHCM2__Review__c.label}" />
+                        <apex:outputText value="{!subject.currentPerformanceReview.teamMemberReview}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

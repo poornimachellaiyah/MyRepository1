@@ -1,0 +1,144 @@
+<apex:page standardController="fRecruit__Form_Definition__c" Extensions="fRecruit.FormDefinitionEditExtensionController">
+	<style>
+pre {
+ overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+ white-space: pre-wrap; /* css-3 */
+ white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+ white-space: -pre-wrap; /* Opera 4-6 */
+ white-space: -o-pre-wrap; /* Opera 7 */
+ /* width: 99%; */
+ word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+</style>
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Form_Definition__c.label}" subtitle="{!fRecruit__Form_Definition__c.Name}" help="http://recruit.help.fairsail.com/topics/Candidate.html" />
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Form_Definition__c.label}" mode="details">
+			<apex:pageBlockButtons >
+				<c:fRecruitLinkButton label="Visual Edit" url="/apex/fRecruit__FormGen?id={!fRecruit__Form_Definition__c.Id}"/>
+				<c:fRecruitLinkButton label="XML Edit" url="/apex/fRecruit__FormDefinitionEditXml?id={!fRecruit__Form_Definition__c.Id}"/>
+				<apex:commandButton action="{!delete}" value="Delete" />
+				<c:fRecruitPopupButton label="Completed Forms to Excel" url="/apex/fRecruit__FormExcel?id={!fRecruit__Form_Definition__c.Id}&startdate=1900-01-01" />
+				<apex:commandButton action="{!fireInRules}" value="Re-Copy Mapped Data" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Form Definition Details" columns="2">
+				<apex:outputField value="{!fRecruit__Form_Definition__c.Name}" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+
+
+	<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" selectedTab="pages" rendered="{!isnull($CurrentPage.parameters.tab)}">
+		<apex:tab label="Form" name="pages">
+			<apex:pageBlock mode="details">
+					<apex:outputPanel style="width:900px;">
+						<pre style="width:900px;">
+	                    <apex:outputText value="{!definitionXml}" escape="true" />
+	                  </pre>
+					</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Emails" name="email">
+			<apex:pageBlock title="Emails" mode="details">
+					<apex:pageBlockButtons >
+						<c:fRecruitLinkButton label="New Form Email" url="/apex/FormEmailEdit?formDefinitionId={!fRecruit__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fRecruit__Form_Definition__c.Form_Emails__r}" var="row">
+					<apex:column headerValue="Email Name">
+						<apex:outputLink value="/apex/FormEmailEdit?id={!row.Id}&retURL=%2F{!fRecruit__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Reminder Days">
+						<apex:outputLabel value="{!row.fRecruit__Reminder_Days__c}" />
+					</apex:column>
+					<apex:column headerValue="Condition">
+						<apex:outputLabel value="{!row.fRecruit__Conditions__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Data Links" name="firewall">
+			<apex:pageBlock mode="details">
+				<apex:pageBlockSection title="Linked Object Details" columns="2">
+					<apex:outputField value="{!fRecruit__Form_Definition__c.fRecruit__Permit_New_Object__c}" />
+					<apex:outputField value="{!fRecruit__Form_Definition__c.fRecruit__Object_Name__c}" />
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+			<apex:pageBlock title="Rules" mode="details">
+					<apex:pageBlockButtons >
+						<c:fRecruitLinkButton label="New Rule" url="/apex/FormRuleEdit?formDefinitionId={!fRecruit__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!rules}" var="row">
+					<apex:column headerValue="Data">
+						<apex:outputLink value="/apex/FormRuleEdit?id={!row.Id}&retURL=%2F{!fRecruit__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Direction">
+						<apex:outputLabel value="{!row.fRecruit__Direction__c}" />
+					</apex:column>
+					<apex:column headerValue="Field Name">
+						<apex:outputLabel value="{!row.fRecruit__Field_Name__c}" />
+					</apex:column>
+					<apex:column headerValue="Condition">
+						<apex:outputLabel value="{!row.fRecruit__Condition__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+	</apex:tabPanel>
+
+	<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" selectedTab="firewall" rendered="{!!isnull($CurrentPage.parameters.tab)}">
+		<apex:tab label="Form" name="pages">
+			<apex:pageBlock mode="details">
+					<apex:outputPanel style="width:900px;">
+						<pre style="width:900px;">
+	                    <apex:outputText value="{!fRecruit__Form_Definition__c.fRecruit__Definition__c}" escape="true" />
+	                  </pre>
+					</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Emails" name="email">
+			<apex:pageBlock title="Emails" mode="details">
+					<apex:pageBlockButtons >
+						<c:fRecruitLinkButton label="New Form Email" url="/apex/FormEmailEdit?formDefinitionId={!fRecruit__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fRecruit__Form_Definition__c.Form_Emails__r}" var="row">
+					<apex:column headerValue="Email Name">
+						<apex:outputLink value="/apex/FormEmailEdit?id={!row.Id}&retURL=%2F{!fRecruit__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Reminder Days">
+						<apex:outputLabel value="{!row.fRecruit__Reminder_Days__c}" />
+					</apex:column>
+					<apex:column headerValue="Condition">
+						<apex:outputLabel value="{!row.fRecruit__Conditions__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+		<apex:tab label="Data Links" name="firewall">
+			<apex:pageBlock mode="details">
+				<apex:pageBlockSection title="Linked Object Details" columns="2">
+					<apex:outputField value="{!fRecruit__Form_Definition__c.fRecruit__Permit_New_Forms__c}" />
+					<apex:outputField value="{!fRecruit__Form_Definition__c.fRecruit__Permit_New_Object__c}" />
+					<apex:outputField value="{!fRecruit__Form_Definition__c.fRecruit__Object_Name__c}" />
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+			<apex:pageBlock title="Rules" mode="details">
+					<apex:pageBlockButtons >
+						<c:fRecruitLinkButton label="New Rule" url="/apex/FormRuleEdit?formDefinitionId={!fRecruit__Form_Definition__c.Id}" />
+					</apex:pageBlockButtons>
+				<apex:pageBlockTable value="{!fRecruit__Form_Definition__c.Form_Rules__r}" var="row">
+					<apex:column headerValue="Data Name">
+						<apex:outputLink value="/apex/FormRuleEdit?id={!row.Id}&retURL=%2F{!fRecruit__Form_Definition__c.Id}">{!row.Name}</apex:outputLink>
+					</apex:column>
+					<apex:column headerValue="Direction">
+						<apex:outputLabel value="{!row.fRecruit__Direction__c}" />
+					</apex:column>
+					<apex:column headerValue="Field Name">
+						<apex:outputLabel value="{!row.fRecruit__Field_Name__c}" />
+					</apex:column>
+					<apex:column headerValue="Condition">
+						<apex:outputLabel value="{!row.fRecruit__Condition__c}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:tab>
+	</apex:tabPanel>
+</apex:page>

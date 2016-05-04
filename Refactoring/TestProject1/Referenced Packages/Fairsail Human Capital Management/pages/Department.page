@@ -1,0 +1,15 @@
+<apex:page standardController="fHCM2__Department__c" extensions="fHCM2.DepartmentExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Department">
+	<apex:form >
+		<apex:detail relatedList="false"/>
+				
+		<apex:pageBlock title="Data for Team Members" mode="detail">
+			<apex:pageBlockButtons location="top">
+				<apex:commandButton value="Recalculate Visibility" action="{!recalculateSharing}" rendered="{!!isNew}"/>
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+		
+	</apex:form>
+	<apex:relatedList list="Facilitators__r"/>
+	<apex:relatedList list="Action_Roles__r"/>
+	<apex:relatedList list="Team_Member__r"/>
+</apex:page>

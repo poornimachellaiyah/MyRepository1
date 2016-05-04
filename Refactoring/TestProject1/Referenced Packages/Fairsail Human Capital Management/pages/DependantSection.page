@@ -1,0 +1,23 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Dependants}" rendered="{!and(viewer.isTeamMember || (viewer.IsManager && viewer.departmentPolicy.fHCM2__Manager_View_Personal_Details__c==true), subject.Dependants.isUsing)}">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isTeamMember}">
+                        <apex:outputLink rendered="{!viewer.isTeamMemberOrManager}" value="/apex/{!links.Dependant}?TeamMemberId={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block">
+                    <apex:pageBlockTable value="{!subject.Dependants.dependants}" var="dependant">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Dependant__c.Fields.Name.label}">
+                            <apex:outputLink value="/apex/{!links.Dependant}?Id={!dependant.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top" rendered="{!viewer.isTeamMemberOrManager}">
+                                {!dependant.Name}
+                            </apex:outputLink>
+                            <apex:outputPanel rendered="{!!viewer.isTeamMemberOrManager}" layout="inline">{!dependant.Name}</apex:outputPanel>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Relation__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                            {!dependant.Relation}
+                        </apex:column>
+                        <apex:pageBlock rendered="{!!viewer.isTeamMemberOrManager}">{!dependant.Relation}</apex:pageBlock>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,153 @@
+<apex:page standardController="fpay__Payroll_Service__c"
+	extensions="fpay.PayrollServiceExtensionController"
+	standardStylesheets="true" showHeader="true" sidebar="true"
+	title="Payroll Service Configure">
+	<apex:sectionHeader title="Payroll Configure" subtitle="{!fpay__Payroll_Service__c.Name}"/>
+	<br />
+	<apex:form >
+		<apex:variable value="{!fpay__Payroll_Service__c.Id}" var="id" />
+		<apex:pageBlock title="{!fpay__Payroll_Service__c.Name} Configure"
+			mode="detail">
+			<apex:pageBlockButtons location="top">
+				<apex:commandButton action="/{!id}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!edit}" value="Edit" />
+				<input type="button" value="Export" class="btn"
+					onClick="openClickout('/apex/fPay__DataPacket?id={!fpay__Payroll_Service__c.Id}&parent=PayrollService'); return false;" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Mapping from Payroll Lines to HCM"
+			mode="details">
+			<apex:pageBlockButtons location="top">
+				<input type="button" value="New" class="btn"
+					onClick="navigateToUrl('/apex/payrollmapedit?payrollServiceId={!id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}'); return false;" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!fpay__Payroll_Service__c.Payroll_Maps__r}"
+				var="row">
+				<apex:column headerValue="HCM Field">
+					<apex:outputLink value="/apex/payrollmapedit?id={!row.Id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}">{!row.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column headerValue="HCM Object">
+					<apex:outputLabel value="{!row.fpay__HCM_Object__c}" />
+				</apex:column>
+				<apex:column headerValue="Payroll Line Field">
+					<apex:outputLabel value="{!row.fpay__Payroll_Line_Field__c}" />
+				</apex:column>
+				<apex:column headerValue="Default">
+					<apex:outputLabel value="{!row.fpay__Default__c}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Mapping from Upload File to Payroll Lines"
+			mode="details">
+			<apex:pageBlockButtons location="top">
+				<input type="button" value="New" class="btn"
+					onClick="navigateToUrl('/apex/uploadmapedit?payrollServiceId={!id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}'); return false;" />
+				<input type="button" value="Upload Configure" class="btn"
+					onClick="navigateToUrl('/apex/payrolluploadconfigure?id={!id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}'); return false;" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!fpay__Payroll_Service__c.Upload_Maps__r}"
+				var="row">
+				<apex:column headerValue="Field Name or Number">
+					<apex:outputLink value="/apex/uploadmapedit?id={!row.Id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}">{!row.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column headerValue="Payroll Line Field">
+					<apex:outputLabel value="{!row.fpay__Payroll_Line_Field__c}" />
+				</apex:column>
+				<apex:column headerValue="Type">
+					<apex:outputLabel value="{!row.fpay__Type__c}" />
+				</apex:column>
+				<apex:column headerValue="Format">
+					<apex:outputLabel value="{!row.fpay__Format__c}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Download Files" mode="details">
+			<apex:pageBlockButtons location="top">
+				<input type="button" value="New" class="btn"
+					onClick="navigateToUrl('/apex/downloadfileedit?payrollServiceId={!id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}'); return false;" />
+				<input type="button" value="Download Configure" class="btn"
+					onClick="navigateToUrl('/apex/payrolldownloadconfigure?id={!id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}'); return false;" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!fpay__Payroll_Service__c.Download_Files__r}"
+				var="row">
+				<apex:column headerValue="Name">
+					<apex:outputLink value="/apex/downloadfileedit?id={!row.Id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}">{!row.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column headerValue="Group">
+					<apex:outputLabel value="{!row.fpay__Group__c}" />
+				</apex:column>
+				<apex:column headerValue="Select Field">
+					<apex:outputLabel value="{!row.fpay__Select_Field__c}" />
+				</apex:column>
+				<apex:column headerValue="Select Value">
+					<apex:outputLabel value="{!row.fpay__Select_Value__c}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Mapping HCM to Download Files" mode="details">
+			<apex:pageBlockButtons location="top">
+				<input type="button" value="New" class="btn"
+					onClick="navigateToUrl('/apex/downloadmapedit?payrollServiceId={!id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}'); return false;" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockTable value="{!DownloadMapping}" var="row">
+				<apex:column headerValue="File">
+					<apex:outputLabel value="{!row.Download_File__r.Name}" />
+				</apex:column>
+				<apex:column headerValue="Subgroup">
+					<apex:outputLabel value="{!row.fpay__Group__c}" />
+				</apex:column>
+				<apex:column headerValue="Name">
+					<apex:outputLink value="/apex/downloadmapedit?id={!row.Id}&retURL=%2fapex%2fPayrollServiceConfigure%3fid%3d{!id}">{!row.Name}</apex:outputLink>
+				</apex:column>
+				<apex:column headerValue="Position">
+					<apex:outputLabel value="{!row.fpay__Position__c}" />
+				</apex:column>
+				<apex:column headerValue="Order">
+					<apex:outputLabel value="{!row.fpay__Order__c}" />
+				</apex:column>
+				<apex:column headerValue="HCM Object">
+					<apex:outputLabel value="{!row.fpay__HCM_Object__c}" />
+				</apex:column>
+				<apex:column headerValue="HCM Field">
+					<apex:outputLabel value="{!row.fpay__HCM_Field__c}" />
+				</apex:column>
+				<apex:column headerValue="Default">
+					<apex:outputLabel value="{!row.fpay__Default__c}" />
+				</apex:column>
+				<apex:column headerValue="Changes Only">
+					<apex:outputLabel value="{!row.fpay__Changes_Only__c}" />
+				</apex:column>
+				<apex:column headerValue="Select Object">
+					<apex:outputLabel value="{!row.fpay__Select_Object__c}" />
+				</apex:column>
+				<apex:column headerValue="Select Field">
+					<apex:outputLabel value="{!row.fpay__Select_Field__c}" />
+				</apex:column>
+				<apex:column headerValue="Select Value">
+					<apex:outputLabel value="{!row.fpay__Select_Value__c}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="SFTP Credentials" mode="edit">
+			<apex:pageBlockButtons location="top">
+				<apex:commandButton value="Update Credentials" action="{!saveFTPCred}" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Username" />
+					<apex:inputText value="{!ftpuserid}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Password" />
+					<apex:inputSecret value="{!ftppassword}" />
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+	</apex:form>
+</apex:page>

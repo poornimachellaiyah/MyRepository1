@@ -1,0 +1,71 @@
+<apex:page standardController="fRecruit__Candidate__c" extensions="fRecruit.EditCandidateControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Candidate__c.label} Details" subTitle="{!fRecruit__Candidate__c.Name}" help="http://recruit.help.fairsail.com/topics/EditCandidate.html" />
+	<apex:form >
+		<apex:pageBlock title="Candidate Details" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+			
+			<apex:pagemessages />
+
+            <apex:pageBlockSection title="Information" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Information.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Information}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__ResumeId__c'}">
+						<apex:outputLabel value="Resume" for="resume"/>
+						<apex:selectList value="{!fRecruit__Candidate__c.fRecruit__ResumeId__c}" id="resume" size="1">
+							<apex:selectOptions value="{!currentAttachments}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Contact Information" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Contact_Information.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Contact_Information}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__ResumeId__c'}">
+						<apex:outputLabel value="Resume" for="resume"/>
+						<apex:selectList value="{!fRecruit__Candidate__c.fRecruit__ResumeId__c}" id="resume" size="1">
+							<apex:selectOptions value="{!currentAttachments}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Agency Information" columns="1" rendered="{!$Setup.Apply_Portal__c.Use_Agencies__c}">
+                <apex:inputField value="{!fRecruit__Candidate__c.fRecruit__Agency__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Initial Details" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Initial_Details.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Initial_Details}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__ResumeId__c'}">
+						<apex:outputLabel value="Resume" for="resume"/>
+						<apex:selectList value="{!fRecruit__Candidate__c.fRecruit__ResumeId__c}" id="resume" size="1">
+							<apex:selectOptions value="{!currentAttachments}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Current Position" columns="1" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Current_Position.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Current_Position}" var="f">
+                   	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}" style="{!if(f.type=='textarea','width:500px;','')}" rendered="{!f!='fRecruit__ResumeId__c'}"/>
+					<apex:pageBlockSectionItem rendered="{!f=='fRecruit__ResumeId__c'}">
+						<apex:outputLabel value="Resume" for="resume"/>
+						<apex:selectList value="{!fRecruit__Candidate__c.fRecruit__ResumeId__c}" id="resume" size="1">
+							<apex:selectOptions value="{!currentAttachments}"/>
+						</apex:selectList>
+					</apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional Details" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Edit.size>0}">
+				<apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Edit}" var="f">
+                    	<apex:inputField value="{!fRecruit__Candidate__c[f]}" required="{!f.required || f.dbrequired}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

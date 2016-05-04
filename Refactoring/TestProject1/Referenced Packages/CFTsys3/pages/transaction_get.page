@@ -1,0 +1,27 @@
+<apex:page showHeader="true" sidebar="true" standardController="cftsys__TX__c" extensions="cftsys.TransactionController">
+
+	<apex:sectionHeader subtitle="{!$Label.Force_Transaction}" title="{!$Label.APP_NAME}"/>
+	
+	<apex:pageMessages />
+
+	<apex:form >				
+		<apex:pageBlock >			
+			<apex:pageBlockSection columns="1" title="{!$Label.Record_details}">
+				<apex:outputField value="{!cftsys__TX__c.id}" />
+				<apex:outputField value="{!cftsys__TX__c.name}" />
+				<apex:outputField value="{!cftsys__TX__c.cftsys__UUID__c}" />
+				<apex:outputField value="{!cftsys__TX__c.cftsys__Threshold__c}" />
+				<apex:outputField value="{!cftsys__TX__c.cftsys__Status__c}" />
+				<apex:outputField value="{!cftsys__TX__c.cftsys__payload__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!do_get}" rendered="{!showSubmit}" value="Yes, get this transaction"/>
+				<apex:commandButton action="{!cancel}" value="Back" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+	
+	
+
+	
+</apex:page>

@@ -1,0 +1,270 @@
+<apex:page controller="ITNewStarterInformationController" showHeader="false">
+<head>
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #ad0075;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.bPageBlock .pbBody {
+     background-color: #ad0075;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+    color:#ad0075;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   color:#ad0075;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+body .bPageBlock .pbBody .vsopurple .pbSubheader{
+    background-color:#f8f8f8;
+    border-top-color: #ad0075;  
+}
+
+
+      #centre {
+  font-size:1em;
+  line-height:1.3;
+  margin:5px auto;
+  padding-top:10px;
+  position:relative;
+  width:962px;
+}
+       #main {
+  background-color:#FFFFFF;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  min-height:500px;
+  padding-top:40px;
+}
+
+.PageTitle {  
+    font-size:20px;
+    color:#ad0075;
+    font-weight: normal;
+   margin-left:10px; 
+} 
+
+</style>
+
+   
+</head>
+<body> 
+<apex:form >
+<apex:outputpanel id="opp1" rendered="{!if(Status=='Submitted',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+            <td><div class="PageTitle ">
+            <apex:outputText id="PageTitle1" value="IT Information" /></div></td>                
+            </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxt020" value="Thank You - IT Information successfully submitted" />
+                    <br/>
+                    <br/>
+                    <apex:outputtext style="padding-top:10px;" value="If you would like to make any changes to what you have submitted please contact the IT Service Desk on" />&nbsp;<a href="mailto:servicedesk@vsoint.org">servicedesk@vsoint.org</a>
+                    </td>                                
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div> 
+    </apex:outputpanel>
+    <apex:outputpanel id="opp2" rendered="{!if(Status=='AlreadyCompleted',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+            <td><div class="PageTitle ">
+            <apex:outputText id="otCompleted" value="IT Information" /></div></td>                
+            </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxtCompleted" value="You have already successfully submitted the IT Information Form" />                    
+                    <br/>
+                    <br/>
+                <apex:outputtext style="padding-top:10px;" value="If you would like to make any changes to what you have submitted please contact the IT Service Desk on"/>&nbsp;<a href="mailto:servicedesk@vsoint.org">servicedesk@vsoint.org</a>
+                    </td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div> 
+    </apex:outputpanel>
+
+<apex:outputPanel id="opp3" rendered="{!NOT(if(Status=='Submitted'||Status=='AlreadyCompleted',true,false))}">    
+<div class="PageTitle "><apex:outputText id="PageTitle" value="IT Information" /></div><br/>
+<apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+
+<apex:pageBlock >
+ <apex:pageBlocksection title=" User Details" columns="1" >
+ <apex:pageBlockSectionItem >
+  <apex:outputLabel id="lblStarterType" style="display:block;width:550px;text-align:left;" value="1. Please indicate whether this is a request for a new starter to VSO or is for an existing member of staff who is moving position"  /> 
+  <apex:outputPanel id="opnl1" styleClass="requiredInput" layout="block" >
+   <apex:outputPanel id="opnl2" styleClass="requiredBlock" layout="block" /> 
+    <apex:selectList id="slsStarterType" size="1" value="{!StarterType}" style="width:55%">
+    <apex:selectOptions value="{!StarterTypeList}"/></apex:selectList> 
+    </apex:outputPanel>
+   </apex:pageBlockSectionItem> 
+<br/>
+
+<apex:pageBlockSectionItem >
+     <apex:outputLabel style="display:block;width:550px;text-align:left;" id="lblICSHubStarter" value="2. Is the user an ICS Hub team member?" />
+     <apex:outputPanel id="opnl3" styleClass="requiredInput" layout="block" >
+     <apex:outputPanel id="opnl4" styleClass="requiredBlock" layout="block" /> 
+     <apex:selectList id="slsICSHubStarter" size="1" value="{!ICSHubStarter}" style="width:55%" >
+     <apex:selectOptions value="{!ICSHubStartervalues}"/></apex:selectList>  
+     </apex:outputPanel>
+  </apex:pageBlockSectionItem> <br/>
+
+ <apex:pageBlockSectionItem >
+     <apex:outputLabel style="display:block;width:550px;text-align:left;" id="lblVSOICSStarter"  value="3. Is the user a VSO ICS staff member?" /> 
+     <apex:outputPanel id="opnl5" styleClass="requiredInput" layout="block" >
+     <apex:outputPanel id="opnl6" styleClass="requiredBlock" layout="block" /> 
+     <apex:selectList id="slsVSOICSStarter" size="1" value="{!VSOICSStarter}" style="width:55%">
+     <apex:selectOptions value="{!VSOICSStartervalues}"/></apex:selectList>  
+     </apex:outputPanel>
+  </apex:pageBlockSectionItem>
+   <br/>
+   
+ <apex:pageBlockSectionItem >
+      <apex:outputLabel style="display:block;width:550px;text-align:left;" id="lblReplacementPostLeaverName" value="4. If this is a replacement post, please provide the name of the VSO staff member who the user is replacing (and if known the staff member's leave date)" />                   
+      <apex:inputTextarea value="{!ReplacementPostLeaverName}" style="width:250px;height:50px" />         
+   </apex:pageBlockSectionItem>  
+<br/> 
+ 
+</apex:pageBlockSection>
+ 
+ <apex:pageBlockSection title=" System Access" id="System_Access" columns="1">
+   
+ <apex:pageBlockSectionItem >   
+     <apex:outputLabel style="display:block;width:550px;text-align:left;"  id="olblSharedMailboxAccess" value="5. Please indicate clearly if the user requires access to any team mailboxes, or another user’s mailbox, or if other users should be able to access this individual’s mailbox "/>   
+     <apex:inputtextarea value="{!SharedMailboxAccess}" style="width:250px;height:50px" />
+  </apex:pageBlockSectionItem>  <br/>
+   
+  <apex:pageBlockSectionItem >      
+     <apex:outputLabel style="display:block;width:550px;text-align:left;"  id="lblEmailDistributionGroups" value="6. Please provide details of any email distribution groups that the user should be added to (e.g. Major Donor Team; Malawi Staff; UK Volunteering; Asia & Pacific CDs) "/>                   
+     <apex:inputTextarea value="{!EmailDistributionGroups}" style="width:250px;height:50px" />         
+  </apex:pageBlockSectionItem>  <br/>
+                  
+<apex:pageBlockSectionItem >     
+    <apex:outputlabel style="display:block;width:550px;text-align:left;"  id="lblSalesforceEnhancedAccess" >
+    7. If access over and above standard Salesforce access is needed please select the appropriate option (or add more details into the comments box in question 11 below)
+      <br/><br/>
+    *Standard access to Salesforce is provided to all users by default and allows them to book annual leave and to update their personal details.    
+    </apex:outputlabel>                       
+     <apex:selectList id="slsEngageVSO" size="1" value="{!SalesforceEnhancedAccess}" style="width:55%" >
+     <apex:selectOptions value="{!SalesforceEnhancedAccessvalues}"/></apex:selectList> 
+   </apex:pageBlockSectionItem> 
+     <br/> 
+     
+  <apex:pageBlockSectionItem >   
+     <apex:outputLabel style="display:block;width:550px;text-align:left;"  id="lblVSOSystemsAccess" >
+     8. Please indicate if access to other VSO systems is required (note: to select more than one of the following options, press and hold the Ctrl key then select/deselect the access required)</apex:outputlabel>                              
+      <apex:selectList id="slsEngageVSO" value="{!VSOSystemsAccess}" multiselect="true" style="width:55%" >
+      <apex:selectOptions value="{!VSOSystemsAccessvalues}"/></apex:selectList>            
+  </apex:pageBlockSectionItem>    
+     <br/> 
+     
+   <apex:pageBlockSectionItem >
+     <apex:outputLabel style="display:block;width:550px;text-align:left;"  id="lblDMSSecurityGroups" value="9. UK users only: please provide details of any DMS Security Group/s the user should be added to (e.g. Fundraising Department, People Group Management)" />                  
+     <apex:inputTextarea value="{!DMSSecurityGroups}" style="width:250px;height:50px"/>         
+  </apex:pageBlockSectionItem>  <br/>
+  
+  <apex:pageBlockSectionItem >
+     <apex:outputLabel style="display:block;width:550px;text-align:left;" id="lblPhoneExtRequired" value="10. UK users only: does the user require their own phone extension?"/> 
+     <apex:selectList id="slsPhoneExtRequired" size="1" value="{!PhoneExtRequired}" style="width:55%" >
+     <apex:selectOptions value="{!PhoneExtRequiredvalues}"/></apex:selectList>  
+  </apex:pageBlockSectionItem> <br/>     
+    
+ <apex:pageBlockSectionItem >
+      <apex:outputLabel style="display:block;width:550px;text-align:left;"  id="lblLineManagerComments" value="11. If any other department-specific software or hardware is required or you have any other comments or requests please add them here"/>                   
+      <apex:inputtextarea value="{!LineManagerComments}" style="width:250px;height:50px"/>         
+   </apex:pageBlockSectionItem> <br/>
+ 
+
+ 
+<div align="left"><apex:commandbutton id="cbtnSignupBottom" style="font-size:12px" value="Submit" action="{!FormSubmit}" /></div>
+
+
+</apex:pageBlocksection>  
+</apex:pageBlock>
+
+</apex:outputPanel>
+</apex:form>
+</body>
+</apex:page>

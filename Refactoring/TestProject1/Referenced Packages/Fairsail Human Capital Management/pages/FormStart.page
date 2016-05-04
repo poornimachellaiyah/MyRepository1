@@ -1,0 +1,48 @@
+<apex:page controller="fHCM2.FormStartController" standardStylesheets="false" showHeader="false" sidebar="false"  rendered="{!viewer.isTeamMemberOrManager}">
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Forms}" mode="view">
+	        	<c:Notice viewer="{!viewer}" page="FormStart" location="Subheader"/>
+	        	<c:Notice viewer="{!viewer}" page="FormStart" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+
+        <apex:define name="widePanel">
+            <apex:form >
+                <apex:pageMessages />
+                <apex:pageBlock title="{!$Label.fhcm2__Button_Start}" mode="view">
+                	<c:Notice viewer="{!viewer}" page="FormStart" location="Header"/>
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!start}" value="{!$Label.fhcm2__Button_Start}"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                        <c:PersonSection page="{!links.PersonalProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                            </apex:panelGrid>
+                            </c:PersonSection>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Available Forms" />
+                            <apex:selectList value="{!formDefinitionId}" size="1">
+                                <apex:selectOptions value="{!formDefinitions}" />
+                            </apex:selectList>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+                    <c:Notice viewer="{!viewer}" page="FormStart" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

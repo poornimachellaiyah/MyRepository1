@@ -1,0 +1,141 @@
+<apex:page controller="fHCM2.JobProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Job Profile Match">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="Match" mode="view">
+				<apex:pageBlockSection title="Other job profiles matching {!viewer.teamMember.name}" columns="1">
+					<apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;">
+						<c:ChartPercentAxis width="180px" />
+						<apex:repeat value="{!match.jobProfiles}" var="jobProfile">
+						<apex:outputPanel layout="block">
+	                    	<apex:outputLink value="/apex/{!links.jobProfileMatch}?jobProfileId={!jobProfile.id}&amp;teamMemberId={!viewer.teamMember.id}">{!jobProfile.name}</apex:outputLink>
+	                    	<c:ChartRow height="5px" width="100%" color="#e0e0e0">
+		                    	<c:ChartBlock percent="{!jobProfile.percentage}" color="green"/>
+	                    	</c:ChartRow>
+						</apex:outputPanel>
+						</apex:repeat>
+						<c:ChartPercentAxis position="bottom" width="180px" />
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+				<p>&nbsp;</p>
+				<apex:pageBlockSection title="Other team members matching {!match.name}" columns="1" rendered="{!match.hasJobProfile}">
+					<apex:outputPanel layout="block" styleClass="thinButtonBar">
+						<apex:outputLink value="/apex/{!links.SkillFind}?jobProfileId={!match.id}" target="_top">Find</apex:outputLink>
+					</apex:outputPanel>
+					<apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;">
+						<c:ChartPercentAxis width="180px" />
+						<apex:repeat value="{!match.teamMembers}" var="teamMember">
+						<apex:outputPanel layout="block">
+	                    	<apex:outputLink value="/apex/{!links.jobProfileMatch}?jobProfileId={!match.id}&amp;teamMemberId={!teamMember.teamMember.id}">{!teamMember.teamMember.name}</apex:outputLink>
+	                    	<c:ChartRow height="5px" width="100%" color="#e0e0e0">
+		                    	<c:ChartBlock percent="{!teamMember.percentage}" color="green"/>
+	                    	</c:ChartRow>
+						</apex:outputPanel>
+						</apex:repeat>
+						<c:ChartPercentAxis position="bottom" width="180px" />
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+            <apex:pageBlock title="Job Needs" mode="view">
+
+				<apex:pageBlockSection title="Match Team Member and Job Profile" columns="1">
+					<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}">
+						<apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+							<apex:outputLabel value="Job Profile" for="job" />
+							<apex:outputText value="{!match.name}" id="job" />
+						</apex:panelGrid>
+					</c:PersonSection>
+				</apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" rendered="{!match.hasJobProfile}">
+                    <apex:facet name="header">
+                        <h3 class="process-skill">Skills required for {!match.name}</h3>
+                    </apex:facet>
+                    <apex:pageBlockTable value="{!match.requiredItems}" var="item" >
+                        <apex:column headerValue="Area" value="{!item.area}" />
+                        <apex:column headerValue="Name">
+                            <apex:outputLink value="/apex/{!links.Skill}?{!item.url}&teamMemberId={!viewer.teamMember.id}&retURL={!urlencode('/apex/'+links.jobProfileMatch+'?jobProfileId='+match.id+'&teamMemberId='+viewer.teamMember.id)}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!item.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <c:ChartPercentAxis width="150px" />
+                            </apex:facet>
+                        	<c:ChartRow width="150px" height="5px" color="#e0e0e0">
+								<c:ChartBlock color="green" percent="{!item.percentage}"/>
+								<c:ChartBlock color="red" percent="{!item.developmentPercentage}" rendered="{!and(item.hasDevelopment,viewer.isTeamMemberOrManager)}"/>
+                        	</c:ChartRow>
+                        	<c:ChartRow width="150px" height="5px" color="#e0e0e0" rendered="{!match.hasRequired}">
+								<c:ChartBlock color="purple" percent="{!item.requiredPercentage}"/>
+                        	</c:ChartRow>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:outputPanel style="margin-left:10px;margin-top:10px;" layout="block">
+	                    <c:KeyBlock height="5px" width="15px" color="green"/><apex:outputPanel layout="block" style="float:left;margin-left:5px;margin-right:40px;width:125px">Current Skill</apex:outputPanel>
+	                    <c:KeyBlock height="5px" width="15px" color="red"/><apex:outputPanel layout="block" style="float:left;margin-left:5px;margin-right:40px;width:125px">Planned Development</apex:outputPanel>
+	                    <c:KeyBlock height="5px" width="15px" color="purple"/><apex:outputPanel layout="block" style="float:left;margin-left:5px;margin-right:40px;width:125px">Required Skill</apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" rendered="{!match.hasJobProfile}">
+                    <apex:facet name="header">
+                    	 <h3 class="process-skill">Other skills of {!viewer.teamMember.name}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!or(viewer.isTeamMember,viewer.isEdit)}">
+                        <apex:outputLink value="/apex/{!links.Skill}?teamMemberId={!viewer.teamMember.Id}&retURL={!urlencode('/apex/'+links.jobProfileMatch+'?jobProfileId='+match.id+'&teamMemberId='+viewer.teamMember.id)}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!match.additionalItems}" var="item" >
+                        <apex:column headerValue="Area" value="{!item.area}" />
+                        <apex:column headerValue="Name">
+                            <apex:outputLink value="/apex/{!links.Skill}?{!item.url}&retURL={!urlencode('/apex/'+links.jobProfileMatch+'?jobProfileId='+match.id+'&teamMemberId='+viewer.teamMember.id)}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!item.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <c:ChartPercentAxis width="150px" />
+                            </apex:facet>
+                        	<c:ChartRow width="150px" height="5px" color="#e0e0e0">
+								<c:ChartBlock color="green" percent="{!item.percentage}"/>
+								<c:ChartBlock color="red" percent="{!item.developmentPercentage}" rendered="and(item.hasDevelopment,viewer.isTeamMemberOrManager)"/>
+                        	</c:ChartRow>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" rendered="{!!match.hasJobProfile}">
+                    <apex:facet name="header">
+                    	 <h3 class="process-skill">Team member skills</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!or(viewer.isTeamMember,viewer.isEdit)}">
+                        <apex:outputLink value="/apex/{!links.Skill}?teamMemberId={!viewer.teamMember.Id}&retURL={!urlencode('/apex/'+links.jobProfileMatch+'?jobProfileId='+match.id+'&teamMemberId='+viewer.teamMember.id)}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!match.additionalItems}" var="item" >
+                        <apex:column headerValue="Area" value="{!item.area}" />
+                        <apex:column headerValue="Name">
+                            <apex:outputLink value="/apex/{!links.Skill}?{!item.url}&retURL={!urlencode('/apex/'+links.jobProfileMatch+'?jobProfileId='+match.id+'&teamMemberId='+viewer.teamMember.id)}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!item.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <c:ChartPercentAxis width="150px" />
+                            </apex:facet>
+                        	<c:ChartRow width="150px" height="5px" color="#e0e0e0">
+								<c:ChartBlock color="green" percent="{!item.percentage}"/>
+								<c:ChartBlock color="red" percent="{!item.developmentPercentage}" rendered="and(item.hasDevelopment,viewer.isTeamMemberOrManager)"/>
+                        	</c:ChartRow>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

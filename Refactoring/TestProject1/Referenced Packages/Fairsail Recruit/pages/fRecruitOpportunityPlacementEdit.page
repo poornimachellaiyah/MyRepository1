@@ -1,0 +1,36 @@
+<apex:page standardController="fRecruit__Opportunity_Placement__c" extensions="fRecruit.OpportunityPlacementControllerExtension,fRecruit.SetupPoliciesExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Opportunity_Placement__c.label}" subtitle="{!fRecruit__Opportunity_Placement__c.Name}" help="http://recruit.help.fairsail.com/topics/EditPlacement.html"/>
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Opportunity_Placement__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Candidate"/>
+					<apex:outputText value="{!candidate}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Opportunity"/>
+					<apex:outputText value="{!fRecruit__Opportunity_Placement__c.Opportunity__r.Name}"/>
+				</apex:pageBlockSectionItem>
+             </apex:pageBlockSection>
+
+ 			<apex:pageBlockSection title="Opportunity Details" columns="1" id="contacts">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact"/>
+                    <apex:selectList value="{!fRecruit__Opportunity_Placement__c.fRecruit__Contact__c}" size="1" disabled="{!fRecruit__Opportunity_Placement__c.fRecruit__Opportunity__c==null}">
+                        <apex:selectOptions value="{!PotentialContacts}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Current status" columns="1">
+				<apex:inputField value="{!fRecruit__Opportunity_Placement__c.fRecruit__Status__c}"/>
+				<apex:inputField value="{!fRecruit__Opportunity_Placement__c.fRecruit__Interview_Start__c}"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

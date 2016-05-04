@@ -1,0 +1,40 @@
+<apex:page standardController="fpay__Payroll_Service__c" extensions="fpay.PayflowServiceConsole" standardStylesheets="true" showHeader="true" sidebar="true" tabStyle="fpay__Payroll_Service__c">
+<!-- Begin Default Content REMOVE THIS -->
+<apex:sectionHeader title="Payflow Service" subtitle="{!payflowService.Name}"/>
+<br />
+  <apex:form > 
+  	<apex:pageBlock title="Payflow Service Console" mode="maindetail">
+   		<apex:pageBlockButtons >
+			<apex:commandButton action="/apex/fPay__PayrollServiceConfigure?scontrolCaching=1&id={!payflowService.Id}" value="Configure" />
+			<apex:commandButton action="/apex/fPay__UploadPayrollFile?id={!payflowService.Id}" value="Upload Payflow File" />
+			<apex:commandButton action="/apex/fPay__DownloadPayrollFiles?id={!payflowService.Id}" value="Download Payflow File" />
+			<apex:commandButton action="{!URLFOR($Action.Payroll_Service__c.Share,payflowService.Id)}" value="Share"/>
+			<apex:commandButton action="{!m_delete}" value="Delete" />
+   		</apex:pageBlockButtons>
+  		<apex:facet name="footer">
+   		   	<apex:pageBlockSection >
+  				<apex:outputText value="{!payflowService.Name}" />
+  				<apex:outputText value="{!payflowService.fpay__Payroll_Period__c}" /> 
+  				<apex:outputText value="{!payflowService.fpay__Batch_Run_Mode__c}" />
+  				 <apex:outputText value="{!next_run_date_time}" label="Next Run Date/Time"/> 
+  				<apex:outputText value="{!next_batch_run.State}" />
+  			</apex:pageBlockSection>
+  		</apex:facet>
+	</apex:pageBlock>
+  </apex:form>
+  
+  <apex:pageBlock title="Payflow Batches" mode="detail">
+  		<apex:pageBlockTable value="{!lst_relatedPayflowBatch}" var="payflowBatch" onRowClick="alert(payflowBatch.Id);">
+  		<apex:column width="300px" headerValue="Batch #">
+  			<apex:outputLink value="/{!payflowBatch.Id}">{!payflowBatch.Name}</apex:outputLink>
+  		</apex:column>
+  		<apex:column value="{!payflowBatch.fpay__Download_Period_Start_Date__c}" width="300px"/>
+  		<apex:column value="{!payflowBatch.fpay__Download_Period_End_Date__c}" width="300px"/>
+  		<apex:column value="{!payflowBatch.fpay__Run_Batch__c}" width="300px"/>
+  		<apex:column value="{!payflowBatch.fpay__End_Batch__c}" width="300px"/>
+  		</apex:pageBlockTable>
+  
+  </apex:pageBlock>
+
+<!-- End Default Content REMOVE THIS extensions="PayflowServiceConsole"  controller="PayflowServiceConsole"   standardController="fpay__Payroll_Service__c"-->
+</apex:page>

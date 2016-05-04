@@ -1,0 +1,93 @@
+<apex:page controller="fHCM2.CompetencyAssessmentTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="{!$Label.fhcm2__Process_Competency_Assessment_Team_Competencies}" mode="view">
+				<c:Notice viewer="{!viewer}" page="CompetencyAssessmentTeam" location="Subheader"/>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Included_Team_Members}" columns="1">
+					<apex:repeat value="{!results.assessments}" var="assessee">
+						<c:PersonPanel page="{!links.CompetencyAssessment}" name="{!assessee.person.name}" value="{!assessee.competencyAssessmentid}" picture="{!assessee.person.pictureUrl}">
+	                        {!$Label.fhcm2__Process_Competency_Assessment_Top_Two_Competencies}:<br/>
+							<apex:repeat value="{!assessee.competencies}" var="competency" rows="2">
+        	                 {!competency.Name}<br/>
+							</apex:repeat>
+						</c:PersonPanel>
+					</apex:repeat>
+
+				</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="CompetencyAssessmentTeam" location="Subfooter"/>
+			</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+			<apex:pageBlock title="{!substitute($Label.fhcm2__Global_As_Team, '{0}', viewer.teamMember.name)}">
+				<c:Notice viewer="{!viewer}" page="CompetencyAssessmentTeam" location="Header"/>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Ranked_By_Overall_Strength}" columns="1">
+					<apex:pageBlockTable value="{!results.competencies}" var="competency" rendered="{!results.has}">
+						<apex:column headerValue="{!$Label.fhcm2__ProcessItem_Competency}" value="{!competency.Name}" />
+						<apex:column headerValue="{!$Label.fhcm2__Global_Average}">
+							<c:outputNumber decimalPlaces="1" value="{!competency.averageScore}"/>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Average_Frequency__c.label}">
+							<c:outputNumber decimalPlaces="1" value="{!competency.countAverage}"/>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">
+								<c:ChartPercentAxis width="180px" />
+							</apex:facet>
+							<c:chartBar percent="{!competency.percentage}" color="averageColor" />
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Areas_With_Strength}" columns="1">
+					<apex:pageBlockTable value="{!results.strengths}" var="area" rendered="{!results.has}" rows="5">
+						<apex:column headerValue="{!$Label.fhcm2__ProcessItem_Competency}" value="{!area.competency.Name}" />
+						<apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Area__c.label}" value="{!area.Name}" />
+						<apex:column headerValue="{!$Label.fhcm2__Global_Average}">
+							<c:outputNumber decimalPlaces="1" value="{!area.averageScore}"/>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Average_Frequency__c.label}">
+							<c:outputNumber decimalPlaces="1" value="{!area.countAverage}"/>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">
+								<c:ChartPercentAxis width="180px" />
+							</apex:facet>
+							<c:chartBar percent="{!area.percentage}" color="averageColor" />
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Areas_With_Need}" columns="1">
+					<apex:pageBlockTable value="{!results.weaknesses}" var="area" rendered="{!results.has}" rows="5">
+						<apex:column headerValue="{!$Label.fhcm2__ProcessItem_Competency}" value="{!area.competency.Name}" />
+						<apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Area__c.label}" value="{!area.Name}" />
+						<apex:column headerValue="{!$Label.fhcm2__Global_Average}">
+							<c:outputNumber decimalPlaces="1" value="{!area.averageScore}"/>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Average_Frequency__c.label}">
+							<c:outputNumber decimalPlaces="1" value="{!area.countAverage}"/>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">
+								<c:ChartPercentAxis width="180px" />
+							</apex:facet>
+							<c:chartBar percent="{!area.percentage}" color="averageColor" />
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="CompetencyAssessmentTeam" location="Footer"/>
+			</apex:pageBlock>
+		</apex:define>
+
+	</apex:composition>
+</apex:page>

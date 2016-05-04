@@ -1,0 +1,87 @@
+<apex:page controller="fRecruit.ApplyJobListController" cache="false" showHeader="false" sidebar="false" standardStylesheets="true" language="{!languageSetter.locale}">
+
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+	<c:IfHasNotice locale="{!languageSetter.locale}"  page="ApplyJobList" location="Right">
+		<style>
+			.bodyColumn { width:600px; }
+			.rightColumn { display:table-cell; width:200px; padding-left:10px;}
+		</style>
+	</c:IfHasNotice>
+	
+  <apex:stylesheet value="{!portalURL}"/>
+	
+</apex:define>
+
+<apex:define name="header">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyJobList" location="Header" />
+</apex:define>
+
+<apex:define name="left">
+	<c:ApplyMenu locale="{!languageSetter.locale}"  uniqueId="{!uid}" source="{!source}" portal="{!portal}"/>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyJobList" location="Left" />
+</apex:define>
+
+<apex:define name="right">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyJobList" location="Right" />
+</apex:define>
+
+<apex:define name="body">
+	<apex:sectionHeader title="{!$Label.frecruit__Apply_Portal+CandidateName}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Apply_Job_List}"/>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyJobList" location="Top" />
+	<p>{!$Label.frecruit__Apply_Job_List_Top}</p>
+	<apex:outputPanel layout="none" rendered="{!$Setup.Apply_Portal__c.Use_Express_Interest__c}">
+		<p>{!left($Label.frecruit__Apply_Register_Interest_Message,find($Label.frecruit__Apply_Register_Interest_Message,'{')-1)}
+		<apex:outputLink value="{!if(isblank(uid),'/apex/fRecruit__ApplyRegister?startURL='+urlencode('/apex/fRecruit__ApplyExpressInterest'),'/apex/fRecruit__ApplyExpressInterest?uid='+uid)}">{!$Label.frecruit__Apply_Register_Button}</apex:outputLink>
+		{!right($Label.frecruit__Apply_Register_Interest_Message,len($Label.frecruit__Apply_Register_Interest_Message)-find($Label.frecruit__Apply_Register_Interest_Message,'}')-3)}</p>
+	</apex:outputPanel>
+	<apex:form >
+		<apex:pageBlock >
+			<apex:outputPanel layout="block" style="margin-bottom:5px;">
+				<apex:outputPanel styleClass="searchPanel">
+					<apex:inputText value="{!searchString}" style="width:350px;"/>&nbsp;<apex:commandButton value="{!$Label.frecruit__Apply_Search_Button}" action="{!go}"/>
+				</apex:outputPanel>
+			</apex:outputPanel>
+				
+			<apex:pageBlockTable value="{!vacancies}" var="vacancy" rendered="{!setController.ResultSize>0}" styleClass="jobListPanel">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Job_List}" var="f">
+					<apex:column headerValue="{!f.label}" rendered="{!f!='Name'}" style="vertical-align: top;">
+						<apex:outputPanel >
+							<c:outputDate value="{!vacancy[f]}" rendered="{!f.type=='date'}"/>
+							<apex:outputfield value="{!vacancy[f]}" rendered="{!(f.type!='Text' || !contains(vacancy[f],'<img')) && f.type!='date'}"/>
+							<apex:outputText value="{!vacancy[f]}" escape="false" rendered="{!f.type=='Text' && contains(vacancy[f] && f.type!='date','<img')}"/>
+						</apex:outputPanel>
+					</apex:column>
+					<apex:column headerValue="{!f.label}" rendered="{!f=='Name'}" style="vertical-align: top;">
+						<apex:outputLink value="{!'/apex/fRecruit__ApplyJob?vacancyNo='+vacancy.fRecruit__Vacancy_No__c+if(isblank(uid),'','&uid='+uid)+if(isblank(source),'','&source='+source)}">{!vacancy.Name}</apex:outputLink>
+					</apex:column>
+				</apex:repeat>
+			</apex:pageBlockTable>
+
+			<apex:panelGrid columns="5" cellpadding="4px;" rendered="{!setController.ResultSize>0}" styleClass="pagingPanel">
+				<apex:commandLink action="{!setController.first}" rendered="{!setController.hasPrevious}">{!$Label.frecruit__Apply_First_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasPrevious}">{!$Label.frecruit__Apply_First_Button}</apex:outputPanel>
+				<apex:commandLink action="{!setController.previous}" rendered="{!setController.hasPrevious}">{!$Label.frecruit__Apply_Previous_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasPrevious}">{!$Label.frecruit__Apply_Previous_Button}</apex:outputPanel>
+				<apex:outputPanel >{!substitute(substitute($Label.frecruit__Apply_Page_i_Of_n,'{0}',text(setController.PageNumber)),'{1}',text(CEILING(setController.ResultSize/setController.PageSize)))}</apex:outputPanel>
+				<apex:commandLink action="{!setController.next}" rendered="{!setController.hasNext}">{!$Label.frecruit__Apply_Next_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasNext}">{!$Label.frecruit__Apply_Next_Button}</apex:outputPanel>
+				<apex:commandLink action="{!setController.last}" rendered="{!setController.hasNext}">{!$Label.frecruit__Apply_Last_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasNext}">{!$Label.frecruit__Apply_Last_Button}</apex:outputPanel>
+			</apex:panelGrid>
+			
+			<apex:outputPanel rendered="{!setController.ResultSize==0}">{!$Label.frecruit__Apply_None_Found}</apex:outputPanel>
+			
+			<div style="clear:both;"></div>
+		</apex:pageBlock>
+	</apex:form>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyJobList" location="Bottom" />
+</apex:define>
+
+<apex:define name="footer">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="ApplyJobList" location="Footer" />
+</apex:define>
+</apex:composition>
+
+</apex:page>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A part of an Absence Rule giving different accrual rates and limits depending on how many months the team member has been employed.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Absence_Accrual_Rule__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Absence Accrual Rule</label>
+        <referenceTo>Absence_Accrual_Rule__c</referenceTo>
+        <relationshipLabel>Absence Accrual Seniorities</relationshipLabel>
+        <relationshipName>Absence_Accrual_Seniorities</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Alert_Maximum_Length__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Will set the alert flag if the length exceeds this maximum</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Will set the alert flag if the length exceeds this maximum</inlineHelpText>
+        <label>Alert Maximum Length</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alert_Maximum_Occurences__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Will set the alert flag if the number of occurrences taken exceeds this maximum.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Will set the alert flag if the number of occurrences taken exceeds this maximum.</inlineHelpText>
+        <label>Alert Maximum Occurences</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alert_Maximum_Total__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Will set the alert flag if the total of absence taken exceeds this maximum.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Will set the alert flag if the total of absence taken exceeds this maximum.</inlineHelpText>
+        <label>Alert Maximum Total</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alert_Minimum_Accrual__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Alert Minimum Accrual</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alert_Minimum_Year_End__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Alert Minimum Year End</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Block_Maximum_Length__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Will not permit an absence to be saved if the length exceeds this maximum</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Will not permit an absence to be saved if the length exceeds this maximum</inlineHelpText>
+        <label>Block Maximum Length</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Block_Maximum_Occurences__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Will not permit an absence to be saved if the number of occurrences taken exceeds this maximum.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Will not permit an absence to be saved if the number of occurrences taken exceeds this maximum.</inlineHelpText>
+        <label>Block Maximum Occurences</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Block_Maximum_Total__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Will not permit an absence to be saved if the total taken exceeds this maximum.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Will not permit an absence to be saved if the total taken exceeds this maximum.</inlineHelpText>
+        <label>Block Maximum Total</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Block_Minimum_Accrual__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Block Minimum Accrual</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Block_Minimum_Year_End__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Block Minimum Year End</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Earliest_Parental_Leave_End__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Minimum number of calendar days after Actual Arrival Date that parental leave can end.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum number of calendar days after Actual Arrival Date that parental leave can end.</inlineHelpText>
+        <label>Earliest Parental Leave End</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Earliest_Parental_Leave_Start__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum number of calendar days before Expected Arrival Date that parental leave is permitted to start</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum number of calendar days before Expected Arrival Date that parental leave is permitted to start</inlineHelpText>
+        <label>Earliest Parental Leave Start</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Evidence_Maximum_Length__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Evidence Maximum Length</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Evidence_Maximum_Occurences__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Evidence Maximum Occurences</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Evidence_Maximum_Total__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Evidence Maximum Total</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latest_Parental_Leave_End__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum number of calendar days after Start Date that parental leave can end.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum number of calendar days after Start Date that parental leave can end.</inlineHelpText>
+        <label>Latest Parental Leave End</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latest_Parental_Leave_Start__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Minimum number of calendar days before Expected Arrival Date that parental must start.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum number of calendar days before Expected Arrival Date that parental must start.</inlineHelpText>
+        <label>Latest Parental Leave Start</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Accrual__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The maximum amount that the accrued amount can reach.  The accrual is capped until next used.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum amount that the accrued amount can reach.  The accrual is capped until next used.</inlineHelpText>
+        <label>Maximum Accrual</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Carry_Over__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The amount that is carried over each annual reset date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The amount that is carried over each annual reset date</inlineHelpText>
+        <label>Maximum Carry Over</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate_Base__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Amount added to the accrued amount on the Reset Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount added to the accrued amount on the Reset Date</inlineHelpText>
+        <label>Rate Base</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Amount added to the accrued every period as set in the linked Accrual Rule</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount added to the accrued every period as set in the linked Accrual Rule</inlineHelpText>
+        <label>Rate</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Seniority__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months seniority of employee for accrual rate and limits to start</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months seniority of employee for accrual rate and limits to start</inlineHelpText>
+        <label>Seniority</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Absence Accrual Seniority</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Absence Accrual Seniority Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Absence Accrual Seniorities</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

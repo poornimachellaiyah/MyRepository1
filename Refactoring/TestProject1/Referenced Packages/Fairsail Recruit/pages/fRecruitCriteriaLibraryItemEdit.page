@@ -1,0 +1,31 @@
+<apex:page standardController="fRecruit__Criteria_Library_Item__c" extensions="fRecruit.CriteriaLibraryItemControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Criteria_Library_Item__c.label} Edit" subTitle="{!fRecruit__Criteria_Library_Item__c.Name}" help="http://recruit.help.fairsail.com/topics/EditCriteriaLibraryItem.html"/>
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Criteria_Library_Item__c.label} {!fRecruit__Criteria_Library_Item__c.fRecruit__Criteria_Type__c} Edit" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Criteria_Type__c}" rendered="{!fRecruit__Criteria_Library_Item__c.fRecruit__Criteria_Type__c=null}"/>
+				<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.Name}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Criteria_Library_Item__c.fields.fRecruit__Description__c.label}"/>
+					<apex:inputTextarea value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Description__c}" richText="true"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Family__c}"/>
+				<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Family_Level__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.fRecruit__Criteria_Library_Item__c.fields.fRecruit__Interview_Questions__c.label}"/>
+					<apex:inputTextarea value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Interview_Questions__c}" richText="true"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment of qualifying or external test score" columns="1">
+            	<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Partly_Meets_Score__c}"/>
+            	<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Just_Meets_Score__c}"/>
+            	<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Fully_Meets_Score__c}"/>
+            	<apex:inputField value="{!fRecruit__Criteria_Library_Item__c.fRecruit__Exceeds_Score__c}"/>
+            </apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

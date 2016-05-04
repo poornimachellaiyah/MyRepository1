@@ -1,0 +1,5 @@
+<apex:page controller="fHCM2.PDFController" cache="false" renderAs="PDF" standardStylesheets="false" showHeader="false" sidebar="false">
+<html>
+<apex:outputText value="{!body}" escape="false"/>
+</html>
+</apex:page>

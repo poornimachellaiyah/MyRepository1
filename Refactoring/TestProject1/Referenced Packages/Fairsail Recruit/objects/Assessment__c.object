@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>fRecruitAssessment</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Hiring_Manager_Assessment_Edit</fullName>
+        <availableFields>
+            <field>Include_In_Scoring__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields in the hiring manager assessment on the edit page</description>
+        <displayedFields>
+            <field>Strengths__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Weaknesses__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Comments__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Hiring Manager Assessment Edit</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Overall_Assessment_Edit</fullName>
+        <availableFields>
+            <field>In_Queue__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Include_In_Scoring__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields in the overall assessment on the edit page</description>
+        <displayedFields>
+            <field>Assessor_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Strengths__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Weaknesses__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Comments__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Overall Assessment Edit</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Quality_Check</fullName>
+        <availableFields>
+            <field>Quality_Check_By__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Quality_Check_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>When returning to a completed assessment</description>
+        <displayedFields>
+            <field>Quality_Check__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Quality_Check_Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Quality Check</label>
+    </fieldSets>
+    <fields>
+        <fullName>Application__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Application</label>
+        <referenceTo>Application__c</referenceTo>
+        <relationshipLabel>Assessments</relationshipLabel>
+        <relationshipName>Assessments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Assessor_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the person that did the assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the person that did the assessment</inlineHelpText>
+        <label>Assessor Name</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Average score for all assessed criteria</description>
+        <externalId>false</externalId>
+        <formula>if( Count_Assessed_Criteria__c &gt; 0,  Score__c /  Count_Assessed_Criteria__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average score for all assessed criteria</inlineHelpText>
+        <label>Average Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Awaiting_Form__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked this assessment is waiting for a form to be completed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked this assessment is waiting for a form to be completed.</inlineHelpText>
+        <label>Awaiting Form</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Candidate_Portal_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Application__r.Candidate_Portal_URL__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Candidate Portal URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Comments made by assessor or interviewer for the assessment as a whole.  Rationale for decision.  May be shown to candidate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comments made by assessor or interviewer for the assessment as a whole.  Rationale for decision.  May be shown to candidate.</inlineHelpText>
+        <label>Comments</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Count_Assessed_Criteria__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Nunber of criteria that were assessed during this assessment.  Those without a response on the worksheet are not included.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Nunber of criteria that were assessed during this assessment.  Those without a response on the worksheet are not included.</inlineHelpText>
+        <label>Count Assessed Criteria</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Count_Below_Needs__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Nunber of criteria that were below that desired for the job within this assessment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Nunber of criteria that were below that desired for the job within this assessment.</inlineHelpText>
+        <label>Count Below Needs</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Count_Required_Below_Needs__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Nunber of criteria that were below that required for the job within this assessment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Nunber of criteria that were below that required for the job within this assessment.</inlineHelpText>
+        <label>Count Required Below Needs</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_In_Stage__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(  isblank(text(Outcome__c)), now(), blankvalue(  Outcome_Date__c ,   LastModifiedDate )) -  CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days In Stage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>External_Test_Result__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>External Test Result</label>
+        <referenceTo>External_Test_Result__c</referenceTo>
+        <relationshipLabel>Assessments</relationshipLabel>
+        <relationshipName>Assessments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Form__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form completed by candidate for this assessment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form completed by candidate for this assessment.</inlineHelpText>
+        <label>Form</label>
+        <referenceTo>Form__c</referenceTo>
+        <relationshipLabel>Assessments</relationshipLabel>
+        <relationshipName>Assessments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>In_Queue__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If set this assessment is in the assessment queue for this stage.  Set in workflow when the assessment is ready to be assessed, or set when entering this stage by &quot;Auto Queue&quot;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If set this assessment is in the assessment queue for this stage.  Set in workflow when the assessment is ready to be assessed, or set when entering this stage by &quot;Auto Queue&quot;.</inlineHelpText>
+        <label>In Queue</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Include_In_Scoring__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Whether this assessment is included in the overall scoring for this application</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Whether this assessment is included in the overall scoring for this application</inlineHelpText>
+        <label>Include In Scoring</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Outcome_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Outcome Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Outcome__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The overall outcome of the assessment or interview.  Used to change the status and current stage of the application.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The overall outcome of the assessment or interview. Used to change the status and current stage of the application.</inlineHelpText>
+        <label>Outcome</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Proceed to Next Stage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Place On Hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Place Passive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not This Vacancy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reject</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Withdrew</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Check_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quality Check By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Quality_Check_Assessments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Check_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quality Check Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Check_Notes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quality Check Notes</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Quality_Check__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quality Check</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Confirmed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minor Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outcome Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rating_Indicator__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Blob indicator for the average rating for this assessment.</description>
+        <externalId>false</externalId>
+        <formula>IMAGE( CASE( round(Weighted_Average_Score__c,0), 0, &quot;/img/samples/rating1.gif&quot;, 1, &quot;/img/samples/rating2.gif&quot;, 2, &quot;/img/samples/rating3.gif&quot;, 3, &quot;/img/samples/rating4.gif&quot;, 4, &quot;/img/samples/rating5.gif&quot;, &quot;/s.gif&quot;),  
+CASE( round(Average_Score__c,0), 0, &quot;Not Met&quot;, 1, &quot;Partly Meets&quot;, 2, &quot;Just Meets&quot;, 3, &quot;Fully Meets&quot;, 4, &quot;Exceeds&quot;, &quot;Not Rated&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Blob indicator for the average rating for this assessment.</inlineHelpText>
+        <label>Rating Indicator</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total score for all criteria within this assessment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total score for all criteria within this assessment.</inlineHelpText>
+        <label>Score</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Selection_Stage__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Selection Stage</label>
+        <referenceTo>Selection_Stage__c</referenceTo>
+        <relationshipLabel>Assessments</relationshipLabel>
+        <relationshipName>Assessments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Strengths__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Overall strengths of candidate discovered from this assessment. May be shown to candidate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Overall strengths of candidate discovered from this assessment. May be shown to candidate.</inlineHelpText>
+        <label>Strengths</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Sum_Weights__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of all the weights.  Used to calculated weighted average.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of all the weights.  Used to calculated weighted average.</inlineHelpText>
+        <label>Sum Weights</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weaknesses__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Overall weaknesses of candidate discovered from this assessment. May be shown to candidate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Overall weaknesses of candidate discovered from this assessment. May be shown to candidate.</inlineHelpText>
+        <label>Weaknesses</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Weighted_Average_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Average score for all assessed criteria multiplied by Selection Criteria weighting</description>
+        <externalId>false</externalId>
+        <formula>if( Sum_Weights__c &gt; 0, Weighted_Score__c / Sum_Weights__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average score for all assessed criteria multiplied by Selection Criteria weighting</inlineHelpText>
+        <label>Weighted Average Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weighted_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Weighted score of score times weight for selection criteria. Used to rank candidates.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Weighted score of score times weight for selection criteria. Used to rank candidates.</inlineHelpText>
+        <label>Weighted Score</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Assessment</label>
+    <nameField>
+        <label>Assessment Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Assessments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Assess_Current_Stage</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assess Current Stage</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/fRecruitAssessment?applicationId={!Application__c.Id}&amp;selectionStageId={!Application__c.Selection_StageId__c}</url>
+    </webLinks>
+</CustomObject>

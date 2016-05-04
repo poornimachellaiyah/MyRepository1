@@ -1,0 +1,60 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <script language="JavaScript">
+                jQuery.noConflict();
+                document.domain="force.com";
+                jQuery( function() {
+	                <apex:repeat value="{!PersonalProcesses}" var="process">
+                 		jQuery('#{!process.id}').load('{!process.ProfilePageSection+viewer.teamMember.id} .pbBody');
+               	</apex:repeat>
+                });
+            </script>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        	<c:Notice viewer="{!viewer}" page="PersonalProfile" location="Subheader" rendered="{!viewer.departmentPolicy.fHCM2__Manager_View_Personal_Details__c!=true}" />
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.PersonalProfile}" title="{!$Label.fhcm2__Button_Personal_Profile}" showTeam="false" rendered="{!viewer.departmentPolicy.fHCM2__Manager_View_Personal_Details__c==true}" noticePage="PersonalProfile"/>
+        	<c:Notice viewer="{!viewer}" page="PersonalProfile" location="Subfooter" rendered="{!viewer.departmentPolicy.fHCM2__Manager_View_Personal_Details__c!=true}" />
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!viewer.teamMember.name}" mode="view" rendered="{!viewer.isTeamMemberOrManager}">
+            	<c:Notice viewer="{!viewer}" page="PersonalProfile" location="Header"  />
+
+               	<c:FieldSetSection objectid="{!viewer.teamMember.id}" fields="{!FieldsetTeamMemberWorkDetailsView}" title="{!$Label.fhcm2__Global_Work_Details}" skipBlank="true">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:outputLink value="/apex/{!links.TeamMemberDetails}?id={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top" rendered="{!and(viewer.departmentPolicy.fHCM2__Modify_Personal_Details__c, viewer.isTeamMemberOrManager)}">{!$Label.fhcm2__Button_Edit}</apex:outputLink>
+                    </apex:outputPanel>
+               	</c:FieldSetSection>
+                
+                <apex:repeat value="{!PersonalProcesses}" var="process">
+					<div id="{!process.id}" style="width:100%;"><apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/></div>
+				</apex:repeat>               
+               
+             </apex:pageBlock>
+             <c:Notice viewer="{!viewer}" page="PersonalProfile" location="Footer"  />
+        </apex:define>
+
+        <apex:define name="footer">
+            <apex:form rendered="{!language.hasOptions}">
+                <apex:actionFunction name="changeLanguage" action="{!changeLanguage}" />
+                <span style="font-size: 11px; margin-bottom: -32px; margin-left: 210px;">
+                {!$Label.Button_Language}:&nbsp;
+                <apex:selectList size="1" value="{!language.locale}" required="true" onchange="changeLanguage();" style="font-size: 11px;">
+                    <apex:selectOptions value="{!language.LanguageOptions}"/>
+                </apex:selectList>
+                </span>
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,8 @@
+Dear {!Vacancy__c.Recruiter__c}, 
+
+The following vacancy {!Vacancy__c.Name}, vacancy number {!Vacancy__c.Vacancy_No__c}, has recently been created by {!Vacancy__c.Hiring_Manager__c}. 
+
+Please review the vacancy details and submit it for approval to the relevant Authorising Manager. 
+
+Kind regards 
+The SDL Recruitment Team

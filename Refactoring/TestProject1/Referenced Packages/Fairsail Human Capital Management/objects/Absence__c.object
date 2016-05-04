@@ -1,0 +1,1478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>An absence from the company by an employee for holiday, sickness or leave</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Absence_Manager</fullName>
+        <availableFields>
+            <field>Back_To_Work_Interview_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Back_To_Work_Interview_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Paid__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields for a manager entering absence</description>
+        <displayedFields>
+            <field>Reason__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Absence Manager</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Absence_Manager_Alert</fullName>
+        <availableFields>
+            <field>Back_To_Work_Interview_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Back_To_Work_Interview_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Paid__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Self_Certificate_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Additional fields shown to manager when alert has been triggered.</description>
+        <label>Absence Manager Alert</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Absence_Manager_Evidence</fullName>
+        <availableFields>
+            <field>Back_To_Work_Interview_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Back_To_Work_Interview_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Medical_Certificate_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Paid__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Self_Certificate_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Additional fields shown to manager when evidence has been triggered.</description>
+        <label>Absence Manager Evidence</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Absence_Team_Member</fullName>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields for a team member reporting absence</description>
+        <displayedFields>
+            <field>Reason__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Absence Team Member</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Parental_Manager</fullName>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notification_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notification_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields entered by the manager for parental leave.</description>
+        <displayedFields>
+            <field>Actual_Arrival_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Still_Birth__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Return_Intent__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Parental Manager</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Parental_Team_Member</fullName>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notification_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notification_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Still_Birth__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields for entry by the team member for parental type leave</description>
+        <displayedFields>
+            <field>Actual_Arrival_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Return_Intent__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Parental Team Member</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Vacation_Manager</fullName>
+        <availableFields>
+            <field>Back_To_Work_Interview_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Back_To_Work_Interview_Required__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Paid__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields for a manager entering vacation</description>
+        <displayedFields>
+            <field>Reason__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Vacation Manager</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Vacation_Team_Member</fullName>
+        <availableFields>
+            <field>Is_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Fields for a team ember asking for vacation</description>
+        <displayedFields>
+            <field>Reason__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Vacation Team Member</label>
+    </fieldSets>
+    <fields>
+        <fullName>Absence_Accrual_Seniority__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Absence Accrual Seniority</label>
+        <referenceTo>Absence_Accrual_Seniority__c</referenceTo>
+        <relationshipLabel>Absences</relationshipLabel>
+        <relationshipName>Absences</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Manager_Action_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(Manager_Action__c != null &amp;&amp; LEN(Manager_Action__c)  &gt; 0, &apos;Manager: &apos; + Manager_Action__c, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_Arrival_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the child arrived (only filled in when this has happened).  For maternity this is the birth date.  For adoption this is the date of placement.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the child arrived (only filled in when this has happened).  For maternity this is the birth date.  For adoption this is the date of placement.</inlineHelpText>
+        <label>Actual Arrival Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Alert_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This absence has triggered an alert for too much in a given period.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This absence has triggered an alert for too much in a given period.</inlineHelpText>
+        <label>Alert Trigger</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Approved</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Back_To_Work_Interview_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Back To Work Interview Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Back_To_Work_Interview_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Back To Work Interview Required</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Certified_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Certified Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Confirmed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date a provisional end date was confirmed by the manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date a provisional end date was confirmed by the manager</inlineHelpText>
+        <label>Confirmed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Days_Taken_By_Partner__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of days already taken by partner/spouse in shared parental leave.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days already taken by partner/spouse in shared parental leave.</inlineHelpText>
+        <label>Days Taken By Partner</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Days/Hours</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Earliest_Parental_Leave_End__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue( Actual_Arrival_Date__c ,  Expected_Arrival_Date__c ) +  Absence_Accrual_Seniority__r.Earliest_Parental_Leave_End__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Earliest Parental Leave End</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Earliest_Parental_Leave_Start__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Earliest that that parental leave is permitted to start</description>
+        <externalId>false</externalId>
+        <formula>blankvalue(Expected_Arrival_Date__c, Actual_Arrival_Date__c) -  Absence_Accrual_Seniority__r.Earliest_Parental_Leave_Start__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Earliest that that parental leave is permitted to start</inlineHelpText>
+        <label>Earliest Parental Leave Start</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Employment__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employment Record</label>
+        <referenceTo>Employment__c</referenceTo>
+        <relationshipLabel>Absences</relationshipLabel>
+        <relationshipName>Absences</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>End_Date_Provisional__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The End Date is not known for sure.  The date entered is an estimate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The End Date is not known for sure.  The date entered is an estimate.</inlineHelpText>
+        <label>End Date Provisional</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Evidence_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The team member is required to give evidence</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team member is required to give evidence</inlineHelpText>
+        <label>Evidence Trigger</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Expected_Arrival_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Official date the child is expected.  For maternity this is the expected date of birth (or start of confinement week).  For adoption this is the date of placement.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Official date the child is expected.  For maternity this is the expected date of birth (or start of confinement week).  For adoption this is the date of placement.</inlineHelpText>
+        <label>Expected Arrival Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Is_Parental_Leave__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This leave is a parental leave.  Will use the parental leave processing rules.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This leave is a parental leave.  Will use the parental leave processing rules.</inlineHelpText>
+        <label>Is Parental Leave</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Private__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked the absence will only be visible to the team member and management chain.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked the absence will only be visible to the team member and management chain.</inlineHelpText>
+        <label>Is Private</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Accrued_Balence__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The balance of the allowance for this absence/vacation computed for the last day of the absence when this record was last modified.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The balance of the allowance for this absence/vacation computed for the last day of the absence when this record was last modified.</inlineHelpText>
+        <label>Last Modified Accrued Balance</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Balence__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Modified Balance</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Reason_Rolling_Days__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of days/hours taken off for this reason in last rolling number of months as set in the policy.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days/hours taken off for this reason in last rolling number of months as set in the policy.</inlineHelpText>
+        <label>Last Modified Reason Rolling Days/Hours</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Reason_Year_Days__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of days/hours taken off for this reason during this vacation year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days/hours taken off for this reason during this vacation year</inlineHelpText>
+        <label>Last Modified Reason Year Days/Hours</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Type_Rolling_Days__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of days/hours taken off of this type in last rolling number of months as set in the policy.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days/hours taken off of this type in last rolling number of months as set in the policy.</inlineHelpText>
+        <label>Last Modified Type Rolling Days/Hours</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Type_Year_Days__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of days/hours taken off of this type during this vacation year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days/hours taken off of this type during this vacation year</inlineHelpText>
+        <label>Last Modified Type Year Days/Hours</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latest_Parental_Leave_End__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Start_Date__c  + Absence_Accrual_Seniority__r.Earliest_Parental_Leave_End__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Latest Parental Leave End</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Latest_Parental_Leave_Start__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(Expected_Arrival_Date__c, Actual_Arrival_Date__c) -  Absence_Accrual_Seniority__r.Latest_Parental_Leave_Start__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Latest Parental Leave Start</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( isblank(Rejected_Date__c),
+  if( End_Date_Provisional__c==true,
+    if( End_Date__c&lt;today(), End_Date__c,
+        if( isblank(Confirmed_Date__c), datevalue(LastModifiedDate), null ) )
+  ,
+    if( isblank(Approval_Date__c), datevalue(LastModifiedDate), null )
+  )
+, null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager Action Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Action__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( isblank(Rejected_Date__c),
+  if( End_Date_Provisional__c==true,
+    if( isblank(Confirmed_Date__c) || End_Date__c&lt;today(), &apos;Confirm&apos;, null )
+  ,
+    if( isblank(Approval_Date__c), &apos;Approve&apos;, null )
+  )
+, null )</formula>
+        <label>Manager Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Medical_Certificate_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Medical Certificate Required</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Months_Since_End__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>MONTH(today()) - MONTH(  End_Date__c   ) + 12* (YEAR(today()) - YEAR(   End_Date__c    ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Months Since End</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Notification_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that official notification was received.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that official notification was received.</inlineHelpText>
+        <label>Notification Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Notification_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Type of notification for absence / leave.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of notification for absence / leave.</inlineHelpText>
+        <label>Notification Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fit Note</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Form SC3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Form SC4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Form SC7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Form SC8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MAT B1 Certificate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Matching Certificate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Self Certificate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Paid__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Paid</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Picture__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Picture</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate_Units__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>text( Absence_Accrual_Seniority__r.Absence_Accrual_Rule__r.Absence_Accrual_Pattern__r.Rate_Units__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rate Units</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Adoption</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Al Haji Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annual Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Civil Wedding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compassionate and Dependant Care</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Emergency Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Transfer to another Province or District</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Volunteering - Paid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Volunteering - Unpaid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Excuse Duty Cheat from Doctors Attending to Staff</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Keeping in Touch Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maternity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medical Appointment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mother&apos;s Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mourning Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Parental</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paternity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Permission to Attend Funerals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Public Duty (Inc. Jury Service)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rest Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rest Leave for Frequent Travellers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sickness</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sickness - Paid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sickness - Unpaid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Study Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time Off In Lieu</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travelling Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unpaid Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wedding Leave</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rejected_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date rejected by manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date rejected by manager</inlineHelpText>
+        <label>Rejected Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Return_Intent__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Intention at the end of parental leave.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Intention at the end of parental leave.</inlineHelpText>
+        <label>Return Intent</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Returning</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Returning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Self_Certificate_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Self Certificate Required</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Team__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Evaluates to True if this absence record can be viewed by the team.</description>
+        <externalId>false</externalId>
+        <formula>if (if (if ( isblank(Employment__r.Team_Member__r.Policy__c),  Employment__r.Team_Member__r.Department__r.Policy__r.Show_Absence_Unless_Private__c== true  ,Employment__r.Team_Member__r.Policy__r.Show_Absence_Unless_Private__c== true),  Is_Private__c!=true , RecordType.Name==&apos;Vacation&apos; ), &apos;True&apos;, &apos;False&apos;)</formula>
+        <label>Show Team</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isblank(Rejected_Date__c), if (isblank(Approval_Date__c), if (isblank(Confirmed_Date__c), $Label.fhcm2__Global_Pending, $Label.fhcm2__Global_Provisional) , $Label.fhcm2__Global_Approved ) , $Label.fhcm2__Global_Rejected )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Still_Birth__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Checked if still birth for maternity leave.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Checked if still birth for maternity leave.</inlineHelpText>
+        <label>Still Birth</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Employment__r.Team_Member__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Team Member Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/&apos;+ Employment__r.Team_Member__c ,  Employment__r.Team_Member__r.Name, &apos;_top&apos; )</formula>
+        <label>Team Member</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name + if(!isblank(text(Reason__c)), &apos;: &apos; +  text(Reason__c) , &apos;&apos;)</formula>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Absence</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Absence #</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Absences</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Holiday</fullName>
+        <active>true</active>
+        <description>Absence for planned or unplanned holiday or vacation</description>
+        <label>Vacation</label>
+        <picklistValues>
+            <picklist>Notification_Type__c</picklist>
+            <values>
+                <fullName>Fit Note</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MAT B1 Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Matching Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self Certificate</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Annual Leave</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Return_Intent__c</picklist>
+            <values>
+                <fullName>Not Returning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returning</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Leave</fullName>
+        <active>false</active>
+        <description>Deprecated, do not use.</description>
+        <label>Leave</label>
+        <picklistValues>
+            <picklist>Notification_Type__c</picklist>
+            <values>
+                <fullName>Fit Note</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MAT B1 Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Matching Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self Certificate</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Maternity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paternity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unpaid Leave</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Return_Intent__c</picklist>
+            <values>
+                <fullName>Not Returning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returning</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Sickness</fullName>
+        <active>true</active>
+        <description>Absence because the employee is sick</description>
+        <label>Absence</label>
+        <picklistValues>
+            <picklist>Notification_Type__c</picklist>
+            <values>
+                <fullName>Fit Note</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Form SC8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MAT B1 Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Matching Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self Certificate</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Al Haji Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Annual Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Civil Wedding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compassionate and Dependant Care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Emergency Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Transfer to another Province or District</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Volunteering - Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Volunteering - Unpaid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Excuse Duty Cheat from Doctors Attending to Staff</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Keeping in Touch Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Maternity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mother%27s Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mourning Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Parental</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paternity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permission to Attend Funerals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Duty %28Inc%2E Jury Service%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rest Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rest Leave for Frequent Travellers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sickness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sickness - Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sickness - Unpaid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Study Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Time Off In Lieu</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Travelling Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unpaid Leave</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wedding Leave</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Return_Intent__c</picklist>
+            <values>
+                <fullName>Not Returning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returning</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Undecided</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Absence_Calculator</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Absence Calculator</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/fHCM2__AbsenceBalence?id={!Employment__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_PDF</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Send PDF</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/fHCM2__PDFSend?id={!Absence__c.Id}</url>
+    </webLinks>
+</CustomObject>

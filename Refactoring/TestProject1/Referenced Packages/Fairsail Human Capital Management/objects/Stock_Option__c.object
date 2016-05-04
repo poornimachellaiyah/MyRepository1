@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>An allocation of a stock option plan to a team member</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Team_Member_Details</fullName>
+        <availableFields>
+            <field>Expiration_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Grant_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Last_Exercise__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Last_Vesting__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Quantity_Exercised__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Quantity_Vested__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Total_Exercised__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Vesting_Termination_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>On team member profile showing current plans</description>
+        <displayedFields>
+            <field>Grant_Price__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Quantity__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Total_Grant__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Total_Vested__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Grant_Value__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Vested_Value__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Exercised_Value__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Team Member Details</label>
+    </fieldSets>
+    <fields>
+        <fullName>Employment__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employment</label>
+        <referenceTo>Employment__c</referenceTo>
+        <relationshipLabel>Stock Options</relationshipLabel>
+        <relationshipName>Stock_Options</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Exercised_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Quantity_Exercised__c *  (Stock_Option_Pattern__r.Stock_Price__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Exercised Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Grant_Date__c</fullName>
+        <defaultValue>today()</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Grant Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Grant_Price__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Grant Price</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Grant_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Quantity__c *  (Stock_Option_Pattern__r.Stock_Price__c- Grant_Price__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Grant Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Last_Exercise__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(  Expiration_Date__c , if( isblank( Employment__r.End_Date__c ), null,
+if( ISPICKVAL( Stock_Option_Pattern__r.Period_Units_To_Exercise__c,&apos;Month&apos;)
+,
+
+DATE( year(Employment__r.End_Date__c) + floor((month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Exercise__c )/12) + if(and(month(Employment__r.End_Date__c)=12,Stock_Option_Pattern__r.Period_After_Leaving_To_Exercise__c&gt;=12),-1,0)
+,
+if( mod( month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Exercise__c , 12 ) = 0, 12 , mod( month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Exercise__c , 12 ))
+,
+min( day(Employment__r.End_Date__c),
+case(
+max( mod( month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Exercise__c , 12 ) , 1),
+9,30,
+4,30,
+6,30,
+11,30,
+2,28,
+31
+)
+)
+)
+
+, Employment__r.End_Date__c+Stock_Option_Pattern__r.Period_After_Leaving_To_Exercise__c
+)
+))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Exercise</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Vesting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>blankvalue(  Vesting_Termination_Date__c, if( isblank( Employment__r.End_Date__c ), null,
+  if(  ISPICKVAL( Stock_Option_Pattern__r.Period_Units_To_Vest__c,&apos;Month&apos;)
+  , 
+
+DATE( year(Employment__r.End_Date__c) + floor((month(Employment__r.End_Date__c) +  Stock_Option_Pattern__r.Period_After_Leaving_To_Vest__c )/12) + if(and(month(Employment__r.End_Date__c)=12,Stock_Option_Pattern__r.Period_After_Leaving_To_Vest__c&gt;=12),-1,0)
+,
+if( mod( month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Vest__c , 12 ) = 0, 12 , mod( month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Vest__c , 12 ))
+,
+min( day(Employment__r.End_Date__c),
+case(
+max( mod( month(Employment__r.End_Date__c) + Stock_Option_Pattern__r.Period_After_Leaving_To_Vest__c , 12 ) , 1),
+9,30,
+4,30,
+6,30,
+11,30,
+2,28,
+31
+)
+)
+)
+
+  , Employment__r.End_Date__c+Stock_Option_Pattern__r.Period_After_Leaving_To_Vest__c
+  )
+))</formula>
+        <label>Last Vesting</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Quantity_Exercised__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quantity Exercised</label>
+        <summarizedField>Stock_Exercise__c.Quantity__c</summarizedField>
+        <summaryForeignKey>Stock_Exercise__c.Stock_Option__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Quantity_Vested__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quantity Vested</label>
+        <summarizedField>Stock_Vesting__c.Quantity__c</summarizedField>
+        <summaryFilterItems>
+            <field>Stock_Vesting__c.Vested__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Stock_Vesting__c.Stock_Option__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quantity</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stock_Option_Pattern__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Stock Option Pattern</label>
+        <referenceTo>Stock_Option_Pattern__c</referenceTo>
+        <relationshipLabel>Stock Options</relationshipLabel>
+        <relationshipName>Stock_Options</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Total_Exercised__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Grant_Price__c *  Quantity_Exercised__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Exercised</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Grant__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Quantity__c * Grant_Price__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Grant</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Vested__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Grant_Price__c *  Quantity_Vested__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Vested</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Vested_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Quantity_Vested__c *  (Stock_Option_Pattern__r.Stock_Price__c- Grant_Price__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Vested Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Vesting_Date_1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Null</formula>
+        <label>Deprecated</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Vesting_Termination_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Stops vesting from the given date.  If null then vesting continues to completion.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Stops vesting from the given date.  If null then vesting continues to completion.</inlineHelpText>
+        <label>Vesting Termination Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>Stock Option</label>
+    <nameField>
+        <displayFormat>SO{0000}</displayFormat>
+        <label>Stock Option</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Stock Options</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

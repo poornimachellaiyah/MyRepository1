@@ -1,0 +1,452 @@
+<apex:page standardController="fHCM2__Process_Instance__c" extensions="fHCM2.WxProcessController"  id="cnPageId" title="WX Process Instance">
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+
+<apex:sectionHeader title="WX Process" help="http://help.fairsail.com" />
+
+<apex:form id="CreateNewInternalCommunicationsForm">
+ 
+<apex:pageBlock id="CreateNewInternalCommunicationsFormElements" title="WX Process"  mode="edit">
+    <apex:messages />
+
+ 
+            
+    <apex:pageBlockSection title="" columns="1">
+    
+    <apex:pageBlockSection columns="1">
+    
+            <apex:inputField value="{!pi.fHCM2__Label__c}" label="Label"/>
+            <apex:inputField value="{!pi.fHCM2__Active__c}" label="Active"/>
+            <apex:outputField value="{!pi.fHCM2__Category__c}" label="{!$ObjectType.fHCM2__Process_Instance__c.fields.fHCM2__Category__c.label}"/>
+            <apex:inputField value="{!pi.fHCM2__Order__c}" label="Order"/>
+            <apex:inputField value="{!pi.fHCM2__Start_Date__c}" label="Start Date" />
+            <apex:inputField value="{!pi.fHCM2__End_Date__c}" label="End Date"/>
+            <apex:inputField value="{!pi.fHCM2__Preferred_Number_Of_Columns__c}" label="Preferred Number Of Columns"/>
+            
+            <apex:selectList value="{!pi.fHCM2__Process__c}" size="1" label="WX Process Type" id="select_process" rendered="{!checkProcess}"> 
+                <apex:selectOptions value="{!wxProcessList}" /> 
+            </apex:selectList>
+            
+      <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="WX Internal Communication" id="wxic_section_label"/>
+                    <apex:outputPanel layout="block" id="wxic_section">
+                        <apex:inputText label="WX Internal Communication" value="{!cn_lookup.Name}" id="targetName"  /> 
+                        <apex:inputHidden value="{!cn_lookup.Id}" id="targetId" />
+                        <apex:outputLink onclick="openLookupPopup('{!$Component.targetName}', '{!$Component.targetId}'); return false"><img src="/s.gif" alt="WX Internal Communication Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title="WX Internal Communication Lookup (New Window)" /></apex:outputLink>
+                        <a id="wxic_new_link" style="text-decoration:underline; cursor:pointer;">[New]</a>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+      
+            <apex:inputField value="{!pi.fHCM2__Show_In_Mobile__c}"  />
+            <apex:inputField value="{!pi.fHCM2__Show_Title_In_Tile__c}"  />
+            <apex:inputField value="{!pi.fHCM2__Show_Title_In_Detail__c}"  />
+            <apex:inputField value="{!pi.fHCM2__Additional_Information__c}" label="{!$ObjectType.fHCM2__Process_Instance__c.fields.fHCM2__Additional_Information__c.label}"/>
+
+
+ <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Hide When Read" id="wxcni_Hide_When_Read"/>
+                    <apex:outputPanel layout="block" id="wxcni_Confirm_When_Read">
+                       <apex:inputField value="{!cni.fHCM2__Hide_When_Read__c}" />
+                     </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Confirm When Read" id="wxcni_Hide_When_Read"/>
+                    <apex:outputPanel layout="block" id="wxcni_Confirm_When_Read">
+                       <apex:inputField value="{!cni.fHCM2__Confirm_When_Read__c}" />
+                     </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem >
+    <apex:outputLabel value="Score has Action" id="wxcni_Score1"/>
+    <apex:outputPanel layout="block" id="wxcni_Score2">
+       <apex:inputField value="{!cni.fHCM2__Score__c}" />
+     </apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+  
+        
+  </apex:pageBlockSection>
+    </apex:pageBlockSection>
+    
+
+
+<apex:outputPanel id="show_process_content">
+<div id="ic_process">
+
+    <apex:pageBlockSection title="WX Internal Communications" columns="1">
+    <apex:pageBlockSection columns="1">
+    
+   
+        
+       <apex:inputField value="{!cn.fHCM2__Policy__c}" label="Policy"/>
+
+        <apex:inputField value="{!cn.fHCM2__Policy_Group__c}" label="Policy Group"/>
+
+       <apex:inputField value="{!cn.fHCM2__Show_To_Manager__c}" label="Show To Manager"/>
+
+        <apex:inputField value="{!cn.fHCM2__Show_To_Other__c}" label="Show To Other"/>
+
+        <apex:inputField value="{!cn.fHCM2__Show_to_Team_Member__c}" label="Show to Team Member"/>
+       
+        
+        <apex:inputField value="{!cn.fHCM2__Team_Member__c}" />
+
+        <apex:inputField value="{!cn.fHCM2__Level_Down__c}" label="Level Down"/>
+
+
+    </apex:pageBlockSection>
+    </apex:pageBlockSection>
+
+<apex:pageBlockSection title="Internal Communications" columns="1">
+
+                    <apex:pageBlockSection columns="1">
+                    <apex:inputField value="{!cn.Name}" />
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection columns="1">
+                    <apex:selectList value="{!cn.fHCM2__Tile_Type__c}" size="1" label="Tile Type" id="tileType" > 
+                        <apex:selectOptions value="{!tileTypeList}" /> 
+                    </apex:selectList>
+                    </apex:pageBlockSection>
+
+
+        <apex:outputPanel >
+
+                            <div id="tile_ed">
+                                   <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputTextarea value="{!cn.fHCM2__Summary__c}" richText="true" label="Tile Content"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel> 
+                            </div>
+
+                            <div id="tile_url">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!cn.fHCM2__Tile_Content_External_Website__c}"  size="75" label="External Website Url" html-placeholder="www.example.com" />
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+
+                            <div id="tile_vid">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!cn.fHCM2__Tile_Content_Video__c}" size="75" label="Video Url" html-placeholder="http://www.youtube.com/watch?v=iccscUFY860"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+                            
+                             <apex:outputPanel rendered="{!checkSysAdmin}">
+                            <div id="tile_html">
+                                   <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputField value="{!cn.fHCM2__Summary_Raw__c}" label="HTML"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel> 
+                            </div>
+                         </apex:outputPanel>
+
+        </apex:outputPanel>
+
+
+                    <apex:pageBlockSection columns="1">
+                        <apex:selectList value="{!cn.fHCM2__Detail_Type__c}" size="1" label="Detail Type" id="detailType"> 
+                            <apex:selectOptions value="{!detailTypeList}" /> 
+                        </apex:selectList>
+                    </apex:pageBlockSection>
+
+        <apex:outputPanel >
+
+                            <div id="detail_ed"> 
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputTextarea value="{!cn.fHCM2__Content__c}" richText="true" label="Detail Content"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+
+                            <div id="detail_url">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!cn.fHCM2__Detail_Content_External_Website__c}" size="75" label="External Website Url" html-placeholder="www.example.com" />
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+
+                            <div id="detail_vid">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!cn.fHCM2__Detail_Content_Video__c}" size="75" label="Video Url" html-placeholder="http://www.youtube.com/watch?v=iccscUFY860" />
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+                            
+                          <apex:outputPanel rendered="{!checkSysAdmin}">
+                            <div id="detail_html">
+                                   <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputField value="{!cn.fHCM2__Content_Raw__c}" label="HTML"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel> 
+                            </div>
+                         </apex:outputPanel>
+
+        </apex:outputPanel>
+
+</apex:pageBlockSection>
+
+</div>
+
+</apex:outputPanel>
+<apex:pageBlockButtons >
+      <apex:commandButton value="{!$Label.fhcm2__Button_Save}" action="{!insertMethod}"/>
+      <apex:commandButton value="{!$Label.fhcm2__Button_Cancel}" action="{!cancelMethod}" immediate="true"/>
+      </apex:pageBlockButtons>
+
+</apex:pageBlock>
+
+</apex:form>
+
+<script>
+
+var newWin=null;
+ function openLookupPopup(name, id)
+ {
+  var url="/apex/fHCM2__LookupWXPopup?namefield=" + name + "&idfield=" + id;
+  newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+  if (window.focus) 
+  {
+   newWin.focus();
+  }
+    
+     return false;
+    }
+       
+ function closeLookupPopup()
+ {
+    if (null!=newWin)
+    {
+       newWin.close();
+    }  
+ }
+ 
+ 
+j$ = jQuery.noConflict();
+j$(document).ready(function() {   
+
+if (j$( 'select[id$="select_process"]' ).val() != '--None--' || j$( 'select[id$="select_process"]' ).val() == null) {
+j$('[id*=ic_process]').hide();
+j$('[id*=wxic_section]').hide();
+j$('[id*=wxic_section_label]').hide();
+
+
+}
+
+if ('{!pi.fHCM2__Process__c}' != 'Internal Communications' ) {
+
+j$('[id*=wxic_section]').hide();
+j$('[id*=wxic_section_label]').hide();
+j$('[id*=wxcni_Hide_When_Read]').hide();
+j$('[id*=wxcni_Confirm_When_Read]').hide();
+j$('[id*=wxcni_Score1]').hide();
+j$('[id*=wxcni_Score2]').hide();
+
+
+}
+
+if ('{!pi.fHCM2__Process__c}' == 'Internal Communications' ) {
+
+j$('[id*=wxic_section]').show();
+j$('[id*=wxic_section_label]').show();
+j$('[id*=wxcni_Hide_When_Read]').show();
+j$('[id*=wxcni_Confirm_When_Read]').show();
+j$('[id*=wxcni_Score1]').show();
+j$('[id*=wxcni_Score2]').show();
+
+
+}
+
+if (j$( 'select[id$="select_process"]' ).val() == 'Internal Communications') {
+j$('[id*=ic_process]').hide();
+j$('[id*=wxic_section]').show();
+j$('[id*=wxic_section_label]').show();
+j$('[id*=wxcni_Hide_When_Read]').show();
+j$('[id*=wxcni_Confirm_When_Read]').show();
+j$('[id*=wxcni_Score1]').show();
+j$('[id*=wxcni_Score2]').show();
+}
+
+j$('[id$="wxic_new_link"]').click(function() {
+       
+        //j$('[id*=ic_process]').show();
+        
+        
+        j$('[id*=ic_process]').toggle();
+        j$( '[id*="targetId"]' ).val('');
+        j$( '[id*="targetName"]' ).val('');
+       
+    });
+
+j$('select[id$="select_process"]').change(function() {
+       // alert( j$(this).val() );
+       
+        var x = j$(this).val();
+        
+        if (x != 'Internal Communications') {
+            j$('[id*=ic_process]').hide();
+            j$('[id*=wxic_section]').hide();
+            j$('[id*=wxic_section_label]').hide();
+            j$('[id*=wxcni_Hide_When_Read]').hide();
+            j$('[id*=wxcni_Confirm_When_Read]').hide();
+            j$('[id*=wxcni_Score1]').hide();
+            j$('[id*=wxcni_Score2]').hide();
+        }
+        else
+        {
+            j$('[id*=wxic_section]').show();
+            j$('[id*=wxic_section_label]').show();
+            j$('[id*=wxcni_Hide_When_Read]').show();
+            j$('[id*=wxcni_Confirm_When_Read]').show();
+            j$('[id*=wxcni_Score1]').show();
+            j$('[id*=wxcni_Score2]').show();
+        }
+        
+        
+    });
+    
+if (j$( 'select[id$="tileType"]' ).val() == 'Rich Text' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').hide();
+j$('[id*=tile_vid]').hide();
+j$('[id*=tile_ed]').show();
+j$('[id*=tile_html]').hide();
+
+}
+if (j$( 'select[id$="tileType"]' ).val() == 'External Website' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').show();
+j$('[id*=tile_vid]').hide();
+j$('[id*=tile_ed]').hide();
+j$('[id*=tile_html]').hide();
+
+}
+if (j$( 'select[id$="tileType"]' ).val() == 'Video' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').hide();
+j$('[id*=tile_vid]').show();
+j$('[id*=tile_ed]').hide();
+j$('[id*=tile_html]').hide();
+
+}
+
+if (j$( 'select[id$="tileType"]' ).val() == 'HTML' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').hide();
+j$('[id*=tile_vid]').hide();
+j$('[id*=tile_ed]').hide();
+j$('[id*=tile_html]').show();
+
+}
+
+j$('select[id$="tileType"]').change(function() {
+       // alert( j$(this).val() );
+       
+        var x = j$(this).val();
+        
+        if (x == 'Rich Text') {
+            j$('[id*=tile_url]').hide();
+            j$('[id*=tile_vid]').hide();
+            j$('[id*=tile_ed]').show();
+            j$('[id*=tile_html]').hide();
+        }
+        
+        if (x == 'External Website') {
+            j$('[id*=tile_url]').show();
+            j$('[id*=tile_vid]').hide();
+            j$('[id*=tile_ed]').hide();
+            j$('[id*=tile_html]').hide();
+        }
+        
+        if (x == 'Video') {
+            j$('[id*=tile_url]').hide();
+            j$('[id*=tile_vid]').show();
+            j$('[id*=tile_ed]').hide();
+            j$('[id*=tile_html]').hide();
+        }
+        
+         if (x == 'HTML') {
+            j$('[id*=tile_url]').hide();
+            j$('[id*=tile_vid]').hide();
+            j$('[id*=tile_ed]').hide();
+            j$('[id*=tile_html]').show();
+        }
+       
+        
+        
+    });
+    
+if (j$( 'select[id$="detailType"]' ).val() == 'Rich Text' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').hide();
+j$('[id*=detail_vid]').hide();
+j$('[id*=detail_ed]').show();
+j$('[id*=detail_html]').hide();
+}
+if (j$( 'select[id$="detailType"]' ).val() == 'External Website' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').show();
+j$('[id*=detail_vid]').hide();
+j$('[id*=detail_ed]').hide();
+j$('[id*=detail_html]').hide();
+}
+if (j$( 'select[id$="detailType"]' ).val() == 'Video' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').hide();
+j$('[id*=detail_vid]').show();
+ j$('[id*=detail_ed]').hide();
+ j$('[id*=detail_html]').hide();
+}
+
+if (j$( 'select[id$="detailType"]' ).val() == 'HTML' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').hide();
+j$('[id*=detail_vid]').hide();
+j$('[id*=detail_ed]').hide();
+j$('[id*=detail_html]').show();
+
+}
+
+j$('select[id$="detailType"]').change(function() {
+       // alert( j$(this).val() );
+       
+        var x = j$(this).val();
+        
+        if (x == 'Rich Text') {
+            j$('[id*=detail_url]').hide();
+            j$('[id*=detail_vid]').hide();
+            j$('[id*=detail_ed]').show();
+            j$('[id*=detail_html]').hide();
+        }
+        
+        if (x == 'External Website') {
+            j$('[id*=detail_url]').show();
+            j$('[id*=detail_vid]').hide();
+            j$('[id*=detail_ed]').hide();
+            j$('[id*=detail_html]').hide();
+        }
+        
+        if (x == 'Video') {
+            j$('[id*=detail_url]').hide();
+            j$('[id*=detail_vid]').show();
+            j$('[id*=detail_ed]').hide();
+            j$('[id*=detail_html]').hide();
+        }
+        
+         if (x == 'HTML') {
+            j$('[id*=detail_url]').hide();
+            j$('[id*=detail_vid]').hide();
+            j$('[id*=detail_ed]').hide();
+            j$('[id*=detail_html]').show();
+        }
+       
+        
+        
+    });
+    
+});
+
+</script>
+</apex:page>

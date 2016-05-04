@@ -1,0 +1,177 @@
+<apex:page showHeader="true" sidebar="true" controller="cftsys.SetupController">
+	
+
+	<apex:includeScript value="{!URLFOR($Resource.cftsys__CFTsys3, '/jquery/js/jquery-1.11.3.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.CFTsys3, 
+              '/jQueryUI/css/jquery-ui1.10.4.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.cftsys__CFTsys3, '/jQueryUI/js/jquery-ui.1.10.4.min.js')}"/>
+
+    <style type="text/css">
+		.homeTab .tertiaryPalette, .individualPalette .homeBlock .tertiaryPalette, .layoutEdit .individualPalette .homeBlock .tertiaryPalette {
+		  background-color: #1797c0;
+		  border-color: #1797c0;
+		}
+	</style>
+
+	<apex:sectionHeader subtitle="{!$Label.Setup}" title="{!$Label.APP_NAME}"/>
+	
+	<apex:pageMessages />
+
+	<apex:form >				
+		<apex:pageBlock >
+
+			<apex:pageBlockSection columns="1" title="{!$Label.Setup_Account_Status}">
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_Account_Status}"/>
+					<apex:outputText value="{!accountStatus}" />
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_API_USERNAME}"/>
+					<apex:inputField value="{!customSetting.cftsys__API_Username__c}" required="true"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_API_KEY}"/>
+					<apex:inputSecret value="{!customSetting.cftsys__API_Key__c}" id="theSecretInput" redisplay="true" required="true"/>
+				</apex:pageBlockSectionItem> 
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value=""/>
+					<apex:commandButton value="Verify Credentials" action="{!verifyCredentials}"/>
+				</apex:pageBlockSectionItem> 
+
+			</apex:pageBlockSection>	
+
+			<apex:pageBlockSection columns="1" title="{!$Label.Setup_List_Available}" rendered="{!activatedAccount}">
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_USA_List}"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!activatedAccount}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!activatedAccount}" />
+					</apex:outputPanel>		
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_UK_List}"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!activatedAccount}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!activatedAccount}" />
+					</apex:outputPanel>		
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_EU_List}"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!activatedAccount}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!activatedAccount}" />
+					</apex:outputPanel>		
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_Australia_List}"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!activatedAccount}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!activatedAccount}" />
+					</apex:outputPanel>		
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_Canada_List}"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!activatedAccount}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!activatedAccount}" />
+					</apex:outputPanel>		
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_UN_List}"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!activatedAccount}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!activatedAccount}" />
+					</apex:outputPanel>		
+				</apex:pageBlockSectionItem>	
+
+			</apex:pageBlockSection>	
+
+			<apex:pageBlockSection columns="1" title="{!$Label.Setup_Suspect_Threshold}" rendered="{!activatedAccount}"> 
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_Current_Threshold}"/>
+					<apex:outputText label="String" value="{!SuspectThreshold*100}"/>
+				</apex:pageBlockSectionItem> 
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.Setup_New_Threshold}"/>
+					<apex:outputText label="String" id="threshold-percent" value="{!SuspectThreshold}"/>
+				</apex:pageBlockSectionItem> 
+
+			
+				<div id="terrorism-dice-slider"></div>
+			 	<apex:inputHidden id="dice-threshold" value="{!SuspectThreshold}"/>
+				
+				<apex:commandButton id="saveThresholdBut" value="Update Value" action="{!saveThreshold}" disabled="{!!activatedAccount}"/>
+				
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection columns="1" title="{!$Label.Setup_Schedulers}" rendered="{!activatedAccount}">
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="{!$Label.Setup_Scheduler_summary}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="POST"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!is_POST_running}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!is_POST_running}" />
+					</apex:outputPanel>					
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="GET"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!is_GET_running}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!is_GET_running}" />
+					</apex:outputPanel>					
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="PROCESSING"/>
+					<apex:outputPanel >
+						<apex:image value="/img/checkbox_checked.gif" rendered="{!is_PROCESSING_running}" />
+						<apex:image value="/img/checkbox_unchecked.gif" rendered="{!!is_PROCESSING_running}" />
+					</apex:outputPanel>					
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:commandButton action="{!activate_schedulers}" rendered="{!showActivate}" value="Activate Schedulers" />
+					<apex:commandButton action="{!deactivate_schedulers}" rendered="{!showDeactivate}" value="Deactivate Schedulers" disabled="{!!activatedAccount}"/>
+				</apex:pageBlockSectionItem> 
+
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+
+	<script>
+      jQuery(document).ready(function(){
+          var tValueItem = jQuery('input[id$=dice-threshold]');
+          var tPercentItem = jQuery('span[id$=threshold-percent]');
+          jQuery(function() {
+            jQuery( "#terrorism-dice-slider" ).slider({
+              range: "max",
+              min: 75,
+              max: 100,
+              value: tValueItem.val()*100,
+              slide: function( event, ui ) {
+                tPercentItem.html( ui.value );
+                tValueItem.val(ui.value/100);
+              }
+            });
+            tPercentItem.html( jQuery( "#terrorism-dice-slider" ).slider( "value" ) );
+          });
+      });
+    </script>
+
+</apex:page>

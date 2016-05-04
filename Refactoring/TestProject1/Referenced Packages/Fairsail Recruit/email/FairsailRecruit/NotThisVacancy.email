@@ -1,0 +1,8 @@
+Dear {!nullvalue(Application__c.Candidate_Salutation__c,Application__c.Candidate_Name__c)} 
+
+We have considered you for the position of {!Application__c.Vacancy__c} but do not feel that this job is quite right for you.  However we do think your skills may be suitable for other positions within our company.  We will hold your information on file and get back to you if a suitable position becomes available.
+
+Sincerely,
+{!User.FullName}
+{!Organization.Name}
+{!User.Email}

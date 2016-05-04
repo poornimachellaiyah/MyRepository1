@@ -1,0 +1,192 @@
+<apex:page controller="fHCM2.TargetControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Target" rendered="{!subject.targets.isUsing}" action="{!selectUI}">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="Target" mode="view">
+				<c:Notice viewer="{!viewer}" page="Target" location="Subheader"  />
+				<apex:pageBlockSection title="Team Member's" columns="1">
+					<apex:outputPanel layout="block" styleClass="thinButtonBar">
+						<apex:outputLink value="/apex/{!links.TargetTeam}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+						<apex:outputLink value="/apex/{!links.Target}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(!isNew,viewer.isEditAndManager)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+					</apex:outputPanel>
+					
+					<apex:repeat value="{!subject.Targets.working}" var="other" rendered="{!viewer.isTeamMemberOrManager}">
+						<c:DetailListBar title="{!other.Name}" value="/apex/{!links.Target}?id={!other.Id}" warning="{!other.Action}" rendered="{!other.id<>currentTarget.Id}">
+							<c:DetailListItem label="Status" value="{!other.Status}" />
+							<c:DetailListItem label="Target"><c:OutputCurrency decimalValue="{!other.targetYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+							<c:DetailListItem label="Actual"><c:OutputCurrency value="{!other.actualYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+							<c:DetailListItem label="Progress" value="{!other.Progress}" />
+						</c:DetailListBar>
+					</apex:repeat>
+					<apex:repeat value="{!subject.Targets.working}" var="other" rendered="{!not(viewer.isTeamMemberOrManager)}">
+						<c:DetailListBar title="{!other.Name}" value="/apex/{!links.Target}?id={!other.Id}" rendered="{!other.id<>currentTarget.Id}">
+							<c:DetailListItem label="Status" value="{!other.Status}" />
+							<c:DetailListItem label="Target"><c:OutputCurrency value="{!other.targetYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+							<c:DetailListItem label="Actual"><c:OutputCurrency value="{!other.actualYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+						</c:DetailListBar>
+					</apex:repeat>
+				</apex:pageBlockSection>
+
+				<apex:pageBlockSection title="Manager's" columns="1" rendered="{!viewer.hasPrimaryManager}">
+					<apex:outputPanel layout="block" styleClass="thinButtonBar">
+						<apex:outputLink value="/apex/{!links.TargetTeam}?id={!viewer.primaryManager.id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+					</apex:outputPanel>
+					<apex:repeat value="{!team.manager.working}" var="other" rendered="{!viewer.isTeamMemberOrManager}">
+						<c:DetailListBar title="{!other.Name}" value="/apex/{!links.Target}?id={!other.Id}">
+							<c:DetailListItem label="Action" value="{!other.Action}" style="color:red;" rendered="{!viewer.isManager}"/>
+							<c:DetailListItem label="Status" value="{!other.Status}" />
+							<c:DetailListItem label="Target"><c:OutputCurrency value="{!other.targetYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+							<c:DetailListItem label="Actual"><c:OutputCurrency value="{!other.actualYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+							<c:DetailListItem label="Progress" value="{!other.Progress}"  rendered="{!viewer.isManager}"/>
+						</c:DetailListBar>
+					</apex:repeat>
+					<apex:repeat value="{!team.manager.working}" var="other" rendered="{!not(viewer.isTeamMemberOrManager)}">
+						<c:DetailListBar title="{!other.Name}" value="/apex/{!links.Target}?id={!other.Id}">
+							<c:DetailListItem label="Status" value="{!other.Status}" />
+							<c:DetailListItem label="Target"><c:OutputCurrency value="{!other.targetYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+							<c:DetailListItem label="Actual"><c:OutputCurrency value="{!other.actualYTD}" currencyCode="{!other.currencyCode}"/></c:DetailListItem>
+						</c:DetailListBar>
+					</apex:repeat>
+				</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="Target" location="Subfooter"  />
+			</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+<script type="Text/JavaScript">
+function formChanged() {
+	enable("save");
+	enable("review");
+	disable("confirm");
+}
+</script>
+		    <apex:form >
+		    	{!errors}
+				<apex:pageBlock title="Current">
+					<apex:pageBlockButtons location="bottom">
+						<apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and(isDraft || isAmending,viewer.isEditAndManager,viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}" styleClass="inputsubmit" />
+						<apex:commandButton id="confirm" action="{!confirm}" immediate="true" value="Confirm Draft" rendered="{!and(viewer.isTeamMember,isDraft)}" styleClass="inputsubmit" />
+						<apex:commandButton id="amend" action="{!amend}" immediate="true" value="Amend Target" rendered="{!and(isActive,!isAmending,viewer.isEditAndManager,viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}" styleClass="inputsubmit" />
+						<apex:commandButton id="review" action="{!review}" value="Save Review" rendered="{!and(isActive,!isAmending,viewer.isTeamMemberOrManager)}" styleClass="inputsubmit" />
+						<apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!and(viewer.isEdit)}" styleClass="inputsubmit" />
+					</apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="Target" location="Header"  />
+					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!currentTarget.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+								<apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+								<apex:outputLabel value="{!$ObjectType.Target__c.fields.Status__c.label }" />
+								<apex:outputPanel >{!currentTarget.fHCM2__Status__c}</apex:outputPanel>
+								<apex:outputLabel value="{!$ObjectType.Target__c.fields.Action__c.label }" />
+								<apex:outputPanel style="color:red;text-weight:bold;">{!currentTarget.fHCM2__Action__c}</apex:outputPanel>
+							</apex:panelGrid>
+						</c:PersonSection>
+					</apex:pageBlockSection>
+					
+					<apex:pageBlockSection title="Target" columns="1">
+						<apex:inputField value="{!currentTarget.Name}" required="true" rendered="{!(viewer.isEditAndManager && (isDraft || isAmending) && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}" onKeyPress="formChanged();" onChange="formChanged();"/>
+						<apex:pageBlockSectionItem rendered="{!!(viewer.isEditAndManager && (isDraft || isAmending) && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}">
+							<apex:outputLabel value="{!$ObjectType.Target__c.fields.Name.label }" />
+							<apex:outputText value="{!currentTarget.Name}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!currentTarget.fHCM2__Start_Date__c}" required="true" rendered="{!viewer.isEditAndManager && (isDraft) && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true}" onKeyPress="formChanged();" onChange="formChanged();"/>
+						<apex:pageBlockSectionItem rendered="{!!(viewer.isEditAndManager && (isDraft) && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}">
+							<apex:outputLabel value="{!$ObjectType.Target__c.fields.Start_Date__c.label }" />
+							<c:outputDate dateValue="{!currentTarget.fHCM2__Start_Date__c}"/>
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!currentTarget.fHCM2__Is_Private__c}" rendered="{!(viewer.isEditAndManager && (isDraft))}" onKeyPress="formChanged();" onChange="formChanged();"/>
+						<apex:pageBlockSectionItem rendered="{!!(viewer.isEditAndManager && (isDraft || isAmending))}">
+							<apex:outputLabel value="{!$ObjectType.Target__c.fields.Is_Private__c.label }" />
+							<apex:outputText value="{!currentTarget.fHCM2__Is_Private__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!currentTarget.fHCM2__Calculate_Salesforce_Opportunities__c}" rendered="{!(viewer.isEditAndManager && isDraft) && viewer.departmentPolicy.fHCM2__Use_Target_Calculate_Actuals__c==true} " onKeyPress="formChanged();" onChange="formChanged();"/>
+						<apex:pageBlockSectionItem rendered="{!(!(viewer.isEditAndManager && isDraft)) && viewer.departmentPolicy.fHCM2__Use_Target_Calculate_Actuals__c==true}">
+							<apex:outputLabel value="{!$ObjectType.Target__c.fields.Calculate_Salesforce_Opportunities__c.label }" />
+							<apex:outputText value="{!currentTarget.fHCM2__Calculate_Salesforce_Opportunities__c}" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!currentTarget.fHCM2__Basis__c} Targets" columns="1">
+						
+						<apex:pageBlockSectionItem rendered="{!(viewer.isEditAndManager && (isDraft || isAmending)) && hasCurrencies}">
+							<apex:outputLabel value="Currency" for="currency" />
+							<apex:selectList required="true" value="{!currencyId}" id="currency" size="1" onKeyPress="formChanged();" onChange="formChanged();">
+								<apex:selectOptions value="{!currentCurrencies}" />
+							</apex:selectList>
+						</apex:pageBlockSectionItem>
+
+						<apex:repeat value="{!currentTargetPeriodItems}" var="period">
+							<apex:pageBlockSectionItem rendered="{!(viewer.isEditAndManager && (isDraft || isAmending) && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Target_Period__c.fields.fHCM2__Amount__c.label } {!period.TargetPeriod.Name}"/>
+								<apex:inputText value="{!period.Amount}" required="true" onKeyPress="formChanged();" onChange="formChanged();"/>
+							</apex:pageBlockSectionItem>						
+							<apex:pageBlockSectionItem rendered="{!!(viewer.isEditAndManager && (isDraft || isAmending) && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true)}">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Target_Period__c.fields.fHCM2__Amount__c.label } {!period.TargetPeriod.Name}" />
+								<c:OutputCurrency currencyCode="{!currencyCode}"  value="{!period.TargetPeriod.fHCM2__Amount__c}" />
+							</apex:pageBlockSectionItem>						
+						</apex:repeat>
+						
+						</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!currentTarget.fHCM2__Basis__c} Actuals" columns="1" rendered="{!!isNew}">
+						<apex:repeat value="{!currentTargetPeriods}" var="period">
+							<apex:pageBlockSectionItem rendered="{!viewer.isEditAndManager && !period.fHCM2__Calculate_Salesforce_Opportunities__c}" >
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Target_Period__c.fields.fHCM2__Actual__c.label } {!period.Name}" />
+								<apex:inputField value="{!period.fHCM2__Actual__c}" onKeyPress="formChanged();" onChange="formChanged();"/>
+							</apex:pageBlockSectionItem>
+							<apex:pageBlockSectionItem rendered="{!!viewer.isEditAndManager || period.fHCM2__Calculate_Salesforce_Opportunities__c}">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Target_Period__c.fields.fHCM2__Actual__c.label } {!period.Name}" />
+								<c:OutputCurrency currencyCode="{!currencyCode}"  value="{!period.fHCM2__Actual__c}" />
+							</apex:pageBlockSectionItem>
+						</apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="Review of progress" columns="1" rendered="{!and(isActive,!isAmending,viewer.isTeamMemberOrManager)}">
+						<apex:pageBlockSectionItem rendered="{!currentTarget.fHCM2__Team_Member_Comments__c!=null}">
+							<apex:outputLabel value="Last {!$ObjectType.Target__c.fields.Team_Member_Comments__c.label }" />
+							<apex:outputText value="{!currentTarget.fHCM2__Team_Member_Comments__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:pageBlockSectionItem rendered="{!currentTarget.fHCM2__Comments__c!=null}">
+							<apex:outputLabel value="Last {!$ObjectType.Target__c.fields.Comments__c.label }" />
+							<apex:outputText value="{!currentTarget.fHCM2__Comments__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!currentTarget.fHCM2__Progress__c}" rendered="{!viewer.isManager}" onChange="formChanged();" />
+						<apex:pageBlockSectionItem rendered="{!!viewer.isManager}">
+							<apex:outputLabel value="{!$ObjectType.Target__c.fields.Progress__c.label }" />
+							<apex:outputText value="{!currentTarget.fHCM2__Progress__c}" />
+						</apex:pageBlockSectionItem>
+
+						<apex:pageBlockSectionItem rendered="{!viewer.isManager}">
+							<apex:outputLabel value="New {!$ObjectType.Target__c.fields.Comments__c.label }" />
+							<apex:inputTextarea value="{!comments}" onKeyPress="formChanged();" onChange="formChanged();" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem rendered="{!viewer.isTeamMember}">
+							<apex:outputLabel value="New {!$ObjectType.Target__c.fields.Team_Member_Comments__c.label }" />
+							<apex:inputTextarea value="{!comments}" onKeyPress="formChanged();" onChange="formChanged();" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+				</apex:pageBlock>
+			</apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!currentTarget}" page="{!links.FairsailProfile}" rendered="{!viewer.isTeamMemberOrManager}"/>
+			<c:Notice viewer="{!viewer}" page="Target" location="Footer"  />
+<script type="Text/JavaScript">
+	disable("save");
+	disable("review");
+	if ({!hasErrors}) formChanged();
+</script>
+		</apex:define>
+	</apex:composition>
+</apex:page>

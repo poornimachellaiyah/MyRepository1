@@ -1,0 +1,17 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+            <apex:pageBlockSection columns="1" title="{!$Label.fhcm2__Process_Manager_Notes}" rendered="{!and(subject.managerNotes.isUsing,viewer.isTeamMemberOrManager)}">
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!subject.managerNotes.editPermitted}">
+                        <apex:outputLink value="/apex/{!links.managerNote}?teamMemberId={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.managerNotes.current}" var="item" rendered="{!subject.managerNotes.has}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Manager_Note__c.fields.CreatedDate.label}">
+                        	<apex:outputLink value="/apex/{!links.managerNote}?id={!item.id}"><c:outputDate dateValue="{!item.createdDate}"/></apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Manager_Note__c.fields.fHCM2__Comment__c.label}" value="{!item.commentShort}" />
+                    </apex:pageBlockTable>
+                </apex:outputPanel>
+ 			</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

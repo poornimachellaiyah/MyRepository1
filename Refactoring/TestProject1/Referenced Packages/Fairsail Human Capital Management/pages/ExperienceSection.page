@@ -1,0 +1,37 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!subject.experience.isUsing}">
+                    <apex:facet name="header">
+                        <h3 class="process-experience">{!$Label.fhcm2__Process_Work_History}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:outputLink rendered="{!viewer.isTeamMemberOrManager && subject.experience.editPermitted}" value="/apex/{!links.Experience}?TeamMemberId={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.ExperienceProfile}?TeamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!subject.experience.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+                   
+                    <apex:pageBlockTable value="{!subject.experience.current}" var="Experience" rendered="{!subject.experience.has}">
+                        <apex:column headerValue="{!$Label.fhcm2__Process_Work_History_Dates}">
+
+                                        <apex:outputText value="{0,date,MM'/'yyyy}">
+                                            <apex:param value="{!Experience.StartDate}" />
+                                        </apex:outputText>
+                                        <apex:outputText value="{0,date,' - 'MM'/'yyyy}">
+                                            <apex:param value="{!Experience.EndDate}" />
+                                        </apex:outputText>
+
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__Title__c.label}">
+                            <apex:outputLink value="/apex/{!links.Experience}?TeamMemberId={!viewer.teamMember.Id}&id={!Experience.Id}" rendered="{!viewer.isTeamMemberOrManager}">
+                                {!Experience.Title}
+                            </apex:outputLink>
+                            <apex:outputPanel rendered="{!!viewer.isTeamMemberOrManager}" layout="inline">{!Experience.Title}</apex:outputPanel>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__Company_Name__c.label}">
+                            {!Experience.CompanyName}
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,128 @@
+<apex:page standardStylesheets="false" cache="false" rendered="{!isSites}" cache="false" showHeader="false" sidebar="false" controller="fRecruit.FormController">
+
+<apex:composition template="fRecruit__FormTemplate">
+
+<apex:define name="header">
+    <apex:stylesheet value="{!definition.stylesheet}"/>
+    <apex:stylesheet value="{!currentPage.stylesheet}"/>
+    <style>
+        <apex:outputText value="{!definition.style}" escape="false" rendered="{!!hasError}"/>
+        <apex:outputText value="{!currentPage.style}" escape="false" rendered="{!!hasError}"/>
+    </style>
+    <script language="JavaScript">
+        var id="{!id}";
+    </script>
+    <style>
+    .pbTitle {width:inherit;}
+    .pbHeader table{ margin-left: auto;  margin-right: auto;}
+    .pbBottomButtons table{ margin-left: auto;  margin-right: auto;}
+    .secondaryPalette {border-top:4px solid #66CC00;}
+    .pageButton {background-color:#66CC00;color:#000000;}
+    .questionButton{background-color:#66CC00;color:#000000;}
+    </style>
+</apex:define>
+
+<apex:define name="body">
+    <apex:outputPanel styleClass="mainPageDiv" layout="block" rendered="{!hasError}" styleClass="mainPageDiv">
+        <p>{!error}</p>
+    </apex:outputPanel>
+
+    <apex:outputPanel id="pagePanel" layout="block" rendered="{!!hasError}">
+        <apex:outputPanel styleClass="formTitleBlock" layout="block">
+            <apex:outputPanel styleClass="formTitle" layout="block">
+                <apex:outputText value="{!definition.title}" escape="false" />
+            </apex:outputPanel>
+            <apex:outputPanel styleClass="formSubTitle" layout="block">
+                <apex:outputText value="{!definition.subTitle}" escape="false" />
+            </apex:outputPanel>
+        </apex:outputPanel>
+                
+        <apex:outputPanel styleClass="completed" layout="block" rendered="{!hasCompleted}">
+            <apex:outputText value="{!completed}" escape="false" />
+        </apex:outputPanel>
+
+        <apex:outputPanel rendered="{!!hasCompleted}">
+            <apex:outputPanel styleClass="formPreText" layout="block">
+                <apex:outputText value="{!definition.preText}" escape="false" />
+            </apex:outputPanel>
+            <apex:form rendered="{!hasPage}" onSubmit="doFormulas(this);">
+                <apex:outputPanel layout="none" rendered="{!hasTabs}">
+                    <div class="tabPanel"><div class="tabBlock">
+                        <apex:repeat value="{!tabs}" var="tab">
+                            <apex:commandLink styleClass="{!if(tab.disabled,'disabled','')} {!if(currentTab.prompt==tab.prompt,'current','')}" action="{!tab.doAction}" value="{!tab.prompt}" />
+                        </apex:repeat>
+                    </div></div>
+                </apex:outputPanel>
+                <apex:pageBlock title="{!currentPage.buttonText}" mode="edit">
+                    <apex:pageBlockButtons location="{!if(hasMoreThanOnePage,'both','bottom')}">
+                        <apex:repeat value="{!buttons}" var="button">
+                            <apex:commandButton styleClass="pageButton{!if(button.disabled,'Disabled','')}" action="{!button.doAction}" image="{!button.image}" value="{!button.prompt}" title="{!button.tip}" disabled="{!button.disabled}" onClick="{!if(button.warning!='',substitute('return confirm(\''+button.warning+'\');','\\',''),'')}" rendered="{!button.action!='print'}"/>
+                            <apex:commandButton styleClass="pageButton{!if(button.disabled,'Disabled','')}" action="{!button.doAction}" image="{!button.image}" value="{!button.prompt}" title="{!button.tip}" disabled="{!button.disabled}" rendered="{!button.action=='print'}" onComplete="openPDF('{!id}');"/>
+                        </apex:repeat>
+                    </apex:pageBlockButtons>
+ 
+                    <apex:outputPanel styleClass="pageTitle" layout="block">
+                        <apex:outputText value="{!currentPage.title}" escape="false" />
+                    </apex:outputPanel>
+                    <apex:outputPanel styleClass="pageSubTitle" layout="block">
+                        <apex:outputText value="{!currentPage.subTitle}" escape="false" />
+                    </apex:outputPanel>
+ 
+                    <apex:outputPanel styleClass="message" layout="block" rendered="{!hasMessage}">
+                        <apex:outputText value="{!message}" escape="false" />
+                    </apex:outputPanel>
+                    <apex:outputPanel styleClass="pagePreText" layout="block">
+                        <apex:outputText value="{!currentPage.preText}" escape="false" />
+                    </apex:outputPanel>
+                    <table class="questionTable">
+                        <apex:repeat var="fquestionLine" value="{!QuestionLines}">
+                            <tr>
+                                <td id="questionTitle{!fquestionLine.definition.id}" class="questionTitle" colspan="2"><apex:outputText value="{!fquestionLine.definition.title}" escape="false" /></td>
+                            </tr>
+                            <tr>
+                                <td id="questionSubTitle{!fquestionLine.definition.id}" class="questionSubTitle" colspan="2"><apex:outputText value="{!fquestionLine.definition.subTitle}" escape="false" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="questionPreText{!fquestionLine.definition.id}" class="questionPreText"><apex:outputText value="{!fquestionLine.definition.preText}" escape="false" /></td>
+                            </tr>
+                            <tr id="questionLine{!fquestionLine.definition.id}" class="questionLine">
+                                <td id="questionPrompt{!fquestionLine.definition.id}" class="questionPrompt{!if(fquestionLine.required,'Required','')}">{!fquestionLine.definition.prompt}</td>
+                                <td id="questionResponse{!fquestionLine.definition.id}" class="questionResponse{!if(fquestionLine.required,'Required','')}"><apex:outputText value="{!fquestionLine.definition.preUnit}" escape="false" />
+                                    <apex:outputText value="[File Uploaded]" rendered="{!fquestionLine.definition.isFile && fquestionLine.hasFile}" />
+                                    <c:FormQuestion definition="{!fquestionLine.definition}" data="{!fquestionLine.dataItem}" dualData="{!fquestionLine.dualDataItem}" file="{!fquestionLine.file}" filename="{!fquestionLine.filename}" contentType="{!fquestionLine.contentType}"/>
+                                        <apex:repeat value="{!fquestionLine.buttons}" var="button">
+                                            <div id="questionButtonItem{!button.id}" styleClass="questionButtonItem">
+                                                <apex:commandButton styleClass="questionButton{!if(button.disabled,'Disabled','')}" action="{!button.doAction}" image="{!button.image}" value="{!button.prompt}" title="{!button.tip}" disabled="{!button.disabled}"/>
+                                            </div>
+                                        </apex:repeat>
+                                    <apex:outputText value="{!fquestionLine.definition.postUnit}" escape="false" />
+                                    <c:FormHelpPopup name="{!fquestionLine.definition.id}" help="{!fquestionLine.definition.help}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="questionPostText{!fquestionLine.definition.id}" class="questionPostText"><apex:outputText value="{!fquestionLine.definition.postText}" escape="false" /></td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                    <apex:outputPanel styleClass="pagePostText" layout="block">
+                        <apex:outputText value="{!currentPage.postText}" escape="false" />
+                    </apex:outputPanel>
+                </apex:pageBlock>
+                <c:FormFormula value="{!formulaLines}"/>
+            </apex:form>
+        </apex:outputPanel>
+        <apex:outputPanel styleClass="formPostText" layout="block">
+            <apex:outputText value="{!definition.postText}" escape="false" />
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+</apex:define>
+
+<apex:define name="footer">
+</apex:define>
+
+</apex:composition>
+
+</apex:page>

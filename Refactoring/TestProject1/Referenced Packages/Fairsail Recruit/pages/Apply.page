@@ -1,0 +1,92 @@
+<apex:page controller="fRecruit.ApplyJobController" cache="false" action="{!gotoRegister}" showHeader="false" sidebar="false" standardStylesheets="true" language="{!languageSetter.locale}">
+
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+	<style>
+		input[type="text"] {
+			width:300px;
+		}
+		textarea {
+			width:400px;
+		}
+		.bPageBlock .detailList .data2Col {
+			width:auto;
+		}
+		.bPageBlock .detailList .labelCol {
+			width:auto;
+		}
+	</style>
+	<c:IfHasNotice locale="{!languageSetter.locale}"  page="Apply" location="Right">
+		<style>
+			.bodyColumn { width:600px; }
+			.rightColumn { display:table-cell; width:200px; padding-left:10px;}
+		</style>
+	</c:IfHasNotice>
+</apex:define>
+
+<apex:define name="header">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="Apply" location="Header"/>
+</apex:define>
+
+<apex:define name="left">
+	<c:ApplyMenu locale="{!languageSetter.locale}" uniqueId="{!uid}" portal="{!portal}"/>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="Apply" location="Left" />
+</apex:define>
+
+<apex:define name="right">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="Apply" location="Right" />
+</apex:define>
+
+<apex:define name="body">
+	<apex:sectionHeader title="{!$Label.frecruit__Apply_Portal+CandidateName}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Apply_Apply}"/>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="Apply" location="Top" />
+	<p>{!$Label.frecruit__Apply_Apply_Top}</p>
+	<apex:pageMessages />
+	
+	<apex:form >
+				<apex:pageBlock rendered="{!hasCandidate && canApply}">
+					<apex:pageBlockButtons location="bottom">
+						<apex:commandButton action="{!apply}" value="{!$Label.frecruit__Apply_Submit_Application_Button}" disabled="{!hasApplied}"/>
+					</apex:pageBlockButtons>
+					<apex:pageBlockSection title="{!$Label.frecruit__Apply_Apply_Job}" columns="1" rendered="{!($ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Apply_Job.size>0 || $Setup.Apply_Portal__c.Use_Resume_On_Apply__c)}">
+							<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Apply_Job}" var="f">
+								<apex:pageBlockSectionItem labelStyle="font-size: 90%;width:40%;" dataStyle="vertical-align: bottom;width:60%;">
+									<c:FieldLabelHelp field="{!$ObjectType.fRecruit__Application__c.Fields[f]}"/>
+			                    	<apex:inputField value="{!application[f]}" required="{!f.required}"/>
+			                    </apex:pageBlockSectionItem>
+			                </apex:repeat>
+						<apex:pageBlockSectionItem rendered="{!$Setup.Apply_Portal__c.Use_Resume_On_Apply__c}">
+							<apex:outputLabel value="{!$Label.frecruit__Apply_Attach_Resume}"/>
+							<apex:outputPanel layout="block" styleClass="{!if(requireResume,'requiredInput','')}">
+		                    	<apex:outputPanel layout="block" styleClass="requiredBlock" rendered="{!requireResume}"></apex:outputPanel>
+								<apex:inputFile value="{!fileContent}" filename="{!fileName}" contentType="{!contentType}"/>
+							</apex:outputPanel>
+				        </apex:pageBlockSectionItem>
+			        </apex:pageBlockSection>
+					<apex:pageBlockSection title="{!$Label.frecruit__Apply_Apply_Qualification}" columns="1" rendered="{!(qualifiers.size>0)}">
+							<apex:repeat value="{!qualifiers}" var="qualifier">
+								<apex:pageBlockSectionItem labelStyle="font-size: 90%;width:40%;" dataStyle="vertical-align: bottom;width:60%;">
+									<apex:outputlabel styleClass="qualificationQuestion" value="{!qualifier.prompt}"/>
+				                    <apex:outputPanel layout="block" styleClass="requiredInput">
+				                    	<apex:outputPanel layout="block" styleClass="requiredBlock"></apex:outputPanel>
+										<apex:selectList value="{!qualifier.responseId}" size="1" >
+											<apex:selectOptions value="{!qualifier.selectOptions}"/>
+										</apex:selectList>
+										<apex:outputText style="color:red;" value=" - {!$Label.frecruit__Apply_Qualification_Not_Met}" rendered="{!qualifier.reject}"/>
+									</apex:outputPanel>
+								</apex:pageBlockSectionItem>
+			                </apex:repeat>
+			        </apex:pageBlockSection>
+				</apex:pageBlock>
+	</apex:form>
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="Apply" location="Bottom" />
+</apex:define>
+
+<apex:define name="footer">
+	<c:Notice locale="{!languageSetter.locale}" candidatePortal="{!portal}" page="Apply" location="Footer" />
+</apex:define>
+
+</apex:composition>
+
+</apex:page>

@@ -1,0 +1,17 @@
+<apex:page standardController="fHCM2__Team_Member__c" recordSetVar="apps"  extensions="fHCM2.EmailSyncTeamMemberExtensionController">
+    <apex:sectionHeader title="{!$ObjectType.fHCM2__Team_Member__c.label}" subtitle="Syncronize emails" help="/apex/Help?obj=fHCM2__Team_Member__c" />
+    <apex:form >
+        <apex:outputPanel rendered="{!allowReminder}">
+            Members that have different e-mails set for their SalesForce profiles and FairSail HCM Team Member profile:<br/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!!allowReminder}">
+            The following Team Members had their HCM email addresses copied into their SalesForce Profiles:<br/>
+        </apex:outputPanel>
+        <p>
+            <apex:repeat value="{!teamMembers}" var="teamMember">
+                {!teamMember.fHCM2__First_Name__c} {!teamMember.fHCM2__Surname__c}<br/>
+            </apex:repeat>
+        </p>
+        <apex:commandButton action="{!remind}" value="Syncronize" rendered="{!allowReminder}"/>
+    </apex:form>
+</apex:page>

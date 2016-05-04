@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A rule defining how a type of absence is totaled and the alerts and errors if taking too much.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Absence_Accrual_Pattern__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Absence Accrual Pattern</label>
+        <referenceTo>Absence_Accrual_Pattern__c</referenceTo>
+        <relationshipLabel>Absence Accrual Rules</relationshipLabel>
+        <relationshipName>Absence_Accrual_Rules</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Accrue_During_Paid_Absence__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Processing of accrual during a paid absence.  The process is evaluated for each accrual period overlapped by the absence.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Processing of accrual during a paid absence.  The process is evaluated for each accrual period overlapped by the absence.</inlineHelpText>
+        <label>Accrue During Paid Absence</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Full</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pro Rata</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Accrue_During_Unpaid_Absence__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Processing of accrual during an unpaid absence. The process is evaluated for each accrual period overlapped by the absence.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Processing of accrual during an unpaid absence. The process is evaluated for each accrual period overlapped by the absence.</inlineHelpText>
+        <label>Accrue During Unpaid Absence</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Full</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pro Rata</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Fieldset__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Set of fields requested when entering Absence of this Reason.  Use the API name for the fieldset.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set of fields requested when entering Absence of this Reason.  Use the API name for the fieldset.</inlineHelpText>
+        <label>Additional Fieldset</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Adjust_Base_For_FTE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Multiply the base by the FTE for the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Multiply the base by the FTE for the team member</inlineHelpText>
+        <label>Adjust Base For FTE</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Adjust_Carry_Over_For_FTE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Multiply carry over by the FTE for the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Multiply carry over by the FTE for the team member</inlineHelpText>
+        <label>Adjust Carry Over For FTE</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Adjust_Limits_For_FTE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Multiply each of the limits by the FTE for the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Multiply each of the limits by the FTE for the team member</inlineHelpText>
+        <label>Adjust Limits For FTE</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Adjust_Maximum_Accrual_For_FTE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Multiply minimum accrual and year end by the FTE for the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Multiply minimum accrual and year end by the FTE for the team member</inlineHelpText>
+        <label>Adjust Minimum Accrual For FTE</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Adjust_Rate_For_FTE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Multiply the rate by the FTE for the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Multiply the rate by the FTE for the team member</inlineHelpText>
+        <label>Adjust Rate For FTE</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Alert_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Alert Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Base_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Set a base date that the accrual periods are synchronized with.  Used primarily for Week or Biweek rate periods to align to a payroll date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set a base date that the accrual periods are synchronized with.  Used primarily for Week or Biweek rate periods to align to a payroll date.</inlineHelpText>
+        <label>Base Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Block_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Block Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Carry_Over_Months__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months past the reset date within which the carry over amount must be used.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months past the reset date within which the carry over amount must be used.</inlineHelpText>
+        <label>Carry Over Months</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Default reason for absence or vacation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default reason for absence or vacation</inlineHelpText>
+        <label>Default</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>End_Date_Provisional_Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Default value for End Date Provisional field when creating a new Absence for this reason</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default value for End Date Provisional field when creating a new Absence for this reason</inlineHelpText>
+        <label>End Date Provisional Default</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>End_Part_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <description>What rate is applied if there is a part period at the end of the accrual period being calculated.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What rate is applied if there is a part period at the end of the accrual period being calculated.</inlineHelpText>
+        <label>End Part Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Full</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pro Rata</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Evidence_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Evidence Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Front_Load__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is the rate added at the start or end of the rate period.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is the rate added at the start or end of the rate period.</inlineHelpText>
+        <label>Front Load</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Paid__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is this absence reason paid?  Will set the absence to paid.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this absence reason paid?  Will set the absence to paid.</inlineHelpText>
+        <label>Is Paid</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Parental_Leave__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This absence reason is a type of parental leave e.g.  Maternity, Adoption, Paternity (specifically for birth of child).  Use leave limits.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This absence reason is a type of parental leave e.g.  Maternity, Adoption, Paternity (specifically for birth of child). Use leave limits.</inlineHelpText>
+        <label>Is Parental Leave</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Private_Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Default value for Is Private for this type of absence.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default value for Is Private for this type of absence.</inlineHelpText>
+        <label>Is Private Default</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Length_Limit_In_Calendar_Days__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, the length limits for an absence are expressed in calendar days.  If unchecked then the length limit is in the accrual units.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the length limits for an absence are expressed in calendar days.  If unchecked then the length limit is in the accrual units.</inlineHelpText>
+        <label>Length Limit In Calendar Days</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Parental_Leave_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Message if any of the parental leave limits are breached.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Message if any of the parental leave limits are breached.</inlineHelpText>
+        <label>Parental Leave Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rate_Per__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The frequency of time that the given rate is added to the accrued total.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The frequency of time that the given rate is added to the accrued total.</inlineHelpText>
+        <label>Rate Per</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Accrued</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweek</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Absence reason this rule applies to.  All values must also be in the picklist for Reason in the Absence object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Absence reason this rule applies to.  All values must also be in the picklist for Reason in the Absence object.</inlineHelpText>
+        <label>Reason</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reset_Day__c</fullName>
+        <deprecated>false</deprecated>
+        <description>On the Reset Day and Month each year the accruals are reset to the Base Rate.  Accruals before that date are added to carry over.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>On the Reset Day and Month each year the accruals are reset to the Base Rate.  Accruals before that date are added to carry over.</inlineHelpText>
+        <label>Reset Day</label>
+        <picklist>
+            <controllingField>Reset_On_Service_Anniversary__c</controllingField>
+            <picklistValues>
+                <fullName>1</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>19</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>21</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>22</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>23</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>24</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>25</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>26</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>27</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>28</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>29</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>30</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>31</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reset_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <description>On the Reset Day and Month each year the accruals are reset to the Base Rate.  Accruals before that date are added to carry over.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>On the Reset Day and Month each year the accruals are reset to the Base Rate.  Accruals before that date are added to carry over.</inlineHelpText>
+        <label>Reset Month</label>
+        <picklist>
+            <controllingField>Reset_On_Service_Anniversary__c</controllingField>
+            <picklistValues>
+                <fullName>Jan</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feb</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mar</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jun</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jul</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aug</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sep</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oct</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nov</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dec</fullName>
+                <controllingFieldValues>unchecked</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reset_On_Service_Anniversary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Reset accruals on the anniversary of the start date, or continuous service date if entered.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Reset accruals on the anniversary of the start date, or continuous service date if entered.</inlineHelpText>
+        <label>Reset On Service Anniversary</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Rolling_Months__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of months back to look for the imposed limits.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months back to look for the imposed limits.</inlineHelpText>
+        <label>Rolling Months</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rounding_Decimal_Places__c</fullName>
+        <defaultValue>0.5</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Nearest fraction to round to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>1.0 / fraction should equal whole number, e.g. 0.1, 0.2, 0.25, 0.5, 1.0.</inlineHelpText>
+        <label>Rounding to Nearest</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rounding_Mode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>How to round the vacation accruals</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How to round the vacation accruals</inlineHelpText>
+        <label>Rounding Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Half Up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Half Down</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ceiling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Floor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Seniority_Change_On_Reset__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Only change seniority rules on the reset date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only change seniority rules on the reset date</inlineHelpText>
+        <label>Seniority Change On Reset</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Accrual_Balance__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggles display of accrual log</description>
+        <externalId>false</externalId>
+        <label>Show Accrual Log</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Accrued_Balance__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggle display of field in WX</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle display of field in WX</inlineHelpText>
+        <label>Show Accrued Balance</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Accrued_Total__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggle display of field in WX</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle display of field in WX</inlineHelpText>
+        <label>Show Accrued Total</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Calculated_Days__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Control whether to show the calculated number of days in an absence request</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Control whether to show the calculated number of days in an absence request</inlineHelpText>
+        <label>Show Calculated Days</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Carry_Over__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggle display of field in WX</description>
+        <externalId>false</externalId>
+        <label>Show Carry Over</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Rate_Per_Year_Pro_Rata__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggle display of field in WX</description>
+        <externalId>false</externalId>
+        <label>Show Rate Per Year Pro Rata</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Rate_Per_Year__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggle display of field in WX</description>
+        <externalId>false</externalId>
+        <label>Show Rate Per Year</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Time_In_Lieu__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Toggle display of field in WX</description>
+        <externalId>false</externalId>
+        <label>Show Time In Lieu</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Year_End_Balance__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Show Year End Balance</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Part_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <description>What rate is applied if there is a part period at the start of the accrual period being calculated.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What rate is applied if there is a part period at the start of the accrual period being calculated.</inlineHelpText>
+        <label>Start Part Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Full</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pro Rata</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Absence type this rule applies to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Absence type this rule applies to</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Absence</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vacation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_Accrual_From_Previous_Year__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Accrue absence during one year for use during the following year (after the next Reset Date)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Accrue absence during one year for use during the following year (after the next Reset Date)</inlineHelpText>
+        <label>Use Accrual From Previous Year</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Rounding__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Turn on rounding for displaying balances</description>
+        <externalId>false</externalId>
+        <label>Use Rounding</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zero_Negative_Accrual_On_Reset__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If the accrual is negative on a Reset, set the Accrual to zero.  If not checked, maintain the negative balance.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If the accrual is negative on a Reset, set the Accrual to zero.  If not checked, maintain the negative balance.</inlineHelpText>
+        <label>Zero Negative Accrual On Reset</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Absence Accrual Rule</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Absence Accrual Rule Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Absence Accrual Rules</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Absence_Accrual_Pattern__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Reason__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

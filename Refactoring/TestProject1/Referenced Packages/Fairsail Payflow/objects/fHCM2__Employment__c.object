@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <fieldSets>
+        <fullName>Benefit_Enrollment_Request</fullName>
+        <description>Fields requested from team member when requesting benefit enrollment due to life event.</description>
+        <displayedFields>
+            <field>fHCM2__Benefit_Enrollment_Reason__c</field>
+            <isFieldManaged>true</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>fHCM2__Benefit_Enrollment_Effective_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Benefit Enrollment Request</label>
+    </fieldSets>
+    <fields>
+        <fullName>Benefit_Set__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Set of benefits that this team member is entitled to enroll for.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set of benefits that this team member is entitled to enroll for.</inlineHelpText>
+        <label>Benefit Set</label>
+        <referenceTo>Benefit_Set__c</referenceTo>
+        <relationshipLabel>Employment History</relationshipLabel>
+        <relationshipName>Employment_History</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Download_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>If( Last_Batch__r.Download_Period_Start_Date__c &gt; fHCM2__End_Date__c, &apos;Delete&apos;,
+
+If( Last_Batch__r.Download_Period_End_Date__c &gt;= fHCM2__End_Date__c, &apos;Terminate&apos;,
+
+If( Last_Batch__r.Download_Period_Start_Date__c &lt;= fHCM2__Start_Date__c &amp;&amp; Last_Batch__r.Download_Period_End_Date__c &gt;= fHCM2__Start_Date__c, &apos;New&apos;,
+
+&apos;Current&apos;
+
+)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Download Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Batch_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Batch Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Batch</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not In Batch</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Last_Batch__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Batch</label>
+        <referenceTo>Payroll_Batch__c</referenceTo>
+        <relationshipLabel>Employment History</relationshipLabel>
+        <relationshipName>Employment_History</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Payroll_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payroll Service</label>
+        <referenceTo>Payroll_Service__c</referenceTo>
+        <relationshipLabel>Employment History</relationshipLabel>
+        <relationshipName>Employment_History</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <webLinks>
+        <fullName>Edit_Benefits</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Benefit Admin</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>document.location=&apos;/apex/fPay__BenefitAdmin?teamMemberId={!fHCM2__Employment__c.fHCM2__Team_Member__c}&apos;;</url>
+    </webLinks>
+</CustomObject>

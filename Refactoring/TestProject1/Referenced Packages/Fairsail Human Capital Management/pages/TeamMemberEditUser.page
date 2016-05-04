@@ -1,0 +1,41 @@
+<apex:page standardController="fHCM2__Team_Member__c" extensions="fHCM2.TeamMemberUserControllerExtension" standardStylesheets="true" showHeader="true" sidebar="true" title="Team Member">
+    <apex:sectionHeader title="{!$Label.fhcm2__Team_Member}" subtitle="{!fHCM2__Team_Member__c.fHCM2__Name_Full__c}"/>
+
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="{!$Label.fhcm2__Team_Member_User}" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Force_com_User_Details}" columns="1">
+            <apex:outputPanel layout="none" rendered="{!!hasUser}"><b>{!$Label.fhcm2__Team_Member_Create_User_Message}</b></apex:outputPanel>
+            
+            <apex:outputPanel ></apex:outputPanel>
+            
+                <apex:outputPanel layout="none" rendered="{!!hasUser}"><b>Either:</b> link to an existing user</apex:outputPanel>
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__User__c}" />
+                
+                <apex:outputPanel layout="none" rendered="{!fHCM2__Team_Member__c.fHCM2__User__c==null}"><b>Or:</b> enter details to create a new user (all below plus email address)</apex:outputPanel>
+                <apex:inputField style="width:400px" value="{!fHCM2__Team_Member__c.fHCM2__Username__c}" rendered="{!hasUser}"/>
+                <apex:pageBlockSectionItem rendered="{!fHCM2__Team_Member__c.fHCM2__User__c==null}">
+                    <apex:outputLabel value="User Profile" for="profile" />
+                    <apex:selectList value="{!fHCM2__Team_Member__c.fHCM2__User_Profile__c}" id="profile" size="1">
+                        <apex:selectOptions value="{!currentProfiles}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!fHCM2__Team_Member__c.fHCM2__Salesforce_Access__c}" />
+          
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Single_Sign_On_User_Details}" columns="1" rendered="{!hasFederationId}">
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.fhcm2__Federation_Id}" />
+                    <apex:inputText value="{!fHCM2__Team_Member__c.fHCM2__Federation_Id__c}"/>
+                 </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

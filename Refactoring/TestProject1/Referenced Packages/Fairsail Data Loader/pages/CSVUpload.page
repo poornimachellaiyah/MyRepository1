@@ -1,0 +1,56 @@
+<apex:page controller="fDL.CSVUploadController">
+	<apex:sectionHeader title="Team Member, Employment and Salary Combined Upload" />
+
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="File">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!upload}" value="Upload" />
+			</apex:pageBlockButtons>
+			<table cellpadding="6" align="center">
+				<tr>
+					<td align="right"><apex:outputLabel value="File" /></td>
+					<td><apex:inputFile value="{!document.body}"
+						filename="{!document.name}" /></td>
+				</tr>
+				<tr>
+					<td align="right"><apex:outputLabel value="Import Type" /></td>
+					<td><apex:selectList size="1" value="{!importType}">
+						<apex:selectOptions value="{!importTypeOptions}" />
+					</apex:selectList></td>
+				</tr>
+				<tr>
+					<td align="right"><apex:outputLabel value="Delimiter" /></td>
+					<td><apex:selectList size="1" value="{!delimeter}">
+						<apex:selectOptions value="{!delimeterOptions}" />
+					</apex:selectList></td>
+				</tr>
+				<tr>
+					<td align="right"><apex:outputLabel value="Date Format" /></td>
+					<td><apex:selectList size="1" value="{!dateType}">
+						<apex:selectOptions value="{!dateTypeOptions}" />
+					</apex:selectList></td>
+				</tr>
+				<tr>
+					<td align="right"><apex:outputLabel value="Check Only" /></td>
+					<td><apex:inputCheckbox value="{!checkOnly}" /></td>
+				</tr>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+	<apex:form >
+		<apex:pageBlock title="{!document.name}" rendered="{!numRows > 0}">
+			<apex:pageBlockTable value="{!headers}" var="header">
+				<apex:column value="{!header}" headerValue="Field" />
+				<!--  <apex:column headerValue="Ignore Errors" >
+					<apex:inputCheckbox value="{!ignores[header]}" />
+				</apex:column>-->
+			</apex:pageBlockTable>
+			<apex:outputText value="Number of rows: {!numRows}" />
+			<apex:commandButton action="{!import}" value="Import"
+				rendered="{!displayButton}" />
+			<apex:commandButton action="{!clean}" value="Abort"
+				rendered="{!displayButton}" />
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

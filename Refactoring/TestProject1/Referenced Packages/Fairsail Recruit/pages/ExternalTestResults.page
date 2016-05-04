@@ -1,0 +1,9 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="fRecruit.ExternalTestResultController" action="{!init}">
+<apex:pageMessages />
+<apex:outputpanel rendered="{!hasSaved}">
+<p>Successful save</p>
+</apex:outputpanel>
+<apex:outputpanel rendered="{!!hasSaved}">
+<p>Invalid parameters</p>
+</apex:outputpanel>
+</apex:page>

@@ -1,0 +1,25 @@
+<apex:page controller="fHCM2.EmploymentTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Members">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+	            <apex:pageBlock title="{!$Label['fHCM2__Team_Member_'+blankvalue($CurrentPage.parameters.view,'EmploymentDetails')]}" rendered="{!viewer.departmentPolicy.fHCM2__Employment_Is_Active__c==true}">
+	            	<c:Notice viewer="{!viewer}" page="EmploymentTeam" location="Header"  />
+	            	<c:TeamMemberTreeTable viewer="{!viewer}" fields="{!FieldsetTeamMemberTable}" page="/apex/{!links.Employment}" rendered="{!viewer.isTeamMemberOrManager}"/>
+					<c:Notice viewer="{!viewer}" page="EmploymentTeam" location="Footer"  />
+	            </apex:pageBlock>
+
+        </apex:define>
+   
+    </apex:composition>
+</apex:page>

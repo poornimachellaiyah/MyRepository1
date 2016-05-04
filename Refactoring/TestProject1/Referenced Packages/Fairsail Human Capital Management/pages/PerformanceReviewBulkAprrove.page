@@ -1,0 +1,27 @@
+<apex:page standardController="fHCM2__Team_Member__c" recordSetVar="members" extensions="fHCM2.PerformanceReviewBulkApproveController">
+            Active Performance Reviews for:
+            <ul>
+            <apex:repeat value="{!tms}" var="member">
+                <li>{!member.name}</li>
+            </apex:repeat>
+            </ul>
+            <apex:outputPanel layout="none" rendered="{!!approved && !rejected}">
+            <apex:form >
+                <apex:commandButton action="{!bulkApprove}" value="Approve All"/>&nbsp;or&nbsp; 
+                <apex:commandButton action="{!bulkReject}" value="Reject All"/>
+            </apex:form>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!approved || rejected}">
+                <apex:outputPanel layout="none" rendered="{!approved}">
+                    Performance Reviews approved for:
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!rejected}">
+                    Performance Reviews rejected for:
+                </apex:outputPanel>
+                <ul>
+                <apex:repeat value="{!Names}" var="name">
+                    <li>{!name}</li>
+                </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,31 @@
+<apex:page standardController="Job__c" recordSetVar="joblist" extensions="Job_SignOffOnMassController" action="{!signoffrecords}">
+<apex:form >
+
+    
+        <apex:outputpanel rendered="{!NOT(IsRecordSelected)}">
+            <apex:pagemessage severity="warning" title="Please select records to sign off." strength="4"/>  
+            <apex:outputlink value="{!retUrl}" style="margin-left:20px;">Click here</apex:outputlink> to return to previous page.
+        </apex:outputpanel>
+  
+        <apex:outputpanel rendered="{!IsRecordAlreadySignOff}">
+            <apex:pagemessage severity="warning" title="Job records listed below have already been signed off. Click on [Confirm] if you wish to sign off the records again or click on [Cancel] to go back to the previous page. All other selected records have been signed off." strength="4"/>  
+            <apex:pageblock >
+                <apex:pageblockbuttons location="top">
+                    
+                    <apex:commandbutton value="Confirm" action="{!UpdateAlreadySignOffRecords}"/>
+                    <apex:commandbutton value="Cancel" action="{!BackToListView}"/>
+                
+                </apex:pageblockbuttons>
+                <apex:pageblocktable value="{!AlreadySignOffJobs}" var="job">
+                    <apex:column headervalue="Job">
+                        <apex:outputfield value="{!job.name}"/>
+                    </apex:column>
+                    <apex:column headervalue="Sign off Date">
+                        <apex:outputfield value="{!job.Demand_Sign_Off_Date__c}"/>
+                    </apex:column>
+                </apex:pageblocktable>
+            </apex:pageblock>
+        </apex:outputpanel>
+    
+</apex:form>
+</apex:page>

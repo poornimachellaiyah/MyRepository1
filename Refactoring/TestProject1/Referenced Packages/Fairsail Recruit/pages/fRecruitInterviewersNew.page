@@ -1,0 +1,33 @@
+<apex:page controller="fRecruit.NewInterviewersController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Interviewer__c.label}" subtitle="New" help="http://recruit.help.fairsail.com/topics/EditInterviewer.html"/>
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fRecruit__Interviewer__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+	
+			<apex:pageBlockSection title="Application" columns="1">
+				<apex:outputField value="{!application.fRecruit__Candidate__c}"/>
+				<apex:outputField value="{!application.fRecruit__Vacancy__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Selection Stage"/>
+	                <apex:selectList size="1" required="true" value="{!selectionStage}">
+	                    <apex:selectOptions value="{!selectionStages}"/>
+	                </apex:selectList>
+                </apex:pageBlockSectionItem>
+             </apex:pageBlockSection>
+
+			<apex:pageBlockTable value="{!interviewers}" var="row">
+				<apex:column headerValue="Interviewer">
+					<apex:inputField value="{!row.fRecruit__User__c}"/>
+				</apex:column>
+				<apex:column headerValue="Date and Time">
+					<apex:inputField value="{!row.fRecruit__Interview_Date__c}"/>
+				</apex:column>
+			</apex:pageBlockTable>
+			<apex:commandButton action="{!add}" value="Add"/>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

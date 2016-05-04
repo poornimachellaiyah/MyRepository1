@@ -1,0 +1,89 @@
+<apex:page controller="fHCM2.VacationTeamController" renderAs="{!blankvalue($CurrentPage.parameters.renderAs,'pdf')}" standardStylesheets="true" showHeader="false" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__fairsailTemplatePDF">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+           <style>
+				@page {
+				    @top-left {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:11pt;
+				        content: "{!$Label.fhcm2__Process_Vacations}";
+				    }
+				    size : landscape;
+				}
+            </style>
+			<style>
+			    .pbBody td.calendarTableDay.weekend {
+			        background-color: #a0a0a0;
+			    }
+			    .pbBody td.calendarTableDay.holiday {
+			        background-color: #ff8080;
+			    }
+			    .pbBody td.calendarTableDay.even {
+			        background-color: #eeeeee;
+			    }
+			    .pbBody td.calendarTableDay.cell{
+			    	border-right: 1px solid #F0F0F0;
+			        height: 7px;
+			    }
+			    div.calendarMark {
+			        border: 1px solid white;
+			        margin: 1px;
+			        height: 4px;
+			        overflow: hidden;
+			    }
+			    div.calendarMark * {display: none;}
+			    .calendarTable {
+			    	width:100%;
+			    	border: 1px solid #c0c0c0;
+			    }
+			    .pbBody .calendarTableDay {
+			    	border-top: 1px solid #c0c0c0;
+			    }
+			    .pbBody .calendarTableTeamMember {
+			    	padding-right:20px;
+			    }
+			</style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Vacations}" mode="view">
+        
+            <apex:pageBlockSection title="Team Members" columns="1">
+            <apex:outputPanel >
+            <apex:repeat value="{!teamMembers}" var="teamMember">
+                <div style="display: inline-block;width:62px;">
+                	<c:PersonIcon name="{!teamMember.name}" page="{!links.AbsenceProfile}" value="{!teamMember.id}" picture="{!teamMember.pictureUrl}"/>
+                    <div><c:KeyBlock color="{!teamMemberColorMap[teamMember.id]}" width="62px"/></div>
+                </div>
+            </apex:repeat>
+			</apex:outputPanel>
+            </apex:pageBlockSection>
+            
+            <apex:variable var="monthcount" value="0"/>
+            <apex:repeat value="{!monthsLoop}" var="monthDate">
+            <apex:outputPanel layout="none" rendered="{!isblank(month) || month==value(monthcount)}">
+			<apex:outputPanel layout="block" style="page-break-before: always;"/>
+            <apex:pageBlockSection title="" columns="1">
+            <apex:outputPanel >
+	            <div><h1><c:outputDate dateValue="{!monthDate}" format="MMMM yyyy"/></h1></div>
+	            	<c:CalendarMonthComponent teamMembers="{!persons}" workDays="{!workDays}" links="{!links}" previews="{!absencePreviews}" specMonth="{!monthDate}"/>	            
+	        </apex:outputPanel>
+	        </apex:pageBlockSection>
+	        </apex:outputPanel>
+			<apex:variable var="monthcount" value="{!value(monthcount)+1}"/>
+            </apex:repeat>
+            
+            </apex:pageBlock>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

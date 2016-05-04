@@ -1,0 +1,113 @@
+<apex:page controller="fHCM2.ObjectiveTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.fHCM2__TreeTable, '/stylesheets/jquery.treeTable.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__TreeTable, '/javascripts/jquery.treeTable.min.js')}"/>
+		    <script language="javascript">
+		        jQuery.noConflict();
+				jQuery(document).ready(function(){
+					jQuery("#objectiveTree").treeTable({
+					  initialState: "expanded",
+					  indent: 13
+					});
+				});
+		    </script>
+		    <style>
+		    	.objectivetree td {
+					border-top: 1px solid black;
+		    	}
+		    	.objectivetree td td {
+					border-top: 1px solid #b0b0b0;
+		    	}
+		    	.objectivetree td tr:first-child td {
+					border-top: 0px;
+		    	}
+		    </style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+
+	        <apex:pageBlock title="Management" mode="view">
+	        <c:Notice viewer="{!viewer}" page="ObjectiveTree" location="Subheader"/>
+	        <apex:pageBlockSection title="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" columns="1">
+	        	<apex:repeat value="{!strategicObjectives}" var="item">
+	        		<apex:outputPanel layout="block" rendered="{!item.label!=tree.strategicObjective}" style="border-bottom: solid 1px #b0b0b0;">
+	        			<apex:outputLink value="/apex/{!links.ObjectiveTree}?id={!viewer.teamMember.id}&strategic={!urlencode(item.label)}">{!item.label}</apex:outputLink>
+	        		</apex:outputPanel>
+	        	</apex:repeat>
+       			<apex:outputLink value="/apex/{!links.ObjectiveTree}?id={!viewer.teamMember.id}">{!$Label.fhcm2__Global_All}</apex:outputLink>
+	        </apex:pageBlockSection>
+	        
+	        <apex:pageBlockSection title="{!$Label.fhcm2__Global_Managers}" columns="1">
+		        <apex:repeat value="{!viewer.managerChain}" var="manager">
+	
+		            <apex:outputPanel layout="block" style="margin:0px 0px 0px 60px;padding: 3px 3px 3px 3px; width:54px; height:91px; clear:none; text-align: center; line-height: 75%;">
+		            	<c:TeamMemberPopup links="{!links}" person="{!manager.person}">
+		                <apex:outputLink value="/apex/{!links.ObjectiveTree}?id={!manager.Id}&strategic={!urlencode(tree.strategicObjective)}" target="_top" style="font-size: 80%;font-weight:bold;text-decoration: none;color: #0e52a1;text-align: center; overflow:hidden;">
+		                    <apex:image value="{!manager.PictureURL}" width="44" height="55" rendered="{!manager.PictureURL !=null}" style="display: block; margin-left: auto; margin-right: auto"/> {!manager.name}
+		                </apex:outputLink>
+		                </c:TeamMemberPopup>
+		            </apex:outputPanel>
+		            
+		            <apex:image rendered="{!manager.Id != viewer.teamMember.Id}" value="{!$Resource.fHCM2__FairsailIcon}/16x16/down.png" style="margin-left: 86px;"/>
+		        </apex:repeat>
+	        </apex:pageBlockSection>
+	        <c:Notice viewer="{!viewer}" page="ObjectiveTree" location="Subfooter"/>
+		    </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}: {!tree.strategicObjective}">
+				<c:Notice viewer="{!viewer}" page="ObjectiveTree" location="Header"/>
+                <p>&nbsp;</p>
+
+					<table id="objectiveTree" style="width:100%;" class="objectivetree">
+						<tr id="header">
+							<td style="vertical-align:top; padding-left:13px;">{!$ObjectType.Objective__c.Fields.Team_Member__c.label}</td>
+							<td style="vertical-align:top; width:470px;">
+                       			<table style="width:470px;">
+                       				<tr>
+										<td style="vertical-align:top; width:60px;text-align:center;">{!$ObjectType.Objective__c.Fields.Progress__c.label}</td>
+										<td style="vertical-align:top; width:250px;">{!$ObjectType.Objective__c.Fields.Name.label}</td>
+										<td style="vertical-align:top; width:160px;">{!$ObjectType.Objective__c.Fields.Action__c.label}</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+                        <apex:repeat value="{!tree.flatPacked}" var="node" rendered="{!tree.top.hasObjectives}">
+                        	<apex:outputPanel rendered="{!node.hasObjectives}">
+                        	<tr id="node-{!node.index}" class="{!if(isblank(node.manager),'','child-of-node-'+text(node.manager.index))}">
+                        		<td style="vertical-align:top; padding-left:13px;">
+					                <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 3px 3px 3px 3px; width:54px; height:91px; clear:none; text-align: center; line-height: 75%;">
+					                    <apex:outputLink value="/apex/{!links.ObjectiveProfile}?id={!node.teamMember.id}" target="_top" style="font-size: 80%;font-weight:bold;text-decoration: none;color: #0e52a1;text-align: center; overflow:hidden;">
+				                            <apex:image value="{!node.teamMember.pictureURL}" width="44" height="55" style="display: block; margin-left: auto; margin-right: auto"/> {!node.teamMember.name}
+					                    </apex:outputLink>
+					                </apex:outputPanel>
+                        		</td>
+                        		<td style="vertical-align:top; width:470px;">
+                        			<table style="width:470px;">
+	                                <apex:repeat value="{!node.objectives}" var="objective">
+	                                <tr>
+	                                	<td style="vertical-align:top; width:60px;text-align:center;"><c:TrafficLight status="{!objective.progressStatus}" rendered="{!viewer.isTeamMemberOrManager || node.isTeamMemberOrManager}"/></td>
+	                                	<td style="vertical-align:top; width:250px;"><apex:outputLink value="/apex/{!links.Objective}?id={!objective.id}">{!objective.name}</apex:outputLink></td>
+	                                	<td style="vertical-align:top; width:160px;"><apex:outputText style="color:red;text-weight:normal;" value="{!objective.action}" rendered="{!and(objective.hasAction,viewer.isTeamMemberOrManager || node.isTeamMemberOrManager)}"/></td>
+	                                </tr>
+    	                            </apex:repeat>
+                        			</table>
+                        		</td>
+                        	</tr>
+                        	</apex:outputPanel>
+						</apex:repeat>	
+					</table>
+					<c:Notice viewer="{!viewer}" page="ObjectiveTree" location="Footer"/>
+            </apex:pageBlock>
+        </apex:define>
+    </apex:composition>
+</apex:page>

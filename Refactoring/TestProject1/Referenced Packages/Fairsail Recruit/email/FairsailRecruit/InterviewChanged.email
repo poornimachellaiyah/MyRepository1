@@ -1,0 +1,22 @@
+{!nullvalue(Application__c.Candidate_Salutation__c,Application__c.Candidate_Name__c)}
+
+Application: {!Application__c.Vacancy__c}
+
+The details for your proposed interview have changed.  Please reconfirm them.
+
+Interviewer: {!Application__c.Interviewer__c}
+
+Interview location: {!Application__c.Interview_Location__c} 
+
+Start: {!Application__c.Interview_Date__c}.   
+
+Please let us know as soon as possible if you can attend by clicking on the link below and then choosing "Accept" or "Decline".  
+
+https://frecruit-developer-edition.na2.force.com/form/fRecruit__fRecruitInterviewResponse?id={!Application__c.Interview_EncodeId__c}
+
+Please let us know using the above link rather than emailing or phoning us.
+
+Sincerely,
+{!User.FullName}
+{!Organization.Name}
+{!User.Email}

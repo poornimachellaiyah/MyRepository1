@@ -1,0 +1,10 @@
+<apex:page standardController="fHCM2__HR_Request__c" recordSetVar="apps"  extensions="fHCM2.HRRequestExecute">
+    <apex:sectionHeader title="{!$ObjectType.fHCM2__HR_Request__c.label}" subtitle="Finalize HR Requests" help="/apex/Help?obj=fHCM2__HR_Request__c" />
+    <apex:form >
+        <p>
+            Commit the changes to Employments for {!size} HR Requests:
+        </p>
+        <apex:commandButton action="{!execute}" value="Finalize Changes" rendered="{!!done}"/>
+        <apex:outputText value="Done" rendered="{!done}"/>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,345 @@
+<apex:page standardController="fHCM2__Policy__c" extensions="fHCM2.PolicyFieldsetMapExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Policy">
+    <apex:sectionHeader title="{!$ObjectType.fHCM2__Policy__c.label}" subtitle="{!fHCM2__Policy__c.Name}" help="/apex/Help?obj=fHCM2__Policy__c" />
+    <apex:form >
+        <apex:pageBlock title="Policy Details" mode="view">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!edit}" value="{!$Label.fhcm2__Button_Edit}" immediate="true" />
+                <input value="{!$Label.Button_Clone}" class="btn" name="{!$Label.Button_Clone}" onclick="navigateToUrl('/apex/fHCM2__PolicyEdit?clone=1&id={!Policy__c.id}&retURL=%2F{!Policy__c.id}')" type="button" />
+                <apex:commandButton action="{!delete}" value="{!$Label.fhcm2__Button_Delete}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                <input type="button" value="Export" class="btn" onClick="openClickout('/apex/fHCM2__DataPacket?id={!Policy__c.Id}'); return false;" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.Name}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Policy_Group__c}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Action_Email_Pattern__c.label}" />
+                    <apex:outputPanel layout="block">
+                        <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Action_Email_Pattern__c}" />
+                        &nbsp;&nbsp;&nbsp;<apex:outputLink value="{!urlfor($Action.Action_Email_Pattern__c.New)}">[New]</apex:outputLink>
+                        &nbsp;&nbsp;&nbsp;<apex:outputLink value="/apex/fHCM2__DataPacketImport">[Import]</apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Process Dates" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Year_Start_Day__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Year_Start_Month__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Months_to_New_Year_Rollover__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$ObjectType.fHCM2__Team_Member__c.label}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Modify_Photo__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Employment_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Modify_Personal_Details__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Emergency_Contacts_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Modify_Emergency_Contacts__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Emergency_Contacts_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Emergency_Contacts_Team_Member_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Modify_Home_Address__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Dependants_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Dependants_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Dependants_Team_Member_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Passports_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Passports_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Passports_Team_Member_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Benefits_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Stock_Options_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_View_Personal_Details__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Gate_Primary_Team_Member_Fields__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Hours_Per_Week__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Salary_Plan}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Salary_Plan_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Salary_Increase_Effective_Date_Method__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Salary_Increase_Effective_Day__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Salary_Increase_Effective_Month__c}" />
+            </apex:pageBlockSection>
+            
+<!--             <apex:pageBlockSection title="{!$Label.Process_Bonus_Plan}" columns="1">
+                <apex:outputField value="{!Policy__c.Bonus_Plan_Is_Active__c}" />
+                <apex:outputField value="{!Policy__c.Bonus_Annual_Effective_Day__c}" />
+                <apex:outputField value="{!Policy__c.Bonus_Annual_Effective_Month__c}" />
+                <apex:outputField value="{!Policy__c.Bonus_Period__c}" />
+            </apex:pageBlockSection> -->
+            
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Forms}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Forms_Is_Active__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Manager_Notes}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Notes_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Edit_Manager_Notes__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Notes_Team_Member_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Notes_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Approve_Manager_Notes__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Objectives_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Objectives__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Objective_Review_Months__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Strategic_Objectives__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Chained_Objectives__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Collaborative_Objectives__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Objective_Weight__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Objective_Priority__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Objective_Bonus__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Objective_Milestones__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Objective_Achievement__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Objective_Privacy_Default__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Disable_Activate_Without_Confirm__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Targets}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Targets_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_View_Only_Targets__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Targets__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Target_Basis__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Target_Calculate_Actuals__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Job_Description}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Job_Description_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__New_Job_Description__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Permit_Job_Description_Changes__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Job_Description_Match_Grades__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Job_Description_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Authenticate_Job_Description_Approval__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Performance_Reviews_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Performance_Review_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__New_Performance_Review__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Create_Performance_Review_When_Due__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Self_Review_First__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Competency_Assessment_On_Reveal__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Objective_Review_On_Reveal__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Permit_Team_Member_Edit_After_Reveal__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Permit_Manager_Edit_After_Reveal__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Approval_For_Performance_Review__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Performance_Review_One_Up_Approves__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Disable_Self_Final_Comments__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Objectives_On_Sign__c}" />
+             </apex:pageBlockSection>
+             
+             <apex:pageBlockSection title="{!$Label.fhcm2__Process_Performance_Review_Not_used_in_WX}" columns="1">
+             <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Review_Rating__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Review_Strengths__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Review_Development_Needs__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Review_Action_Plan__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Review_Training__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Review_Career_Aspirations__c}" />
+             </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Recognition}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Recognition_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Recognition_Job_Profile__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Maximum_Recognition_Given_Per_Month__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Maximum_Recognition_Received_Per_Month__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Approval_For_Recognition__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Recognition_Is_Private__c}" />
+            </apex:pageBlockSection>
+                
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Metrics_Review}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Metrics_Reviews_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Metrics_Review_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__New_Metrics_Review__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Team_Member_Signs_Metrics_Review__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Show_Metrics_Area_Average__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Show_Metrics_Average__c}" />
+            </apex:pageBlockSection>
+                
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Succession_Plan}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Succession_Plans_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Succession_Repeat__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Talent_Plan}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Talent_Plans_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Talent_Plan_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Talent_Assessments_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Talent_Assessment_Range__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Skills}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Skills_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Skills_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Confirms_Skills__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Authenticate_Skill_Approval__c}" /> 
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Competency_Assessments_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Competency_Assessment_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__New_Competency_Assessment__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Create_Competency_Assessment_When_Due__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Job_Profile__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Fix_Assessed_Job_Profile__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Self_Assessment__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Manager_Assessment__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Minimum_Other_Assessors__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Maximum_Other_Assessors__c}"/>
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Minimum_Assessor_Group_Size__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Permitted_Assessors__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Competency_Assessment_Hide_Assessors__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Auto_Start_Assessment__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Auto_complete_Competency_Assessment__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Auto_Show_Competency_Results__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__HR_Reveals_Competency_Assessment__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Competencies_Sort_By_Order__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Show_Last_Development_Action__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Close_Development_Needs_On_Assessment__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Development_Needs}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Development_Plans_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Development_Need_Repeat__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Confirms_Development_Needs__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Use_Development_Objectives__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__New_Development_Objectives__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Training_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Training_On_Development_Needs__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Confirms_Training__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Approval_For_Training__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Training_View_Only__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Edit_Training__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Training_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Training_Team_Member_Access__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Education_History}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Education_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Education__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Edit_Education__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Education_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Education_Team_Member_Access__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Work_History_Experience}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Experience_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Require_Experience__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Edit_Experience__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Manager_Confirms_Experience__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Experience_Manager_Access__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Experience_Team_Member_Access__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Checkin}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Checkin_Is_Active__c}" />
+           </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absences} - {!$Label.fhcm2__Process_Vacations}" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Absence_Accrual_Pattern__c.label}" />
+                    <apex:outputPanel layout="block">
+                        <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Absence_Accrual_Pattern__c}" />
+                        &nbsp;&nbsp;&nbsp;<apex:outputLink value="{!urlfor($Action.Absence_Accrual_Pattern__c.New)}">[New]</apex:outputLink>
+                        &nbsp;&nbsp;&nbsp;<apex:outputLink value="/apex/fHCM2__DataPacketImport">[Import]</apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Work_Days_Pattern__c.label}" />
+                    <apex:outputPanel layout="block">
+                        <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Work_Days_Pattern__c}" />
+                        &nbsp;&nbsp;&nbsp;<apex:outputLink value="{!urlfor($Action.Work_Days_Pattern__c.New)}">[New]</apex:outputLink>
+                        &nbsp;&nbsp;&nbsp;<apex:outputLink value="/apex/fHCM2__DataPacketImport">[Import]</apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Absence_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Show_Absence_Unless_Private__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Absences}" columns="1" rendered="{!isblank(fHCM2__Policy__c.fHCM2__Absence_Accrual_Pattern__c)}">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Absence_Evidence_Above__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Absence_Alert_Above__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Absence_Alert_Period__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Vacations}" columns="1" rendered="{!isblank(fHCM2__Policy__c.fHCM2__Absence_Accrual_Pattern__c)}">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Year_Start_Day__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Year_Start_Month__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_In_Hours__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Days_Per_Year__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Annual_Base__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Calculation_Unit__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Rounding_Mode__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Front_Load_Period__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Accrued_Continuously__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Vacation_Hide_Accrual__c}" />
+                <apex:pageBlockSectionItem rendered="{!!isblank(fHCM2__Policy__c.fHCM2__Absence_Requested_Email__c)}">
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Absence_Requested_Email__c.label}" />
+                    <c:OutputEmailTemplate value="{!fHCM2__Policy__c.fHCM2__Absence_Requested_Email__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!!isblank(fHCM2__Policy__c.fHCM2__Absence_Approved_Email__c)}">
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Absence_Approved_Email__c.label}" />
+                    <c:OutputEmailTemplate value="{!fHCM2__Policy__c.fHCM2__Absence_Approved_Email__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!!isblank(fHCM2__Policy__c.fHCM2__Absence_Rejected_Email__c)}">
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Absence_Rejected_Email__c.label}" />
+                    <c:OutputEmailTemplate value="{!fHCM2__Policy__c.fHCM2__Absence_Rejected_Email__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!!isblank(fHCM2__Policy__c.fHCM2__Absence_Deleted_Email__c)}">
+                    <apex:outputLabel value="{!$ObjectType.fHCM2__Policy__c.fields.fHCM2__Absence_Deleted_Email__c.label}" />
+                    <c:OutputEmailTemplate value="{!fHCM2__Policy__c.fHCM2__Absence_Deleted_Email__c}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_HR_Requests}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__HR_Requests_Is_Active__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Corporate_Notice}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Corporate_Notice_Is_Active__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Process_Summary}" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Summary_Is_Active__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Recruitment" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Internal_Portal_Is_Active__c}" />
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Hiring_Manager_Is_Active__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional" columns="1" rendered="{!$ObjectType.fHCM2__Policy__c.FieldSets.fHCM2__Additional_Policies.size>0}">
+                <apex:repeat value="{!$ObjectType.fHCM2__Policy__c.FieldSets.fHCM2__Additional_Policies}" var="f">
+                    <apex:outputField value="{!fHCM2__Policy__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Layout" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__Style__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="WX" columns="1">
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__WX_Is_Active__c}"/>
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__WX_Title__c}"/>
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__WX_Colour__c}"/>
+                <apex:outputField value="{!fHCM2__Policy__c.fHCM2__WX_Logo__c}"/>
+            </apex:pageBlockSection>
+            
+       </apex:pageBlock>
+
+        <apex:pageBlock title="Fieldset Mapping" mode="view">
+            <apex:pageBlockButtons >
+                <c:LinkButton url="/apex/FieldSetMap?policyId={!fHCM2__Policy__c.id}&retURL=%2F{!fHCM2__Policy__c.id}" label="{!$Label.fhcm2__Button_New}"/>
+            </apex:pageBlockButtons>
+                <apex:pageBlockTable value="{!fieldsetMapping}" var="row">
+                    <apex:column headerValue="Name"><apex:outputLink value="/apex/FieldSetMap?name={!urlencode(row.Name)}&retURL=%2F{!fHCM2__Policy__c.id}">{!row.Name}</apex:outputLink></apex:column>
+                    <apex:column headerValue="Object">{!row.fHCM2__Object__c}</apex:column>
+                    <apex:column headerValue="Fieldset">{!row.fHCM2__Fieldset__c}</apex:column>
+                    <apex:column headerValue="Replacement">{!row.fHCM2__Replacement__c}</apex:column>
+                    <apex:column headerValue="Policy">{!if(isblank(row.fHCM2__Policy__c),'-All-',policyMap[row.fHCM2__Policy__c].Name)}</apex:column>
+                    <apex:column headerValue="Team Member"><c:outputCheckbox value="{!row.fHCM2__Team_Member__c}"/></apex:column>
+                    <apex:column headerValue="Manager"><c:outputCheckbox value="{!row.fHCM2__Manager__c}"/></apex:column>
+                    <apex:column headerValue="Supervisor"><c:outputCheckbox value="{!row.fHCM2__Supervisor__c}"/></apex:column>
+                    <apex:column headerValue="Mentor"><c:outputCheckbox value="{!row.fHCM2__Mentor__c}"/></apex:column>
+                    <apex:column headerValue="Project Manager"><c:outputCheckbox value="{!row.fHCM2__Project_Manager__c}"/></apex:column>
+                </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

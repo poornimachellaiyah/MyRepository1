@@ -1,0 +1,17 @@
+<apex:page standardController="fRecruit__Application__c" recordSetVar="apps" extensions="fRecruit.SendDelayedApplicationEmailsController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="Send Email" help="http://recruit.help.fairsail.com/topics/Application.html" />
+	<apex:form >
+		<apex:pageBlock title="Send Delayed Application Emails" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!send}" value="Send" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Number to Email"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

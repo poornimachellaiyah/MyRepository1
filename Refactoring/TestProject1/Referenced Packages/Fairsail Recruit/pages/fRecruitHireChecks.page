@@ -1,0 +1,27 @@
+<apex:page controller="fRecruit.HireChecksController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Hire_Check__c.label} Details" subTitle="{!candidateName}" help="http://recruit.help.fairsail.com/topics/EditHireChecks.html" />
+	<apex:form >
+		<apex:pageBlock title="Hire Checks" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Candidate" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Candidate Name"/>
+					<apex:outputText value="{!candidateName}" />
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Hire Checks" columns="1">
+				<apex:repeat value="{!hireChecks}" var="hireCheck">
+					<tr>
+						<td><apex:outputLabel value="{!hireCheck.Name}"/></td>
+						<td><apex:inputField value="{!hireCheck.fRecruit__Status__c}" /></td>
+					</tr>
+				</apex:repeat>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,7 @@
+You have been requested to provide a competency assessment for {!Assessment__c.Team_Member__c}.  Please answer an online questionnaire on the Fairsail system by clicking on the link below (or copying it into your browser):
+
+https://login.salesforce.com{!urlfor({Action.fHCM2__Assessment__c.View}, {!Assessment__c.Id})} 
+
+You will be asked to log in using your Fairsail login details and then taken directly to the questionnaire.
+
+Please complete this assessment by {!f__Assessment__c.f__End_Date__c} at the latest.

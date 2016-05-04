@@ -1,0 +1,13 @@
+{!if(isnull(Form__c.Salutation__c),'',Form__c.Salutation__c+',')}
+
+{!Form__c.Subject__c} applied for a position with our company and has given us your name to ask you for a reference. The information requested below will help us to evaluate the applicant. We will hold your comments in strict confidence. Thank you for your cooperation. 
+
+We will be grateful if you complete the attached online form by {!if(isnull(Form__c.Request_By_Date__c),today()+7,Form__c.Request_By_Date__c)}.
+
+Ensure you are connected to the Internet and then click on the link below:
+{!Form__c.Request_URL__c}
+
+Thank you.
+{!User.FullName} 
+{!Organization.Name} 
+{!User.Email}

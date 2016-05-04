@@ -1,0 +1,104 @@
+<apex:page controller="fHCM2.ExperienceController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.experience.isUsing}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Work_History_Experience}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="Experience" location="Subheader"/>
+                <apex:pageBlockSection title="{!$Label.fhcm2__Process_Work_History}" columns="1">
+        
+            
+            <apex:repeat value="{!subject.experience.current}" var="Experience">
+                <c:DetailListBar title="{!substitute(substitute($Label.fhcm2__Global_A_at_B, '{0}', Experience.Title), '{1}', Experience.CompanyName)}" value="/apex/{!links.Experience}?TeamMemberId={!viewer.teamMember.Id}&id={!Experience.Id}">
+                
+                
+                <c:DetailListItem label="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__Title__c.label}" value="{!Experience.Title}" />
+                <c:DetailListItem label="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__Company_Name__c.label}" value="{!Experience.CompanyName}" />
+                
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__Start_Date__c.label}">
+                        <apex:outputText value="{0,date,MM'/'yyyy}">
+                            <apex:param value="{!Experience.StartDate}" />
+                        </apex:outputText>
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__End_Date__c.label}">
+                        <apex:outputText value="{0,date,MM'/'yyyy}">
+                            <apex:param value="{!Experience.EndDate}" />
+                        </apex:outputText>
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Experience__c.Fields.fHCM2__Description__c.label}" value="{!Experience.Description}" />
+                </c:DetailListBar>
+            </apex:repeat>
+            
+             </apex:pageBlockSection>
+             <c:Notice viewer="{!viewer}" page="Experience" location="Subfooter"/>
+        </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+        
+            <apex:form rendered="{!viewer.isTeamMemberOrManager && subject.experience.editPermitted}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!If(experienceObject.Id == null, $Label.fhcm2__Process_Work_History_New_Position, experienceObject.fHCM2__Title__c)}" mode="view" id="entireForm">
+                	<c:Notice viewer="{!viewer}" page="Experience" location="Header"/>
+                    <apex:outputPanel id="experienceSection">
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Experience__c.FieldSets.fHCM2__Experience_Details}" var="f">
+									<apex:pageBlockSectionItem >
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Experience__c.fields[f]}" label="{!$ObjectType.fHCM2__Experience__c.fields[f].label}" help="{!$ObjectType.fHCM2__Experience__c.fields[f].InlineHelpText}"/>
+				                        <apex:inputField value="{!experienceObject[f]}" />
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <c:Notice viewer="{!viewer}" page="Experience" location="Footer"/>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and((viewer.isManager || isblank(experienceObject.fHCM2__Approved_Date__c)) && viewer.isEdit)}" />
+                        <apex:commandButton action="{!saveAndNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!experienceObject.Id == null && and((viewer.isManager || isblank(experienceObject.fHCM2__Approved_Date__c)) && viewer.isEdit)}"/>
+						<apex:commandButton id="approve" action="{!approve}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!hasApproval}" styleClass="inputsubmit" />
+                        <apex:commandButton immediate="true" action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!experienceObject.Id != null}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+            <apex:form rendered="{!!viewer.isTeamMemberOrManager || !subject.experience.editPermitted}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!If(experienceObject.Id == null, $Label.fhcm2__Process_Work_History_New_Position, experienceObject.fHCM2__Title__c)}" mode="view" id="entireForm">
+                	<c:Notice viewer="{!viewer}" page="Experience" location="Header"/>
+                    <apex:outputPanel id="experienceSection">
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Experience__c.FieldSets.fHCM2__Experience_Details}" var="f">
+			                        <apex:outputField value="{!experienceObject[f]}" />
+			                    </apex:repeat>
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <c:Notice viewer="{!viewer}" page="Experience" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!experienceObject}" page="{!links.FairsailProfile}" rendered="{!viewer.isManager}"/>
+            
+             <script type="text/javascript">
+                    function changeYears() {     
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         var now = new Date();
+                         for(var i=now.getFullYear()-80; i < now.getFullYear();i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+                     window.onload = changeYears;
+             </script>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,55 @@
+<apex:page standardController="fHCM2__Form__c" extensions="fHCM2.FormExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Form__c.label}" subTitle="{!fHCM2__Form__c.Form_Definition__r.Name}: {!fHCM2__Form__c.fHCM2__Actor__c}" help="/apex/Help?obj=fHCM2__Form__c" />
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fHCM2__Form__c.label}" mode="details">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!edit}" value="{!$Label.fhcm2__Button_Edit}" />
+				<apex:commandButton action="{!delete}" value="{!$Label.fhcm2__Button_Delete}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+				<apex:commandButton action="{!resend}" value="{!$Label.fhcm2__Button_Resend_Email}" rendered="{!fHCM2__Form__c.fHCM2__Active__c && !isnull(fHCM2__Form__c.fHCM2__Email__c)}" />
+				<apex:commandButton action="{!reopen}" value="{!$Label.fhcm2__Button_Reopen_Form}" rendered="{!!fHCM2__Form__c.fHCM2__Active__c && !isnull(fHCM2__Form__c.fHCM2__Email__c)}" />
+				<apex:commandButton action="{!close}" value="{!$Label.fhcm2__Button_Cancel_Form}" rendered="{!fHCM2__Form__c.fHCM2__Active__c && !isnull(fHCM2__Form__c.fHCM2__Email__c)}" />
+				<c:LinkButton label="{!$Label.fhcm2__Button_Email}" url="/apex/FormBulkEmail?id={!fHCM2__Form__c.Id}" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Form Details" columns="1">
+				<apex:outputField value="{!fHCM2__Form__c.Name}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Actor__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Email__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__EncodeId__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Linked To" />
+					<apex:outputLink value="/{!fHCM2__Form__c.fHCM2__Object_ID__c}" rendered="{!!isnull(fHCM2__Form__c.fHCM2__Object_ID__c)}">Item</apex:outputLink>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Form Dates" columns="2">
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Start_Date__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Request_By_Date__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Close_Date__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Last_View_Date__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Reminder_Date__c}" />
+				<apex:outputField value="{!fHCM2__Form__c.fHCM2__Completed_Date__c}" />
+			</apex:pageBlockSection>
+
+			<table style="width: 100%; empty-cells: show;">
+				<apex:repeat value="{!pages}" var="page">
+					<apex:outputPanel layout="none" rendered="{!page.hasQuestions}">
+					<tr>
+						<td colspan="2" valign="top" class="formViewPageTitle pbHeader tertiaryPalette"><apex:outputText value="{!nullvalue(page.definition.title,page.definition.buttonText)}" />&nbsp;</td>
+					</tr>
+					<apex:repeat value="{!page.QuestionLines}" var="question">
+						<apex:outputPanel layout="none" rendered="{!question.definition.title!=''}">
+						<tr>
+							<td colspan="2" valign="top" class="formViewQuestionTitle pbTitle"><apex:outputText value="{!question.definition.title}"/></td>
+						</tr>
+						</apex:outputPanel>
+						<tr>
+							<td style="border-top: 1px solid #E3DEB8" valign="top"><apex:outputText value="{!nullvalue(question.definition.prompt,nullvalue(question.definition.preText,question.definition.postText))}"/>&nbsp;</td>
+							<td style="border-top: 1px solid #E3DEB8" valign="top"><apex:outputText value="{!question.DataItem}"/>&nbsp;</td>
+						</tr>
+					</apex:repeat>
+					</apex:outputPanel> 
+				</apex:repeat>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+	<apex:relatedList list="NotesAndAttachments" />
+</apex:page>

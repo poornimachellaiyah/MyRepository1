@@ -1,0 +1,6 @@
+<apex:page showHeader="false" sidebar="false" controller="fRecruit.ExternalTestResultsRequest">
+	<div style='margin:auto;text-align:center;padding:50px;font-size:20pt'>
+			<h1><apex:outputLabel value="{!messageResult}"/></h1>
+
+	</div>
+</apex:page>

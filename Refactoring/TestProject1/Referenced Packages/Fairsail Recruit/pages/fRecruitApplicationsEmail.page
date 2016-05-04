@@ -1,0 +1,38 @@
+<apex:page standardController="fRecruit__Application__c" recordSetVar="apps" extensions="fRecruit.EmailApplicationsExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="Email Resumes" help="http://recruit.help.fairsail.com/topics/Application.html" />
+	<apex:form >
+		<apex:pageBlock title="Send applications and resumes" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!send}" value="Send" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Attached resumes"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Include all attachments"/>
+					<apex:inputText value="{!allAttachments}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="To" />
+					<apex:inputText value="{!EmailAddress}" style="width:300px;" required="true"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="Subject" />
+					<apex:inputText value="{!subject}" style="width:500px;"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="Covering Message" />
+					<apex:inputTextArea richtext="true" value="{!text}" style="width:600px;height:600px;"/>
+				</apex:pageBlockSectionItem>
+
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

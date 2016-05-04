@@ -1,0 +1,24 @@
+<apex:page controller="fpay.BenefitSetDefaultController" standardStylesheets="true" showHeader="true" sidebar="true" title="Create Default Benefits"  tabStyle="fpay__Benefit_Set__c">
+	<apex:sectionHeader title="{!benefitSetName}" subtitle="Default"/>
+	<br />
+	<p>It is recommended to make a first run without committing changes.  Check the email for errors and then rerun.</p>
+	<br />
+	<apex:form >
+		<apex:pageBlock title="Create default benefits for {!NotYetSigned} not yet submitted" mode="edit">
+			<apex:pageBlockSection columns="1">
+     				<apex:pageBlockSectionItem >
+       					<apex:outputLabel value="Include {!NotYetClosed} not reached close date"/>
+       					<apex:inputcheckbox value="{!includeNotYetClosed}"/>
+       				</apex:pageBlockSectionItem>
+     				<apex:pageBlockSectionItem >
+       					<apex:outputLabel value="Commit changes"/>
+       					<apex:inputcheckbox value="{!doSave}"/>
+       				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!start}" value="Start"/>
+				<apex:commandButton action="{!cancel}" value="Cancel"/>
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page >
+
+<flow:interview name="Emp_ind"/>
+
+
+</apex:page>

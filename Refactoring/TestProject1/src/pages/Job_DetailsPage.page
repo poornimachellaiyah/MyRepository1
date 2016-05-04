@@ -1,0 +1,434 @@
+<apex:page standardcontroller="Attachment" Extensions="Job_DetailsPageController"  id="jobDetailPage" sidebar="{!ShowHeaderandSidebar}" showheader="{!ShowHeaderandSidebar}">
+<head> 
+<style>
+body {
+    //font-family: 'Arial','Helvetica',sans-serif;
+    font-size: 75%;
+    //width:752px;
+    width:100%;
+    font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+
+.appheader{
+    padding-left:10px;
+    width:750px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+}
+.jobopp {
+   // color: hsl(319, 100%, 34%);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+}
+.jobbuttons{
+    //font-size: 1.2em;
+    //font-weight: bold;
+    margin-left:10px;
+   
+}
+</style>
+
+<script>
+  /**
+   * Opens window screen centered.
+   * @param windowWidth the window width in pixels (integer)
+   * @param windowHeight the window height in pixels (integer)
+   * @param windowOuterHeight the window outer height in pixels (integer)
+   * @param url the url to open
+   * @param wname the name of the window
+   * @param features the features except width and height (status, toolbar, location, menubar, directories, resizable, scrollbars)
+   */
+  function CenterWindow(windowWidth, windowHeight, windowOuterHeight, url, wname, features) {
+    var centerLeft = parseInt((window.screen.availWidth - windowWidth) / 2);
+    var centerTop = parseInt(((window.screen.availHeight - windowHeight) / 2) - windowOuterHeight);
+ 
+    var misc_features;
+    if (features) {
+      misc_features = ', ' + features;
+    }
+    else {
+      misc_features = ', status=no, location=no, scrollbars=yes, resizable=yes';
+    }
+    var windowFeatures = 'width=' + windowWidth + ',height=' + windowHeight + ',left=' + centerLeft + ',top=' + centerTop + misc_features;
+    var win = window.open(url, wname, windowFeatures, !1);
+    win.focus();
+    return win;
+  }
+</script>
+
+</head>
+
+<body>
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T3NFTL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T3NFTL');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K2HP3N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2HP3N');</script>
+<!-- End Google Tag Manager --> 
+
+<!-- Start of changes by Raghu on 08/01/2016 -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTG9W3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTG9W3');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W26NX9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W26NX9');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NG74VT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NG74VT');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PTJMND"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTJMND');</script>
+<!-- End Google Tag Manager -->
+<!-- End Of Changes by Raghu on 08/01/2016 -->
+
+
+    <apex:form >
+    <div class="appheader">
+    
+      
+    <table width="100%">
+        <tr>
+            <td width="50">
+            <apex:image id="headerImage" rendered="{!If((jobRec.Help_Type__c=='Employee' || jobRec.Help_Type__c=='Consultant' || jobRec.Help_Type__c=='Volunteer'),true,false)}" url="https://vso--c.eu1.content.force.com/servlet/servlet.ImageServer?id=015D0000003ZnPf&oid=00DD0000000o0JM&lastMod=1418648284000"/>
+            <apex:image width="150" id="KEheaderImage" rendered="{!If((jobRec.Help_Type__c=='Corporate'),true,false)}" url="https://vso--r3--c.cs8.content.force.com/servlet/servlet.ImageServer?id=015L0000000G97K&oid=00DL0000005tpgz&lastMod=1433766303000"/>
+           </td>            
+            <td class="jobopp"><apex:outputtext value="{!jobRec.Job_Title__c}" /></td>
+            <td class="jobopp" style="padding-top:10px;vertical-align:top;text-align:right;"><apex:outputtext value="{!jobRec.Help_Type__c} Job" /></td>
+        </tr>
+
+   </table>
+   <br/> 
+   
+   <div class="jobbuttons" >
+        <table>
+                <tr width="100%">
+                    <td align="left" ><apex:outputlink rendered="{!If((jobRec.Help_Type__c=='Employee' || jobRec.Help_Type__c=='Consultant' || jobRec.Help_Type__c=='Volunteer'),true,false)}" value="/apex/job_listpage{!if($CurrentPage.parameters.m != null, '?m=' + $CurrentPage.parameters.m, null)}"> <apex:outputtext value="<<Back"/>  </apex:outputlink></td>
+                    <td align="right" width="100%">
+<!--                    Lines below were removed to supress popup, as an issue with Google Chrome means scrolling in a popup does not work correctly (LN, 24/1/2014)
+                        <apex:commandbutton value="Apply now" onclick="CenterWindow(800,500,50,'{!targetURL}','_blank');"/> <br/>
+                        <span style="font-style: italic;font-size: 0.9em;color:#707070;">This link opens in a new window</span>     //-->
+                        <apex:commandbutton value="Apply now" action="{!Applytojob}"/>
+                    </td>
+                </tr>
+        </table>
+   </div>
+  
+   <apex:outputpanel rendered="{!If((jobRec.Help_Type__c=='Employee' || jobRec.Help_Type__c=='Consultant'),true,false)}">
+
+        <div class="pdetails">
+        
+            <div class="jobopp" ></div> 
+            <table>
+                <tr>
+                    <td colspan="2" class="jobopp">
+                        <apex:outputtext value="{!jobRec.Primary_Work_Town_City__c}"/>  <apex:outputtext value=", {!jobRec.Country__r.name}"  rendered="{!if(jobRec.Country__c<>null,true,false)}"/><apex:outputpanel rendered="{!if(jobRec.Primary_Work_Town_City__c<>null || jobRec.Country__c<>null,true,false)}"><br/></apex:outputpanel>
+                        <apex:outputtext value="{!jobRec.Advertised_Salary__c}" /><apex:outputpanel rendered="{!if(jobRec.Advertised_Salary__c<>null,true,false)}"><br/></apex:outputpanel>
+                        <apex:outputtext value="{!jobRec.Contract_Type__c}" /><apex:outputtext value=", {!jobRec.Contract_Length__c}" rendered="{!if(jobRec.Contract_Type__c<>'Permanent' && jobRec.Contract_Type__c<>null && jobRec.Contract_Type__c<>'',true,false)}"/><apex:outputpanel rendered="{!if((jobRec.Contract_Type__c<>'' && jobRec.Contract_Type__c<>null)||( jobRec.Contract_Length__c='' && jobRec.Contract_Length__c=null),true,false)}"><br/></apex:outputpanel>
+                        <apex:outputtext value="{!jobRec.Full_Or_Part_Time__c}"/> <apex:outputtext value=", {!ROUND(jobRec.Working_Hours_Per_Week__c, 0)} hours per week" rendered="{!if(jobRec.Working_Hours_Per_Week__c<>null,true,false)}"/> 
+                    </td>
+                </tr>
+            </table>
+            <br/> 
+            
+            
+             
+            <div class="jobopp" >About VSO</div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Introduction_to_VSO__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+            
+            <div class="jobopp" >Role overview </div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Role_Overview__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+            
+            
+        
+            <div class="jobopp" >Skills, qualifications and experience required</div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Ideal_Applicant_Summary__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+        
+            <div class="jobopp" ></div> 
+        
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Additional_Advert_Text__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+        
+            <div class="jobopp" >How to apply</div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2"><apex:outputfield value="{!jobRec.How_To_Apply__c}" /></td>
+                </tr>
+            </table>
+            <br/>
+            
+            <!-- DB: Present date in dd Mmm yyyy format for display --> 
+            <div class="jobopp" >Application closing date </div> 
+            <table> 
+                <tr> 
+                    <td class="jobopp" colspan="2"></td> 
+                </tr> 
+                <tr> 
+                    <td colspan="2"> 
+                    <apex:outputText value="{0,date, dd' ' MMM' 'yyyy}"> 
+                    <apex:param value="{!jobRec.Application_Closing_Date__c}" />
+                    </apex:outputText> 
+                    </td> 
+                </tr> 
+            </table> 
+            <br/>
+            
+            <div class="jobopp" >Interview/Assessment date(s) </div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2"><apex:outputfield value="{!jobRec.Advertised_Interview_Date__c}" /></td>
+                </tr>
+            </table>
+            <br/>
+            
+            
+            
+            <div class="jobopp" >Start date </div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2"><apex:outputfield value="{!jobRec.Advertised_Job_Start_Date__c}" /></td>
+                </tr>
+            </table>
+            <br/>
+            
+            <div class="jobopp" ></div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td> 
+                </tr>
+                <tr>
+                    <td  colspan="2"> 
+                        <apex:outputLink value="{!URLFOR($Action.Attachment.Download,attachmentId)}" rendered="{!attachmentId<>null || attachmentId<>''}" title="Job description" target="_blank">Click here to download the job description in PDF format </apex:outputLink>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            
+        </div>
+   </apex:outputpanel>
+   
+   <apex:outputpanel rendered="{!If((jobRec.Help_Type__c=='Volunteer' || jobRec.Help_Type__c=='Corporate'),true,false)}">
+        <div class="pdetails">
+            
+            <div class="jobopp" ></div> 
+            <table>
+                <tr>
+                    <td colspan="2" class="jobopp">
+                        <apex:outputtext value="{!jobRec.Primary_Work_Town_City__c}"/> <apex:outputtext value=", {!jobRec.Country__r.name}" rendered="{!if(jobRec.Country__c<>null,true,false)}"/><apex:outputpanel rendered="{!if(jobRec.Primary_Work_Town_City__c<>null || jobRec.Country__c<>null,true,false)}"><br/></apex:outputpanel>
+                        <apex:outputtext value="{!jobRec.Advertised_Project_Duration__c}" /><apex:outputpanel rendered="{!if(jobRec.Advertised_Project_Duration__c<>null || jobRec.Advertised_Project_Duration__c='',true,false)}"><br/></apex:outputpanel>
+                        <apex:outputtext value="{!jobRec.Employer__r.name}" />
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            
+        
+            
+            <div class="jobopp" >About VSO</div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Introduction_to_VSO__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+            
+            <div class="jobopp" >Role overview </div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Role_Overview__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+            
+            
+        
+            <div class="jobopp" >Skills, qualifications and experience required</div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Ideal_Applicant_Summary__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+        
+            <div class="jobopp" ></div> 
+            <table>
+                <tr>
+                    <td colspan="2"><apex:outputfield value="{!jobRec.Additional_Advert_Text__c}" /></td>
+                </tr>
+            </table>
+            <br/> 
+        
+            <div class="jobopp" >How to apply</div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2"><apex:outputfield value="{!jobRec.How_To_Apply__c}" /></td>
+                </tr>
+            </table>
+            <br/>
+
+
+<!--  DB: Present date in dd Mmm yyyy format for display --> 
+            <div class="jobopp" >Application closing date </div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2">
+                    <apex:outputText value="{0,date, dd' ' MMM' 'yyyy}">
+                    <apex:param value="{!jobRec.Application_Closing_Date__c}" />
+                    </apex:outputText>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+         
+<!--  DB: Cannot present date in dd Mmm yyyy format for this field as this field is text in SF --> 
+            <div class="jobopp" >Interview/Assessment date(s) </div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2"><apex:outputfield value="{!jobRec.Advertised_Interview_Date__c}" /></td>
+                </tr>
+            </table>
+            <br/>
+         
+<!--  DB: Cannot present date in dd Mmm yyyy format for this field as this field is text in SF -->
+            <div class="jobopp" >Start date</div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td  colspan="2"><apex:outputfield value="{!jobRec.Advertised_Job_Start_Date__c}" /></td>
+                </tr>
+            </table>
+            <br/>
+
+          
+            <div class="jobopp" ></div> 
+            <table>
+                <tr>
+                    <td class="jobopp" colspan="2"></td> 
+                </tr>
+                <tr>
+                    <td  colspan="2"> 
+                        <apex:outputLink value="{!URLFOR($Action.Attachment.Download,attachmentId)}" title="Job description" rendered="{!attachmentId<>null || attachmentId<>''}" target="_blank">Click here to download the job description in PDF format </apex:outputLink>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            
+            
+        </div>
+   </apex:outputpanel>
+   
+    <br/>
+    <div class="jobbuttons">
+        <table>
+                <tr width="100%">
+                    <td align="left" ><apex:outputlink rendered="{!If((jobRec.Help_Type__c=='Employee' || jobRec.Help_Type__c=='Consultant' || jobRec.Help_Type__c=='Volunteer'),true,false)}" value="/apex/job_listpage{!if($CurrentPage.parameters.m != null, '?m=' + $CurrentPage.parameters.m, null)}"> <apex:outputtext value="<<Back"/>  </apex:outputlink></td>
+                    <td align="right" width="100%">
+<!--                    Lines below were removed to supress popup, as an issue with Google Chrome means scrolling in a popup does not work correctly (LN, 24/1/2014)
+                        <apex:commandbutton value="Apply now" onclick="CenterWindow(800,500,50,'{!targetURL}','_blank');"/> <br/>
+                        <span style="font-style: italic;font-size: 0.9em;color:#707070;">This link opens in a new window</span>                 //-->
+                        <apex:commandbutton value="Apply now" action="{!Applytojob}"/>
+                    </td>
+                </tr>
+        </table>
+   </div>
+   </div> 
+    </apex:form>
+  </body>
+
+</apex:page>

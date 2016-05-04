@@ -1,0 +1,109 @@
+<apex:page controller="fHCM2.OrgChartController" renderAs="{!blankvalue($CurrentPage.parameters.renderAs,'pdf')}" standardStylesheets="true" showHeader="false" sidebar="false" title="Team Member Profile">
+
+    <apex:composition template="fHCM2__fairsailTemplatePDF">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+
+        <apex:define name="widePanel">
+            
+                
+                <apex:repeat value="{!chartLevels}" var="page">
+                <div style="text-align: center; margin-bottom: 80px;">
+            
+            
+                <apex:outputPanel layout="block" styleClass="orgChartUser selectedChartUser">
+                        <apex:image value="{!page.top.teamMember.PictureUrl}" width="44" height="55" rendered="{!page.top.teamMember.PictureUrl!=null}" />
+                            <br/>
+                            <b>{!page.top.teamMember.name}</b><br/>
+                            <span style="font-size: 10px;">{!page.top.teamMember.departmentName}<br/>
+                            {!page.top.teamMember.jobTitle}</span>
+                </apex:outputPanel>
+                    
+                    <apex:outputPanel layout="block" rendered="{!page.top.up.size > 0}" style="text-align: left; margin-top: 10px;">
+                        <span style="display: block; margin-left: 16px; margin-bottom: 4px;">Also reports to:</span>
+                        <ul style="text-align: left; list-style:none; padding: 0; margin: 0;">
+                        <apex:repeat value="{!page.top.up}" var="subTeam">
+                            <li>
+                                    <b>{!subTeam.name}</b>
+                                    <apex:outputPanel rendered="{!LEN(subTeam.jobTitle) > 0}">
+                                        <br/><span style="font-size: 10px;">{!subTeam.jobTitle}</span>
+                                    </apex:outputPanel>
+                            </li>
+                        </apex:repeat>
+                        </ul>
+                    </apex:outputPanel>
+                    
+                <br/>
+                <apex:image value="{!$Resource.fHCM2__FairsailIcon}/16x16/down.png" style="margin: auto"  rendered="{!page.pageUsers.size > 0}"/>
+        
+            
+            <apex:variable var="count" value="{!1}"/>
+            
+            <apex:outputPanel layout="block" rendered="{!page.pageUsers.size > 0}">
+                <table style="page-break-after:always;">
+                    <tr>
+                    
+                    <apex:outputText escape="false" rendered="{!page.pageUsers.size == 1}"><td style="width: 235px">&nbsp;</td></apex:outputText>
+                    <apex:outputText escape="false" rendered="{!page.pageUsers.size == 2}"><td style="width: 120px">&nbsp;</td></apex:outputText>
+                <apex:repeat value="{!page.pageUsers}" var="teamData">
+                    <td valign="top" style="border: 1px solid black; background-color: #ccc; padding: 10px; width: 215px; -moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                        <apex:outputPanel >
+                                <apex:image value="{!teamData.teamMember.pictureURL}" width="44" height="55" rendered="{!teamData.teamMember.pictureUrl!=null}"/>
+                                    <br/>
+                                            <b>{!teamData.teamMember.name}</b><br/>
+                                            <span style="font-size: 10px;">{!teamData.teamMember.departmentName}<br/>
+                                            {!teamData.teamMember.jobTitle}</span>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel layout="block" rendered="{!teamData.up.size > 0}" style="text-align: left; margin-top: 10px;">
+                            <span style="display: block; margin-left: 16px; margin-bottom: 4px;">Also reports to:</span>
+                            <ul style="text-align: left; list-style:none; padding: 0; margin: 0;">
+                            <apex:repeat value="{!teamData.up}" var="subTeam">
+                                <li>
+                                    <b>
+                                        {!subTeam.name}
+                                    </b>
+                                        <apex:outputPanel rendered="{!LEN(subTeam.jobTitle) > 0}">
+                                            <br/><span style="font-size: 10px;">{!subTeam.jobTitle}</span>
+                                        </apex:outputPanel>
+                                </li>
+                            </apex:repeat>
+                            </ul>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" rendered="{!teamData.down.size > 0}" style="text-align: left; margin-top: 10px;">
+                            <span style="display: block; margin-left: 16px; margin-bottom: 4px;">Team:</span>
+                            <ul style="text-align: left; list-style:none; padding: 0; margin: 0;">
+                            <apex:repeat value="{!teamData.down}" var="subTeam">
+                                <li>
+                                    <b>
+                                        {!subTeam.name}
+                                    </b>
+                                        <apex:outputPanel rendered="{!LEN(subTeam.jobTitle) > 0}">
+                                            <br/><span style="font-size: 10px;">{!subTeam.jobTitle}</span>
+                                        </apex:outputPanel>
+                                </li>
+                            </apex:repeat>
+                            </ul>
+                        </apex:outputPanel>
+                    </td>
+                        {!if(MOD(count, 3)== 0, '</tr><tr>', '')}                    
+                    <apex:variable var="count" value="{!count + 1}"/>
+                </apex:repeat>
+                    </tr>
+                    </table>
+            </apex:outputPanel>
+                    </div>
+                </apex:repeat>
+
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

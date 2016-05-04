@@ -1,0 +1,17 @@
+<apex:page standardController="fRecruit__Form__c" recordSetVar="apps" extensions="fRecruit.CancelFormExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Form__c.label}" subtitle="Send Email" help="http://recruit.help.fairsail.com/topics/Form.html" />
+	<apex:form >
+		<apex:pageBlock title="Close Form" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!close}" value="Close" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Number to Close"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

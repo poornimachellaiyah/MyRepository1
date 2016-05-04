@@ -1,0 +1,252 @@
+<apex:page standardController="fHCM2__Corporate_Notice_Locale__c" extensions="fHCM2.InternalCommunicationsLocaleController" standardStylesheets="true" showHeader="true" sidebar="true" title="Corporate Notice Locale">
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+  <apex:sectionHeader title="{!$ObjectType.fHCM2__Corporate_Notice_Locale__c.label}" subtitle="{!fHCM2__Corporate_Notice_Locale__c.Name}" help="http://help.fairsail.com" />
+
+    <apex:form >
+        <apex:pageBlock title="Internal Communication Locale Details" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+                
+            </apex:pageBlockButtons>
+            
+             <apex:pageBlockSection title="Process Dates" columns="1">
+             <apex:pageBlockSection columns="1">
+                
+                <apex:outputField value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Corporate_Notice__c}" label="{!$ObjectType.fHCM2__Corporate_Notice_Locale__c.fields.fHCM2__Corporate_Notice__c.label}"/>
+
+                <apex:inputField value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Locale__c}" />
+                
+                </apex:pageBlockSection>
+                     <apex:pageBlockSection columns="1">
+                    <apex:selectList value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Tile_Type__c}" size="1" label="Tile Type" id="tileType" > 
+                        <apex:selectOptions value="{!tileTypeList}" /> 
+                    </apex:selectList>
+                    </apex:pageBlockSection>
+         
+       <apex:outputPanel >
+
+                            <div id="tile_ed">
+                                   <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputTextarea value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Summary__c}" richText="true" label="Tile Content"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel> 
+                            </div>
+
+                            <div id="tile_url">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Tile_Content_External_Website__c}"  size="75" label="External Website Url" html-placeholder="www.example.com" />
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+
+                            <div id="tile_vid">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Tile_Content_Video__c}" size="75" label="Video Url" html-placeholder="http://www.youtube.com/watch?v=iccscUFY860"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+                        <apex:outputPanel rendered="{!checkSysAdmin}">
+                            <div id="tile_html">
+                                   <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputField value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Summary_Raw__c}" label="HTML"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel> 
+                            </div>
+                         </apex:outputPanel>
+
+        </apex:outputPanel>
+
+                 
+                        
+                    
+                         <apex:pageBlockSection columns="1">
+                        <apex:selectList value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Detail_Type__c}" size="1" label="Detail Type" id="detailType"> 
+                            <apex:selectOptions value="{!detailTypeList}" /> 
+                        </apex:selectList>
+                    </apex:pageBlockSection>   
+
+       <apex:outputPanel >
+
+                            <div id="detail_ed"> 
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputTextarea value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Content__c}" richText="true" label="Detail Content"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+
+                            <div id="detail_url">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Detail_Content_External_Website__c}" size="75" label="External Website Url" html-placeholder="www.example.com" />
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+
+                            <div id="detail_vid">
+                                    <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputText value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Detail_Content_Video__c}" size="75" label="Video Url" html-placeholder="http://www.youtube.com/watch?v=iccscUFY860" />
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel>
+                            </div>
+                             <apex:outputPanel rendered="{!checkSysAdmin}">
+                            <div id="detail_html">
+                                   <apex:outputPanel >
+                                    <apex:pageBlockSection columns="1">
+                                    <apex:inputField value="{!fHCM2__Corporate_Notice_Locale__c.fHCM2__Content_Raw__c}" label="HTML"/>
+                                    </apex:pageBlockSection>
+                                    </apex:outputPanel> 
+                            </div>
+                         </apex:outputPanel>
+
+        </apex:outputPanel>
+
+        
+            </apex:pageBlockSection>
+            
+            </apex:pageBlock>
+     </apex:form>
+     <script>
+
+
+j$ = jQuery.noConflict();
+j$(document).ready(function() {   
+if (j$( 'select[id$="tileType"]' ).val() == 'Rich Text' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').hide();
+j$('[id*=tile_vid]').hide();
+j$('[id*=tile_ed]').show();
+j$('[id*=tile_html]').hide();
+
+}
+if (j$( 'select[id$="tileType"]' ).val() == 'External Website' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').show();
+j$('[id*=tile_vid]').hide();
+j$('[id*=tile_ed]').hide();
+j$('[id*=tile_html]').hide();
+
+}
+if (j$( 'select[id$="tileType"]' ).val() == 'Video' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').hide();
+j$('[id*=tile_vid]').show();
+j$('[id*=tile_ed]').hide();
+j$('[id*=tile_html]').hide();
+
+}
+
+if (j$( 'select[id$="tileType"]' ).val() == 'HTML' || j$( 'select[id$="tileType"]' ).val() == null) {
+j$('[id*=tile_url]').hide();
+j$('[id*=tile_vid]').hide();
+j$('[id*=tile_ed]').hide();
+j$('[id*=tile_html]').show();
+
+}
+
+j$('select[id$="tileType"]').change(function() {
+       // alert( j$(this).val() );
+       
+        var x = j$(this).val();
+        
+        if (x == 'Rich Text') {
+            j$('[id*=tile_url]').hide();
+            j$('[id*=tile_vid]').hide();
+            j$('[id*=tile_ed]').show();
+            j$('[id*=tile_html]').hide();
+        }
+        
+        if (x == 'External Website') {
+            j$('[id*=tile_url]').show();
+            j$('[id*=tile_vid]').hide();
+            j$('[id*=tile_ed]').hide();
+            j$('[id*=tile_html]').hide();
+        }
+        
+        if (x == 'Video') {
+            j$('[id*=tile_url]').hide();
+            j$('[id*=tile_vid]').show();
+            j$('[id*=tile_ed]').hide();
+            j$('[id*=tile_html]').hide();
+        }
+        
+         if (x == 'HTML') {
+            j$('[id*=tile_url]').hide();
+            j$('[id*=tile_vid]').hide();
+            j$('[id*=tile_ed]').hide();
+            j$('[id*=tile_html]').show();
+        }
+       
+        
+        
+    });
+    
+if (j$( 'select[id$="detailType"]' ).val() == 'Rich Text' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').hide();
+j$('[id*=detail_vid]').hide();
+j$('[id*=detail_ed]').show();
+j$('[id*=detail_html]').hide();
+}
+if (j$( 'select[id$="detailType"]' ).val() == 'External Website' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').show();
+j$('[id*=detail_vid]').hide();
+j$('[id*=detail_ed]').hide();
+j$('[id*=detail_html]').hide();
+}
+if (j$( 'select[id$="detailType"]' ).val() == 'Video' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').hide();
+j$('[id*=detail_vid]').show();
+ j$('[id*=detail_ed]').hide();
+ j$('[id*=detail_html]').hide();
+}
+
+if (j$( 'select[id$="detailType"]' ).val() == 'HTML' || j$( 'select[id$="detailType"]' ).val() == null) {
+j$('[id*=detail_url]').hide();
+j$('[id*=detail_vid]').hide();
+j$('[id*=detail_ed]').hide();
+j$('[id*=detail_html]').show();
+
+}
+
+j$('select[id$="detailType"]').change(function() {
+       // alert( j$(this).val() );
+       
+        var x = j$(this).val();
+        
+        if (x == 'Rich Text') {
+            j$('[id*=detail_url]').hide();
+            j$('[id*=detail_vid]').hide();
+            j$('[id*=detail_ed]').show();
+            j$('[id*=detail_html]').hide();
+        }
+        
+        if (x == 'External Website') {
+            j$('[id*=detail_url]').show();
+            j$('[id*=detail_vid]').hide();
+            j$('[id*=detail_ed]').hide();
+            j$('[id*=detail_html]').hide();
+        }
+        
+        if (x == 'Video') {
+            j$('[id*=detail_url]').hide();
+            j$('[id*=detail_vid]').show();
+            j$('[id*=detail_ed]').hide();
+            j$('[id*=detail_html]').hide();
+        }
+        
+         if (x == 'HTML') {
+            j$('[id*=detail_url]').hide();
+            j$('[id*=detail_vid]').hide();
+            j$('[id*=detail_ed]').hide();
+            j$('[id*=detail_html]').show();
+        }
+       
+    
+	});
+});
+
+</script>
+</apex:page>

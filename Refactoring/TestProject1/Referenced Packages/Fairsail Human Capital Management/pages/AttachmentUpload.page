@@ -1,0 +1,48 @@
+<apex:page controller="fHCM2.AttachmentUploadController" showHeader="false" sidebar="false" showChat="false">
+
+<apex:form enctype="multipart/form-data">
+        <apex:pageBlock >
+        <style type="text/css">
+        .bPageBlock
+        {
+            border-style: none;
+        }
+        .hidden{
+            display: none; 
+        }
+
+        </style>
+        <script type="text/javascript">
+            function showPleaseWait(){
+                document.getElementById("pleaseWait").removeAttribute("class");
+            }
+        </script>
+
+        <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin:0 auto; background-color: #fff;" id="pleaseWait" class="hidden">
+            <div style="position: absolute; left: 50%; top: 0; display: inline-block; padding: 2px; width: 100%; height: 100%">
+                <img src="{!$Resource.PleaseWait}" style="float: left; margin: 8px;" /> 
+                <span style="display: inline-block; padding: 10px 0px;">{!$Label.fHCM2__Global_Loading}</span>
+            </div>
+        </div>
+
+        <apex:pageBlockSection showHeader="false" id="pageBlock">
+
+            <apex:pageBlockSectionItem > 
+                <apex:inputFile value="{!uploadBody}" filename="{!uploadName}" fileSize="{!uploadSize}" contentType="{!contentType}" id="file" onchange="showPleaseWait();insertAttachment()" rendered="{!uploadName = null}"/>
+                <apex:pageMessages />
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!uploadName}" rendered="{!uploadName != null}" id="thisLabel"/> 
+                <apex:commandButton action="{!xclear}" value="{!$Label.fhcm2__Button_Clear}" rendered="{!uploadName != null}"/> 
+            </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+            <apex:actionStatus id="stringThis" onclick="alert('Hello')" />
+            <apex:actionFunction action="{!upload}" name="insertAttachment"> </apex:actionFunction>
+
+    </apex:form>
+
+
+</apex:page>

@@ -1,0 +1,8 @@
+Dear {!nullvalue(Application__c.Candidate_Salutation__c,Application__c.Candidate_Name__c)}
+
+We regret to inform you that your application for the position of {!Application__c.Vacancy__c} within our company has not been successful.  We thank you for your application and wish you all the best for the future.
+
+Sincerely,
+{!User.FullName}
+{!Organization.Name}
+{!User.Email}

@@ -1,0 +1,145 @@
+<apex:page controller="fHCM2.TrainingControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.training.isUsing  || IsApprover}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Training}" mode="view">
+				<c:Notice viewer="{!viewer}" page="Training" location="Subheader"  />
+ 				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Training_Related_Development_Options}" columns="1" rendered="{!relatedTraining.size>0}">
+					<apex:repeat value="{!relatedTraining}" var="option">
+						<c:TwinSectionA >
+							<c:DetailListHeader title="{!option.name}" value="{!option.link+'&teamMemberId='+viewer.teamMember.id}" />
+							<c:DetailListItem label="{!$ObjectType.fHCM2__Training_Library__c.Fields.fHCM2__Type__c.label}" value="{!option.trainingType}"/>
+						</c:TwinSectionA>
+						<c:TwinSectionB >
+							<c:DetailListHeader title="{!option.name}" value="{!option.link+'&teamMemberId='+viewer.teamMember.id}" />
+							<c:DetailListItem label="{!$ObjectType.fHCM2__Training_Library__c.Fields.fHCM2__Type__c.label}" value="{!option.trainingType}"/>
+							<c:DetailListItem label="{!$ObjectType.fHCM2__Training_Library__c.Fields.fHCM2__Supplier__c.label}" value="{!option.supplier}" rendered="{!option.supplier!=''}"/>
+							<c:DetailListItem label="{!$ObjectType.fHCM2__Training_Library__c.Fields.fHCM2__Description__c.label}" value="{!option.description}"/>
+						</c:TwinSectionB>
+					</apex:repeat>
+				</apex:pageBlockSection>
+ 
+                <apex:pageBlockSection title="History" columns="1" rendered="{!subject.training.current.size>0}">
+		            <apex:repeat value="{!subject.training.current}" var="Training">
+		                <c:DetailListBar title="{!Training.TrainingName}" value="/apex/{!links.Training}?Id={!Training.Id}">
+		                    <c:DetailListItem label="{!$ObjectType.fHCM2__Training__c.Fields.fHCM2__Start_Date__c.label}">
+		                        <apex:outputText value="{0,date,MM'/'yyyy}">
+		                            <apex:param value="{!Training.StartDate}" />
+		                        </apex:outputText>
+		                    </c:DetailListItem>
+		                </c:DetailListBar>
+		            </apex:repeat>
+             </apex:pageBlockSection>
+             <c:Notice viewer="{!viewer}" page="Training" location="Subfooter"  />
+        </apex:pageBlock>
+            
+        </apex:define>
+
+        <apex:define name="widePanel">
+        
+            <apex:form rendered="{!viewer.isTeamMemberOrManager}">
+                <apex:pageMessages rendered="{!showMessages}"/>
+                <apex:pageBlock title="{!If(currentTraining.Id == null, $Label.fhcm2__Button_New, currentTraining.fHCM2__Training_Name__c)}" mode="view" id="entireForm">
+
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!((viewer.isTeamMember && isTeamMemberDraft) || isNew) && !viewer.departmentPolicy.fHCM2__Training_View_Only__c && subject.training.editPermitted}"/>
+                        <apex:commandButton action="{!saveResult}" value="{!$Label.fhcm2__Button_Save}" rendered="{!viewer.isManager && !isTeamMemberDraft && !isNew && !viewer.departmentPolicy.fHCM2__Training_View_Only__c && subject.training.editPermitted}"/>
+                        <apex:commandButton action="{!submit}" value="{!$Label.fhcm2__Button_Submit}" rendered="{!isSubmit && viewer.isManager && subject.training.editPermitted}"/>
+                        <apex:commandButton action="{!approve}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!(viewer.isManager && isTeamMemberDraft && !viewer.departmentPolicy.fHCM2__Training_View_Only__c && subject.training.editPermitted && !requiresSubmit) || IsApprover}"/>
+                        <apex:commandButton action="{!reject}" value="{!$Label.fhcm2__Button_Reject}" rendered="{!IsApprover}"/>
+                        <apex:commandButton action="{!saveAndNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!isNew && !hasOption && !viewer.departmentPolicy.fHCM2__Training_View_Only__c && subject.training.editPermitted}" />
+                        <apex:commandButton immediate="true" action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew && !viewer.departmentPolicy.fHCM2__Training_View_Only__c && subject.training.editPermitted}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+					<c:Notice viewer="{!viewer}" page="Training" location="Header"  />
+   					<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+						<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!currentTraining.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+							<apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+								<apex:outputLabel value="Status" for="Status__c" />
+								<apex:outputText value="{!currentTraining.fHCM2__Status__c}" id="Status__c" />
+								<apex:outputLabel value="Action" for="Action__c" />
+								<apex:outputText style="color:red;text-weight:bold;" value="{!currentTraining.fHCM2__Action__c}" id="Action__c" />
+							</apex:panelGrid>
+						</c:PersonSection>
+					</apex:pageBlockSection>
+					
+					<apex:pageBlockSection title="Training option details" columns="1"  rendered="{!hasOption}">
+						<apex:outputField value="{!trainingOption.Name}"/>
+						<apex:outputField value="{!trainingOption.fHCM2__Type__c}"/>
+						<apex:outputField value="{!trainingOption.fHCM2__Description__c}"/>
+						<apex:outputField value="{!trainingOption.fHCM2__URL__c}"/>
+						<apex:outputField value="{!trainingOption.fHCM2__Supplier__c}"/>
+					</apex:pageBlockSection>
+					
+					<apex:pageBlockSection title="Areas developed" columns="1" rendered="{!developedAreas.size>0}">
+						<apex:pageBlockTable value="{!developedAreas}" var="item">
+							<apex:column ><apex:outputLink value="{!item.link}">{!item.name}</apex:outputLink></apex:column>
+						</apex:pageBlockTable>
+					</apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="Attendance details" columns="1" rendered="{!!viewer.departmentPolicy.fHCM2__Training_View_Only__c && subject.training.editPermitted}">
+                        <apex:inputField required="true" value="{!currentTraining.fHCM2__Other_Training_Name__c}" style="width:300px;" rendered="{!!hasOption}"/>
+						<apex:repeat value="{!$ObjectType.fHCM2__Training__c.FieldSets.fHCM2__Training_New}" var="f">
+	                        <apex:inputField value="{!currentTraining[f]}"/>
+	                    </apex:repeat>
+	                    
+						<apex:repeat value="{!$ObjectType.fHCM2__Training__c.FieldSets.fHCM2__Training_Outcome}" var="f">
+	                        <apex:inputField value="{!currentTraining[f]}" rendered="{!viewer.IsManager && !isnew}"/>
+	                        <apex:outputField value="{!currentTraining[f]}" rendered="{!viewer.IsTeamMember && !isblank(currentTraining[f])}"/>
+	                    </apex:repeat>
+                   </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="Attendance details" columns="1" rendered="{!viewer.departmentPolicy.fHCM2__Training_View_Only__c || !subject.training.editPermitted}">
+                        <apex:outputField value="{!currentTraining.fHCM2__Other_Training_Name__c}" />
+						<apex:repeat value="{!$ObjectType.fHCM2__Training__c.FieldSets.fHCM2__Training_New}" var="f">
+	                        <apex:outputField value="{!currentTraining[f]}"/>
+	                    </apex:repeat>
+						<apex:repeat value="{!$ObjectType.fHCM2__Training__c.FieldSets.fHCM2__Training_Outcome}" var="f">
+	                        <apex:outputField value="{!currentTraining[f]}"/>
+	                    </apex:repeat>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="Comment with approval process" columns="1" rendered="{!IsApprover}">
+                    	<apex:pageBlockSectionItem >
+                    		<apex:outputLabel value="Comment"/>
+                    		<apex:inputText value="{!comment}"/>
+                    	</apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:inputHidden value="{!currentTraining.fHCM2__Team_Member__c}"/>
+            </apex:form>
+
+			<c:ApprovalHistory objectId="{!currentTraining.Id}" page="/apex/{!links.FairsailProfile}" rendered="{!viewer.isTeamMemberOrManager}"/>
+			
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!currentTraining}" page="{!links.FairsailProfile}" rendered="{!viewer.isTeamMemberOrManager}"/>
+
+			<c:Notice viewer="{!viewer}" page="Training" location="Footer"  />
+             <script type="text/javascript">
+                  
+                    function changeYears() {     
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-80; i <= now.getFullYear()+5;i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+                     window.onload = changeYears;
+             </script>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

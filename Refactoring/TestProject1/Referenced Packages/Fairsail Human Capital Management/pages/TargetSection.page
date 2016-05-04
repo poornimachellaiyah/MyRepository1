@@ -1,0 +1,29 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!and(subject.targets.isUsing,viewer.isTeamMemberOrManager)}">
+                    <apex:facet name="header">
+                    	        <h3 class="process-target">{!$Label.fhcm2__Process_Targets}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isManager && viewer.isEdit && viewer.departmentPolicy.fHCM2__Manager_View_Only_Targets__c!=true}">
+                        <apex:outputLink value="/apex/{!links.Target}?teamMemberId={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.targets.working}" var="target" rendered="{!subject.targets.hasWorking}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.Name.label}">
+                            <apex:outputLink value="/apex/{!links.Target}?id={!target.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!target.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" value="{!target.progress}" />
+                        <apex:column headerValue="Target"><c:OutputCurrency value="{!target.targetYTD}" currencyCode="{!target.currencyCode}"/></apex:column>
+                        <apex:column headerValue="Actual"><c:OutputCurrency value="{!target.actualYTD}" currencyCode="{!target.currencyCode}"/></apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <c:ChartPercentAxis width="150px" />
+                            </apex:facet>
+                            <c:chartBar percent="{!target.percentage}" width="150px"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+
+	</apex:pageBlock>
+</apex:page>

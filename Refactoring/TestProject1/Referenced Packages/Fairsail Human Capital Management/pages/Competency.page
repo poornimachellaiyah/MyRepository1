@@ -1,0 +1,226 @@
+<apex:page controller="fHCM2.CompetencyController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Competency Assessment" rendered="{!viewer.isTeamMemberOrManager}">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    	</apex:define>
+    
+        <apex:define name="bannerPanel">
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+			<apex:pageBlock title="{!$Label.fhcm2__ProcessItem_Competency}" mode="view" rendered="{!results.hasCompleted}">
+				<c:Notice viewer="{!viewer}" page="Competency" location="Subheader"/>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Current}" columns="1" rendered="{!results.has}">
+
+					<apex:outputPanel layout="block" styleClass="thinButtonBar2" style="background-color:#f0f0f0;">
+						<apex:outputLink value="/apex/{!links.CompetencyAssessment}?id={!results.id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+					</apex:outputPanel>
+
+					<apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;">
+						<c:ChartPercentAxis width="180px" rendered="{!results.hasScores}"/>
+						<apex:repeat value="{!results.competencies}" var="competency">
+							<apex:outputPanel layout="block" rendered="{!competency.hasScores}">
+								<apex:outputPanel layout="block" style="float:right;white-space:nowrap;text-align:right;">
+									<c:outputNumber decimalPlaces="1" value="{!competency.averageScore}"/>
+								</apex:outputPanel>
+		                    	<apex:outputLink value="/apex/{!links.Competency}?id={!results.Id}&competencyId={!competency.competencyLibraryItemId}&retURL={!URLEncode(retURL)}">{!competency.Name}</apex:outputLink>
+	                    		<c:chartBar percent="{!competency.percentage}"/>
+                    		</apex:outputPanel>
+							<apex:outputPanel layout="block" rendered="{!!competency.hasScores}">
+								<apex:outputLink value="/apex/{!links.Competency}?id={!results.Id}&competencyId={!competency.competencyLibraryItemId}&retURL={!URLEncode(retURL)}">{!competency.Name}</apex:outputLink>
+							</apex:outputPanel>
+						</apex:repeat>
+						<c:ChartPercentAxis position="bottom" width="180px" rendered="{!results.hasScores}"/>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+				<p>&nbsp;</p>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Competency_Assessment_Development_Options}" columns="1" rendered="{!(!isnull(trainingOptions)) && trainingOptions.has}">
+					<apex:repeat value="{!trainingOptions.current}" var="option">
+                        <c:DetailListBar title="{!option.Name}" value="{!option.link+'&teamMemberId='+viewer.teamMember.id}">
+							<c:DetailListItem label="{!$ObjectType.Training_Library__c.fields.Type__c.label }" value="{!option.trainingType}"/>
+							<c:DetailListItem label="{!$ObjectType.Training_Library__c.fields.Supplier__c.label }" value="{!option.supplier}" rendered="{!option.supplier!=''}"/>
+							<c:DetailListItem label="{!$ObjectType.Training_Library__c.fields.Description__c.label }" value="{!option.description}"/>
+						</c:DetailListBar>
+					</apex:repeat>
+				</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="Competency" location="Subfooter"/>
+			</apex:pageBlock>
+		</apex:define>
+
+		<apex:define name="widePanel">
+			<apex:form id="pageForm">
+			<apex:pageBlock title="{!blankvalue(competency.name,$Label.fhcm2__ProcessItem_Competency)}">
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton id="saveNeeds" action="{!saveNeeds}" value="{!$Label.fhcm2__Button_Save}" styleClass="inputsubmit" disabled="{!isblank(competencyId)}" rendered="{!and(viewer.isTeamMemberOrManager,viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c)}"/>
+					<apex:commandButton id="approveNeeds" action="{!approveNeeds}" value="{!$Label.fhcm2__Button_Approve}" rendered="{!and(hasApproval,viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c)}" styleClass="inputsubmit"/>
+					<apex:commandButton id="cancel" action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" styleClass="inputsubmit" rendered="{!and(viewer.isTeamMemberOrManager,viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c)}"/>
+				</apex:pageBlockButtons>
+				<c:Notice viewer="{!viewer}" page="Competency" location="Header"/>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+					<c:PersonSection page="{!links.fairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.Id}" picture="{!viewer.teamMember.pictureUrl}">
+						<apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+							<apex:outputLabel value="{!$ObjectType.Competency_Assessment__c.fields.Job_Profile__c.label }" />
+							<apex:outputText value="{!results.jobProfile}" />
+							<apex:outputLabel value="{!$ObjectType.Competency_Assessment__c.fields.Completed_Date__c.label }" rendered="{!results.hasCompleted}" />
+							<c:outputDate dateValue="{!results.completedDate}" rendered="{!results.hasCompleted}" />
+						</apex:panelGrid>
+					</c:PersonSection>
+				</apex:pageBlockSection>
+				
+					<apex:actionFunction name="competencyChanged" action="{!competencyChanged}" immediate="true" status="loadStatus" onComplete="setDevelopment();" reRender="pageForm,developementNeed"/>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Competency}" columns="1">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$Label.fhcm2__ProcessItem_Competency}" />
+							<apex:outputPanel layout="none">
+								<apex:selectList id="competencyId" value="{!competencyId}" size="1" onchange="competencyChanged();" required="true" rendered="{!selectCompetency}">
+									<apex:selectOptions value="{!competencies}" />
+								</apex:selectList>
+								<apex:outputLabel value="{!competency.name}" rendered="{!!selectCompetency}"/>
+							</apex:outputPanel>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+
+					<apex:actionStatus id="loadStatus">
+						<apex:facet name="start" >
+							<apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+						</apex:facet>
+						<apex:facet name="stop">
+					</apex:facet>
+					</apex:actionStatus>
+
+					<apex:pageBlockSection title="{!substitute($Label.fhcm2__Process_Competency_Assessment_Indicators_By_Strength, '{0}', competency.name)}" columns="1" rendered="{!results.hasCompleted && competency.hasScores}" id="scores">
+						<apex:pageBlockTable value="{!competency.indicators}" var="indicator">
+                            <apex:column headerValue="{!$Label.ProcessItem_Indicator }">
+                            	{!indicator.Name}
+                            </apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Self}" rendered="{!results.hasSelf}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.selfScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!results.hasManager}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.managerScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!results.hasMentor}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.mentorScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!results.hasDirectReport}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.directReportScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!results.hasColleague}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.colleagueScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!results.hasCustomer}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.customerScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!results.hasOther}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.otherScore}"/>
+							</apex:column>
+							<apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!results.hasAverage}">
+								<c:outputNumber decimalPlaces="1" value="{!indicator.averageScore}"/>
+							</apex:column>
+							<apex:column >
+								<apex:facet name="header">
+									<c:ChartPercentAxis width="150px" />
+								</apex:facet>
+								<c:chartBar rendered="{!results.hasSelf}" percent="{!indicator.selfPercentage}" color="SelfColor" width="150px"/>
+								<c:chartBar rendered="{!results.hasManager}" percent="{!indicator.managerPercentage}" color="ManagerColor" width="150px"/>
+								<c:chartBar rendered="{!results.hasMentor}" percent="{!indicator.mentorPercentage}" color="MentorColor" width="150px"/>
+								<c:chartBar rendered="{!results.hasDirectReport}" percent="{!indicator.directReportPercentage}" color="DirectReportColor" width="150px"/>
+								<c:chartBar rendered="{!results.hasColleague}" percent="{!indicator.colleaguePercentage}" color="ColleagueColor" width="150px"/>
+								<c:chartBar rendered="{!results.hasCustomer}" percent="{!indicator.customerPercentage}" color="CustomerColor" width="150px"/>
+								<c:chartBar rendered="{!results.hasOther}" percent="{!indicator.otherPercentage}" color="OtherColor" width="150px"/>
+							</apex:column>
+							<apex:column headerValue="Responses" style="white-space: nowrap;" rendered="{!results.has360}">
+								<apex:outputText value="{!indicator.frequency}"/>
+							</apex:column>
+						</apex:pageBlockTable>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!substitute($Label.fhcm2__Process_Competency_Assessment_Comments_For,'{0}',competency.name)}" columns="1" rendered="{!results.hasCompleted && competency.commentsHas}" id="comments">
+						<apex:pageBlockTable value="{!competency.comments}" var="comment">
+							<apex:column headerValue="{!$Label.fhcm2__ProcessItem_Indicator}" rendered="{!competency.commentsHasIndicator && competency.indicators.size>1}">
+								<apex:outputText value="{!comment.indicator.name}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Reporting_Relationship__c.label}" rendered="{!results.assessors.size>1}">
+								<apex:outputText value="{!comment.reportingRelationship}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Strength__c.label}" rendered="{!competency.commentsHasStrength}">
+								<apex:outputText value="{!comment.strength}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Development_Need__c.label}" rendered="{!competency.commentsHasDevelopmentNeed}">
+								<apex:outputText value="{!comment.developmentNeed}"/>
+							</apex:column>
+							<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Comment__c.label}" rendered="{!competency.commentsHasComment}">
+								<apex:outputText value="{!comment.comment}"/>
+							</apex:column>
+						</apex:pageBlockTable>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Development_Need}" columns="1" rendered="{!and(viewer.isTeamMemberOrManager,viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c,!isblank(competencyId),isblank(competency.need.Id) || competency.need.fHCM2__Status__c=='Draft' || competency.need.fHCM2__Status__c=='Approved')}" id="developementNeed">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="{!$Label.fhcm2__Global_Needs_Development}" />
+							<apex:inputCheckbox id="hasDevelopmentNeed" value="{!competency.hasNeed}" onChange="setDevelopment();"/>
+						</apex:pageBlockSectionItem>
+
+						<apex:repeat value="{!$ObjectType.fHCM2__Development_Need__c.FieldSets.fHCM2__Development_Need}" var="f">
+	                        <apex:inputField id="developmentNeed" value="{!competency.need[f]}" rendered="{!f!='fHCM2__Objective__c'}"/>
+							<apex:pageBlockSectionItem rendered="{!f=='fHCM2__Objective__c'}">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Objective__c.label}" />
+								<apex:selectList id="developmentNeedObjective" value="{!competency.need.fHCM2__Objective__c}" size="1" >
+									<apex:selectOptions value="{!objectives}"/>
+								</apex:selectList>
+							</apex:pageBlockSectionItem>
+	                    </apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Development_Need}" columns="1" rendered="{!and(viewer.isTeamMemberOrManager,viewer.departmentPolicy.fHCM2__Development_Plans_Is_Active__c,!isblank(competencyId),not(isblank(competency.need.Id) || competency.need.fHCM2__Status__c=='Draft' || competency.need.fHCM2__Status__c=='Approved'))}">
+						<apex:repeat value="{!$ObjectType.fHCM2__Development_Need__c.FieldSets.fHCM2__Development_Need}" var="f">
+	                        <apex:outputField id="developmentNeed" value="{!competency.need[f]}" rendered="{!f!='fHCM2__Objective__c'}"/>
+							<apex:pageBlockSectionItem rendered="{!f=='fHCM2__Objective__c'}">
+								<apex:outputLabel value="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Objective__c.label}" />
+								<apex:outputLink value="{!links.Objective+'?id='+competency.need.fHCM2__Objective__c}"><apex:outputLabel value="{!competency.need.Objective__r.Name}" /></apex:outputLink>
+							</apex:pageBlockSectionItem>
+	                    </apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__Process_Development_Need_Outcome}" columns="1" rendered="{!!isblank(competency.need.id) && (viewer.isManager && viewer.IsEdit)}">
+						<apex:repeat value="{!$ObjectType.fHCM2__Development_Need__c.FieldSets.fHCM2__Progress}" var="f">
+	                        <apex:inputField value="{!competency.need[f]}" />
+	                    </apex:repeat>
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection title="{!$Label.fhcm2__Process_Development_Need_Outcome}" columns="1" rendered="{!!isblank(competency.need.id) && (viewer.isTeamMember || (viewer.isManager && !viewer.IsEdit))}" >
+						<apex:repeat value="{!$ObjectType.fHCM2__Development_Need__c.FieldSets.fHCM2__Progress}" var="f">
+	                        <apex:outputField value="{!competency.need[f]}" />
+	                    </apex:repeat>
+					</apex:pageBlockSection>
+
+						<script type="Text/JavaScript">
+						function checkedHasDevelopmentNeed() {
+							var elements = getElementsByNameAndId("input","hasDevelopmentNeed");
+							for (var i=0; i<elements.length; i++)
+								if (elements[i].checked)
+									return true;
+							return false;
+						}
+						function setDevelopment() {
+							if (checkedHasDevelopmentNeed()) {
+								enable("developmentNeed");
+								enable("developmentNeedObjective");
+							} else {
+								disable("developmentNeed");
+								disable("developmentNeedObjective");
+							}
+						}
+						setDevelopment();
+						</script>
+
+					
+					<c:Notice viewer="{!viewer}" page="Competency" location="Footer"/>
+			</apex:pageBlock>
+			</apex:form>
+		</apex:define>
+	</apex:composition>
+</apex:page>

@@ -1,0 +1,16 @@
+<apex:page showHeader="false" id="FormTemplate" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.fRecruit__Form_zip,'Form/form.css')}" />
+ 
+    <apex:stylesheet value="/resource/fRecruit__jqueryUI/css/overcast/jquery-ui-1.7.2.custom.css"/>
+    <apex:includeScript value="/resource/fRecruit__jqueryUI/js/jquery-1.3.2.min.js" />
+    <apex:includeScript value="/resource/fRecruit__jqueryUI/js/jquery-ui-1.7.2.custom.min.js" />
+    <apex:includeScript value="/resource/fRecruit__jqueryUI/js/autoresize.jquery.js" />
+
+   <script language="JavaScript" src="{!URLFOR($Resource.Form_zip,'Form/formfRecruit.js')}" />
+
+ 	<apex:insert name="header"/>
+    <apex:outputPanel layout="block" styleClass="mainPageDiv">
+		<apex:insert name="body"/>
+    </apex:outputPanel>
+	<apex:insert name="footer"/>
+</apex:page>

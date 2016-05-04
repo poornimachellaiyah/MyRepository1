@@ -1,0 +1,161 @@
+<apex:page controller="fHCM2.DependantControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <!--<apex:pageBlock title="{!$Label.Global_Details}" mode="view">
+                <apex:image value="{!viewer.teamMember.PictureUrl}" width="190" rendered="{!viewer.teamMember.PictureUrl!=null}" />
+            </apex:pageBlock>-->
+            
+            
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Dependants}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="Dependant" location="Subheader"/>
+                <apex:pageBlockSection columns="1">
+        
+            
+            <apex:repeat value="{!subject.Dependants.dependants}" var="Dependant">
+                <c:DetailListBar title="{!Dependant.Name}" value="/apex/{!links.Dependant}?TeamMemberId={!viewer.teamMember.Id}&id={!Dependant.Id}">
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Relation__c.label}" value="{!Dependant.Relation}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__First_Name__c.label}" value="{!Dependant.FirstName}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Middle_Name__c.label}" value="{!Dependant.MiddleName}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Surname__c.label}" value="{!Dependant.Surname}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Social_Security_Number__c.label}" value="{!Dependant.SocialSecurityNumber}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Date_of_Birth__c.label}">
+                        <c:outputDate value="{!Dependant.DateOfBirth}"/>
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Gender__c.label}" value="{!Dependant.Gender}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Disabled__c.label}">
+                        <apex:image value="/img/checkbox_checked.gif" rendered="{!Dependant.Disabled}"/>
+                        <apex:image value="/img/checkbox_unchecked.gif" rendered="{!!Dependant.Disabled}"/>   
+                    </c:DetailListItem>
+                </c:DetailListBar>
+            </apex:repeat>
+            
+             </apex:pageBlockSection>
+             <c:Notice viewer="{!viewer}" page="Dependant" location="Subfooter"/>
+        </apex:pageBlock>
+            
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:stylesheet value="{!URLFOR($Resource.fHCM2__jqueryUI, '/css/overcast/jquery-ui-1.10.3.custom.min.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}"/>
+            <script>
+                jQuery.noConflict();
+                var now = new Date();
+                jQuery(function(){
+                jQuery(".datepicker").datepicker({
+	            changeMonth: true,
+	            changeYear: true,
+	            yearRange: String(now.getFullYear()-130)+":"+String(now.getFullYear())
+        });
+                });
+            </script>
+            <apex:form rendered="{!viewer.isTeamMember || (viewer.IsManager && viewer.departmentPolicy.fHCM2__Manager_View_Personal_Details__c==true)}">
+                <apex:pageMessages />
+                
+                <apex:pageBlock title="{!Dependant_Relation}" mode="view">
+                	<c:Notice viewer="{!viewer}" page="Dependant" location="Header"/>
+                    <apex:pageBlockSection title="{!Dependant_Name}" columns="1">
+                        <apex:pageblockSectionItem rendered="{!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_Relation))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Relation__c.label}"/>
+                            <apex:outputText value="{!Dependant_Relation}"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="{!!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_Relation))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Relation__c.label}"/>
+                            <apex:selectList value="{!Dependant_Relation}" size="1" required="true">
+                                  <apex:selectOptions value="{!Relations}"/>
+                            </apex:selectList>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__First_Name__c.label}"/>
+                            <apex:inputText value="{!Dependant_FirstName}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Middle_Name__c.label}"/>
+                            <apex:inputText value="{!Dependant_MiddleName}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Surname__c.label}"/>
+                            <apex:inputText value="{!Dependant_Surname}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="{!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_SSN))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Social_Security_Number__c.label}"/>
+                            <apex:outputText value="***************{!right(Dependant_SSN,4)}" />
+                        </apex:pageblockSectionItem>
+                         <apex:pageblockSectionItem rendered="{!!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_SSN))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Social_Security_Number__c.label}"/>
+                            <apex:inputText value="{!Dependant_SSN}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="{!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_DateOfBirth))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Date_of_Birth__c.label}"/>
+                            <c:outputDate value="{!Dependant_DateOfBirth}" />
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="{!!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_DateOfBirth))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Date_of_Birth__c.label}"/>
+                            <apex:inputText value="{!Dependant_DateOfBirth}" styleClass="datepicker" />
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Disabled__c.label}"/>
+                            <apex:inputCheckbox value="{!Dependant_Disabled}"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem rendered="{!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_Gender))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Gender__c.label}"/>
+                            <apex:outputText value="{!Dependant_Gender}" />
+                        </apex:pageblockSectionItem>
+                         <apex:pageblockSectionItem rendered="{!!(viewer.departmentPolicy.fHCM2__Gate_Primary_Team_Member_Fields__c && !isblank(Dependant_Gender))}">
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Gender__c.label}"/>
+                            <apex:selectList value="{!Dependant_Gender}" size="1" required="true">
+                                  <apex:selectOptions value="{!genders}"/>
+                            </apex:selectList>
+                        </apex:pageblockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="{!$Label.fhcm2__ProcessItem_Dependants_Dependant_Adress}" columns="1">
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Dependant_Address_1__c.label}"/>
+                            <apex:inputText value="{!Dependant_Address1}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Dependant_Address_2__c.label}"/>
+                            <apex:inputText value="{!Dependant_Address2}" style="width: 300px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Dependant_Address_City__c.label}"/>
+                            <apex:inputText value="{!Dependant_AddressCity}" style="width: 200px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Dependant_Address_Region__c.label}"/>
+                            <apex:inputText value="{!Dependant_AddressRegion}" style="width: 200px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Dependant_Address_Postal_Code__c.label}"/>
+                            <apex:inputText value="{!Dependant_AddressPostalCode}" style="width: 200px;"/>
+                        </apex:pageblockSectionItem>
+                        <apex:pageblockSectionItem >
+                            <apex:outputlabel value="{!$ObjectType.fHCM2__Dependant__c.Fields.fHCM2__Dependant_Address_Country__c.label}"/>
+                            <apex:inputText value="{!Dependant_AddressCountry}" style="width: 200px;"/>
+                        </apex:pageblockSectionItem>
+                    </apex:pageBlockSection>
+                    <c:Notice viewer="{!viewer}" page="Dependant" location="Footer"/>
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton action="{!saveNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!isNew}"/>
+                        <apex:commandButton action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,95 @@
+<apex:page controller="fHCM2.TalentAssessmentController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.fHCM2__TreeTable, '/stylesheets/jquery.treeTable.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__TreeTable, '/javascripts/jquery.treeTable.min.js')}"/>
+		    <script language="javascript">
+		        jQuery.noConflict();
+				jQuery(document).ready(function(){
+					jQuery("#teamMemberTree").treeTable({
+//					  initialState: "expanded",
+					  indent: 13
+					});
+				});
+		    </script>
+		    <style>
+		    	.teamMemberTree td {
+					border-top: 1px solid black;
+		    	}
+		    	.teamMemberTree td td {
+					border-top: 1px solid #b0b0b0;
+		    	}
+		    	.teamMemberTree td tr:first-child td {
+					border-top: 0px;
+		    	}
+		    	label {
+		    		font-family:Arial,Verdana,sans-serif;
+		    		font-size:75%;
+		    	}
+			   .thinPanelTD{
+			       display:none;
+			   }
+			   .gapPanelTD{
+			       display:none;
+			   }
+			   .widePanelTD{
+			       width:800px;
+			   }
+		    </style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+			<apex:form >
+	            <apex:pageBlock title="{!$Label.fhcm2__Process_Talent_Plan}">
+	                <apex:pageBlockButtons >
+	                    <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+	                    <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}"/>
+	                </apex:pageBlockButtons>
+		
+					<apex:pageMessages />
+					<c:Notice viewer="{!viewer}" page="TalentAssessment" location="Header"  />
+					<table id="teamMemberTree" style="width:100%;" class="teamMemberTree">
+						<tr id="header">
+							<td style="vertical-align:top; padding-left:13px;">{!$ObjectType.Talent_Plan__c.Fields.Team_Member__c.label}</td>
+			            	<apex:repeat value="{!$ObjectType.fHCM2__Talent_Assessment__c.FieldSets.fHCM2__Talent_Assessment}" var="f">
+								<td style="vertical-align:top;">{!$ObjectType.fHCM2__Talent_Assessment__c.Fields[f].label}</td>
+							</apex:repeat>
+						</tr>
+                        <apex:repeat value="{!flatPacked}" var="node">
+                        	<apex:outputPanel rendered="{!node.hasRecord && !isblank(node.manager)}">
+                        	<tr id="node-{!node.index}" class="{!if(isblank(node.manager.manager),'','child-of-node-'+text(node.manager.index))}">
+                        		<td style="vertical-align:top; padding-left:13px;">
+					                <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 3px 3px 3px 3px; width:54px; height:91px; clear:none; text-align: center; line-height: 75%;">
+					                    <apex:outputPanel style="font-size: 80%;font-weight:bold;text-decoration: none;color: #0e52a1;text-align: center; overflow:hidden;">
+				                            <apex:image value="{!node.teamMember.pictureURL}" width="44" height="55" style="display: block; margin-left: auto; margin-right: auto"/> {!node.teamMember.name}
+					                    </apex:outputPanel>
+					                </apex:outputPanel>
+                        		</td>
+				            	<apex:repeat value="{!$ObjectType.fHCM2__Talent_Assessment__c.FieldSets.fHCM2__Talent_Assessment}" var="f">
+									<td style="vertical-align:top;">
+										<apex:selectRadio value="{!node.talentAssessment[f]}" layout="pageDirection" rendered="{!$ObjectType.fHCM2__Talent_Assessment__c.Fields[f].type=='picklist' && !isblank(node.talentAssessment)}">
+											<apex:selectOptions value="{!picklists[f]}"/>
+										</apex:selectRadio>
+										<apex:inputTextArea value="{!node.talentAssessment[f]}" rendered="{!$ObjectType.fHCM2__Talent_Assessment__c.Fields[f].type=='textarea' && !isblank(node.talentAssessment)}" rows="4"/>
+									</td>
+								</apex:repeat>
+                        	</tr>
+                        	</apex:outputPanel>
+						</apex:repeat>	
+					</table>
+					<c:Notice viewer="{!viewer}" page="TalentAssessment" location="Footer"  />
+	            </apex:pageBlock>
+			</apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

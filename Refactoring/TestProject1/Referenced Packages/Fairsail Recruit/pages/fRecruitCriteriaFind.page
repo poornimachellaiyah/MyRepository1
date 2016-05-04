@@ -1,0 +1,343 @@
+<apex:page standardController="fRecruit__Candidate_Search__c" extensions="fRecruit.CriteriaFindController" title="Find Candidates">
+
+    <style>
+        .container {
+            xbackground-color: linen;
+            display: inline-block;
+            float: left;
+            padding-left: 10px;
+        }
+        .column{
+            width: 49%;
+        }
+        @media screen and (max-width: 1100px) {
+            .column{
+                width: 100%;
+            }
+        }   
+    </style>
+
+    <apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'jquery.js')}"/>
+    <script>
+    		var sText; 
+            jQuery.noConflict();
+            function CheckAll(className) {
+                jQuery('.'+className).attr('checked', true);
+            }
+            function CheckNone(className) {
+                jQuery('.'+className).attr('checked', false);
+            }
+            
+            jQuery(document).ready(doSearchTerm);
+            
+            function doSearchTerm(){
+	           <apex:repeat value="{!criteriaNeeds}" var="criteria">
+				jQuery(".highlightterm").html(
+            		function(index,html){
+						var sValue = quoteText("{!criteria.name}");
+            			var sExp = "(" + sValue +")";
+            			var re = new RegExp(sExp,"gi");
+            			var sResult =html.replace(re,"\<mark\>$1\<\/mark\>"); 
+            			return sResult;
+            		}
+            	);
+               </apex:repeat>                              
+            }
+            function quoteText(text) {
+ 			   return text.replace(/[\\^$.*+?()[\]{}|=!<>:-]/g, '\\$&');
+			}
+    </script>
+    
+	 <apex:outputPanel id="resultGoogle">
+	  <script>
+	  	function googleSearch() {
+			var actionResult = "{!JSENCODE(googleUrl)}";
+			window.open(actionResult);
+		}
+	  </script>
+	</apex:outputPanel>
+    
+    <apex:sectionHeader title="Find Candidates" subTitle="Search" help="http://recruit.help.fairsail.com/topics/FindCandidates.html" />
+    <apex:pagemessages />
+        <apex:form >
+            <apex:pageBlock title="Criteria Search" >
+            <!--  <apex:pageBlock > <!-- title="Criteria Search" -->
+                <apex:actionFunction name="areaChanged" action="{!areaChanged}" immediate="true" reRender="criteriaList,keywords,criteriaTable" status="loadStatus"/>
+                <div class="container column">
+                
+                <apex:pageBlockSection columns="3">
+                    <apex:inputField value="{!fRecruit__Candidate_Search__c.name}"            required="true" rendered="true"/>
+                    <apex:inputField value="{!fRecruit__Candidate_Search__c.fRecruit__Description__c}"  required="false" rendered="true"/>
+                    <apex:outputField value="{!fRecruit__Candidate_Search__c.fRecruit__Data__c}"        rendered="false"/>
+                    <apex:commandButton action="{!save}" value="Update" rendered="{!IsEditMode }"/>
+                    <apex:commandButton action="{!save}" value="Save" rendered="{!IsNewMode || IsViewMode}"/>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="Criteria to be searched for:" columns="1">
+
+                    <apex:pageBlockTable value="{!criteriaNeeds}" var="need" id="criteriaTable">
+                        <apex:column headerValue="Key">
+                            <c:KeyBlock color="{!need.color.css}"/>
+                        </apex:column>
+                        <apex:column headerValue="Type" value="{!need.area}" >
+                            <apex:facet name="footer">
+                                <apex:selectList id="criteriaArea" value="{!criteriaArea}" size="1" onchange="areaChanged();" >
+                                    <apex:selectOptions value="{!criteriaAreas}" />
+                                </apex:selectList>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Criteria" value="{!need.displayValue}">
+                            <apex:facet name="footer">
+                                <apex:outputPanel >
+                                    <apex:actionStatus startText=".. loading .." id="loadStatus">
+                                        <apex:facet name="stop">
+                                            <apex:outputPanel >
+                                            <apex:selectList id="criteriaList" value="{!criteriaLibraryItem}" size="1" disabled="{!criteriaArea=null}" rendered="{!(criteriaArea!='Text' && criteriaArea!='location' && criteriaArea!='stageName' )}">
+                                                <apex:selectOptions value="{!criteriaOptions}"/>
+                                            </apex:selectList>
+                                            <apex:selectList id="stageNameList" value="{!searchStage}" size="1" disabled="{!criteriaArea=null}"  rendered="{!criteriaArea=='stageName' }">
+                                                <apex:selectOptions value="{!criteriaOptions}"/>
+                                            </apex:selectList>
+                                            <apex:inputText id="keywords" value="{!keywords}" style="width:150px;" rendered="{!criteriaArea=='Text'}"/>
+                                            <apex:inputField id="locationCountry" value="{!vacancyObj.fRecruit__Location_Country__c}" style="width:100px;" rendered="{!criteriaArea=='location'}"/>
+                                            <apex:inputText id="postCode" value="{!postCode}" style="width:70px;margin-left:10px" rendered="{!criteriaArea=='location'}" html-placeholder="Post Code"/>
+                                            <apex:inputText id="radius" value="{!radius}" style="width:50px;margin-left:10px" rendered="{!criteriaArea=='location'}" html-placeholder="Radius"/>
+                                             <apex:selectList id="uom" value="{!uom}" size="1" rendered="{!criteriaArea=='location'}" style="margin-left:10px">
+						                        <apex:selectOptions value="{!MetricSystem}" />
+						                    </apex:selectList>
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Required">
+                            <c:fRecruitOutputCheckbox value="{!need.required}"/>
+                            <apex:facet name="footer">
+                                <apex:inputCheckbox id="criteriaRequired" value="{!required}" disabled="{!criteriaArea=null}"/>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column headerValue="Action">
+                            <apex:commandLink id="del" action="{!deleteCriteria}" immediate="true" value="[Delete]" >
+                                <apex:param name="deleteId" value="{!blankvalue(need.id,need.name)}" assignTo="{!deleteId}"/>
+                            </apex:commandLink>
+                            <apex:facet name="footer">
+                                <apex:commandButton id="add" action="{!addCriteria}" immediate="true" disabled="{!criteriaArea==null}" value="Search" styleClass="inputsubmit" />
+                           </apex:facet>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:commandLink action="{!deleteAllCriteria}" immediate="true" value="Delete All"/>
+                    <apex:outputPanel >
+                        <apex:outputLabel value="Applied in last"/>&nbsp;
+                        <apex:inputText id="months" value="{!months}"/>&nbsp;
+                        <apex:outputLabel value="months" />&nbsp;&nbsp;&nbsp;
+                        <apex:commandButton action="{!searchMonths}" immediate="true" value="Search" styleClass="inputsubmit" />
+                    </apex:outputPanel>                 
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="Google Search" columns="3" rendered="false">
+               		 <apex:outputPanel >
+                 	     <apex:inputText id="paramsGoogle" value="{!paramsGoogle}"/>&nbsp;
+                 	     <apex:commandButton action="{!googling}" immediate="true" value="Search on Google" rendered="true" rerender="resultGoogle"  oncomplete="googleSearch()" />
+               		</apex:outputPanel>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Candidates matching the criteria (with those most closely matching at the top):" columns="1">
+                    <apex:outputPanel rendered="{!candidates.all.size>0}">
+                        <apex:commandButton value="Bulk Email" action="{!BulkEmail}"/>
+                        <apex:commandButton value="New Applications" action="{!CreateApplications}"/>
+                    </apex:outputPanel>
+                    Select&nbsp;&nbsp;<a href="javascript:void(0);" onclick="CheckAll('foundCandidates');">[All]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="CheckNone('foundCandidates');">[None]</a>
+                    <apex:pageBlockTable value="{!candidates.all}" var="criterias">
+                        <apex:column headerValue="Select">
+                            <apex:inputCheckbox value="{!criterias.isSelected}" styleClass="foundCandidates"/>
+                        </apex:column>
+                        <apex:column headerValue="Candidate">
+                            <!-- <apex:outputLink value="/{!criterias.candidate.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">[{!criterias.candidate.Name}]</apex:outputLink>
+                            &nbsp;-->
+                            <apex:commandLink reRender="resultDetails" oncomplete="doSearchTerm();" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!criterias.candidate.Name}
+                                <apex:param name="candidateId" value="{!criterias.candidate.id}"/>
+                            </apex:commandLink>
+                                
+                        </apex:column>
+                        <apex:column headerValue="Resume">
+                            <apex:outputLink value="/{!criterias.candidate.fRecruit__ResumeUrl__c}" rendered="{!!isblank(criterias.candidate.fRecruit__ResumeUrl__c)}" target="_blank" style="font-weight:bold;text-decoration: none;color: #0e52a1">Resume</apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="Total Criteria Score">
+                            <c:outputNumber value="{!criterias.totalScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="Degree of match to search criteria">
+                            <c:ChartRow width="180px">
+                                <apex:repeat value="{!criterias.criterias}" var="criteria">
+                                    <c:ChartBlock color="{!criteria.need.color.css}" title="{!criteria.need.area} {!criteria.need.name} {!criteria.response}" percent="{!criteria.percent}"/>
+                                </apex:repeat>                              
+                            </c:ChartRow>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                </div><!-- container -->
+                
+                
+                <div class="container column highlightterm">
+                    <apex:outputPanel id="resultDetails">
+                     
+                     <apex:pageblocksection Title="Candidate">
+                        <apex:outputField value="{!SelectedCandidate.Name}" />    
+                     </apex:pageblocksection>   
+                     
+                     <apex:tabPanel switchType="client" selectedTab="tabSummary" id="theTabPanel" rendered="{!true || CandidateCriterias != null}"> 
+                        <apex:tab label="Summary" name="tabSummary" id="tabSummaryId">
+                            
+                            <apex:pageBlock title="Matches" mode="details" >
+                            <apex:pageBlockTable value="{!CandidateCriterias.criterias}" var="oaCandidateCriteria">
+                                <apex:column width="10px" headerValue="Required">
+                                    <c:fRecruitOutputCheckbox value="{!oaCandidateCriteria.need.required}"/>
+                                </apex:column>  
+                                <apex:column headerValue="Type">
+                                    <apex:outputText value="{!oaCandidateCriteria.need.area}"/>
+                                </apex:column>
+                                <apex:column headerValue="Criteria">
+                                    <apex:outputText value="{!oaCandidateCriteria.need.name}"/>
+                                </apex:column>
+                                <apex:column headerValue="Score">
+                                    <c:ChartBlock color="{!oaCandidateCriteria.need.color.css}" title="{!oaCandidateCriteria.need.area} {!oaCandidateCriteria.need.name} {!oaCandidateCriteria.response}" percent="{!oaCandidateCriteria.score / 5 * 100}"/>&nbsp;&nbsp;{!Round(oaCandidateCriteria.score,0)}
+                                </apex:column>
+                            </apex:pageBlockTable>    
+                            <br/>                      
+                            Total Criteria Score: &nbsp; {!Round(CandidateCriterias.totalscore,0)}
+                            </apex:pageBlock>
+
+                          <!-- Candidate Information -->  
+                          <apex:pageBlockSection title="Details" columns="2" rendered="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Search.size>0}">
+                          <apex:repeat value="{!$ObjectType.fRecruit__Candidate__c.FieldSets.fRecruit__Candidate_Search}" var="f">
+                                <c:outputDate value="{!SelectedCandidate[f]}" rendered="{!f.type=='date'}"/>
+                                <apex:outputfield value="{!SelectedCandidate[f]}" rendered="{!(f.type!='Text' || !contains(SelectedCandidate[f],'<img')) && f.type!='date'}"/>
+                                <apex:outputText value="{!SelectedCandidate[f]}" rendered="{!f.type=='Text' && contains(SelectedCandidate[f] && f.type!='date','<img')}" escape="false" />
+                          </apex:repeat>
+                          </apex:pageBlockSection>
+
+
+                        </apex:tab>
+
+                        <apex:tab label="Extracted Resume" name="tabExtractedResume" id="tabExtractedResume">
+                                <apex:pageBlock title="{!$ObjectType.fRecruit__Candidate__c.Fields.fRecruit__Resume_Summary__c.label}" mode="details" >
+                                    <apex:outputLabel value="{!SelectedCandidate.fRecruit__Resume_Summary__c}" />
+                                </apex:pageBlock>
+                                <apex:pageBlock title="{!$ObjectType.fRecruit__Resume_Job_History__c.label}" mode="details" >
+                                    <apex:pageBlockTable value="{!SelectedCandidate.fRecruit__Resume_Job_History__r}" var="row">
+                                        <apex:column headerValue="{!$ObjectType.fRecruit__Resume_Education__c.fields.Name.label}">
+                                            <apex:outputLink value="/{!row.Id}" ><c:outputDate value="{!row.fRecruit__Start_Date__c}"  format="MMM YYYY"/><apex:outputText value=" - "/><c:outputDate value="{!row.fRecruit__End_Date__c}"  format="MMM YYYY"/></apex:outputLink>
+                                        </apex:column>
+                                        <apex:column value="{!row.fRecruit__Company_Name__c}" />
+                                        <apex:column value="{!row.fRecruit__Title__c}" 		/>
+                                        <apex:column value="{!row.fRecruit__Description__c}" 	/>
+                                    </apex:pageBlockTable>
+                                </apex:pageBlock>
+                                <apex:pageBlock title="{!$ObjectType.fRecruit__Resume_Education__c.label}" mode="details" >
+                                    <apex:pageBlockTable value="{!SelectedCandidate.fRecruit__Resume_Education__r}" var="row">
+                                        <apex:column headerValue="{!$ObjectType.fRecruit__Resume_Education__c.fields.Name.label}">
+                                            <apex:outputLink value="/{!row.Id}"><c:outputDate value="{!row.fRecruit__Start_Date__c}" format="MMM YYYY"/><apex:outputText value=" - "/><c:outputDate value="{!row.fRecruit__End_Date__c}"  format="MMM YYYY"/></apex:outputLink>
+                                        </apex:column>
+                                        <apex:column value="{!row.fRecruit__Institution_Name__c}"/>
+                                        <apex:column value="{!row.fRecruit__Degree__c}"/>
+                                        <apex:column value="{!row.fRecruit__Fields_of_Study__c}"/>
+                                    </apex:pageBlockTable>
+                                </apex:pageBlock>
+                        </apex:tab>
+
+
+                       <apex:tab label="Applications" name="tabApplications" id="tabApplications">
+
+
+                                <apex:repeat value="{!Applications}" var="oApplication">
+                            <apex:pageBlockSection title="{!oApplication.m_oApplication.Name} {!oApplication.m_oApplication.fRecruit__Vacancy__r.Name}" columns="1">
+                            <apex:outputPanel >
+                                <table width="100%" >
+                                    <tr>
+                                        <th>Application No</th>
+                                        <th>Vacancy</th>
+                                        <th>Status</th>
+                                        <th>Current Stage</th>
+                                        <th>Current Assessor</th>
+                                    </tr>
+                                        <tr>
+                                            <td>{!oApplication.m_oApplication.Name}</td>
+                                            <td>{!oApplication.m_oApplication.fRecruit__Vacancy__r.Name}</td>
+                                            <td>{!oApplication.m_oApplication.Status__c}</td>
+                                            <td>{!oApplication.m_oApplication.fRecruit__Selection_Stage__r.Name}</td>
+                                            <td>{!oApplication.m_oApplication.fRecruit__Current_Assessor__r.Name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" >
+                                            <br/><br/>
+                                            
+                                            <apex:pageBlock title="Assessments" mode="detail" rendered="{!oApplication.oApplicationController.hasRows}">
+                                            <table width="100%" class="list">
+                                                <tbody>
+                                                    <tr class="headerRow">
+                                                        <th scope="col" rowspan="2">Type</th>
+                                                        <th scope="col" rowspan="2">Name</th>
+                                                        <th scope="col" rowspan="2">Required</th>
+                                                        <th scope="col" colspan="{!oApplication.oApplicationController.noStages}" style="text-align: center; border-bottom:0px; padding: 0px 0px 0px 0px;">Assessments To Date</th>
+                                                    </tr>
+                                                    <tr class="headerRow">
+                                                        <apex:repeat value="{!oApplication.oApplicationController.stages}" var="stage">
+                                                            <th scope="col" style="text-align: center;"><apex:outputLink value="/{!stage.Id}">{!stage.Name}</apex:outputLink></th>
+                                                        </apex:repeat>
+                                                    </tr>
+                                                    <apex:repeat value="{!oApplication.oApplicationController.Rows}" var="row">
+                                                        <tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                                                            <td>{!row.type}</td>
+                                                            <td><apex:outputLink value="/{!row.id}">{!row.name}</apex:outputLink></td>
+                                                            <td><c:fRecruitOutputCheckbox value="{!row.required}"/></td>
+                                                            <apex:repeat value="{!row.Items}" var="item">
+                                                                <td align="center">
+                                                                    <apex:outputPanel style="color:#a0a0a0;" rendered="{!item.HasScore}"><apex:image value="{!item.ratingIndicator}" alt="{!item.rating}"/> {!item.weightedScore}</apex:outputPanel>
+                                                                    <apex:outputPanel rendered="{!!item.HasScore}">&nbsp;</apex:outputPanel>
+                                                                </td>
+                                                            </apex:repeat>
+                                                        </tr>
+                                                    </apex:repeat>
+                                                    <tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                                                        <td style="font-weight:bold;" colspan="3">Score</td>
+                                                        <apex:repeat value="{!oApplication.oApplicationController.stages}" var="stage">
+                                                            <td style="text-align: center;"><c:outputNumber decimalPlaces="1" value="{!stage.fRecruit__Weighted_Score__c}"/></td>
+                                                        </apex:repeat>
+                                                    </tr> 
+                                                    <tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                                                        <td style="font-weight:bold;" colspan="3">Weighted Average</td>
+                                                        <apex:repeat value="{!oApplication.oApplicationController.stages}" var="stage">
+                                                            <td style="text-align: center;">{!stage.fRecruit__Weighted_Average_Score__c}</td>
+                                                        </apex:repeat>
+                                                    </tr>
+                                                    <tr class="dataRow" style="background-color: #CCCCCC;" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                                                        <td style="font-weight:bold;" colspan="3">Outcome</td>
+                                                        <apex:repeat value="{!oApplication.oApplicationController.stages}" var="stage">
+                                                            <td style="text-align: center;">{!stage.fRecruit__Outcome__c}</td>
+                                                        </apex:repeat>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            
+                                            <br/>
+                                            <p style="text-align: center">Key:-&nbsp;&nbsp;&nbsp;&nbsp; Exceeds <apex:image value="/img/samples/rating5.gif" />&nbsp;&nbsp; Fully Meets <apex:image value="/img/samples/rating4.gif" />&nbsp;&nbsp; Just Meets <apex:image value="/img/samples/rating3.gif" />&nbsp;&nbsp; Partly Meets <apex:image value="/img/samples/rating2.gif" />&nbsp;&nbsp; Not Met <apex:image value="/img/samples/rating1.gif" /></p>
+                                            </apex:pageBlock>
+                                            </td>
+                                        </tr>
+                                </table>
+                                </apex:outputPanel>
+                            </apex:pageBlockSection>
+                                    </apex:repeat>                              
+                            </apex:tab>
+                     </apex:tabPanel> 
+                    </apex:outputPanel>
+                    
+                            
+                </div><!-- container -->
+                
+
+
+            </apex:pageBlock>
+        </apex:form>
+ </apex:page>

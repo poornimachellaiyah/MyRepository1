@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Recruitment policies for use of Fairsail Recruit</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Base_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The prefix to external access to Recruit.  In most cases this will be the URL configured for Sites.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The prefix to external access to Recruit.  In most cases this will be the URL configured for Sites.</inlineHelpText>
+        <label>Base URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Candidate_Status_To_Create_Team_Member__c</fullName>
+        <defaultValue>&apos;Hired&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Candidate Status To Create Team Member</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_For_Approval_Reminder__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The number of days till the next reminder email will be sent to the user to remind him about the  approval process for Vacancy and Application.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of days till the next approve reminder email will be sent</inlineHelpText>
+        <label>Days For Approval Reminder</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Geolocation_Country__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Country to use for geolocation if not set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Country to use for geolocation if not set.</inlineHelpText>
+        <label>Default Geolocation Country</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Geolocation_UOM__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Unit of measure (km/miles)</description>
+        <externalId>false</externalId>
+        <label>Geolocation UOM</label>
+        <length>35</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hide_Name_In_Queues__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Hide the candidate names in the marker queues.  Use the application number instead.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hide the candidate names in the marker queues.  Use the application number instead.</inlineHelpText>
+        <label>Hide Name In Queues</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hiring_Manager_Assess_All_Stages__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The hiring manager can assess all stages</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The hiring manager can assess all stages</inlineHelpText>
+        <label>Hiring Manager Assess All Stages</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hiring_Manager_Assessment_Has_Outcome__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked the Hiring Manager assessment includes outcome and next stage picklists</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked the Hiring Manager assessment includes outcome and next stage picklists</inlineHelpText>
+        <label>Hiring Manager Assessment Has Outcome</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hiring_Manager_Show_All_Applications__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The hiring manager will see all applications for vacancies that they are the hiring manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The hiring manager will see all applications for vacancies that they are the hiring manager</inlineHelpText>
+        <label>Hiring Manager Show All Applications</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Leave_New_Hire_Date_Null__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, do not default New Hire date to today when creating team members</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, do not default New Hire date to today when creating team members</inlineHelpText>
+        <label>Leave New Hire Date Null</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Placement_One_At_A_Time__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Placement One At A Time</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reminder_Email_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Reminder Email Id used to save the scheduler id for the email reminder scheduler which is used to remind users for Ready for approval Processes  so the scheduler  can be aborted or started in  a different time using Recruit Configure page.</description>
+        <externalId>false</externalId>
+        <label>Reminder Email ID</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Require_Offer_Approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, the application offer will not be created until the Approved Date is set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the application offer will not be created until the Approved Date is set.</inlineHelpText>
+        <label>Require Offer Approval</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Template_On_New_Vacancy__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Require Template On New Vacancy</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Vacancy_Approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, the vacancy will not be advertised until the Approved Date is set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the vacancy will not be advertised until the Approved Date is set.</inlineHelpText>
+        <label>Require Vacancy Approval</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Resume_Document_Folder__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Resume Document Folder</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shadow_Contact_Account__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of account to create shadow contacts for candidates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of account to create shadow contacts for candidates</inlineHelpText>
+        <label>Shadow Contact Account</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_Job_Requisition__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use a limited view of vacancy prior to approval</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use a limited view of vacancy prior to approval</inlineHelpText>
+        <label>Use Job Requisition</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Opportunity_Placement__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Use Opportunity Placement</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Opportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Use Opportunity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Placement__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Use Placement</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Vacancy_Geolocation__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Geolocate vacancies by looking up postal code and/or placename with a geolocation service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Geolocate vacancies by looking up postal code and/or placename with a geolocation service.</inlineHelpText>
+        <label>Use Vacancy Geolocation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Workplace__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Link vacancies and applications to workplaces</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link vacancies and applications to workplaces</inlineHelpText>
+        <label>Use Workplace</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Policies</label>
+    <visibility>Public</visibility>
+</CustomObject>

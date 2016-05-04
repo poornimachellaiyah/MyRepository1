@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Action_Email_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Action Email Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Id of ActionCreation process</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Id of ActionCreation process</inlineHelpText>
+        <label>Action Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Available_Languages__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Available Languages</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Bonus_Pot_Field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bonus Pot Field</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Clear_Leaver_Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Clear Leaver Manager</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Colleagues_With_No_Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Assume all team members with no manager are colleagues</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Assume all team members with no manager are colleagues</inlineHelpText>
+        <label>Colleagues With No Manager</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Company_Logo__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of a static resource that will contain the logo to be displayed in the header of the WX app</description>
+        <externalId>false</externalId>
+        <label>Company Logo</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deactivate_Users__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deactivate Users</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Default_Logging_Level__c</fullName>
+        <defaultValue>&apos;DEBUG&apos;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Default Logging Level</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Delete_Indicator_Responses__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Delete Indicator Responses</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Digest_From_Address__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Org wide email address to send Fairsail Digest from</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Org wide email address to send Fairsail Digest from</inlineHelpText>
+        <label>Digest From Address</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Digest_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Digest ID</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Domain_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Domain URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Future_Date_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Future Date ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HR_Request_Finalize__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Runs batch to finalize all HR Requests that are on or before their Effective Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Runs batch to finalize all HR Requests that are on or before their Effective Date</inlineHelpText>
+        <label>HR Request Finalize</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Handle_Leavers_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Handle Leavers Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Minimize_Network_Traffic__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Minimize number of network requests on initial page load</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimize number of network requests on initial page load</inlineHelpText>
+        <label>Minimize Network Traffic</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Password_Reset_From_Address__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Password Reset From Address</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Salary_Pot_Field__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of field containing pot for salary increases in salary planning model</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of field containing pot for salary increases in salary planning model</inlineHelpText>
+        <label>Salary Pot Field</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Save_Translations_In_Static_Resource__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, wx translations will be stored in a static resource and recalculated in a batch</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, wx translations will be stored in a static resource and recalculated in a batch</inlineHelpText>
+        <label>Save Translations In Static Resource</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Set_Leaver_Employment_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Set Leaver Employment Status</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Show_Salesforce_Header__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Show Salesforce Header</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sites_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Sites URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Stock_Option_Vesting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Run batch to mark stock options as vested on assigned day</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Run batch to mark stock options as vested on assigned day</inlineHelpText>
+        <label>Stock Option Vesting</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_Cache__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use caching to improve performance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use caching to improve performance</inlineHelpText>
+        <label>Use Cache</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Future_Dated_Salary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked a future dated Salary will only become active on the Start Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked a future dated Salary will only become active on the Start Date</inlineHelpText>
+        <label>Use Future Dated Salary</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Job_History__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Save changes to Team Member and Employment to the Job History.  Use this with the fieldset in Employment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Save changes to Team Member and Employment to the Job History.  Use this with the fieldset in Employment.</inlineHelpText>
+        <label>Use Job History</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>User_Federation_ID__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use single sign on Federation Id</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use single sign on Federation Id</inlineHelpText>
+        <label>User Federation ID</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>User_Synchronization__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Mode used to synchronize from Team Member to User</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Mode used to synchronize from Team Member to User</inlineHelpText>
+        <label>User Synchronization</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Username_Domain__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Username Domain</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>iOS_Push_App__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of connected app that will receive push notifications to mobile devices</description>
+        <externalId>false</externalId>
+        <label>iOS Push App</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Global Configuration</label>
+    <visibility>Public</visibility>
+</CustomObject>

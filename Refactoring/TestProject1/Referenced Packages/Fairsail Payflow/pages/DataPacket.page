@@ -1,0 +1,3 @@
+<apex:page controller="fpay.DataPacketController" readOnly="true" standardStylesheets="false" showHeader="false" sidebar="false" contentType="application/json#{!substitute(name,' ','_')}.fs" >
+<apex:outputText value="{!packet}" escape="false"/>
+</apex:page>

@@ -1,0 +1,63 @@
+<apex:page standardController="fRecruit__Application__c" recordSetVar="apps" extensions="fRecruit.MoveStageExtensionController">
+	<apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'jquery.js')}"/>
+    <script language="JavaScript">
+		jQuery.noConflict();
+    	function ShowOutcomeFields() {
+    		var outcome = jQuery('.outcomeField').val();
+    		if (outcome=='Reject' || outcome=='Withdrew' || outcome.indexOf('Not This')==0) {
+    			jQuery('.outcomeReason').parent().parent().show();
+    			jQuery('.outcomeNextStage').parent().parent().hide();
+    		} else if (outcome=='Proceed to Next Stage') {
+    			jQuery('.outcomeNextStage').parent().parent().show();
+    			jQuery('.outcomeReason').val('').parent().parent().hide();
+    		} else {
+    			jQuery('.outcomeNextStage').parent().parent().hide();
+    			jQuery('.outcomeReason').val('').parent().parent().hide();
+    		}
+    	}
+    	jQuery(document).ready(function() {
+			ShowOutcomeFields();
+		});
+   </script>
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="Bulk Assess" help="http://recruit.help.fairsail.com/topics/Application.html" />
+	<apex:form >
+		<apex:outputPanel rendered="{!multipleVacancies}">
+			<p>You have selected applications from multiple vacancies.  You will not be able to move the candidates between stages, but you can conclude the current stage.</p>
+		</apex:outputPanel>
+
+		<apex:pageBlock title="Bulk Assessment of Applications" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+				<apex:commandButton action="{!save}" value="Save" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Number to Assess"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="Outcome" />
+					<apex:selectList styleClass="outcomeField" onChange="ShowOutcomeFields();" value="{!outcome}" size="1" required="true">
+						<apex:selectOptions value="{!outcomes}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="Rejection Reason" />
+					<apex:selectList styleClass="outcomeReason" value="{!rejectReason}" size="1">
+						<apex:selectOptions value="{!RejectionReasons}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0 && !multipleVacancies}">
+					<apex:outputLabel value="Next Stage" />
+					<apex:selectList styleClass="outcomeNextStage" value="{!stageId}" size="1">
+						<apex:selectOptions value="{!stages}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

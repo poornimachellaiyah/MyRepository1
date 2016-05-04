@@ -1,0 +1,31 @@
+<apex:page controller="fRecruit.InternalJobListController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+		<div class="pbBody">
+                <apex:pageBlockSection columns="1" title="{!$Label.frecruit__Internal_Job_List}">
+                    <apex:facet name="header">
+                        <h3 class="process-vacancies">{!$Label.frecruit__Internal_Job_List}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+	                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+	                        <apex:outputLink value="/apex/fHCM2__InternalJobList?retURL=%2fapex%2ffHCM2__fairsailProfile" target="_top">View</apex:outputLink>
+	                        <apex:outputLink value="/apex/fHCM2__InternalMyApplication?uid={!uid}&retURL=%2fapex%2ffHCM2__fairsailProfile" target="_top" rendered="{!!(isblank(uid) || len(uid)==0)}">Application</apex:outputLink>
+	                    </apex:outputPanel>
+                    </apex:outputPanel>
+					<apex:pageBlockTable value="{!vacancies}" var="vacancy" rendered="{!setController.ResultSize>0}" styleClass="jobListPanel">
+						<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Job_List}" var="f">
+							<apex:column headerValue="{!f.label}" rendered="{!f!='Name'}" style="vertical-align: top;">
+								<apex:outputPanel >
+									<c:outputDate value="{!vacancy[f]}" rendered="{!f.type=='date'}"/>
+									<apex:outputfield value="{!vacancy[f]}" rendered="{!(f.type!='Text' || !contains(vacancy[f],'<img')) && f.type!='date'}"/>
+									<apex:outputText value="{!vacancy[f]}" escape="false" rendered="{!f.type=='Text' && contains(vacancy[f] && f.type!='date','<img')}"/>
+								</apex:outputPanel>
+							</apex:column>
+							<apex:column headerValue="{!f.label}" rendered="{!f=='Name'}" style="vertical-align: top;">
+								<apex:outputLink value="{!'/apex/fHCM2__InternalJob?vacancyNo='+vacancy.fRecruit__Vacancy_No__c+if(isblank(uid),'','&uid='+uid)}" target="_top">{!vacancy.Name}</apex:outputLink>
+							</apex:column>
+						</apex:repeat>
+					</apex:pageBlockTable>
+                </apex:pageBlockSection>
+        </div>
+    </apex:pageBlock>  
+</apex:page>

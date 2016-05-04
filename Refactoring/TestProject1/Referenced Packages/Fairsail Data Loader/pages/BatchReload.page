@@ -1,0 +1,14 @@
+<apex:page controller="fDL.BatchReloadController" action="{!upload}" >
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="File Details">
+			<apex:pageBlockTable value="{!headers}" var="header">
+				<apex:column value="{!header}"
+					headerValue="{!docName} headers:" />
+			</apex:pageBlockTable>
+			<apex:outputText value="Number of rows: {!numRows}" />
+			<apex:commandButton action="{!import}" value="Import" />
+			<apex:commandButton action="{!clean}" value="Abort" />
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

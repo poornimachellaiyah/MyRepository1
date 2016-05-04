@@ -1,0 +1,39 @@
+<apex:page controller="fDL.TemplateGeneratorController">
+
+	<apex:includeScript value="{!URLFOR($Resource.fDL__fieldSelector, 'jquery-1.9.1.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.fDL__fieldSelector, 'FileSaver.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.fDL__fieldSelector, 'fieldSelector.js')}" />
+	<apex:pageBlock title="Template Generator">
+	<table width="100%">
+		<tr>
+			<td style="width: 40%"><select id="leftlist" multiple="true"
+				size="20" style="width: 100%">
+				<apex:outputText escape="false" value="{!Fields}" />
+			</select></td>
+			<td><a id="moveleft"><img src="/s.gif" class="leftArrowIcon" /></a>
+			<br />
+			<a id="moveright" class="but"><img src="/s.gif"
+				class="rightArrowIcon" /></a> <br />
+			<button type="button" id="moveallleft" class="but">&#60;&#60;&#60;</button>
+			<br />
+			<button type="button" id="moveallright" class="but">&#62;&#62;&#62;</button>
+			<br />
+			<a id="up" class="but"><img src="/s.gif" class="upArrowIcon" /></a>
+			<br />
+			<a id="down" class="but"><img src="/s.gif" class="downArrowIcon" /></a>
+			</td>
+			<td style="width: 40%"><select id="rightlist" multiple="true"
+				size="20" style="width: 100%">
+			</select></td>
+			<td>
+			<button type="button" id="makecsv" class="but">1. Generate</button>
+			<br />
+			<button type="button" id="makefile" class="but">2. Create File*</button><br />
+			<form action=""><input type="checkbox" id="apiinsert" value="api" >Insert API Names<br /></input></form>
+			* not supported in all browsers
+			</td>
+		</tr>
+	</table>
+	<textarea id="output" rows="10" cols="150" style="width:100%" ></textarea>
+	</apex:pageBlock>
+</apex:page>

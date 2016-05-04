@@ -1,0 +1,172 @@
+<apex:page controller="Onboarding_SendRefereeEmailController" >
+  <apex:form >
+  <head>
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #b06397;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+    color:#ad0075;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   color:#ad0075;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+body .bPageBlock .pbBody .vsopurple .pbSubheader{
+    background-color:#f8f8f8;
+    border-top-color: #ad0075;  
+}
+
+
+      #centre {
+  font-size:1em;
+  line-height:1.3;
+  margin:5px auto;
+  padding-top:10px;
+  position:relative;
+  width:962px;
+}
+       #main {
+  background-color:#FFFFFF;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  min-height:500px;
+  padding-top:40px;
+}
+
+.PageTitle {  
+    font-size:20px;
+    color:#ad0075;
+    font-weight: normal;
+   margin-left:10px; 
+} 
+
+</style>
+</head>
+<body>
+  <apex:outputpanel id="opp1" rendered="{!if(emailStatus=='sent',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+            <td><div class="PageTitle ">
+            <apex:outputText id="PageTitle1" value="Reference Request" /></div></td>                
+            </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxtthankyou" value="Thank You - Reference Request Email Successfully Sent." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+            <div align="left">             
+              <apex:commandButton id="cmdFinish" value="Finish" action="{!Cancel}" />
+           </div>
+        </div> 
+    </apex:outputpanel>
+     <apex:outputpanel id="opp2" rendered="{!NOT(if(emailStatus=='sent',true,false))}">
+       <div class="PageTitle "><apex:outputText id="PageTitle" value="Reference Request" /></div><br/>
+      <apex:pageBlock >
+          <apex:pageBlockSection columns="1">
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel id="olblReferee">Select Referee</apex:outputLabel>
+                  <apex:selectList size="1" id="slsReferee" value="{!referee}">
+                      <apex:selectOption itemValue="1" itemLabel="Referee 1"></apex:selectOption>
+                      <apex:selectOption itemValue="2" itemLabel="Referee 2"></apex:selectOption>
+                      <apex:selectOption itemValue="3" itemLabel="Alternate Referee"></apex:selectOption>
+                  </apex:selectList>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel id="olblRefTemplate">Reference Template</apex:outputLabel>
+                  <apex:selectList size="1" id="slsRefTemplate" value="{!form}">
+                      <apex:selectOption itemLabel="Volunteer Reference Request Form" itemValue="Volunteer_Referee_Reference_Request_Form"></apex:selectOption>
+                      <apex:selectOption itemLabel="Employee - Academic Reference Request Form" itemValue="Employee_Academic_Reference_Request_Form"></apex:selectOption> 
+                      <apex:selectOption itemLabel="Employee - Character Reference Request Form" itemValue="Employee_Character_Reference_Request_Form"></apex:selectOption> 
+                      <apex:selectOption itemLabel="Employee - External Reference Request Form" itemValue="Employee_External_Reference_Request_Form"></apex:selectOption>
+                      <apex:selectOption itemLabel="Employee - Internal Reference Request Form" itemValue="Employee_Internal_Reference_Request_Form"></apex:selectOption>                       
+                  </apex:selectList>
+             </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel id="olblattachJobDesc">Attach Job Description Document</apex:outputLabel>
+                   <apex:inputCheckbox id="chkattachJobDesc" value="{!attachJobdoc}" selected="true"/>  
+             </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <div align="right">
+              <apex:commandButton id="cmdsendemail" value="Send Email" action="{!SendEmail}"/>
+              <apex:commandButton id="cmdcancel" value="Cancel" action="{!Cancel}" />
+          </div>
+          
+      </apex:pageBlock>      
+      <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+       </apex:outputpanel>
+   </body>
+  </apex:form>
+</apex:page>

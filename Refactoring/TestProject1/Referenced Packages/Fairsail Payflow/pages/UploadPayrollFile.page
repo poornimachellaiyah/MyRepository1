@@ -1,0 +1,23 @@
+<apex:page controller="fpay.UploadFileController" standardStylesheets="true" showHeader="true" sidebar="true" title="Upload Payroll File" tabStyle="fpay__Payroll_Service__c">
+	<apex:sectionHeader title="{!serviceName}" subtitle="Upload"/>
+	<br />
+	<apex:form >
+		<apex:pageBlock title="Upload {!serviceName} File" mode="edit">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!upload}" value="Upload" />
+				<apex:commandButton action="{!cancel}" value="Cancel" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="File"/>
+					<apex:inputFile value="{!file}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Disable Changes"/>
+					<apex:inputCheckbox value="{!disableChanges}"/>
+				</apex:pageBlockSectionItem>		
+			</apex:pageBlockSection>
+			<p>The file must be in the format defined for this service.</p>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,41 @@
+<apex:page standardController="fRecruit__Form_Definition__c" Extensions="fRecruit.FormDefinitionEditExtensionController">
+    <apex:sectionHeader title="{!$ObjectType.fRecruit__Form_Definition__c.label}" subtitle="{!fRecruit__Form_Definition__c.Name}" help="http://recruit.help.fairsail.com/topics/Candidate.html" />
+    <apex:form >
+        <apex:pageBlock title="{!$ObjectType.fRecruit__Form_Definition__c.label}" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveDefinitionRelationship}" value="Save" />
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Form Definition Details" columns="2">
+                <apex:inputField value="{!fRecruit__Form_Definition__c.Name}" />
+                <apex:inputField value="{!fRecruit__Form_Definition__c.fRecruit__EncodeId__c}" />
+<!--                 <apex:inputField value="{!Form_Definition__c.Permit_New_Forms__c}" /> -->
+                <apex:inputField value="{!fRecruit__Form_Definition__c.fRecruit__Permit_New_Object__c}" />
+                
+<!--                <apex:inputField value="{!Form_Definition__c.Object_Name__c}" /> -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Link Relationship"/>
+                    <apex:selectList value="{!fRecruit__Form_Definition__c.fRecruit__Link_Relationship__c}" size="1">
+                        <apex:selectOptions value="{!linkFields}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+<!--                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Object"/>
+                    <apex:selectList value="{!Form_Definition__c.Object_Name__c}" size="1">
+                        <apex:selectOptions value="{!currentObjects}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>-->
+
+                <apex:inputField value="{!fRecruit__Form_Definition__c.fRecruit__Request_Prefix__c}" />
+               <apex:inputField value="{!fRecruit__Form_Definition__c.fRecruit__VisualForce_Page__c}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Form Definition Details" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Definition"/>
+                	<apex:inputTextarea value="{!definitionXml}" style="width:100%; height:600px"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

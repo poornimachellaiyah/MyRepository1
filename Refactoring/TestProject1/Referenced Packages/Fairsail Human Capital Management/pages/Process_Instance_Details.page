@@ -1,0 +1,110 @@
+<apex:page standardController="fHCM2__Process_Instance__c" extensions="fHCM2.IsCNController">
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+
+
+<apex:sectionHeader title="WX Process Instance" help="http://help.fairsail.com" />
+<apex:form id="CreateNewCorporateNoticeForm">
+ 
+<apex:pageBlock id="CreateNewCorporateNoticeFormElements" title="WX Process Instance"  mode="edit">
+
+ 
+            
+    <apex:pageBlockSection title="" columns="1">
+    
+    <apex:pageBlockSection columns="1">
+    
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Active__c}" label="Active"/>
+           
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Category__c}" label="{!$ObjectType.fHCM2__Process_Instance__c.fields.fHCM2__Category__c.label}"/>
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Start_Date__c}" />
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__End_Date__c}" />
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Label__c}" />
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Order__c}"/>
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Preferred_Number_Of_Columns__c}" />
+            <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Process__c}" />
+            
+            
+      <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="WX Internal Communication" id="wxic_section_label"/>
+                    <apex:outputPanel layout="block" id="wxic_section">
+                       
+                       <apex:outputLink id="link" value="/{!cn_lookup.Id}">{!cn_lookup.Name}</apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+      
+  <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Show_In_Mobile__c}"  />
+  <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Show_Title_In_Tile__c}"  />
+  <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Show_Title_In_Detail__c}"  />
+  <apex:outputField value="{!fHCM2__Process_Instance__c.fHCM2__Additional_Information__c}"  />
+
+
+ <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Hide When Read" id="wxcni_Hide_When_Read"/>
+                    <apex:outputPanel layout="block" id="wxcni_Confirm_When_Read">
+                       <apex:outputField value="{!cni.fHCM2__Hide_When_Read__c}" />
+                     </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Confirm When Read" id="wxcni_Hide_When_Read"/>
+                    <apex:outputPanel layout="block" id="wxcni_Confirm_When_Read">
+                       <apex:outputField value="{!cni.fHCM2__Confirm_When_Read__c}" />
+                     </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem >
+    <apex:outputLabel value="Score has Action" id="wxcni_Score1"/>
+    <apex:outputPanel layout="block" id="wxcni_Score2">
+       <apex:outputField value="{!cni.fHCM2__Score__c}" />
+     </apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+  
+        
+  </apex:pageBlockSection>
+    </apex:pageBlockSection>
+    
+    <apex:pageBlockButtons >
+      <apex:commandButton value="Edit" action="{!edit}"/>
+      <apex:commandButton value="Delete" action="{!delete}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+      
+      </apex:pageBlockButtons>
+    </apex:pageblock>
+    </apex:form>
+           
+<script>
+//alert('{!fHCM2__Process_Instance__c.fHCM2__Process__c}');
+
+j$ = jQuery.noConflict();
+
+if ('{!fHCM2__Process_Instance__c.fHCM2__Process__c}' != 'Internal Communications' ) {
+
+j$('[id*=wxic_section]').hide();
+j$('[id*=wxic_section_label]').hide();
+j$('[id*=wxcni_Hide_When_Read]').hide();
+j$('[id*=wxcni_Confirm_When_Read]').hide();
+j$('[id*=wxcni_Score1]').hide();
+j$('[id*=wxcni_Score2]').hide();
+
+}
+
+if ('{!fHCM2__Process_Instance__c.fHCM2__Process__c}' == 'Internal Communications' ) {
+
+j$('[id*=wxic_section]').show();
+j$('[id*=wxic_section_label]').show();
+j$('[id*=wxcni_Hide_When_Read]').show();
+j$('[id*=wxcni_Confirm_When_Read]').show();
+j$('[id*=wxcni_Score1]').show();
+j$('[id*=wxcni_Score2]').show();
+
+
+}
+
+
+
+
+</script>
+
+    
+</apex:page>

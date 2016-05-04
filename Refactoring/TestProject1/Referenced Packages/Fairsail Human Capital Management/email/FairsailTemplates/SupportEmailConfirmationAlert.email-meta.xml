@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sent when changing an email address to warn them of the Salesforce confirmation email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Support: Email Confirmation Alert</name>
+    <style>none</style>
+    <subject>Fairsail Email Confirmation Alert</subject>
+    <type>text</type>
+</EmailTemplate>

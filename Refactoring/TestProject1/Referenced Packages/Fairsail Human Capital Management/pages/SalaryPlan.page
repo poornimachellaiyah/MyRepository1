@@ -1,0 +1,128 @@
+<apex:page controller="fHCM2.SalaryPlanningController" readOnly="true" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Salary Planning" action="{!selectUI}">
+  <script  type='text/javascript'>
+	window.onload = function (){
+		setTimeout(function(){
+					 parent.postMessage('ResizeHeight-'+document.getElementById('salaryPlanTeamContainer').offsetHeight,"*");
+			},1000);
+	}
+   				
+</script>  
+<div id="salaryPlanTeamContainer">
+  
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.fHCM2__TreeTable, '/stylesheets/jquery.treeTable.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__TreeTable, '/javascripts/jquery.treeTable.min.js')}"/>
+		    <script language="javascript">
+		        jQuery.noConflict();
+				jQuery(document).ready(function(){
+					jQuery("#teamMemberTree").treeTable({
+					  initialState: "expanded",
+					  indent: 13
+					});
+				});
+		    </script>
+		    <style>
+		    	.teamMemberTree td {
+					border-top: 1px solid black;
+		    	}
+		    	.teamMemberTree td td {
+					border-top: 1px solid #b0b0b0;
+		    	}
+		    	.teamMemberTree td tr:first-child td {
+					border-top: 0px;
+		    	}
+		    	label {
+		    		font-family:Arial,Verdana,sans-serif;
+		    		font-size:75%;
+		    	}
+			   .thinPanelTD{
+			       display:none;
+			   }
+			   .gapPanelTD{
+			       display:none;
+			   }
+			   .widePanelTD{
+			       width:800px;
+			   }
+			   .treeHeader td {
+				    font-weight: bold;
+				    text-align: left;
+				    border-top: 0;
+				}
+			   .treeSubHeader td {
+			   		font-style:italic;
+			   }
+		    </style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}" rendered="{!!viewer.WXIsActive}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+	            <apex:pageBlock title="{!$Label.fhcm2__Process_Salary_Plan}" rendered="{!viewer.departmentPolicy.fHCM2__Salary_Plan_Is_Active__c==true && (viewer.isTeamMember || viewer.isHigherManager || viewer.isHR)}">
+	            	<c:Notice viewer="{!viewer}" page="SalaryPlan" location="Header"  />
+					<table id="teamMemberTree" style="width:100%;" class="teamMemberTree">
+						<tr class="treeHeader"> 
+							<td rowspan="2" style="vertical-align:top; padding-left:13px;">{!$ObjectType.Team_Member__c.Fields.Manager__c.label}</td>
+							<td style="vertical-align:top;text-align:right;">{!$Label.Process_Salary_Plan_Current_All_Reports}</td>
+							<td colspan="2" style="vertical-align:top;text-align:right;">{!$Label.Process_Salary_Plan_Suggested_All_Reports}</td>
+							<td colspan="2" style="vertical-align:top;text-align:right;">{!$Label.Process_Salary_Plan_Proposed_All_Reports}</td>
+						</tr>
+						<tr class="treeHeader"> 
+							<td style="vertical-align:top;text-align:right;">{!$Label.Process_Salary_Plan_Annual_Total} ({!reportingCurrency})</td>
+							<td style="vertical-align:top;text-align:right;">{!$Label.Process_Salary_Plan_Annual_Increase} ({!reportingCurrency})</td>
+							<td style="vertical-align:top;text-align:right;">%</td>
+							<td style="vertical-align:top;text-align:right;">{!$Label.Process_Salary_Plan_Annual_Increase} ({!reportingCurrency})</td>
+							<td style="vertical-align:top;text-align:right;">%</td>
+						</tr>
+                        <apex:repeat value="{!salaryPlan.tree.flatPacked}" var="node">
+                        	<apex:outputPanel rendered="{!node.reports.size>0}">
+                        	<tr id="node-{!node.index}" class="{!if(isblank(node.manager),'','child-of-node-'+text(node.manager.index))}">
+                        		<td style="vertical-align:top; padding-left:13px;">
+                        			<apex:outputLink value="/apex/{!links.SalaryPlanTeam}?id={!node.teamMember.id}&retURL=%2fapex%2fSalaryPlan" target="{!if(viewer.WXIsActive,'_self','_top')}">{!node.teamMember.name}</apex:outputLink>
+                        		</td>
+                        		
+								<td style="vertical-align:top;text-align:right;">
+									<apex:outputPanel rendered="{!salaryPlan.has[node.teamMember.id]}">
+										<apex:outputText value="{!salaryPlan.table[node.teamMember.id].currentAmountStr}"/>
+									</apex:outputPanel>
+								</td>
+								<td style="vertical-align:top;text-align:right;">
+									<apex:outputPanel rendered="{!salaryPlan.has[node.teamMember.id]}">
+										<apex:outputText value="{!salaryPlan.table[node.teamMember.id].recommendedIncreaseStr}"/>
+									</apex:outputPanel>
+								</td>
+								<td style="vertical-align:top;text-align:right;">
+									<apex:outputPanel rendered="{!salaryPlan.has[node.teamMember.id]}">
+										<c:outputNumber value="{!salaryPlan.table[node.teamMember.id].recommendedIncreasePercent}" decimalPlaces="2" fixed="false" />
+									</apex:outputPanel>
+								</td>
+								<td style="vertical-align:top;text-align:right;">
+									<apex:outputPanel layout="block" rendered="{!salaryPlan.has[node.teamMember.id]}" style="background-color:{!salaryPlan.table[node.teamMember.id].color};">
+									<apex:outputText value="{!salaryPlan.table[node.teamMember.id].proposedIncreaseStr}"/>
+									</apex:outputPanel>
+								</td>
+								<td style="vertical-align:top;text-align:right;">
+									<apex:outputPanel layout="block" rendered="{!salaryPlan.has[node.teamMember.id]}" style="background-color:{!salaryPlan.table[node.teamMember.id].color};">
+										<c:outputNumber value="{!salaryPlan.table[node.teamMember.id].proposedIncreasePercent}" decimalPlaces="2" fixed="false" />
+									</apex:outputPanel>
+								</td>
+                        	</tr>
+                        	</apex:outputPanel>
+						</apex:repeat>	
+					</table>
+					<c:Notice viewer="{!viewer}" page="SalaryPlan" location="Footer"  />
+	            </apex:pageBlock>
+
+        </apex:define>
+    </apex:composition>
+ </div>
+</apex:page>

@@ -1,0 +1,34 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!and(subject.currentTalentPlan.isUsing,viewer.isManager)}">
+                    <apex:facet name="header">
+                        <h3 class="process-talent-plan">{!$Label.fhcm2__Process_Talent_Plan}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.TalentPlan}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!viewer.isEdit && !viewer.departmentPolicy.fHCM2__Talent_Assessments_Is_Active__c}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.TalentAssessment}" target="_top" rendered="{!viewer.isEdit && viewer.departmentPolicy.fHCM2__Talent_Assessments_Is_Active__c}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.TalentPlan}?id={!subject.currentTalentPlan.id}" target="_top" rendered="{!subject.currentTalentPlan.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentTalentPlan.has && !isblank(subject.currentTalentPlan.potential)}">
+                        <apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Potential__c.label }" />
+                        <apex:outputText value="{!subject.currentTalentPlan.potential}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentTalentPlan.has && !isblank(subject.currentTalentPlan.performanceRating)}">
+                        <apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Performance_Rating__c.label }" />
+                        <apex:outputText value="{!subject.currentTalentPlan.performanceRating}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentTalentPlan.has && !isblank(subject.currentTalentPlan.riskOfLeaving)}">
+                        <apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Risk_of_Leaving__c.label }" />
+                        <apex:outputText value="{!subject.currentTalentPlan.riskOfLeaving}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentTalentPlan.has && !isblank(subject.currentTalentPlan.reasonToLeave)}">
+                        <apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Reason_to_Leave__c.label }" />
+                        <apex:outputText value="{!subject.currentTalentPlan.reasonToLeave}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!subject.currentTalentPlan.has && !isblank(subject.currentTalentPlan.impactOfLoss)}">
+                        <apex:outputLabel value="{!$ObjectType.Talent_Plan__c.fields.Impact_of_Loss__c.label }" />
+                        <apex:outputText value="{!subject.currentTalentPlan.impactOfLoss}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

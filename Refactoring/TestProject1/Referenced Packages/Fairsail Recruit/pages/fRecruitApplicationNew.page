@@ -1,0 +1,26 @@
+<apex:page standardController="fRecruit__Application__c" extensions="fRecruit.NewApplicationControllerExtension">
+	<apex:sectionHeader title="{!$ObjectType.fRecruit__Application__c.label}" subtitle="New" help="http://recruit.help.fairsail.com/topics/NewApplication.html" Description="An application is the record of one candidate applying for one vacancy.  Create new applications when entering new candidates manually or to consider a candidate for a second vacancy.  Applications are created automatically when receiving emails from candidates with the vacancy reference in the subject line."/>
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="New {!$ObjectType.fRecruit__Application__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<c:fRecruitLinkButton label="Cancel" url="{!retURL}"/>
+				<apex:commandButton action="{!save}" value="Save"/>
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:inputField value="{!fRecruit__Application__c.fRecruit__Vacancy__c}" required="true" rendered="{!!hasVacancy}"/>
+				<apex:pageBlockSectionItem rendered="{!hasVacancy}">
+					<apex:outputLabel value="Vacancy"/>
+					<apex:outputText value="{!vacancy}"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fRecruit__Application__c.fRecruit__Candidate__c}" required="true" rendered="{!!hasCandidate}"/>
+				<apex:pageBlockSectionItem rendered="{!hasCandidate}">
+					<apex:outputLabel value="Candidate"/>
+					<apex:outputText value="{!candidate}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

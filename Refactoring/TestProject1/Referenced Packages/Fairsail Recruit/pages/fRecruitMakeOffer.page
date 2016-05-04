@@ -1,0 +1,75 @@
+<apex:page standardController="fRecruit__Application__c" extensions="fRecruit.MakeOfferControllerExtension,fRecruit.SetupPoliciesExtensionController">
+    <apex:sectionHeader title="Make Offer" subtitle="{!fRecruit__Application__c.fRecruit__Candidate_Name__c}" help="http://recruit.help.fairsail.com/topics/Application.html" />
+    <apex:form >
+    	<apex:pageMessages />
+        <apex:pageBlock title="Job Offer" mode="edit">
+            <apex:pageBlockButtons >
+                <c:fRecruitLinkButton label="Cancel" url="/{!fRecruit__Application__c.Id}" />
+                <apex:commandButton action="{!save}" value="Save" disabled="{!!isblank(fRecruit__Application__c.fRecruit__Approved_Date__c) || !isblank(fRecruit__Application__c.fRecruit__Submitted_Date__c)}"/>
+                <apex:commandButton action="{!previewOffer}" rendered="{!isblank(fRecruit__Application__c.fRecruit__Approved_Date__c)}" value="Preview Offer" onComplete="openClickout('fRecruitOfferPDF?id={!fRecruit__Application__c.id}&template={!fRecruit__Application__c.fRecruit__Offer_Template__c}');"/>
+                <apex:commandButton action="{!viewOffer}" rendered="{!!isblank(fRecruit__Application__c.fRecruit__Approved_Date__c)}" value="View Offer"  onClick="window.open('{!attachmentURL}')"  />
+                
+         
+                
+                <apex:commandButton action="{!submit}" value="Submit for Approval" rendered="{!policies.fRecruit__Require_Offer_Approval__c==true}" disabled="{!!isblank(fRecruit__Application__c.fRecruit__Approved_Date__c) || !isblank(fRecruit__Application__c.fRecruit__Submitted_Date__c)}" onClick="return confirm('You will not be able to make further changes to this record.  Are you sure you wish to submit this record for approval?');"/>
+                <apex:commandButton action="{!sendOffer}" value="Email Offer" disabled="{!policies.fRecruit__Require_Offer_Approval__c==true && isblank(fRecruit__Application__c.fRecruit__Approved_Date__c)}" onClick="return confirm('This will send the offer letter directly to the candidate. Are you sure?');"/>
+
+                <apex:commandButton action="{!sendOfferWithDocuSign}" value="Email Offer With DocuSign" disabled="{!policies.fRecruit__Require_Offer_Approval__c==true && isblank(fRecruit__Application__c.fRecruit__Approved_Date__c)}" rendered="{!applyPortal.fRecruit__Enable_DocuSign__c}" onClick="return confirm('This will send the offer letter directly to the candidate. Are you sure?');"/>
+
+                <apex:commandButton action="{!revise}" value="Revise" rendered="{!policies.fRecruit__Require_Offer_Approval__c==true}" disabled="{!isblank(fRecruit__Application__c.fRecruit__Approved_Date__c)}" onClick="return confirm('After revision you will have to re-submit this offer for approval.  Are you sure you wish to revise this record?');"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Candidate Application Details" columns="2">
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Candidate__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Application"/>
+                	<apex:outputLink value="/{!fRecruit__Application__c.id}">{!fRecruit__Application__c.name}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Candidate_Email__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Status__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Selection_Stage__c}" />
+				<apex:pageBlockSectionItem rendered="{!!isblank(fRecruit__Application__c.fRecruit__Candidate_ResumeId__c)}">
+					<apex:outputLabel value="Resume"/>
+					<apex:outputText value="{!fRecruit__Application__c.Candidate__r.fRecruit__Resume__c}" escape="false"/>
+				</apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Vacancy Details" columns="2">
+                <apex:outputField value="{!fRecruit__Application__c.fRecruit__Vacancy__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.Vacancy__r.fRecruit__Salary_Minimum__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.Vacancy__r.fRecruit__Status__c}" />
+                <apex:outputField value="{!fRecruit__Application__c.Vacancy__r.fRecruit__Salary_Maximum__c}" />
+                 <apex:outputField value="{!fRecruit__Application__c.fRecruit__Approved_Date__c}" />
+            </apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Hire Details" columns="1" rendered="{!policies.fRecruit__Require_Offer_Approval__c!=true || !(policies.fRecruit__Require_Offer_Approval__c!=true || !isblank(fRecruit__Application__c.fRecruit__Approved_Date__c) || !isblank(fRecruit__Application__c.fRecruit__Submitted_Date__c))}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Offer Template" for="templateId"/>
+					<apex:selectList value="{!fRecruit__Application__c.fRecruit__Offer_Template__c}" id="templateId" size="1">
+						<apex:selectOptions value="{!OfferTemplates}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Start_Details}" var="f">
+                   	<apex:inputField value="{!fRecruit__Application__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Hire Details" columns="1" rendered="{!policies.fRecruit__Require_Offer_Approval__c==true && (!isblank(fRecruit__Application__c.fRecruit__Approved_Date__c) || !isblank(fRecruit__Application__c.fRecruit__Submitted_Date__c))}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Offer Template"/>
+					{!fRecruit__Application__c.Offer_Template__r.Name}
+				</apex:pageBlockSectionItem>
+				<apex:repeat value="{!$ObjectType.fRecruit__Application__c.FieldSets.fRecruit__Start_Details}" var="f">
+                   	<apex:outputField value="{!fRecruit__Application__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+
+	<apex:relatedList list="ProcessSteps" subject="{!fRecruit__Application__c.Id}" rendered="{!policies.fRecruit__Require_Offer_Approval__c==true}">
+		<apex:facet name="header">&nbsp;</apex:facet>
+		<apex:facet name="footer">&nbsp;</apex:facet>
+   	</apex:relatedList>
+	
+</apex:page>

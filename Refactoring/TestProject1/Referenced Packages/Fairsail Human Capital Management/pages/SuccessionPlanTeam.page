@@ -1,0 +1,132 @@
+<apex:page controller="fHCM2.SuccessionTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Succession Plan">
+	  <script  type='text/javascript'>
+	window.onload = function (){
+				parent.postMessage('ResizeHeight-'+document.getElementById('successionPlanTeamContainer').offsetHeight,"*");
+		
+	}
+   				
+</script> 
+<div id="successionPlanTeamContainer">
+	<apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="bannerPanel">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+    		<c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+    	</apex:define>
+
+		<apex:define name="thinPanel">
+		</apex:define>
+
+		<apex:define name="widePanel">
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.fHCM2__TreeTable, '/stylesheets/jquery.treeTable.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__TreeTable, '/javascripts/jquery.treeTable.min.js')}"/>
+		    <script language="javascript">
+		        jQuery.noConflict();
+				jQuery(document).ready(function(){
+					jQuery("#teamMemberTree").treeTable({
+//					  initialState: "expanded",
+					  indent: 13
+					});
+					
+					jQuery("#successionPlanTeamContainer .expander").on("click", function(){
+							parent.postMessage('ResizeHeight-'+document.getElementById('successionPlanTeamContainer').offsetHeight,"*");
+
+					});
+					
+					if({!viewer.WXIsActive}){
+							jQuery("#header-action-tree,.row-action-tree").hide();
+							jQuery("body").css("background-color","#E9EDEF");
+					}
+				});
+		    </script>
+		    <style>
+		    	.teamMemberTree td {
+					border-top: 1px solid black;
+					vertical-align:top;
+		    	}
+		    	.teamMemberTree td td {
+					border-top: 1px solid #b0b0b0;
+		    	}
+		    	.teamMemberTree td tr:first-child td {
+					border-top: 0px;
+		    	}
+		    	label {
+		    		font-family:Arial,Verdana,sans-serif;
+		    		 font-family: 'Noto Sans', sans-serif;
+		    	}
+			   .thinPanelTD{
+			       display:none;
+			   }
+			   .gapPanelTD{
+			       display:none;
+			   }
+			   .widePanelTD{
+			       width:800px;
+			   }
+			   .treeHeader td {
+				    font-weight: bold;
+				    text-align: left;
+				    border-top: 0;
+				}
+			   .treeSubHeader td {
+			   		font-style:italic;
+			   }
+			   .teamMemberTree a {
+				    color: #0E52A1;
+				    font-weight: bold;
+				    text-decoration: none;
+				}
+			   .teamMemberTree .treeButton {
+				    color: #0E52A1;
+				    font-weight: normal;
+				    text-decoration: none;
+				}
+				.tableName {
+					white-space:nowrap;
+					margin-right:6px;
+				}
+		    </style>
+		 		<table id="teamMemberTree" style="width:100%;" class="teamMemberTree" rendered="{!viewer.isTeamMemberOrManager}">
+						<tr class="treeHeader">
+							<td >{!$Label.Global_Team_Member}</td>
+							<td id="header-action-tree">{!$Label.Global_Action}</td>
+							<td >{!$Label.Process_Successors_Successors}</td>
+							<td >{!$Label.Process_Successors_Soonest_Ready}</td>
+							<td >{!$Label.Process_Successors_Succeeds_To}</td>
+							<td >{!$Label.Process_Successors_Soonest_Ready}</td>
+						</tr>
+                        <apex:repeat value="{!team.tree.flatPacked}" var="node">
+                        	<apex:outputPanel layout="none" rendered="{!viewer.teamMember.id!=node.teamMember.id}">
+                        	<tr id="node-{!node.index}" class="{!if(isblank(node.manager.manager),'','child-of-node-'+text(node.manager.index))}">
+                        		<td style="vertical-align:top; padding-left:13px;">
+                        		 	<apex:outputText rendered="{!viewer.WXIsActive}" styleClass="treeButton" value="{!node.teamMember.name}"/>
+                        			<apex:outputLink rendered="{!!viewer.WXIsActive}" styleClass="tableName" value="{!links.FairsailProfile}?id={!node.teamMember.id}">{!node.teamMember.name}</apex:outputLink>
+                        		</td>
+								<td class="row-action-tree">
+								    <apex:outputText rendered="{!viewer.WXIsActive}" styleClass="treeButton" value="{!$Label.fhcm2__Button_New}"/>
+									<apex:outputLink rendered="{!!viewer.WXIsActive}"  styleClass="treeButton" value="{!links.SuccessionPlan+'?teamMemberId='+node.teamMember.id+'&retURL='+urlencode('/apex/'+links.SuccessionPlanTeam+'?id='+viewer.teamMember.id)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+								</td>
+								<td >
+									<apex:repeat value="{!team.successionMap[node.teamMember.id].successors}" var="item">
+										<apex:outputText rendered="{!viewer.WXIsActive}" styleClass="treeButton" value="{!item.name}"/>
+										<apex:outputLink styleClass="tableName" rendered="{!!viewer.WXIsActive}" value="{!links.SuccessionPlan+'?id='+item.id+'&retURL='+urlencode('/apex/'+links.SuccessionPlanTeam+'?id='+viewer.teamMember.id)}">{!item.name}</apex:outputLink><span> </span>
+									</apex:repeat>
+								</td>
+								<td ><apex:outputText value="{!team.successionMap[node.teamMember.id].SoonestSuccessors}"/></td>
+								<td >
+									<apex:repeat value="{!team.successionMap[node.teamMember.id].succeeds}" var="item">
+										<apex:outputText rendered="{!viewer.WXIsActive}" styleClass="treeButton" value="{!item.name}"/>
+										<apex:outputLink rendered="{!!viewer.WXIsActive}"  styleClass="tableName" value="{!links.SuccessionPlan+'?id='+item.id+'&retURL='+urlencode('/apex/'+links.SuccessionPlanTeam+'?id='+viewer.teamMember.id)}">{!item.name}</apex:outputLink><span> </span>
+									</apex:repeat>
+								</td>
+								<td ><apex:outputText value="{!team.successionMap[node.teamMember.id].SoonestSucceeeds}"/></td>
+                        	</tr>
+                        	</apex:outputPanel>
+						</apex:repeat>	
+					</table> 
+		</apex:define>
+
+	</apex:composition>
+</div>
+</apex:page>

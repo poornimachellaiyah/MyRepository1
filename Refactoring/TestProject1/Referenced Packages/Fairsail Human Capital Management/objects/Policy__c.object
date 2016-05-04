@@ -1,0 +1,3618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>PolicyEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>PolicyEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>Policy</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The HR policies for a set of departments.  Controls the processes for all team members in the departments linked to a policy.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Additional_Policies</fullName>
+        <description>Add section for viewing and amending policies</description>
+        <displayedFields>
+            <field>Salary_Currency__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Bonus_Paid_Month_of_the_Year__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Medical_Insurance_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Medical_Insurance_Provider_if_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Medical_Insurance_Coverage__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employer_Medical_Cont_Basic_Salary__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Medical_Cont_Amount_Per_Employee__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employer_Medical_Cont_Total_Country_Cost__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Death_Benefit_Provider_if_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Death_Benefit__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Death_Benefit_Statutory_for_Country__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Death_Benefit_Additional_Cost_of_Basic__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Death_Benefit_Additional_Cost__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Retirement_Plan_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Pension_Provider_if_Private__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Use_Salary_Exchange_for_Pension__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employer_Retirement_Contribution__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employee_Retirement_Deduction__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employer_Retirement_Cont_Applies_To__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Retirement_Cont_Extra_Salary_Component__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Auto_Enrolment_of_Gross_UK_Only__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Lower_Earnings_Limit__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Secondary_Threshold_UK_Only__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Upper_Earnings_Limit__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Social_Security_Contribution_Details__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Social_Security_Contribution__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Social_Security_Cont_Applies_To__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Social_Security_Contribution_Ceiling__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Social_Security_Cont_Fixed_Amount__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Employer_Statutory_Contributions__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Employer_Statutory_Cont_Details__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Statutory_Contribution__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Statutory_Cont_Applies_To__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Stat_Cont_Additional_Amount__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Employer_Statutory_Cont_Ceiling__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Other_Employer_Statutory_Cont_Fixed_Add__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>fta__Timesheet_Is_Active__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>fta__Timesheet_Pattern__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Additional Policies</label>
+    </fieldSets>
+    <fields>
+        <fullName>Absence_Accrual_Pattern__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Absence Accrual Pattern</label>
+        <referenceTo>Absence_Accrual_Pattern__c</referenceTo>
+        <relationshipLabel>Policies</relationshipLabel>
+        <relationshipName>Policies</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Absence_Alert_Above__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Special alert if absence is more than given hours or days in the alert period.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Special alert if absence is more than given hours or days in the alert period.</inlineHelpText>
+        <label>Absence Alert Above</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absence_Alert_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of months to look for the absence alert</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months to look for the absence alert</inlineHelpText>
+        <label>Absence Alert Period</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absence_Approved_Email__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Email sent to the team member when the vacation or absence is approved</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Email sent to the team member when the vacation or absence is approved</inlineHelpText>
+        <label>Absence Approved Email</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absence_Deleted_Email__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sent to the team member when the absence is deleted or cancelled.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sent to the team member when the absence is deleted or cancelled.</inlineHelpText>
+        <label>Absence Deleted Email</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absence_Evidence_Above__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of days or hours absence above that requires evidence</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days or hours absence above that requires evidence</inlineHelpText>
+        <label>Absence Evidence Above</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absence_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Absence</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Absence_Rejected_Email__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Email sent to the team member when the vacation or absence is rejected</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Email sent to the team member when the vacation or absence is rejected</inlineHelpText>
+        <label>Absence Rejected Email</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Absence_Requested_Email__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sent to manager when vacancy or absence is requested by a team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sent to manager when vacancy or absence is requested by a team member</inlineHelpText>
+        <label>Absence Requested Email</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Email_Pattern__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Action Event Pattern</label>
+        <referenceTo>Action_Email_Pattern__c</referenceTo>
+        <relationshipLabel>Policies</relationshipLabel>
+        <relationshipName>Policies</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Approve_Manager_Notes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked then HR will be asked to approve all new manager notes and attached files.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked then HR will be asked to approve all new manager notes and attached files.</inlineHelpText>
+        <label>Approve Manager Notes</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Authenticate_Job_Description_Approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Switch on eAuthentication for Job Description Approval</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Switch on eAuthentication for Job Description Approval</inlineHelpText>
+        <label>Authenticate Job Description Approval</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Authenticate_Skill_Approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Authenticate Skill Approval</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Show_Competency_Results__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Automatically show team member results.  If not checked then the manager or HR must release the results after the assessment closes.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically show team member results.  If not checked then the manager or HR must release the results after the assessment closes.</inlineHelpText>
+        <label>Auto-Show Competency Results</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Start_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Skip the step asking for assessors.  The assessment will start with manager and self if those options are set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Skip the step asking for assessors.  The assessment will start with manager and self if those options are set.</inlineHelpText>
+        <label>Auto Start Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_complete_Competency_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if a competency assessment automatically completes when all assessors have completed their individual assessments.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if a competency assessment automatically completes when all assessors have completed their individual assessments.</inlineHelpText>
+        <label>Auto-Complete Competency Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Benefits_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show current and future benefits to employee.  If benefit enrollment is active allow the team member to modify them.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show current and future benefits to employee.  If benefit enrollment is active allow the team member to modify them.</inlineHelpText>
+        <label>Benefits</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Bonus_Annual_Effective_Day__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bonus Annual Effective Day</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>19</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>21</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>22</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>23</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>24</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>25</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>26</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>27</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>28</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>29</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>30</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>31</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Bonus_Annual_Effective_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bonus Annual Effective Month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Jan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jun</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jul</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aug</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oct</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nov</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dec</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Bonus_Period__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bonus Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semiannual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Bonus_Plan_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bonus Plan</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Checkin_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use check in and check out</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use check in and check out</inlineHelpText>
+        <label>Checkin</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Close_Development_Needs_On_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Close current competency based development needs whenever a competency assessment completes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Close current competency based development needs whenever a competency assessment completes</inlineHelpText>
+        <label>Close Development Needs On Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Competencies_Sort_By_Order__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show competency results by order field rather than strength</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show competency results by order field rather than strength</inlineHelpText>
+        <label>Competencies Sort By Order</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Competency_Assessment_Hide_Assessors__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Do not show assessor names in the competency assessment results</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do not show assessor names in the competency assessment results</inlineHelpText>
+        <label>Competency Assessment Hide Assessors</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Competency_Assessment_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between competencies being assessed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between competencies being assessed</inlineHelpText>
+        <label>Competency Assessment Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Competency_Assessments_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if competency assessment is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if competency assessment is active</inlineHelpText>
+        <label>Competency Assessments</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Corporate_Notice_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Internal Communications</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Competency_Assessment_When_Due__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Automatically create a competency assessment on the Next Competency Assessment Date in Team Member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically create a competency assessment on the Next Competency Assessment Date in Team Member</inlineHelpText>
+        <label>Create Competency Assessment When Due</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Performance_Review_When_Due__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Automatically create a performance review on the Next Performance Review Date in Team Member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically create a performance review on the Next Performance Review Date in Team Member</inlineHelpText>
+        <label>Create Performance Review When Due</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dependants_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dependants</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Dependants_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access control for Managers when working with dependants</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Access control for Managers when working with dependants</inlineHelpText>
+        <label>Dependants Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Dependants_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access control for Team Members when working with Dependants</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Access control for Team Members when working with Dependants</inlineHelpText>
+        <label>Dependants Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Development_Need_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between development needs being reviewed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between development needs being reviewed</inlineHelpText>
+        <label>Development Need Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Development_Plans_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if development planning is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if development planning is active</inlineHelpText>
+        <label>Development Plans</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Activate_Without_Confirm__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Remove the &quot;Activate Without Confirm&quot; button from manager draft objectives</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Remove the &quot;Activate Without Confirm&quot; button from manager draft objectives</inlineHelpText>
+        <label>Disable Activate Without Confirm</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Self_Final_Comments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Don&apos;t permit the team member to comment when signing a performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Don&apos;t permit the team member to comment when signing a performance review</inlineHelpText>
+        <label>Disable Self Final Comments</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Edit_Education__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Edit Education</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Edit_Experience__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Edit Experience</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Edit_Manager_Notes__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The minimum level permitted to create new manager notes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The minimum level permitted to create new manager notes</inlineHelpText>
+        <label>Edit Manager Notes</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Edit_Training__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Edit Training</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Education_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if education is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if education is active</inlineHelpText>
+        <label>Education</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Education_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Control access to Manager for this process</description>
+        <externalId>false</externalId>
+        <label>Education Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Education_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Control access to Team Member for this process</description>
+        <externalId>false</externalId>
+        <label>Education Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Emergency_Contacts_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable Emergency Contacts process</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable Emergency Contacts process</inlineHelpText>
+        <label>Emergency Contacts</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Emergency_Contacts_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access control for Managers when working with Emergency Contacts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Access control for Managers when working with Emergency Contacts</inlineHelpText>
+        <label>Emergency Contacts Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Emergency_Contacts_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access control for Team Members when working with Emergency Contacts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Access control for Team Members when working with Emergency Contacts</inlineHelpText>
+        <label>Emergency Contacts Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Employment_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>View of employment details is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>View of employment details is active</inlineHelpText>
+        <label>Employment Details</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Experience_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if Experience is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if Experience is active</inlineHelpText>
+        <label>Experience</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Experience_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Experience Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Experience_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Experience Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fix_Assessed_Job_Profile__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Make the competency assessment job profile read-only</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Make the competency assessment job profile and dates read-only</inlineHelpText>
+        <label>Fix Assessed Job Profille</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Forms_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Forms</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Gate_Primary_Team_Member_Fields__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Make dob, ssn, relation, etc one way fields.  Once set they can only be amended by HR.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Make dob, ssn, relation, etc one way fields.  Once set they can only be amended by HR.</inlineHelpText>
+        <label>Gate  Primary Team Member Fields</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HR_Requests_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>HR Requests</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HR_Reveals_Competency_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Only HR are permitted to reveal the competency assessment to the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only HR are permitted to reveal the competency assessment to the team member</inlineHelpText>
+        <label>HR Reveals Competency Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hiring_Manager_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show the hiring manager their open vacancies from Recruit</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show the hiring manager their open vacancies from Recruit</inlineHelpText>
+        <label>Hiring Manager Is Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hours_Per_Week__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Hours per week of a full time employee</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hours per week of a full time employee</inlineHelpText>
+        <label>Hours Per Week</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internal_Portal_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use internal application portal for vacancies from Fairsail Recruit</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use internal application portal for vacancies from Fairsail Recruit</inlineHelpText>
+        <label>Internal Portal</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Job_Description_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if job description is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if job description is active</inlineHelpText>
+        <label>Job Description</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Job_Description_Match_Grades__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Match the grade for the team member to the job description in the library when showing template descriptions</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Match the grade for the team member to the job description in the library when showing template descriptions</inlineHelpText>
+        <label>Job Description Match Grades</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Job_Description_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between job descriptions being reviewed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between job descriptions being reviewed</inlineHelpText>
+        <label>Job Description Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Profile__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Default job profile for team members.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default job profile for team members.</inlineHelpText>
+        <label>Job Profile</label>
+        <referenceTo>Job_Profile__c</referenceTo>
+        <relationshipLabel>Policies</relationshipLabel>
+        <relationshipName>Policies</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Confirms_Development_Needs__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Manager Confirms Development Needs</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Confirms_Experience__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Ask the manager to approve work experience entered by the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ask the manager to approve work experience entered by the team member</inlineHelpText>
+        <label>Manager Confirms Experience</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Confirms_Skills__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Manager Confirms Skills</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Confirms_Training__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Manager Confirms Training</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Notes_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show the manager note section in the personal profile</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show the manager note section in the personal profile</inlineHelpText>
+        <label>Manager Notes</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Notes_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access level for managers</description>
+        <externalId>false</externalId>
+        <label>Manager Notes Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Notes_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access level for team members</description>
+        <externalId>false</externalId>
+        <label>Manager Notes Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Manager_View_Only_Targets__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If check the targets will appear to managers as view only.  They will not be able to create or amend.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If check the targets will appear to managers as view only.  They will not be able to create or amend.</inlineHelpText>
+        <label>Manager View Only Targets</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Manager_View_Personal_Details__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Manager View Personal Details</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Maximum_Other_Assessors__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Maximum number of assessors other than self and manager for competency assessment.  If null unlimited assessors are permitted.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum number of assessors other than self and manager for competency assessment.  If null unlimited assessors are permitted.</inlineHelpText>
+        <label>Maximum Other Assessors</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Recognition_Given_Per_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Recognition Given Per Month</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Recognition_Received_Per_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Recognition Received Per Month</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Metrics_Review_Repeat__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Number of months between prompting for a new metrics review.  If null no prompting is made.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between prompting for a new metrics review.  If null no prompting is made.</inlineHelpText>
+        <label>Metrics Review Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Metrics_Reviews_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Whether to use metrics review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Whether to use metrics review</inlineHelpText>
+        <label>Metrics Reviews</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mid_Year_Review_Form__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Mid-Year Review Form</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Policies (Mid-Year Review Form)</relationshipLabel>
+        <relationshipName>Policies</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Mid_Year_Review_Team_Member_Sign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Mid-Year Review Team Member Sign</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Policies (Mid-Year Review Team Member Sign)</relationshipLabel>
+        <relationshipName>Policies2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Minimum_Assessor_Group_Size__c</fullName>
+        <defaultValue>3</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Minimum number of assessors permitted in an assessor group (other than self or manager) to show results as a separate unit.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum number of assessors permitted in an assessor group (other than self or manager) to show results as a separate unit.</inlineHelpText>
+        <label>Minimum Assessor Group Size</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Minimum_Other_Assessors__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The minimum number of assessors required other than self and manager.  Competency assessments cannot close until at least this number of assessors have completed their assessments.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The minimum number of assessors required other than self and manager.  Competency assessments cannot until at least this number of assessors have completed their assessments.  Remember an assessor group must have at least 3 assessors to count.</inlineHelpText>
+        <label>Minimum Other Assessors</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Modify_Emergency_Contacts__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Permit team member and manager to edit emergency contacts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Permit team member and manager to edit emergency contacts</inlineHelpText>
+        <label>Modify Emergency Contacts</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Modify_Home_Address__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Permit team member and manager to edit home address</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Permit team member and manager to edit home address</inlineHelpText>
+        <label>Modify Home Address</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Modify_Personal_Details__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Modify Personal Details</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Modify_Photo__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Permit team member to modify their photo</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Permit team member to modify their photo</inlineHelpText>
+        <label>Modify Photo</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Months_to_New_Year_Rollover__c</fullName>
+        <defaultValue>3</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months prior to new financial year that new objectives and targets will default to the forthcoming year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months prior to new financial year that new objectives and targets will default to the forthcoming year</inlineHelpText>
+        <label>Months to New Year Rollover</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Competency_Assessment__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The lowest level able to start a competency assessment. If &quot;Team Member&quot; all can start it. If &quot;Manager&quot; then manager or HR can. If &quot;HR&quot; only HR can.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The lowest level able to start a competency assessment. If &quot;Team Member&quot; all can start it. If &quot;Manager&quot; then manager or HR can. If &quot;HR&quot; only HR can.</inlineHelpText>
+        <label>New Competency Assessment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>New_Development_Objectives__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Minimum level to create new development objectives</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Minimum level to create new development objectives</inlineHelpText>
+        <label>New Development Objectives</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>New_Job_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The lowest level able to start a job description. If &quot;Team Member&quot; all can start it. If &quot;Manager&quot; then manager or HR can. If &quot;HR&quot; only HR can.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The lowest level able to start a job description. If &quot;Team Member&quot; all can start it. If &quot;Manager&quot; then manager or HR can. If &quot;HR&quot; only HR can.</inlineHelpText>
+        <label>New Job Description</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Team Member</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>New_Metrics_Review__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>New Metrics Review</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>New_Performance_Review__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The lowest level able to start a performance Review. If &quot;Manager&quot; then manager or HR can. If &quot;HR&quot; only HR can. &quot;Team Member&quot; is not used.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The lowest level able to start a performance Review. If &quot;Team Member&quot; all can start it. If &quot;Manager&quot; then manager or HR can. If &quot;HR&quot; only HR can.</inlineHelpText>
+        <label>New Performance Review</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Objective_Privacy_Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked objectives will default to being private</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked objectives will default to being private</inlineHelpText>
+        <label>Objective Privacy Default</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Objective_Review_Months__c</fullName>
+        <defaultValue>3</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Default for number of months between reviews of objectives</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default for number of months between reviews of objectives</inlineHelpText>
+        <label>Objective Review Months</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Objectives_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if objectives is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if objectives is active</inlineHelpText>
+        <label>Objectives</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Passports_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Passports process is used in collaboration portal</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Passports process is used in collaboration portal</inlineHelpText>
+        <label>Passports</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Passports_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access control for Managers when working with Passports</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Access control for Managers when working with Passports</inlineHelpText>
+        <label>Passports Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Passports_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Access control for Team Members when working with passports</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Access control for Team Members when working with passports</inlineHelpText>
+        <label>Passports Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Review_Form__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form definition to be sent to a manager to do a performance review on a team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form definition to be sent to a manager to do a performance review on a team member</inlineHelpText>
+        <label>Performance Review Form</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Perfromance Review</relationshipLabel>
+        <relationshipName>Policies3</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Review_Manager_Sign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form definition to be sent to a manager to sign a review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form definition to be sent to a manager to sign a review</inlineHelpText>
+        <label>Performance Review Manager Sign</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Performance Review Manager Sign</relationshipLabel>
+        <relationshipName>Policies4</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Review_One_Up_Approves__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>A one up (or more senior) manager is able to approve a performance review that has been submitted</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A one up (or more senior) manager is able to approve a performance review that has been submitted</inlineHelpText>
+        <label>Performance Review One Up Approves</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Review_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between performance reviews</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between performance reviews</inlineHelpText>
+        <label>Performance Review Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Performance_Review_Team_Member_Sign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Form definition to be sent to a team member to sign a review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Form definition to be sent to a team member to sign a review</inlineHelpText>
+        <label>Performance Review Team Member Sign</label>
+        <referenceTo>Form_Definition__c</referenceTo>
+        <relationshipLabel>Performance Review Team Member Sign</relationshipLabel>
+        <relationshipName>Policies5</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Reviews_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if performance review is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if performance review is active</inlineHelpText>
+        <label>Performance Reviews</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Permit_Job_Description_Changes__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked can create a new Job Description and edit existing Job Descriptions from the Job Description Library. Library templates remain unchanged.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked can only use draft from the library or another team member</inlineHelpText>
+        <label>Permit Job Description Changes</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Permit_Manager_Edit_After_Reveal__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow managers to edit their performance review after having revealed it to the team member.  If selected they can continue editing until they sign it.</description>
+        <externalId>false</externalId>
+        <label>Permit Manager Edit After Reveal</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Permit_Team_Member_Edit_After_Reveal__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow team members to edit their performance review after having revealed it to their manager.  If selected they can continue editing until they sign it.</description>
+        <externalId>false</externalId>
+        <label>Permit Team Member Edit After Reveal</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Permitted_Assessors__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Type of users asked to be assessors in competency assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of users asked to be assessors in competency assessment</inlineHelpText>
+        <label>Permitted Assessors</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Internal</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Personal_Profile_Is_Active__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( Dependants_Is_Active__c  || Modify_Home_Address__c  || Modify_Emergency_Contacts__c  || Modify_Personal_Details__c || Benefits_Is_Active__c , &apos;true&apos;, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Personal Profile Is Active</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Policy_Group__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Policy group name used to identify a group of related policies.  Typically used as a condition in workflows.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Policy group name used to identify a group of related policies.  Typically used as a condition in workflows.</inlineHelpText>
+        <label>Policy Group</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recognition_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable Recognition process</description>
+        <externalId>false</externalId>
+        <label>Recognition</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Recognition_Is_Private__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Checking this box means that only managers and the receiver will be able see recognition given to the receiver.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Checking this box means that only managers and the receiver will be able see recognition given to the receiver.</inlineHelpText>
+        <label>Recognition Is Private</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Recognition_Job_Profile__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Recognition Job Profile</label>
+        <referenceTo>Job_Profile__c</referenceTo>
+        <relationshipLabel>Policies (Recognition Job Profile)</relationshipLabel>
+        <relationshipName>PoliciesRecognition</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Require_Approval_For_Performance_Review__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if the performance review must be sent to HR for approval before it can be revealed to the team member</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if the performance review must be sent to HR for approval before it can be revealed to the team member</inlineHelpText>
+        <label>Require Approval For Performance Review</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Approval_For_Recognition__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Require Approval For Recognition</inlineHelpText>
+        <label>Require Approval For Recognition</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Approval_For_Training__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Require submission for approval for a training record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Require submission for approval for a training record.</inlineHelpText>
+        <label>Require Approval For Training</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Competency_Assessment_On_Reveal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Require a recent competency assessment when revealing a performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Require a recent competency assessment when revealing a performance review</inlineHelpText>
+        <label>Require Competency Assessment On Reveal</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Education__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Prompt if a team member has none</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Prompt if a team member has none</inlineHelpText>
+        <label>Require Education</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Experience__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Require Experience</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Manager_Assessment__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if a competency assessment requires an assessment by the team manager. If checked then a competency assessment cannot be closed until there is a completed manager assessment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if a competency assessment requires an assessment by the team manager. If checked then a competency assessment cannot be closed until there is a completed manager assessment.</inlineHelpText>
+        <label>Require Manager Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Objective_Review_On_Reveal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Require all objectives that need to be reviewed to be reviewed when revealing a performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Require all objectives that need to be reviewed to be reviewed when revealing a performance review</inlineHelpText>
+        <label>Require Objective Review On Reveal</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Objectives_On_Sign__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Require current objectives before signing a performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Require current objectives before signing a performance review</inlineHelpText>
+        <label>Require Objectives On Sign</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Objectives__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Prompt if a team member has none</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Prompt if a team member has none</inlineHelpText>
+        <label>Require Objectives</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Self_Assessment__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if a competency assessment requires a self assessment by the team member?  If checked then a competency assessment cannot be closed until there is a completed self assessment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if a competency assessment requires a self assessment by the team member?  If checked then a competency assessment cannot be closed until there is a completed self assessment.</inlineHelpText>
+        <label>Require Self Assessment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Targets__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Prompt if a team member has none</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Prompt if a team member has none</inlineHelpText>
+        <label>Require Targets</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Require_Training_On_Development_Needs__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Require Training On Development Needs</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Action_Plan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Performance review includes and action plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Performance review includes and action plan</inlineHelpText>
+        <label>Review Action Plan</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Career_Aspirations__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Review career aspirations as part of the performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Review career aspirations as part of the performance review</inlineHelpText>
+        <label>Review Career Aspirations</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Development_Needs__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Review development needs as part of the performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Review development needs as part of the performance review</inlineHelpText>
+        <label>Review Development Needs</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Rating__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set performance rating as part of the performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set performance rating as part of the performance review</inlineHelpText>
+        <label>Review Rating</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Self_First__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Deprecated</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Deprecated</inlineHelpText>
+        <label>Deprecated</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Strengths__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Review strengths as part of the performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Review strengths as part of the performance review</inlineHelpText>
+        <label>Review Strengths</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_Training__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Review training as part of the performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Review training as part of the performance review</inlineHelpText>
+        <label>Review Training</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Review_With_Competencies__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Include a competency assessment with a performance review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Include a competency assessment with a performance review</inlineHelpText>
+        <label>Review With Competencies</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Salary_Increase_Effective_Date_Method__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Method of determining the next salary increase date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Method of determining the next salary increase date</inlineHelpText>
+        <label>Salary Increase Effective Date Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fixed Date</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment Start Date Anniversary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Salary Start Anniversary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Last Non Indexation Anniversary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Salary_Increase_Effective_Day__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Salary Increase Effective Day</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>19</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>21</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>22</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>23</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>24</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>25</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>26</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>27</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>28</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>29</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>30</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>31</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Salary_Increase_Effective_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Salary Increase Effective Month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Jan</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jun</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jul</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aug</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oct</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nov</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dec</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Salary_Plan_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show salary planning</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show salary planning</inlineHelpText>
+        <label>Salary Plan</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Self_Review_First__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The self performance review is revealled before the manager is prompted to do their review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The self performance review is revealled before the manager is prompted to do their review</inlineHelpText>
+        <label>Self Review First</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Absence_Unless_Private__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show absence on team view unless it is set to be Is Private.  If this is not check absence will not show.  When switching this on make sure you consider existing Absence records that may be erroneously revealed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show absence on team view unless it is set to be Is Private.  If this is not check absence will not show.  When switching this on make sure you consider existing Absence records that may be erroneously revealed.</inlineHelpText>
+        <label>Show Absence Unless Private</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Last_Development_Action__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Show Last Development Action</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Metrics_Area_Average__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show area average of metrics in a metrics review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show area average of metrics in a metrics review</inlineHelpText>
+        <label>Show Metrics Area Average</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Metrics_Average__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show overall average of metrics in a metrics review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show overall average of metrics in a metrics review</inlineHelpText>
+        <label>Show Metrics Average</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Skills_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if skills are active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if skills are active</inlineHelpText>
+        <label>Skills</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Skills_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between skills being reviewed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between skills being reviewed</inlineHelpText>
+        <label>Skills Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stock_Options_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Stock Options</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Style__c</fullName>
+        <deprecated>false</deprecated>
+        <description>CSS style additions to VisualForce pages</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CSS style additions to VisualForce pages</inlineHelpText>
+        <label>Style</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Succession_Plans_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if succession plans are active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if succession plans are active</inlineHelpText>
+        <label>Succession Plans</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Succession_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between succession being reviewed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between succession being reviewed</inlineHelpText>
+        <label>Succession Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Summary</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Deprecated</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Deprecated</inlineHelpText>
+        <label>Deprecated</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Talent_Assessment_Range__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Range of team members that a team member is permitted to cross-assess</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Range of team members that a team member is permitted to cross-assess</inlineHelpText>
+        <label>Talent Assessment Range</label>
+        <picklist>
+            <picklistValues>
+                <fullName>All below team member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All below manager except colleagues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All below manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All below top</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Talent_Assessments_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Managers with this policy are asked to assess team members with a talent assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Managers with this policy are asked to assess team members with a talent assessment</inlineHelpText>
+        <label>Talent Assessments</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Talent_Plan_Repeat__c</fullName>
+        <defaultValue>12</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of months between talent plans being reviewed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of months between talent plans being reviewed</inlineHelpText>
+        <label>Talent Plan Repeat</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Talent_Plans_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if talent planning is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if talent planning is active</inlineHelpText>
+        <label>Talent Plans</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Target_Basis__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Period over which targets are set and actual calculated</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Period over which targets are set and actual calculated</inlineHelpText>
+        <label>Target Basis</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Targets_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if targets are active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if targets are active</inlineHelpText>
+        <label>Targets</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member_Signs_Metrics_Review__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Team Member Signs Metrics Review</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Total_Compensation_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Show the total compensation statement</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Show the total compensation statement</inlineHelpText>
+        <label>Total Compensation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Training_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates if training is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if training is active</inlineHelpText>
+        <label>Training</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Training_Manager_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Training Manager Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Training_Team_Member_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Training Team Member Access</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Edit and Delete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Training_View_Only__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Training View Only</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Chained_Objectives__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Link team member objectives to a manager&apos;s objectives</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link team member objectives to a manager&apos;s objectives</inlineHelpText>
+        <label>Use Chained Objectives</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Collaborative_Objectives__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow objectives to be worked on by teams</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Allow objectives to be worked on by teams</inlineHelpText>
+        <label>Use Collaborative Objectives</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Development_Objectives__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use write-in development objectives in the development needs process</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use write-in development objectives in the development needs process</inlineHelpText>
+        <label>Development Objectives</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Objective_Achievement__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use achievement when reviewing an objective</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use achievement when reviewing an objective</inlineHelpText>
+        <label>Use Objective Achievement</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Objective_Bonus__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Display a checkbox so that performance against objectives can be used as a bonus determinator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use the indicator as to whether the bonus is part of the bonus</inlineHelpText>
+        <label>Use Objective Bonus</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Objective_Milestones__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use milestones or metrics as part of an objective</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use milestones or metrics as part of an objective</inlineHelpText>
+        <label>Use Objective Milestones</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Objective_Priority__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use the priority of the objective</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use the priority of the objective</inlineHelpText>
+        <label>Use Objective Priority</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Objective_Weight__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use weighting when displaying an objective</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use weighting when displaying an objective</inlineHelpText>
+        <label>Use Objective Weight</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Strategic_Objectives__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Link objectives for a team member to organisation-wide strategic objectives</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link objectives for a team member to organisation-wide strategic objectives</inlineHelpText>
+        <label>Use Strategic Objectives</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_Target_Calculate_Actuals__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Use the option to calculate target actuals from salesforce closed opportunities</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use the option to calculate target actuals from salesforce closed opportunities</inlineHelpText>
+        <label>Use Target Calculate Actuals</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Accrued_Continuously__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked accrue vacation from the hire date without annual breaks.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked accrue vacation from the hire date without annual breaks.</inlineHelpText>
+        <label>Vacation Accrued Continuously</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Annual_Base__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Vacation Annual Base</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vacation_Calculation_Unit__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Vacation Calculation Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semimonth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biweek</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Week</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Days_Per_Year__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Vacation Per Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vacation_Front_Load_Period__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, the allowance for vacation is added at the beginning of the accruing period.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the allowance for vacation is added at the beginning of the accruing period.</inlineHelpText>
+        <label>Vacation Front Load Period</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Hide_Accrual__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked do not show vacation accrual calculation</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked do not show vacation accrual calculation</inlineHelpText>
+        <label>Vacation Hide Accrual</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Hide_Totals__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Hide totals from display of vacations</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hide totals from display of vacations</inlineHelpText>
+        <label>Vacation Hide Totals</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_In_Hours__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Calculate time of in hours instead of days</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Calculate time of in hours instead of days</inlineHelpText>
+        <label>Vacation In Hours</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Vacation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Rounding_Mode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>How to round the vacation accruals</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How to round the vacation accruals</inlineHelpText>
+        <label>Vacation Rounding Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nearest Half</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Down To Half</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Up To Half</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nearest Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Down To Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Up To Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Year_Start_Day__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Day of the month of the start of the vacation year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Day of the month of the start of the vacation year</inlineHelpText>
+        <label>Vacation Year Start Day</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>19</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>21</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>22</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>23</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>24</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>25</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>26</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>27</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>28</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>29</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>30</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>31</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Vacation_Year_Start_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Month of the start of the vacation year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Month of the start of the vacation year</inlineHelpText>
+        <label>Vacation Year Start Month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Jan</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jun</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jul</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aug</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oct</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nov</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dec</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WX_Colour__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Base Colour for WX</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Base Colour for WX</inlineHelpText>
+        <label>WX Colour</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WX_Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Turn on the new WX interface</description>
+        <externalId>false</externalId>
+        <label>WX Is Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>WX_Logo__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Path to static resource containing WX Logo</description>
+        <externalId>false</externalId>
+        <label>WX Logo</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WX_Title__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Title shown on WX Landing Page</description>
+        <externalId>false</externalId>
+        <label>WX Title</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Work_Days_Pattern__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Default work days pattern</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default work days pattern</inlineHelpText>
+        <label>Work Days Pattern</label>
+        <referenceTo>Work_Days_Pattern__c</referenceTo>
+        <relationshipLabel>Policies</relationshipLabel>
+        <relationshipName>Policies</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Year_Start_Day__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Day of the month of the start of the financial year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Day of the month of the start of the financial year</inlineHelpText>
+        <label>Year Start Day</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>14</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>16</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>17</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>18</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>19</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>20</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>21</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>22</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>23</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>24</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>25</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>26</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>27</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>28</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>29</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>30</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>31</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Year_Start_Month__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Month of the start of the financial year</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Month of the start of the financial year</inlineHelpText>
+        <label>Year Start Month</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Jan</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jun</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jul</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aug</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oct</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nov</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dec</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Policy</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Policy Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Policies</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

@@ -1,0 +1,489 @@
+<apex:page controller="fHCM2.ObjectiveControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Objective" rendered="{!subject.objectives.isUsing}" action="{!selectUI}">
+
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__jqueryUI, '/css/overcast/jquery-ui-1.10.3.custom.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/autoresize.jquery.js')}"/>
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" />
+            	.quarterPicker{
+            		font-family: Arial,Helvetica,sans-serif;
+            		font-size: 90%; 
+            	}
+            </style>
+            <script language="javascript">
+            	var startMode = true;
+				jQuery(document).ready(function(){
+					jQuery('.autoResize').autoResize({}).trigger('change');
+				    if ({!!isCopy})disable("save");
+				    if ({!viewer.isOwnManager && isNew && !isCopy}) disable("confirm");
+				    disable("review");
+				    if ({!isNew && !isCopy} || {!isTeamMemberDraft && !isCopy}) disable("activate");
+				    startMode = false;
+				    if ({!hasErrors}) formChanged();
+				    SetOptions( 'startDate' );
+				    SetOptions( 'nextReviewDate' );
+				    SetOptions( 'endDate' );
+				    SetOptions( 'nextReviewDateProgress' );
+				});
+				function SetOptions( selectId ) {
+	            	var current = jQuery('#'+selectId+' input:text').val();
+					var select = jQuery('#'+selectId+' select');
+					if (select!=null) {
+	 					select.val(current);
+						if (select.val()!=current) select.val('');
+					}
+				}
+            </script>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__ProcessItem_Objective}" mode="view">
+	        	<c:Notice viewer="{!viewer}" page="Objective" location="Subheader"/>
+
+				<apex:pageBlockSection title="{!$Label.fhcm2__Global_Collaborators}" columns="1" rendered="{!currentitem.collaborators.size>0}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar" rendered="{!!isblank(currentitem.collaborativeObjectiveId)}">
+                        <apex:outputLink value="/apex/{!links.ObjectiveCollaboration}?id={!currentitem.id}" target="_top">Collaboration</apex:outputLink>
+                    </apex:outputPanel>
+					<apex:outputPanel layout="block">
+						<apex:repeat value="{!currentitem.collaborators}" var="person">
+							<c:PersonIcon person="{!person}" page="{!links.fairsailProfile}"/>
+						</apex:repeat>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+                    
+               <apex:pageBlockSection title="{!$Label.fhcm2__Process_Contributing_Objectives}" columns="1" rendered="{!currentItem.hasChildren}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar" rendered="{!!isblank(currentitem.collaborativeObjectiveId)}">
+                        <apex:outputLink value="/apex/{!links.ObjectiveCollaboration}?id={!currentitem.id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!currentItem.children}" var="other">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Team_Member__c.label}">
+                              	<apex:outputLink value="{!links.FairsailProfile+'?Id='+other.teamMember.Id}">{!other.teamMember.Name}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" value="{!other.Action}" style="color:red;"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!other.Achievement}" rendered="{!!isblank(other.Achievement)}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}">
+                                <c:TrafficLight status="{!other.progressStatus}"/>
+                                <apex:outputText value="{!other.progress}" />
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!other.priority}" rendered="{!other.priority!='' && viewer.isManager}"/>
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!currentItem.children}" var="other">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Team_Member__c.label}">
+                              	<apex:outputLink value="{!links.FairsailProfile+'?Id='+other.teamMember.Id}">{!other.teamMember.Name}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Team_Members}" columns="1">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                        <apex:outputLink value="/apex/{!links.ObjectiveTeam}?id={!viewer.teamMember.id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.Objective}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(!isNew,viewer.isEdit)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!subject.objectives.working}" var="other" rendered="{!viewer.isTeamMemberOrManager}">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}" warning="{!other.Action}" rendered="{!other.id<>objective.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!other.contributesTo}" rendered="{!other.contributesTo!=''}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Weight__c.label}" value="{!other.Weight}" rendered="{!!isblank(other.weight) && other.weight>0}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!other.Priority}" rendered="{!!isblank(other.Priority)}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!other.Achievement}" rendered="{!!isblank(other.Achievement)}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}">
+                                <c:TrafficLight status="{!other.progressStatus}"/>
+                                <apex:outputText value="{!other.progress}" />
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!other.priority}" rendered="{!other.priority!=''}"/>
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    <apex:outputPanel rendered="{!subject.objectives.workingWeight>0}">{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Weight__c.label}: {!subject.objectives.workingWeight}</apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!subject.objectives.working}" var="other" rendered="{!not(viewer.isTeamMemberOrManager)}">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}" rendered="{!other.id<>objective.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Managers}" columns="1" rendered="{!viewer.hasPrimaryManager}">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar">
+                        <apex:outputLink value="/apex/{!links.ObjectiveTeam}?id={!viewer.primaryManager.id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!team.manager.working}" var="other" rendered="{!viewer.isTeamMemberOrManager}">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" value="{!other.Action}" style="color:red;" rendered="{!viewer.isManager}"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!other.contributesTo}" rendered="{!other.contributesTo!='' && viewer.isManager}"/>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!other.Achievement}" rendered="{!!isblank(other.Achievement) && viewer.isManager}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}"  rendered="{!viewer.isManager}">
+                                <c:TrafficLight status="{!other.progressStatus}"/>
+                                <apex:outputText value="{!other.progress}" />
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!other.priority}" rendered="{!other.priority!='' && viewer.isManager}"/>
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!viewer.isTeamMemberOrManager}">
+                    <apex:repeat value="{!team.manager.working}" var="other" rendered="{!not(viewer.isTeamMemberOrManager)}">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Objective}?id={!other.Id}">
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!other.Status}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" rendered="{!other.strategicObjective!=''}">
+                              	<apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(other.strategicObjective)+'&teamMemberId='+viewer.primaryManager.id}">{!other.strategicObjective}</apex:outputLink>
+                            </c:DetailListItem>
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!other.Description}" />
+                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!other.Measure}" />
+                        </c:DetailListBar>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	        	<c:Notice viewer="{!viewer}" page="Objective" location="Subfooter"/>
+            </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+<script type="Text/JavaScript">
+function formChanged() {
+	if (startMode) return;
+    enable("save");
+    enable("saveandnew");
+    enable("review");
+    enable("activate");
+    if ({!viewer.isOwnManager}) enable("confirm"); else disable("confirm");
+    disable("approve");
+}
+</script>
+            <apex:form >
+                <apex:pageBlock title="{!$Label.fhcm2__Process_Objectives_Current}">
+
+                    <apex:pageBlockButtons >
+                        <apex:commandButton id="save" action="{!save}" value="{!$Label.fhcm2__Button_Save}" rendered="{!and((isDraft && viewer.isEdit),viewer.isTeamMemberOrManager)}" styleClass="inputsubmit" />
+                        <apex:commandButton id="saveandnew" action="{!saveAndNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!and((isDraft && viewer.isEdit),viewer.isTeamMemberOrManager)}" styleClass="inputsubmit" />
+                        <apex:commandButton id="activate" action="{!force}" value="{!$Label.fhcm2__Button_Activate_Without_Confirm}" rendered="{!and(viewer.isManager,(isDraft && viewer.isEdit),UseActivateWithoutConfirm)}" styleClass="inputsubmit" />
+                        <apex:commandButton id="confirm" action="{!confirm}" value="{!$Label.fhcm2__Button_Confirm_Draft}" rendered="{!and(viewer.isTeamMember,(isManagerDraft || (viewer.isOwnManager && isDraft)))}" styleClass="inputsubmit" />
+                        <apex:commandButton id="approve" action="{!approve}" value="{!$Label.fhcm2__Button_Approve_Draft}" rendered="{!and(viewer.isManager,isTeamMemberDraft)}" styleClass="inputsubmit" />
+                        <apex:commandButton id="review" action="{!review}" value="{!$Label.fhcm2__Button_Save_Review}" rendered="{!and(isActive,viewer.isTeamMemberOrManager)}" styleClass="inputsubmit" />
+                        <apex:commandButton id="cancel" action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" rendered="{!and(!isClosed,viewer.isTeamMemberOrManager)}" styleClass="inputsubmit" />
+                    </apex:pageBlockButtons>
+
+					<!-- <apex:pageMessages ></apex:pageMessages> -->
+		        	<c:Notice viewer="{!viewer}" page="Objective" location="Header"/>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                        <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!!isNew}">
+                            <apex:outputLink value="{!links.SelectTarget + '?ObjectiveId=' + objective.Id}">{!$Label.fhcm2__Button_Clone}</apex:outputLink>
+                        </apex:outputPanel>
+                        <c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!objective.fHCM2__Team_Member__c}" picture="{!viewer.teamMember.pictureUrl}">
+                            <apex:panelGrid columns="2" columnClasses="labelCol first,data2Col first" styleClass="detailList">
+                                <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Status__c.label }" for="Status__c" />
+                                <apex:outputText value="{!objective.fHCM2__Status__c}" id="Status__c" />
+                                <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Action__c.label }" for="Action__c" />
+                                <apex:outputText style="color:red;text-weight:bold;" value="{!objective.fHCM2__Action__c}" id="Action__c" />
+                            </apex:panelGrid>
+                            </c:PersonSection>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Description}" columns="1" rendered="{!viewer.isTeamMemberOrManager || objective.fHCM2__Is_Private__c==false || currentItem.IsCollaborator}">
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Name }" />
+	                        <apex:inputField value="{!objective.Name}" required="true" style="width:250px"  onKeyPress="formChanged();" onChange="formChanged();" />
+	                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Name.label }" />
+                            <apex:outputText value="{!objective.Name}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Description__c }" />
+	                        <apex:inputField value="{!objective.fHCM2__Description__c}" required="true" onKeyPress="formChanged();" onChange="formChanged();" styleClass="autoResize"/>
+						</apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Description__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Description__c}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Measure__c }" />
+	                        <apex:inputField value="{!objective.fHCM2__Measure__c}" required="true"  onKeyPress="formChanged();" onChange="formChanged();" styleClass="autoResize"/>
+	                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Measure__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Measure__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Milestones}" columns="1" rendered="{!viewer.isTeamMemberOrManager && (!isNew || isCopy ) && viewer.departmentPolicy.fHCM2__Use_Objective_Milestones__c}">
+                        <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!and(isDraft || isActive,viewer.isEdit)}">
+                            <apex:outputLink value="/apex/{!links.Milestone}?objectiveId={!objective.Id}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        </apex:outputPanel>
+                        
+                        <script type="text/javascript">
+                                            jQuery.noConflict();
+                                            
+                                            jQuery(document).ready(function(){
+                                                jQuery(".amount input").bind('keyup', function(){
+                                                    var mId = jQuery(this).parent().attr('id').replace(/amount_/g, "");
+                                                    jQuery("#slider_" + mId).slider("value", parseInt(jQuery(this).val()));
+                                                    formChanged();
+                                                });
+                                            });
+                        </script>
+                        
+                        <apex:variable value="{!1}" var="milestonesNum"/>
+
+                        <apex:pageBlockTable value="{!milestones}" var="milestone" rendered="{!hasMilestones}">
+                            <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}">
+                            
+                                <apex:variable var="milestonesNum" value="{!milestonesNum + 1}"/>
+                                <apex:outputLink value="/apex/{!links.Milestone}?id={!milestone.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!milestone.name}</apex:outputLink>
+                            </apex:column>
+                            <apex:column headerValue="{!$ObjectType.fHCM2__Milestone__c.Fields.fHCM2__Progress__c.label}">
+                                <div id="amount_{!FLOOR(milestonesNum)}" class="amount" style="display: inline-block;">
+                                    <apex:inputText style="width: 30px;" value="{!milestone.fHCM2__Progress__c}"/>%
+                                </div>
+                                <div style="display: inline-block; width: 200px; padding: 4px 0 0 16px;"><div class="slider" id="slider_{!FLOOR(milestonesNum)}"></div></div>
+                                <script type="text/javascript">
+                                            jQuery(function() {
+                                                jQuery("#slider_{!FLOOR(milestonesNum)}").slider({
+                                                    value: {!blankvalue(milestone.Progress__c,0)},
+                                                    min: 0,
+                                                    max: 100,
+                                                    step: 1,
+                                                    slide: function(event, ui) {
+                                                        jQuery("#amount_{!FLOOR(milestonesNum)} input").val('' + ui.value);
+                                                        formChanged();
+                                                    }
+                                                });
+                                                jQuery("#amount_{!FLOOR(milestonesNum)} input").val('' + jQuery("#slider_{!FLOOR(milestonesNum)}").slider("value"));
+                                            });
+                                </script>
+                            </apex:column>
+                            <apex:column style="white-space:nowrap;" headerValue="End">
+                                <c:outputDate dateValue="{!milestone.fHCM2__End_Date__c}" />
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Link_To_Manager_Objectives}" columns="1"  rendered="{!(isDraft && ((hasManagerObjectives && viewer.departmentPolicy.fHCM2__Use_Chained_Objectives__c) || viewer.departmentPolicy.fHCM2__Use_Strategic_Objectives__c)) || (!isDraft && (objective.fHCM2__Contributes_To__c!=null || viewer.departmentPolicy.fHCM2__Use_Strategic_Objectives__c))}">
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit && viewer.departmentPolicy.fHCM2__Use_Strategic_Objectives__c}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Strategic_Objective__c }" />
+	                        <apex:inputField value="{!objective.fHCM2__Strategic_Objective__c}" />
+	                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit && hasManagerObjectives && viewer.departmentPolicy.fHCM2__Use_Chained_Objectives__c}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Contributes_To__c }" />
+                            <apex:selectList value="{!objective.fHCM2__Contributes_To__c}" size="1" onKeyPress="formChanged();" onChange="formChanged();">
+                                <apex:selectOptions value="{!managerObjectives}" />
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!(!(isDraft && viewer.isEdit)) && viewer.departmentPolicy.fHCM2__Use_Strategic_Objectives__c}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Strategic_Objective__c.label }" />
+                            <apex:outputLink value="{!links.ObjectiveTree+'?strategic='+urlencode(objective.fHCM2__Strategic_Objective__c)+'&teamMemberId='+viewer.teamMember.id}"><apex:outputText value="{!objective.fHCM2__Strategic_Objective__c}" /></apex:outputLink>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!(!(isDraft && viewer.isEdit)) && objective.Contributes_To__c!=null }">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Contributes_To__c.label }" />
+                            <apex:outputText value="{!objective.Contributes_To__r.Name}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Key_Dates}" columns="1">
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Start_Date__c }" />
+                            <apex:outputPanel >
+	                            <table id="startDate"><tr>
+			                        <td><apex:inputField value="{!objective.fHCM2__Start_Date__c}" required="true" onChange="formChanged();SetOptions('startDate');" id="startDate"/></td>
+		                            <td><select class="quarterPicker" onchange="DatePicker.insertDate(options[selectedIndex].value, '{!$Component.startDate}', true);"><option/><option value="{!keyDates['Q1Start']}">Start Q1</option><option value="{!keyDates['Q2Start']}">Start Q2</option><option value="{!keyDates['Q3Start']}">Start Q3</option><option value="{!keyDates['Q4Start']}">Start Q4</option></select></td>
+	                            </tr></table>
+                            </apex:outputPanel>
+						</apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Start_Date__c.label }" />
+                            <c:outputDate dateValue="{!objective.fHCM2__Start_Date__c}"/>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Next_Review_Date__c }" />
+                            <apex:outputPanel >
+	                            <table id="nextReviewDate"><tr>
+			                        <td><apex:inputField value="{!objective.fHCM2__Next_Review_Date__c}" required="true" onChange="formChanged();SetOptions('nextReviewDate');" id="nextReviewDate"/></td>
+		                            <td><select class="quarterPicker" onchange="DatePicker.insertDate(options[selectedIndex].value, '{!$Component.nextReviewDate}', true);"><option/><option value="{!keyDates['Q1End']}">End Q1</option><option value="{!keyDates['Q2End']}">End Q2</option><option value="{!keyDates['Q3End']}">End Q3</option><option value="{!keyDates['Q4End']}">End Q4</option></select></td>
+	                            </tr></table>
+                            </apex:outputPanel>
+						</apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.End_Date__c }" />
+                            <apex:outputPanel >
+	                            <table id="endDate"><tr>
+			                        <td><apex:inputField value="{!objective.fHCM2__End_Date__c}" required="true" onChange="formChanged();SetOptions('endDate');" id="endDate"/></td>
+		                            <td><select class="quarterPicker" onchange="DatePicker.insertDate(options[selectedIndex].value, '{!$Component.endDate}', true);"><option/><option value="{!keyDates['Q1End']}">End Q1</option><option value="{!keyDates['Q2End']}">End Q2</option><option value="{!keyDates['Q3End']}">End Q3</option><option value="{!keyDates['Q4End']}">End Q4</option></select></td>
+	                            </tr></table>
+                            </apex:outputPanel>
+						</apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.End_Date__c.label }" />
+                            <c:outputDate dateValue="{!objective.fHCM2__End_Date__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Attributes}" columns="1" rendered="{!viewer.isTeamMemberOrManager && (viewer.departmentPolicy.fHCM2__Use_Objective_Bonus__c || viewer.departmentPolicy.fHCM2__Use_Objective_Priority__c || viewer.departmentPolicy.fHCM2__Use_Objective_Weight__c || $ObjectType.fHCM2__Objective__c.FieldSets.fHCM2__Additional_Attributes.size>0)}">
+                        <apex:pageBlockSectionItem rendered="{!(isDraft && viewer.isEdit) && viewer.departmentPolicy.fHCM2__Use_Objective_Weight__c}" >
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Weight__c }" />
+	                        <apex:inputField value="{!objective.fHCM2__Weight__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!(!(isDraft && viewer.isEdit)) && viewer.departmentPolicy.fHCM2__Use_Objective_Weight__c}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Weight__c.label }" />
+                            <script type="Text/JavaScript">FormatPercent('{!objective.fHCM2__Weight__c}')</script>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!(isDraft && viewer.isEdit) && viewer.departmentPolicy.fHCM2__Use_Objective_Priority__c}" >
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Priority__c }" />
+	                        <apex:inputField value="{!objective.fHCM2__Priority__c}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!(!(isDraft && viewer.isEdit)) && viewer.departmentPolicy.fHCM2__Use_Objective_Priority__c}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Priority__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Priority__c}"/>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!(isDraft && viewer.isEdit) && viewer.departmentPolicy.fHCM2__Use_Objective_Bonus__c}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Required_For_Bonus__c }" />
+                            <apex:inputCheckbox value="{!objective.fHCM2__Required_For_Bonus__c}" onChange="formChanged();" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!(!(isDraft && viewer.isEdit)) && viewer.departmentPolicy.fHCM2__Use_Objective_Bonus__c}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Required_For_Bonus__c.label }" />
+                            <apex:image value="/img/checkbox_{!if(objective.fHCM2__Required_For_Bonus__c, '', 'un')}checked.gif"/>
+                        </apex:pageBlockSectionItem>
+                        
+						<apex:repeat value="{!$ObjectType.fHCM2__Objective__c.FieldSets.fHCM2__Additional_Attributes}" var="f">
+							<apex:pageBlockSectionItem rendered="{!(isDraft && viewer.isEdit)}">
+								<c:FieldLabel value="{!$ObjectType.fHCM2__Objective__c.fields[f]}" label="{!$ObjectType.fHCM2__Objective__c.fields[f].label}" help="{!$ObjectType.fHCM2__Objective__c.fields[f].InlineHelpText}"/>
+		                        <apex:inputField value="{!objective[f]}" onKeyPress="formChanged();" onChange="formChanged();" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+	                            <apex:outputLabel value="{!f.label }" />
+	                            <apex:outputText value="{!objective[f]}"/>
+	                        </apex:pageBlockSectionItem>
+	                    </apex:repeat>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Global_Visibility}" columns="1" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Is_Private__c }" />
+                            <apex:inputCheckbox value="{!objective.fHCM2__Is_Private__c}" onChange="formChanged();" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Is_Private__c.label }" />
+                            <apex:image value="/img/checkbox_{!if(objective.fHCM2__Is_Private__c, '', 'un')}checked.gif"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!isDraft && viewer.isEdit && viewer.departmentPolicy.fHCM2__Use_Collaborative_Objectives__c==true}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Collaboration__c }" />
+                            <apex:inputCheckbox value="{!objective.fHCM2__Collaboration__c}" onChange="formChanged();" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!!(isDraft && viewer.isEdit) && viewer.departmentPolicy.fHCM2__Use_Collaborative_Objectives__c==true}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Collaboration__c.label }" />
+                            <apex:outputField value="{!objective.fHCM2__Collaboration__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Review_Of_Progress}" columns="1" rendered="{!and(isActive || isClosed,viewer.isTeamMemberOrManager)}">
+	                    <apex:pageBlockTable value="{!currentItem.CommentsHistory}" var="review">
+	                    	<apex:column style="white-space:nowrap;vertical-align:top;"><c:outputDate dateValue="{!review.theDate}"/></apex:column>
+	                    	<apex:column style="white-space:nowrap;vertical-align:top;" value="{!review.who}"/>
+	                    	<apex:column style="white-space:pre-wrap;vertical-align:top;" value="{!review.comments}"/>
+	                    </apex:pageBlockTable>
+
+						<apex:pageBlockSectionItem rendered="{!viewer.isManager || viewer.isOwnManager}">
+                            <c:FieldLabel value="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Progress__c}" />
+                        	<apex:inputField value="{!objective.fHCM2__Progress__c}" required="true" onChange="formChanged();" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!not(viewer.isManager || viewer.isOwnManager)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Progress__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Progress__c}" />
+                        </apex:pageBlockSectionItem>
+
+						<apex:pageBlockSectionItem rendered="{!(viewer.isManager || viewer.isOwnManager) && viewer.departmentPolicy.fHCM2__Use_Objective_Achievement__c==true}">
+                            <c:FieldLabel value="{!$ObjectType.fHCM2__Objective__c.fields.fHCM2__Achievement__c}" />
+	                        <apex:inputField value="{!objective.fHCM2__Achievement__c}" required="true" onChange="formChanged();" onKeyPress="formChanged();" />
+	                    </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!not(viewer.isManager || viewer.isOwnManager) && viewer.departmentPolicy.fHCM2__Use_Objective_Achievement__c==true}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Achievement__c.label }" />
+                            <apex:outputText value="{!objective.fHCM2__Achievement__c}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!viewer.isManager}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Manager_Comments__c }" />
+                            <apex:inputTextarea value="{!comments}" onKeyPress="formChanged();" onChange="formChanged();" styleClass="autoResize"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!viewer.isTeamMember}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Team_Member_Comments__c }" />
+                            <apex:inputTextarea value="{!comments}" onKeyPress="formChanged();" onChange="formChanged();" styleClass="autoResize"/>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!viewer.isManager || viewer.isOwnManager}">
+                            <c:FieldLabel value="{!$ObjectType.Objective__c.fields.Next_Review_Date__c }" />
+                            <apex:outputPanel >
+	                            <table id="nextReviewDateProgress"><tr>
+			                        <td><apex:inputField value="{!objective.fHCM2__Next_Review_Date__c}" required="true" onChange="formChanged();SetOptions('nextReviewDateProgress');" id="nextReviewDateProgress"/></td>
+		                            <td><select class="quarterPicker" onchange="DatePicker.insertDate(options[selectedIndex].value, '{!$Component.nextReviewDateProgress}', true);"><option/><option value="{!keyDates['Q1End']}">End Q1 {!thisYear}</option><option value="{!keyDates['Q2End']}">End Q2 {!thisYear}</option><option value="{!keyDates['Q3End']}">End Q3 {!thisYear}</option><option value="{!keyDates['Q4End']}">End Q4 {!thisYear}</option><option value="{!keyDates['Q1EndNextYear']}">End Q1 {!nextYear}</option><option value="{!keyDates['Q2EndNextYear']}">End Q2 {!nextYear}</option><option value="{!keyDates['Q3EndNextYear']}">End Q3 {!nextYear}</option><option value="{!keyDates['Q4EndNextYear']}">End Q4 {!nextYear}</option></select></td>
+	                            </tr></table>
+                            </apex:outputPanel>
+						</apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem rendered="{!not(viewer.isManager || viewer.isOwnManager)}">
+                            <apex:outputLabel value="{!$ObjectType.Objective__c.fields.Next_Review_Date__c.label }" />
+                            <c:outputDate dateValue="{!objective.fHCM2__Next_Review_Date__c}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:outputPanel style="color:red;text-weight:bold;" rendered="{!hasErrors}">{!$Label.fhcm2__Global_Error}: {!errors}</apex:outputPanel>
+                </apex:pageBlock>
+            </apex:form>
+
+            <c:GenericHistoryComponent recordLimit="50" myObject="{!objective}" page="{!links.FairsailProfile}"  rendered="{!viewer.isTeamMemberOrManager}" excludeFields="Manager_Comments__c,Team_Member_Comments__c,fHCM2__Manager_Comments__c,fHCM2__Team_Member_Comments__c"/>
+         	<c:Notice viewer="{!viewer}" page="Objective" location="Footer"/>
+        </apex:define>
+    </apex:composition>
+</apex:page>

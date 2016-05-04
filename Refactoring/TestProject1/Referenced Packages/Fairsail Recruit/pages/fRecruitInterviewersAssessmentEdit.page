@@ -1,0 +1,52 @@
+<apex:page controller="fRecruit.EditInterviewerAssessment" showHeader="false" standardStylesheets="true" tabStyle="fRecruit__Application__c">
+
+	<apex:sectionHeader title="{!selectionStage.fRecruit__Vacancy__r.Name}" subtitle="{!selectionStage.Name}" />
+
+	<apex:form >
+   	<apex:pageBlock mode="view">
+		<apex:pageBlockButtons >
+			<apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+			<apex:commandButton action="{!save}" value="Save" />
+		</apex:pageBlockButtons>
+   		<apex:pageBlockSection columns="1">
+			<apex:outputField value="{!interviewerAssessment.Name}"/>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.Interviewer__c.fields.Interview_Date__c.label }"/>
+				<c:outputDate stringValue="{!interviewerAssessment.fRecruit__Interview_Date__c}" format="dd MMM yyyy HH:mm"/>
+			</apex:pageBlockSectionItem>
+			<apex:outputField value="{!interviewerAssessment.Assessment__r.Application__r.fRecruit__Candidate_Name__c}"/>
+
+			<apex:pageBlockSectionItem rendered="{!!isblank(interviewerAssessment.Assessment__r.Application__r.Candidate__r.fRecruit__Resume__c)}">
+				<apex:outputLabel value="{!$ObjectType.Candidate__c.fields.Resume__c.label }"/>
+				<apex:outputLink value="{!interviewerAssessment.Assessment__r.Application__r.Candidate__r.fRecruit__ResumeUrl__c}" target="_blank">[View]</apex:outputLink>
+			</apex:pageBlockSectionItem>
+
+		   	<apex:pageBlockSectionItem rendered="{!selectionStage.fRecruit__Assessment_Notes__c!=null}">
+				<apex:outputLabel escape="false" value="{!$ObjectType.Selection_Stage__c.fields.Assessment_Notes__c.label }"/>
+				<apex:outputText value="{!selectionStage.fRecruit__Assessment_Notes__c}"/>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+
+			<apex:repeat value="{!selectionStage.fRecruit__Stage_Criteria__r}" var="row">
+				<apex:pageBlockSection title="{!row.fRecruit__Selection_Criteria__r.Name}" columns="1">
+				   	<apex:pageBlockSectionItem rendered="{!row.fRecruit__Selection_Criteria__r.fRecruit__Criteria_Library_Item__r.fRecruit__Interview_Questions__c!=null}">
+						<apex:outputLabel value="{!$ObjectType.Criteria_Library_Item__c.fields.Interview_Questions__c.label }"/>
+						<apex:outputText escape="false" value="{!row.fRecruit__Selection_Criteria__r.fRecruit__Criteria_Library_Item__r.fRecruit__Interview_Questions__c}"/>
+					</apex:pageBlockSectionItem>
+				   	<apex:pageBlockSectionItem rendered="{!row.fRecruit__Selection_Criteria__r.fRecruit__Measure__c!=null}">
+						<apex:outputLabel value="{!$ObjectType.Selection_Criteria__c.fields.Measure__c.label }"/>
+ 						<apex:outputText >{!row.fRecruit__Selection_Criteria__r.fRecruit__Measure__c}</apex:outputText>
+					</apex:pageBlockSectionItem>
+					<apex:InputField value="{!interviewerCriteriaAsessments[row.fRecruit__Selection_Criteria__c].Rating__c}"/>
+					<apex:InputField value="{!interviewerCriteriaAsessments[row.fRecruit__Selection_Criteria__c].Comments__c}" style="width:500px;"/>
+				</apex:pageBlockSection>
+			</apex:repeat>
+			<apex:pageBlockSection title="Overall" columns="1">
+				<apex:repeat value="{!$ObjectType.fRecruit__Interviewer__c.FieldSets.fRecruit__Interviewer_Fields}" var="f">
+                   	<apex:inputField value="{!interviewerAssessment[f]}" required="{!f.required}" style="{!if(f.type=='textarea','width:500px;','')}"/>
+                </apex:repeat>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+
+</apex:page>

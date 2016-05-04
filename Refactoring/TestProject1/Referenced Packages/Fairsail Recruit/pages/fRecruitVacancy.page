@@ -1,0 +1,171 @@
+<apex:page standardController="fRecruit__Vacancy__c" extensions="fRecruit.VacancyControllerExtension,fRecruit.SetupPoliciesExtensionController">
+
+	<apex:includeScript value="{!URLFOR($Resource.fRecruit__FormGen, 'jquery.js')}"/>
+    <script>
+            jQuery.noConflict();
+            function CheckAll(className) {
+            	jQuery('.'+className).attr('checked', true);
+            }
+            function CheckNone(className) {
+            	jQuery('.'+className).attr('checked', false);
+            }
+	</script>
+	
+    <apex:sectionHeader title="{!$ObjectType.fRecruit__Vacancy__c.label}" subTitle="{!fRecruit__Vacancy__c.Name}" help="http://recruit.help.fairsail.com/topics/Vacancies.html" />
+
+	<apex:pagemessages />
+
+    <apex:form >
+    
+        <apex:pageBlock title="Requisition" mode="detail" rendered="{!policies.fRecruit__Use_Job_Requisition__c && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c)}">
+            <apex:pageBlockButtons location="top">
+                <c:fRecruitLinkButton label="Edit" url="/{!fRecruit__Vacancy__c.Id}/e" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Requisition Details" collapsible="false" columns="1">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Requisition_Details}" var="f">
+                   	<apex:outputField value="{!fRecruit__Vacancy__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Vacancy" mode="detail" rendered="{!!(policies.fRecruit__Use_Job_Requisition__c && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c))}">
+            <apex:pageBlockButtons location="top">
+                <c:fRecruitLinkButton label="Configure Selection Process" url="/apex/fRecruitvacancyConfigure?id={!fRecruit__Vacancy__c.Id}" />
+                <c:fRecruitLinkButton label="Edit" url="/{!fRecruit__Vacancy__c.Id}/e" />
+                <c:fRecruitLinkButton label="Sourcing" url="/apex/fRecruitVacancyPostJobBoards?id={!fRecruit__Vacancy__c.Id}" rendered="{!!(policies.fRecruit__Require_Vacancy_Approval__c==true && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c))}"/>
+                <c:fRecruitLinkButton label="Sourcing" url="/apex/fRecruitVacancyPostJobBoards?id={!fRecruit__Vacancy__c.Id}" disabled="true" rendered="{!policies.fRecruit__Require_Vacancy_Approval__c==true && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c)}"/>
+                <c:fRecruitLinkButton label="Search" url="/apex/fRecruitCriteriaFind?vacancyId={!fRecruit__Vacancy__c.Id}" />
+                <apex:commandButton action="{!submit}" value="Submit for Approval" rendered="{!policies.fRecruit__Require_Vacancy_Approval__c==true && !policies.fRecruit__Use_Job_Requisition__c}" disabled="{!!isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c) || !isblank(fRecruit__Vacancy__c.fRecruit__Submitted_Date__c)}"/>
+                <c:fRecruitLinkButton label="Delayed Emails" url="/apex/fRecruitSendDelayedApplicationEmails?vacancyId={!fRecruit__Vacancy__c.Id}" rendered="{!hasDelayedEmails}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Details" collapsible="false" columns="2">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets.fRecruit__Vacancy_Details}" var="f">
+                   	<apex:outputField value="{!fRecruit__Vacancy__c[f]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    
+<apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" rendered="{!!(policies.fRecruit__Use_Job_Requisition__c && isblank(fRecruit__Vacancy__c.fRecruit__Approved_Date__c))}">
+<apex:tab label="Applications" name="applications">
+    
+    <apex:pageBlock title="Active Applications" mode="detail">
+        <apex:pageBlockButtons >
+            <c:fRecruitLinkButton label="New" url="/{!$ObjectType.fRecruit__Application__c.keyPrefix}/e?vacancyId={!fRecruit__Vacancy__c.Id}&retURL=%2F{!fRecruit__Vacancy__c.Id}" />
+            <apex:commandButton action="{!bulkEmail}" value="Bulk Email" />
+            <apex:commandButton action="{!bulkAssess}" value="Bulk Assess" />
+            <apex:commandButton action="{!bulkEmailResumes}" value="Email Resumes" />
+            <apex:commandButton action="{!interviewScheduler}" value="Interview Scheduler" rendered="false"/>
+        </apex:pageBlockButtons>
+        Select&nbsp;&nbsp;<a href="javascript:void(0);" onclick="CheckAll('active');">[All]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="CheckNone('active');">[None]</a>
+        <apex:pageBlockTable title="" value="{!activeRows}" var="row">
+            <apex:column headerValue="Action">
+                <apex:inputCheckbox value="{!row.isSelected}" styleClass="active"/>
+                <apex:outputLink value="/{!row.id}/e?retURL=%2F{!Id}">Edit</apex:outputLink>
+                &nbsp;|&nbsp;<apex:outputLink value="/apex/fRecruitassessmentEdit?applicationId={!row.id}" disabled="{!!row.HasItems}">Assess</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Application No">
+                <apex:outputLink value="/{!row.id}" style="{!if(row.isInternal,'background-color:green;','')}">{!row.name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Candidate">
+                <apex:outputLink value="/{!row.candidateId}">{!row.candidateName}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Resume">
+                <apex:outputText value="{!row.resume}" escape="false"/>
+            </apex:column>
+            <apex:column headerValue="Status">{!row.status}</apex:column>
+            <apex:column headerValue="Current Stage">
+                <apex:outputLink value="/apex/fRecruitassessmentEdit?applicationId={!row.id}">{!row.selectionStageName}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Current Assessor">{!row.CurrentAssessorName}</apex:column>
+            <apex:column headerValue="Interview Date"><c:outputDate stringValue="{!row.interviewDateTime}" format="dd MMM yyyy HH:mm"/></apex:column>
+            <apex:column headerValue="Interview Status">{!row.interviewStatus}</apex:column>
+            <apex:column headerValue="Interviewer">{!row.interviewerName}</apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Recently Closed Applications" mode="detail" rendered="{!hasArchiveRows}">
+        <apex:pageBlockTable title="" value="{!archiveRows}" var="row">
+            <apex:column headerValue="Action">
+                <apex:outputLink value="/{!row.id}/e?retURL=%2F{!Id}">Edit</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Application No">
+                <apex:outputLink value="/{!row.id}" style="{!if(row.isInternal,'background-color:green;','')}">{!row.name}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Candidate">
+                <apex:outputLink value="/{!row.candidateId}">{!row.candidateName}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Status">{!row.status}</apex:column>
+            <apex:column headerValue="Most Recent Stage">{!row.selectionStageName}</apex:column>
+            <apex:column headerValue="Most Recent Assessor">{!row.CurrentAssessorName}</apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+</apex:tab>
+<apex:tab label="Shortlist" name="shortlist">
+
+    <apex:pageBlock title="Shortlist" mode="detail" rendered="{!hasRows}">
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!bulkEmail}" value="Bulk Email" />
+            <apex:commandButton action="{!bulkAssess}" value="Bulk Assess" />
+            <apex:commandButton action="{!bulkEmailResumes}" value="Email Resumes" />
+        </apex:pageBlockButtons>
+        Select&nbsp;&nbsp;<a href="javascript:void(0);" onclick="CheckAll('shortlist');">[All]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="CheckNone('shortlist');">[None]</a>
+        <table width="100%" class="list">
+            <tbody>
+                <tr class="headerRow">
+                    <th rowspan="2">Action</th>
+                    <th rowspan="2">Application</th>
+                    <th rowspan="2">Candidate</th>
+                    <th colspan="{!noStages}" style="text-align: center; border-bottom:0px; padding: 0px 0px 0px 0px;">Selection Stage Overall Rating</th>
+                    <th style="text-align: center; white-space:normal;" rowspan="2">Overall Rating</th>
+                    <th style="text-align: center; white-space:normal;" rowspan="2">Total Score</th>
+                    <th style="text-align: center; white-space:normal;" rowspan="2"># Below Needs</th>
+                    <th style="text-align: center;white-space:normal;" rowspan="2"># Below Required Needs</th>
+                    <th rowspan="2">Status</th>
+                </tr>
+                <tr class="headerRow">
+                    <apex:repeat value="{!firstRow.Items}" var="item">
+                        <th class="headerRow" style="text-align: center;white-space:normal;">{!item.name}</th>
+                    </apex:repeat>
+                </tr>
+                <apex:repeat value="{!Rows}" var="row">
+                    <tr class="dataRow" onmouseover="if (window.hiOn){hiOn(this);}" onmouseout="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" onblur="if (window.hiOff){hiOff(this);}">
+                        <td>
+                        	<apex:inputCheckbox value="{!row.isSelected}" styleClass="shortlist"/>
+							<apex:outputLink value="/{!row.id}/e?retURL=%2F{!Id}">Edit</apex:outputLink>
+                			&nbsp;|&nbsp;<apex:outputLink value="/apex/fRecruitassessmentEdit?applicationId={!row.id}">Assess</apex:outputLink>                        </td>
+                        <td style="{!if(row.isInternal,'background-color:green;','')}"><apex:outputLink value="/{!row.id}">{!row.name}</apex:outputLink></td>
+                        <td><apex:outputField value="{!row.application.fRecruit__Candidate__c}"/></td>
+                        <apex:repeat value="{!row.Items}" var="item">
+                            <td style="text-align: center;">
+                                <apex:outputLink value="/{!item.assessmentId}" style="color:#a0a0a0;text-decoration:none;" rendered="{!item.hasScore}"><apex:image value="{!item.ratingIndicator}" alt="{!item.weightedScore}" /> {!item.weightedScore}</apex:outputLink>
+                                <apex:outputPanel rendered="{!!item.hasScore}">&nbsp;</apex:outputPanel>
+                            </td>
+                        </apex:repeat>
+                        <td style="text-align: center;">
+                            <apex:outputLink value="/{!row.id}" style="color:#a0a0a0;text-decoration:none;" rendered="{!row.hasScore}"><apex:image value="{!row.ratingIndicator}" alt="{!row.weightedScore}" /> {!row.weightedScore}</apex:outputLink>
+                            <apex:outputPanel rendered="{!!row.hasScore}">&nbsp;</apex:outputPanel>
+                        </td>
+                        <td style="text-align: center;"><c:outputNumber decimalPlaces="1" value="{!row.weightedTotal}"/></td>
+                        <td style="text-align: center;"><c:outputNumber decimalPlaces="0" value="{!row.belowNeeds}"/></td>
+                        <td style="text-align: center;"><c:outputNumber decimalPlaces="0" value="{!row.requiredBelowNeeds}"/></td>
+                        <td>{!row.status}</td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+        <p style="text-align: center">Key:-&nbsp;&nbsp;&nbsp;&nbsp; Exceeds <apex:image value="/img/samples/rating5.gif" />&nbsp;&nbsp; Fully Meets <apex:image value="/img/samples/rating4.gif" />&nbsp;&nbsp; Just Meets <apex:image value="/img/samples/rating3.gif" />&nbsp;&nbsp; Partly Meets <apex:image value="/img/samples/rating2.gif" />&nbsp;&nbsp; Not Met <apex:image value="/img/samples/rating1.gif" /></p>
+    </apex:pageBlock>
+
+</apex:tab>
+</apex:tabPanel>
+
+    </apex:form>
+
+	<chatter:feedWithFollowers entityId="{!fRecruit__Vacancy__c.Id}"/>    
+
+	<apex:relatedList list="NotesAndAttachments" subject="{!fRecruit__Vacancy__c.Id}" />
+
+	<apex:relatedList list="ProcessSteps" subject="{!fRecruit__Vacancy__c.Id}" rendered="{!policies.fRecruit__Require_Vacancy_Approval__c==true}"/>
+
+</apex:page>

@@ -1,0 +1,157 @@
+<apex:page controller="fHCM2.TargetTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra"> 
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.TargetTeam}" title="{!$Label.fhcm2__Process_Targets}" hidePicture="true" noticePage="TargetTeam"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <style>
+.bPageBlock .detailList .dataCol1 {
+    width: 27%;
+    margin-right: 2%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .detailList .dataCol {
+    width: 37%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .labelCol {
+    padding: 0px 0px 0px 2px;
+}
+</style>
+            <apex:pageBlock title="{!$Label.fhcm2__Global_Team_View}">
+            	<c:Notice viewer="{!viewer}" page="TargetTeam" location="Header"  />
+                <p>&nbsp;</p>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Targets_Manager_Targets}</h2>
+                    </apex:outputPanel>
+                    <apex:panelGrid columns="2" width="100%" columnClasses="person-section-left,person-section-right">
+                        <c:PersonIcon name="{!viewer.primaryManager.name}" picture="{!viewer.primaryManager.pictureUrl}" value="{!viewer.primaryManager.id}" page="{!links.TargetTeam}" />
+                        <apex:repeat value="{!team.manager.working}" var="item">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!item.name}" value="/apex/{!links.Target}?id={!item.id}" />
+                                <c:DetailListItem label="Progress" value="{!item.progress}" rendered="{!viewer.isManager}" />
+                                <c:DetailListItem label="Action" rendered="{!and(item.hasAction,viewer.isManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!item.action}" />
+                                </c:DetailListItem>
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!item.name}" value="/apex/{!links.Target}?id={!item.id}" />
+                                <c:DetailListItem label="Progress" value="{!item.progress}" rendered="{!viewer.isManager}" />
+                                <c:DetailListItem label="Action" rendered="{!and(item.hasAction,viewer.isManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!item.action}" />
+                                </c:DetailListItem>
+                                <c:DetailListItem label="Status" value="{!item.status}" />
+                                <c:ChartPercentAxis width="150px" />
+                                <c:chartBar percent="{!item.percentage}" width="150px"/>
+                                <c:DetailListItem label="Target"><c:OutputCurrency value="{!item.targetYTD}" currencyCode="{!item.currencyCode}"/></c:DetailListItem>
+                                <c:DetailListItem label="Actual"><c:OutputCurrency value="{!item.actualYTD}" currencyCode="{!item.currencyCode}"/></c:DetailListItem>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                    </apex:panelGrid>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Targets_Team_Member_Targets}</h2>
+                    </apex:outputPanel>
+                    <apex:panelGrid columns="2" width="100%" columnClasses="person-section-left,person-section-right">
+                        <c:PersonIcon name="{!viewer.teamMember.name}" picture="{!viewer.teamMember.pictureUrl}" value="{!viewer.teamMember.id}" page="{!links.TargetTeam}" />
+                        <apex:repeat value="{!teamMember.working}" var="tmtarget">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmtarget.name}" value="/apex/{!links.Target}?id={!tmtarget.id}" />
+                                <c:DetailListItem label="Progress" value="{!tmtarget.progress}" rendered="{!viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="Action" rendered="{!and(tmtarget.hasAction,viewer.isTeamMemberOrManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!tmtarget.action}" />
+                                </c:DetailListItem>
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmtarget.name}" value="/apex/{!links.Target}?id={!tmtarget.id}" />
+                                <c:DetailListItem label="Progress" value="{!tmtarget.progress}" rendered="{!viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="Action" rendered="{!and(tmtarget.hasAction,viewer.isTeamMemberOrManager)}">
+                                    <apex:outputText style="color:red;text-weight:normal;" value="{!tmtarget.action}" />
+                                </c:DetailListItem>
+                                <c:DetailListItem label="Status" value="{!tmtarget.status}" />
+                                <c:ChartPercentAxis width="150px" />
+                                <c:chartBar percent="{!tmtarget.percentage}" width="150px"/>
+                                <c:DetailListItem label="Target"><c:OutputCurrency value="{!tmtarget.targetYTD}" currencyCode="{!tmtarget.currencyCode}"/></c:DetailListItem>
+                                <c:DetailListItem label="Actual"><c:OutputCurrency value="{!tmtarget.actualYTD}" currencyCode="{!tmtarget.currencyCode}"/></c:DetailListItem>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                    </apex:panelGrid>
+                </apex:outputPanel>
+
+                <apex:tabPanel switchType="client" id="theTabPanel">
+                    <apex:tab label="{!$Label.fhcm2__Process_Targets_Direct_Reports_Targets}" name="directReports">
+                        <apex:repeat value="{!team.directReports}" var="person">
+                            <c:PersonSection name="{!person.teamMember.name}" page="{!links.TargetTeam}" value="{!person.teamMember.id}" picture="{!person.teamMember.pictureUrl}">
+                                <apex:repeat value="{!person.working}" var="item">
+                                    <c:TwinSectionA >
+                                        <c:DetailListHeader title="{!item.name}" value="/apex/{!links.Target}?id={!item.id}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Progress__c.label}" value="{!item.progress}" rendered="{!viewer.isTeamMemberOrManager}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Action__c.label}" rendered="{!and(item.hasAction,viewer.isTeamMemberOrManager)}">
+                                            <apex:outputText style="color:red;text-weight:normal;" value="{!item.action}" />
+                                        </c:DetailListItem>
+                                    </c:TwinSectionA>
+                                    <c:TwinSectionB >
+                                        <c:DetailListHeader title="{!item.name}" value="/apex/{!links.Target}?id={!item.id}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Progress__c.label}" value="{!item.progress}" rendered="{!viewer.isTeamMemberOrManager}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Action__c.label}" rendered="{!and(item.hasAction,viewer.isTeamMemberOrManager)}">
+                                            <apex:outputText style="color:red;text-weight:normal;" value="{!item.action}" />
+                                        </c:DetailListItem>
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Status__c.label}" value="{!item.status}" />
+                                        <c:ChartPercentAxis width="150px" />
+                                        <c:chartBar percent="{!item.percentage}" width="150px"/>
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.Name.label}"><c:OutputCurrency value="{!item.targetYTD}" currencyCode="{!item.currencyCode}"/></c:DetailListItem>
+                                        <c:DetailListItem label="{!$Label.fhcm2__Process_Targets_Actual}"><c:OutputCurrency value="{!item.actualYTD}" currencyCode="{!item.currencyCode}"/></c:DetailListItem>
+                                    </c:TwinSectionB>
+                                </apex:repeat>
+                            </c:PersonSection>
+                        </apex:repeat>
+                    </apex:tab>
+                    <apex:tab label="{!$Label.fhcm2__Process_Targets_Colleagues_Targets}" name="colleagues">
+                        <apex:repeat value="{!team.colleagues}" var="person">
+                            <c:PersonSection name="{!person.teamMember.name}" page="{!links.TargetTeam}" value="{!person.teamMember.id}" picture="{!person.teamMember.pictureUrl}">
+                                <apex:repeat value="{!person.working}" var="item">
+                                    <c:TwinSectionA >
+                                        <c:DetailListHeader title="{!item.name}" value="/apex/{!links.Target}?id={!item.id}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Progress__c.label}" value="{!item.progress}" rendered="{!viewer.isManager}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Action__c.label}" rendered="{!and(item.hasAction,viewer.isManager)}">
+                                            <apex:outputText style="color:red;text-weight:normal;" value="{!item.action}" />
+                                        </c:DetailListItem>
+                                    </c:TwinSectionA>
+                                    <c:TwinSectionB >
+                                        <c:DetailListHeader title="{!item.name}" value="/apex/{!links.Target}?id={!item.id}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Progress__c.label}" value="{!item.progress}" rendered="{!viewer.isManager}" />
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Action__c.label}" rendered="{!and(item.hasAction,viewer.isManager)}">
+                                            <apex:outputText style="color:red;text-weight:normal;" value="{!item.action}" />
+                                        </c:DetailListItem>
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.fHCM2__Status__c.label}" value="{!item.status}" />
+                                        <c:ChartPercentAxis width="150px" />
+                                        <c:chartBar percent="{!item.percentage}" width="150px"/>
+                                        <c:DetailListItem label="{!$ObjectType.fHCM2__Target__c.fields.Name.label}"><c:OutputCurrency value="{!item.targetYTD}" currencyCode="{!item.currencyCode}"/></c:DetailListItem>
+                                        <c:DetailListItem label="{!$Label.fhcm2__Process_Targets_Actual}"><c:OutputCurrency value="{!item.actualYTD}" currencyCode="{!item.currencyCode}"/></c:DetailListItem>
+                                    </c:TwinSectionB>
+                                </apex:repeat>
+                            </c:PersonSection>
+                        </apex:repeat>
+                    </apex:tab>
+                </apex:tabPanel>
+                <c:Notice viewer="{!viewer}" page="TargetTeam" location="Footer"  />
+            </apex:pageBlock>
+        </apex:define>
+    </apex:composition>
+</apex:page>

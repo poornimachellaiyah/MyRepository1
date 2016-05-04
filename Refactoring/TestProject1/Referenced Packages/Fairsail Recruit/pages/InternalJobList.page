@@ -1,0 +1,77 @@
+<apex:page controller="fRecruit.InternalJobListController" cache="false" showHeader="false" sidebar="false" standardStylesheets="true" language="{!languageSetter.locale}">
+<script  type='text/javascript'>
+window.onload = function (){
+			 parent.postMessage('ResizeHeight-'+document.getElementById('internalJobListContainer').offsetHeight,"*");
+}
+   				
+</script>        
+<div id="internalJobListContainer">
+<apex:composition template="fRecruit__ApplyTemplate">
+
+<apex:define name="head">
+	<style>
+		.leftColumn { width:0px;}
+		.bodyColumn { width:800px; }
+		.rightColumn { width:0px;}
+		.mainPageDiv { width:800px; }
+	</style>
+</apex:define>
+
+<apex:define name="header">
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJobList" location="Header" portal="Internal"/>
+</apex:define>
+
+<apex:define name="body">
+	<apex:sectionHeader title="{!$Label.frecruit__Internal_Portal}{!Name}" help="{!$Setup.Apply_Portal__c.Help_URL__c}" subtitle="{!$Label.frecruit__Internal_Job_List}"/>
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJobList" location="Top" portal="Internal"/>
+	<p>{!$Label.frecruit__Internal_Job_List_Top}</p>
+	<apex:form >
+		<apex:pageBlock >
+			<apex:outputPanel layout="block" style="margin-bottom:5px;">
+				<apex:outputPanel styleClass="searchPanel">
+					<apex:inputText value="{!searchString}" style="width:350px;"/>&nbsp;<apex:commandButton value="{!$Label.frecruit__Apply_Search_Button}" action="{!go}"/>
+				</apex:outputPanel>
+			</apex:outputPanel>
+				
+			<apex:pageBlockTable value="{!vacancies}" var="vacancy" rendered="{!setController.ResultSize>0}" styleClass="jobListPanel">
+				<apex:repeat value="{!$ObjectType.fRecruit__Vacancy__c.FieldSets[JobListFieldSet]}" var="f">
+					<apex:column headerValue="{!f.label}" rendered="{!f!='Name'}" style="vertical-align: top;">
+						<apex:outputPanel >
+							<c:outputDate value="{!vacancy[f]}" rendered="{!f.type=='date'}"/>
+							<apex:outputfield value="{!vacancy[f]}" rendered="{!(f.type!='Text' || !contains(vacancy[f],'<img')) && f.type!='date'}"/>
+							<apex:outputText value="{!vacancy[f]}" escape="false" rendered="{!f.type=='Text' && contains(vacancy[f] && f.type!='date','<img')}"/>
+						</apex:outputPanel>
+					</apex:column>
+					<apex:column headerValue="{!f.label}" rendered="{!f=='Name'}" style="vertical-align: top;">
+						<apex:outputLink value="{!'/apex/fRecruit__InternalJob?vacancyNo='+vacancy.fRecruit__Vacancy_No__c+if(isblank(uid),'','&uid='+uid)}">{!vacancy.Name}</apex:outputLink>
+					</apex:column>
+				</apex:repeat>
+			</apex:pageBlockTable>
+
+			<apex:panelGrid columns="5" cellpadding="4px;" rendered="{!setController.ResultSize>0}" styleClass="pagingPanel">
+				<apex:commandLink action="{!setController.first}" rendered="{!setController.hasPrevious}">{!$Label.frecruit__Apply_First_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasPrevious}">{!$Label.frecruit__Apply_First_Button}</apex:outputPanel>
+				<apex:commandLink action="{!setController.previous}" rendered="{!setController.hasPrevious}">{!$Label.frecruit__Apply_Previous_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasPrevious}">{!$Label.frecruit__Apply_Previous_Button}</apex:outputPanel>
+				<apex:outputPanel >{!substitute(substitute($Label.frecruit__Apply_Page_i_Of_n,'{0}',text(setController.PageNumber)),'{1}',text(CEILING(setController.ResultSize/setController.PageSize)))}</apex:outputPanel>
+				<apex:commandLink action="{!setController.next}" rendered="{!setController.hasNext}">{!$Label.frecruit__Apply_Next_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasNext}">{!$Label.frecruit__Apply_Next_Button}</apex:outputPanel>
+				<apex:commandLink action="{!setController.last}" rendered="{!setController.hasNext}">{!$Label.frecruit__Apply_Last_Button}</apex:commandlink>
+				<apex:outputPanel rendered="{!!setController.hasNext}">{!$Label.frecruit__Apply_Last_Button}</apex:outputPanel>
+			</apex:panelGrid>
+			
+			<apex:outputPanel rendered="{!setController.ResultSize==0}">{!$Label.frecruit__Apply_None_Found}</apex:outputPanel>
+			
+			<div style="clear:both;"></div>
+		</apex:pageBlock>
+	</apex:form>
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJobList" location="Bottom" portal="Internal"/>
+</apex:define>
+
+<apex:define name="footer">
+	<c:Notice locale="{!languageSetter.locale}" page="InternalJobList" location="Footer" portal="Internal"/>
+</apex:define>
+
+</apex:composition>
+</div>
+</apex:page>

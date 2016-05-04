@@ -1,0 +1,206 @@
+<apex:page controller="UploadPoliciesFormController" showHeader="false">
+
+<head>
+<style>
+body{
+        font-size: 75%;
+        //width:752px;
+        width:100%;
+        font-family:Verdana;
+}
+body,td{
+font-family: Verdana;
+}
+.bPageBlock{
+    border-top:4px solid #ad0075;
+}
+.pbSubheader {
+    background-color: #b06397;
+}
+.bPageBlock .pbTitle {
+    width: 60%;
+}
+
+.appheader{
+    padding-left:10px;  
+    width:740px;
+}
+.appheadercon{
+    font-size:14px;
+    padding-top:5px;
+    padding-bottom:10px;
+    color:#ad0075;
+}
+    
+ 
+.radiostyling td, .radiostyling tr{
+    padding-right:10px;
+}
+.radiostyling input, .radiostyling label{
+    float:none;
+    display:inline;
+    width: 30px;
+}   
+.jobopp {
+   color:#ad0075;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.div-wrapper{
+    width:750px;
+    height:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+} 
+
+body .bPageBlock{
+    padding-left:10px;
+    
+}
+
+.pdetails{
+    margin-left:10px; 
+    border-style:solid;
+    //border-top-color: #8ab64e; 
+    border-top-color: #ad0075;
+    border-radius: 5px;
+    border-right-style:none;
+    border-bottom-style:none;
+    border-left-style:none;
+    padding:5px 10px 5px 10px;
+    background-color:#f8f8f8;
+} 
+
+.message .messageText {
+    margin-left: 18px;
+}
+
+body .bPageBlock .pbBody .vsopurple .pbSubheader{
+    background-color:#f8f8f8;
+    border-top-color: #ad0075;  
+}
+
+
+      #centre {
+  font-size:1em;
+  line-height:1.3;
+  margin:5px auto;
+  padding-top:10px;
+  position:relative;
+  width:962px;
+}
+       #main {
+  background-color:#FFFFFF;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  min-height:500px;
+  padding-top:40px;
+}
+
+.PageTitle {  
+    font-size:20px;
+    color:#ad0075;
+    font-weight: normal;
+   margin-left:10px; 
+} 
+body .bPageBlock .pbBody a{
+color:blue;
+text-decoration:underline;
+}
+
+</style>
+</head>
+<body>
+<apex:form >
+    <apex:outputpanel id="opp1" rendered="{!if(uploadStatus=='Submitted',true,false)}">
+        <table class="appheader">
+            <tr class="appheadercon">
+            <td><div class="PageTitle ">
+            <apex:outputText id="PageTitle1" value="VSO Volunteer Policies & Sharing Contact Details Declarations" /></div></td>                
+            </tr>
+       </table>
+       <br/>
+       <div class="pdetails">
+            <table>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"  style="padding-top:10px;"><apex:outputtext id="otxt020" value="Thank You - Volunteer Policies Declaration Successfully Submitted." /></td>
+                </tr>
+                <tr class="appheadercon">
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div> 
+    </apex:outputpanel>
+
+<apex:outputPanel id="opp2" rendered="{!NOT(if(uploadStatus=='Submitted',true,false))}">    
+<div class="PageTitle "><apex:outputText id="PageTitle" value="VSO Volunteer Policies & Sharing Contact Details Declarations" /></div><br/>
+<apex:pageBlock >
+    <apex:pageBlockSection columns="1">
+        <apex:outputtext id="PolicyInfo">
+        By ticking the 'Volunteer Policies Declaration' checkbox below, and submitting this form, I am confirming that I have read, understood and will adhere to the guidelines set out in the following VSO policies:<br/><br/>
+        • Global Code of Conduct Policy <br/>
+        • Child Protection Code of Conduct <br/>
+        • VSO Volunteer Handbook <br/>
+        • VSO Security Charter <br/>
+        • VSO HIV &amp; AIDS Workplace Policy <br/>
+        • VSO Criminal Practices and Whistle Blowing Policy <br/>
+        • VSO Harassment, Bullying &amp; Intimidation Policy <br/>
+        • VSO Social Media Policy <br/>
+        • VSO Confidentiality Agreement <br/>
+        • VSO Equal Opportunities Policy <br/>
+        • VSO Acceptable Use Policy <br/><br/>        
+
+        In addition, I confirm that I have read and will act upon the following information (see the bottom of this form for details of where to access the below information):<br/><br/>
+        • The country-specific security briefing for the country in which I will be volunteering <br/>
+        • The specific HIV and AIDS Country Service Paper for the country in which I will be volunteering <br/>
+        • The country-specific immunisation and anti-malarial drug information and details of how to obtain antimalarials <br/>
+
+        </apex:outputtext>    
+        <apex:pageBlockSectionItem >            
+            <apex:outputLabel id="olblAccepted">Volunteer Policies Declaration</apex:outputLabel>  
+            <apex:outputPanel id="opnl1" styleClass="requiredInput" layout="block" >
+            <apex:outputPanel id="opnl2" styleClass="requiredBlock" layout="block" />
+            <apex:inputCheckbox required="true" id="chkPolicyAccepted" value="{!HasPolicyAccepted}"/>
+             </apex:outputPanel>  
+        </apex:pageBlockSectionItem>
+        <apex:outputtext id="SharingInfo">
+        <b>Sharing your contact details with other VSO Volunteers</b> <br/><br/>
+        We may want to give your name, address and phone number to other volunteers going to the same country. We may also want to give your contact details to returned volunteers or volunteers in country so that they can contact you. To confirm that you are happy for VSO to give your details to other VSO volunteers and returned volunteers please tick the ‘Contact Details Declaration’ checkbox below.
+        </apex:outputtext>    
+        <apex:pageBlockSectionItem >            
+            <apex:outputLabel id="olblAccepted">Contact Details Declaration</apex:outputLabel>              
+            <apex:inputCheckbox id="chkPolicyAccepted" value="{!HasSharingAccepted}"/>              
+        </apex:pageBlockSectionItem>
+                
+        <!-- <apex:pageBlockSectionItem >
+            <apex:outputLabel id="olblform">Upload Policies Form</apex:outputLabel>
+            <apex:outputPanel styleClass="requiredInput" layout="block" >
+            <apex:outputPanel styleClass="requiredBlock" layout="block" />               
+                <apex:inputFile id="UploadAgreement" value="{!uploadedFile}" fileName="{!filename}" fileSize="{!filesize}" required="true"></apex:inputFile>
+            </apex:outputPanel> 
+        </apex:pageBlockSectionItem> -->
+        
+        <apex:outputtext id="Info2">
+        Please note that VSO will store and protect your data in accordance with the requirements of its Data Protection Policy and in keeping with the Data Protection Act 1998.<br/><br/>
+
+        Where to access the VSO Policy documents and country-specific information, listed above, on VSO’s Learning Hub:<br/>
+        • VSO Policy documents: <a href="http://learning.vsoint.org/course/view.php?id=668">http://learning.vsoint.org/course/view.php?id=668</a> <br/>
+        • VSO Volunteer Handbook: <a href="http://learning.vsoint.org/course/category.php?id=82">http://learning.vsoint.org/course/category.php?id=82</a> <br/>
+        • VSO Security Charter: <a href="http://learning.vsoint.org/course/view.php?id=150">http://learning.vsoint.org/course/view.php?id=150</a> <br/>
+        • Country-specific security and HIV/Aids information (see the ‘Country’ page of the country in which you will be volunteering): <a href="http://learning.vsoint.org/course/view.php?id=228">http://learning.vsoint.org/course/view.php?id=228</a> <br/>
+        • VSO immunisation and anti-malarial drug information sheets: <a href="http://learning.vsoint.org/course/view.php?id=645">http://learning.vsoint.org/course/view.php?id=645</a> <br/>
+
+     </apex:outputtext>
+    </apex:pageBlockSection>    
+
+     <apex:pageMessage id="pagemessages" summary="{!errormsg}" severity="Error" strength="3" rendered="{!validationCheck}" escape="false"/> 
+         <div align="right"><apex:commandbutton id="cbtnSubmitForm" value="Submit" action="{!FormSubmit}" /></div> 
+</apex:pageBlock>
+    
+     </apex:outputPanel>
+</apex:form>
+</body>
+</apex:page>

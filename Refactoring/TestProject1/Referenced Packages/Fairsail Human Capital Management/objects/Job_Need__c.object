@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A requirement of a competency, indicator or skill for a job.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Area__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (Competency_Library_Item__c==&apos;&apos;, if (Indicator_Library_Item__c==&apos;&apos;, if (Skill_Library_Item__c==&apos;&apos;, Metrics_Library_Item__r.Area__c, Skill_Library_Item__r.Area__c ) ,  Indicator_Library_Item__r.Competency_Library_Item__r.Name ),  Competency_Library_Item__r.Area__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Area</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Competency_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The competency required by this job</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The competency required by this job</inlineHelpText>
+        <label>Competency Library Item</label>
+        <referenceTo>Competency_Library_Item__c</referenceTo>
+        <relationshipLabel>Job Needs</relationshipLabel>
+        <relationshipName>Role_Need</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ideal_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Ideal score for someone in this role</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ideal score for someone in this role</inlineHelpText>
+        <label>Ideal Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Indicator_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The indicator required by this job</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The indicator required by this job</inlineHelpText>
+        <label>Indicator Library Item</label>
+        <referenceTo>Indicator_Library_Item__c</referenceTo>
+        <relationshipLabel>Job Needs</relationshipLabel>
+        <relationshipName>Role_Indicator</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Item__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The competency, indicator, metric or skill required by this job</description>
+        <externalId>false</externalId>
+        <formula>if (Competency_Library_Item__c==&apos;&apos;, if (Indicator_Library_Item__c==&apos;&apos;, if (Skill_Library_Item__c==&apos;&apos;, Metrics_Library_Item__r.Name ,  Skill_Library_Item__r.Name ) ,  Indicator_Library_Item__r.Name ),  Competency_Library_Item__r.Name )</formula>
+        <inlineHelpText>The competency, indicator, metric or skill required by this job</inlineHelpText>
+        <label>Item</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Job_Profile__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The job profile that this need relates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The job profile that this need relates</inlineHelpText>
+        <label>Job Profile</label>
+        <referenceTo>Job_Profile__c</referenceTo>
+        <relationshipLabel>Job Needs</relationshipLabel>
+        <relationshipName>Job_Need</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Maximum_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Metrics_Library_Item__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Metrics Library Item</label>
+        <referenceTo>Metrics_Library_Item__c</referenceTo>
+        <relationshipLabel>Job Needs</relationshipLabel>
+        <relationshipName>Job_Needs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Required_Level__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Required Level</label>
+        <referenceTo>Scale_Response__c</referenceTo>
+        <relationshipLabel>Job Needs</relationshipLabel>
+        <relationshipName>Job_Needs</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Required_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Required (minimum acceptable) score for someone in this role</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Required (minimum acceptable) score for someone in this role</inlineHelpText>
+        <label>Required Score</label>
+        <precision>17</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Skill_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The skill required by this job</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The skill required by this job</inlineHelpText>
+        <label>Skill Library Item</label>
+        <referenceTo>Skill_Library_Item__c</referenceTo>
+        <relationshipLabel>Job Needs</relationshipLabel>
+        <relationshipName>Role_Need</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Job Need</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Job Need #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Job Needs</pluralLabel>
+    <recordTypes>
+        <fullName>CompetencyNeed</fullName>
+        <active>true</active>
+        <description>All indicators for this competency will be used in the competency review</description>
+        <label>Competency Need</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>IndicatorNeed</fullName>
+        <active>true</active>
+        <description>This indicator will be used in a competency review</description>
+        <label>Indicator Need</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Metrics_Need</fullName>
+        <active>true</active>
+        <description>This metric will be used in a metrics review</description>
+        <label>Metrics Need</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SkillNeed</fullName>
+        <active>true</active>
+        <description>This skill will be used when comparing team member skills to this job profile</description>
+        <label>Skill Need</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

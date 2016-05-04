@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The indicators that are assessed at a competency assessment. These are created automatically when the Job Profile is assigned to the Competency Assessment.  Indicators are grouped by competency.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Average_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for all assessors other than self.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for all assessors other than self.  Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Response Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all assessors other than self expressed as a percentage of the maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Average_Score__c&gt;=1.0), round((Average_Score__c -1)/ (Maximum_Score__c-1),2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The average score for all assessors other than self expressed as a percentage of the maximum score</inlineHelpText>
+        <label>Average Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Average_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all assessors other than self</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all assessors other than self</inlineHelpText>
+        <label>Average Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bar_Chart__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Histogram comparing self score and average score</description>
+        <externalId>false</externalId>
+        <formula>if (isnull(Self_Score__c),&quot;&quot;,
+IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Selfcolor.gif&quot;, &quot;Self&quot;, 10, round(Self_Percentage__c * 150,0))&amp;IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Barcolor.gif&quot;, &quot;Self&quot;, 10, 150-round(Self_Percentage__c * 150,0))&amp;br()
+)
+&amp;if (isnull(Average_Score__c),&quot;&quot;,
+IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Averagecolor.gif&quot;, &quot;Average&quot;, 10, round(Average_Percentage__c * 150,0))&amp;IMAGE(&quot;/resource/fHCM2__FairsailIcon/background/Barcolor.gif&quot;, &quot;Average&quot;, 10, round(150-Average_Percentage__c * 150,0))&amp;br()
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Histogram comparing self score and average score</inlineHelpText>
+        <label>Bar Chart</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Colleague_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for colleagues. Each number is the number of times that response was made when assessing this indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for colleagues. Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Colleague Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Colleague_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Colleague_Score__c&gt;=1.0), (Colleague_Score__c -1)/ (Maximum_Score__c-1),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Colleague Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Colleague_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all colleagues</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all colleagues</inlineHelpText>
+        <label>Colleague Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Competency_Assessment__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Competency Assessment (grandparent)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The competency assessment using this indicator</inlineHelpText>
+        <label>Competency Assessment</label>
+        <referenceTo>Competency_Assessment__c</referenceTo>
+        <relationshipName>Indicators</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Competency__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The competency that this indicator is part of</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The competency that this indicator is part of</inlineHelpText>
+        <label>Competency</label>
+        <referenceTo>Competency__c</referenceTo>
+        <relationshipLabel>Indicators</relationshipLabel>
+        <relationshipName>Indicator</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for customer. Each number is the number of times that response was made when assessing this indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for customer. Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Customer Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Customer_Score__c&gt;=1.0), (Customer_Score__c -1)/ (Maximum_Score__c-1),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Customer Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all customers</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all customers</inlineHelpText>
+        <label>Customer Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Direct_Report_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for direct report. Each number is the number of times that response was made when assessing this indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for direct report. Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Direct Report Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Direct_Report_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Direct_Report_Score__c&gt;=1.0), (Direct_Report_Score__c -1)/ (Maximum_Score__c-1),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Direct Report Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Direct_Report_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all direct reports</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all direct reports</inlineHelpText>
+        <label>Direct Report Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Indicator_Library_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Indicator Library Item</label>
+        <referenceTo>Indicator_Library_Item__c</referenceTo>
+        <relationshipName>Indicator</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Job_Need__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The job need from the job profile that was used to add this indicator to the assessment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The job need from the job profile that was used to add this indicator to the assessment</inlineHelpText>
+        <label>Job Need</label>
+        <referenceTo>Job_Need__c</referenceTo>
+        <relationshipLabel>Indicators</relationshipLabel>
+        <relationshipName>Indicator</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for manager. Each number is the number of times that response was made when assessing this indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for manager. Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Manager Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Manager_Score__c&gt;=1.0), (Manager_Score__c -1)/ (Maximum_Score__c-1),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Manager Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all managers (or the manager if only one)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all managers (or the manager if only one)</inlineHelpText>
+        <label>Manager Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maximum Score</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mentor_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for mentor. Each number is the number of times that response was made when assessing this indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for mentor. Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Mentor Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mentor_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Mentor_Score__c&gt;=1.0), (Mentor_Score__c -1)/ (Maximum_Score__c-1),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Mentor Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Mentor_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all mentors</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all mentors</inlineHelpText>
+        <label>Mentor Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Frequency of responses for other. Each number is the number of times that response was made when assessing this indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of responses for other. Each number is the number of times that response was made when assessing this indicator</inlineHelpText>
+        <label>Other Frequency</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Other_Score__c&gt;=1.0), (Other_Score__c -1)/ (Maximum_Score__c-1),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Other Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Other_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The average score for all others</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The average score for all others</inlineHelpText>
+        <label>Other Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Self_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score expressed as a percentage of maximum score</description>
+        <externalId>false</externalId>
+        <formula>if (and(Maximum_Score__c&gt;1,Self_Score__c&gt;=1.0), round((Self_Score__c -1)/ (Maximum_Score__c-1),2),null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The score expressed as a percentage of maximum score</inlineHelpText>
+        <label>Self Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Self_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score for self</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The score for self</inlineHelpText>
+        <label>Self Score</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Indicator</label>
+    <nameField>
+        <label>Indicator</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Indicators</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

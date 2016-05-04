@@ -1,0 +1,21 @@
+<apex:page controller="fpay.DownloadFileController" standardStylesheets="true" showHeader="true" sidebar="true" title="Download Payroll Files"  tabStyle="fpay__Payroll_Service__c">
+	<apex:sectionHeader title="{!serviceName}" subtitle="Download"/>
+	<br />
+	<apex:outputPanel id="progress">
+	<apex:form >
+	    <apex:actionFunction action="{!complete}" name="complete"/>
+		<apex:pageBlock title="Download {!serviceName} File" mode="edit">
+			<apex:pageBlockSection columns="1">
+			<apex:inputField value="{!payrollBatch.fpay__Last_Batch__c}"/>
+			<apex:inputField value="{!payrollBatch.fpay__Download_Period_Start_Date__c}"/>
+			<apex:inputField value="{!payrollBatch.fpay__Download_Period_End_Date__c}"/>
+			</apex:pageBlockSection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!start}" value="Start" rerender="progress" disabled="{!!isblank(jobId)}"/>
+				<apex:commandButton action="{!cancel}" value="Cancel" disabled="{!!isblank(jobId)}"/>
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+	<c:ScheduleProgressIndicator jobId="{!jobId}" oncomplete="complete();"/>
+	</apex:outputPanel>
+</apex:page>

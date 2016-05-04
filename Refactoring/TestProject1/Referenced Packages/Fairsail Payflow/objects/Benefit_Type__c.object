@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Benefit_Set__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Benefit Set</label>
+        <referenceTo>Benefit_Set__c</referenceTo>
+        <relationshipLabel>Benefit Types</relationshipLabel>
+        <relationshipName>Benefit_Types</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Close_On_Daily_Batch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Close the benefit on the daily batch if the team member is no longer eligible.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Close the benefit on the daily batch if the team member is no longer eligible.</inlineHelpText>
+        <label>Close On Daily Batch</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Continuous_Enrollment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Continuous Enrollment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Default_On_Benefit_Set_Assignment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If selected, the default benefit plan will be created (if the eligibility rules are passed) immediately when the benefit set is assigned to the employment record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If selected, the default benefit plan will be created (if the eligibility rules are passed) immediately when the benefit set is assigned to the employment record.</inlineHelpText>
+        <label>Create Default On Benefit Set Assignment</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Default_On_Daily_Batch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If selected, the default benefit plan will be created (if the eligibility rules are passed) by the daily batch job.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If selected, the default benefit plan will be created (if the eligibility rules are passed) by the daily batch job.</inlineHelpText>
+        <label>Create Default On Daily Batch</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Default_To_Previous_Selection__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked automatic enrollment will default to the previous selection.  If unchecked (or there is no previous option) then the default option will be automatically enrolled.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked automatic enrollment will default to the previous selection.  If unchecked (or there is no previous option) then the default option will be automatically enrolled.</inlineHelpText>
+        <label>Default To Previous Selection</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Is_Required__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The team member must choose an option form this benefit type.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team member must choose an option form this benefit type.</inlineHelpText>
+        <label>Is Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Order in which benefit types are presented in a benefit set</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Order in which benefit types are presented in a benefit set</inlineHelpText>
+        <label>Order</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recalculate_On_Daily_Batch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Recalculate the cost on the daily batch and change the benefit if the cost has changed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Recalculate the cost on the daily batch and change the benefit if the cost has changed</inlineHelpText>
+        <label>Recalculate On Daily Batch</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Required_Plan__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Only offer this benefit type if the employee has selected this plan in another benefit type</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only offer this benefit type if the employee has selected this plan in another benefit type</inlineHelpText>
+        <label>Required Plan</label>
+        <referenceTo>Benefit_Plan__c</referenceTo>
+        <relationshipLabel>Secondary Benefit Types</relationshipLabel>
+        <relationshipName>Secondary_Benefit_Types</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Visibility__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Visibility of this benefit type during enrollment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Visibility of this benefit type during enrollment</inlineHelpText>
+        <label>Visibility</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Edit</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Read</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hidden</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Benefit Type</label>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Benefit Types</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

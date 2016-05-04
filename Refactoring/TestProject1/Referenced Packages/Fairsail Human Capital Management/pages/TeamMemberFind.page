@@ -1,0 +1,42 @@
+<apex:page controller="fHCM2.TeamMemberFindController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Global_Search}" mode="view">
+        	<apex:form >
+        		<div class="teamMemberFind">
+        		<apex:inputText value="{!searchString}"/> <apex:commandButton value="{!$Label.fhcm2__Button_Search}" action="{!go}"/>
+	        	<div style="margin-top:10px;">{!$Label.fhcm2__Message_Search}</div>
+        		</div>
+        	</apex:form>
+        	</apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Global_Team_Member}" mode="view">
+                        <apex:pageBlockSection title="{!substitute($Label.fhcm2__Global_I_Found,'{0}',text(recordcount))}" columns="1" collapsible="false">
+                            <apex:repeat value="{!teamMembers}" var="person">
+                                <apex:outputPanel layout="block" style="background-color:#ffffff;margin-top: 10px;">
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:60px; clear:none; float:left; text-align: center; background-color:#ffffff;" rendered="{!person.pictureUrl!=null}">
+                                        <apex:outputLink value="/apex/{!links.fairsailTeam}?id={!person.Id}" target="_top">
+                                            <apex:image value="{!person.pictureUrl}" width="60" height="80" />
+                                        </apex:outputLink>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" style="margin:0px 0px 0px 0px;padding: 0px 0px 0px 0px;width:490px;margin-left:14px; clear:none; float:left; background-color:#ffffff;">
+                                        <c:TeamPersonDetails record="{!person.records['Team_Member__c']}" name="{!person.Name}" TeamMemberId="{!person.Id}" links="{!links}"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:define>
+</apex:composition>
+</apex:page>

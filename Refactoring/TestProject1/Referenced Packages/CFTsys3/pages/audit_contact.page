@@ -1,0 +1,25 @@
+<apex:page showHeader="true" sidebar="true" standardController="Contact" extensions="cftsys.AuditThisController">
+
+	<apex:sectionHeader subtitle="{!$Label.Audit_now}" title="{!$Label.APP_NAME}"/>
+	
+	<apex:pageMessages />
+
+	<apex:form >				
+		<apex:pageBlock >			
+			<apex:pageBlockSection columns="1" title="{!$Label.Record_details}">
+				<apex:outputField value="{!Contact.id}" />
+				<apex:outputField value="{!Contact.name}" />
+				<apex:outputField value="{!Contact.firstname}" />					
+				<apex:outputField value="{!Contact.lastname}" />					
+			</apex:pageBlockSection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!submit}" rendered="{!showSubmit}" value="Yes, audit this record"/>
+				<apex:commandButton action="{!cancel}" value="Back" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+	
+	
+
+	
+</apex:page>

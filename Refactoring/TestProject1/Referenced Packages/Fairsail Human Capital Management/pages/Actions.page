@@ -1,0 +1,96 @@
+<apex:page controller="fHCM2.ActionsController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Actions">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.Actions}" title="{!$Label.fhcm2__Button_Actions}" noticePage="Actions"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <apex:pageBlock title="{!viewer.teamMember.name}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="Actions" location="Header"/>
+                <h3>&nbsp;</h3>
+                <apex:tabPanel switchType="client" id="theTabPanel">
+
+                    <apex:tab label="{!substitute($Label.fhcm2__Action_By_you_for_0,'{0}',viewer.teamMember.name)}" name="byyou" rendered="{!!viewer.isTeamMember}">
+                        <apex:pageBlockSection title="{!substitute($Label.fhcm2__Action_What_needs_to_be_done_by_you_for_0,'{0}',viewer.teamMember.name)}" columns="1" collapsible="false">
+                            <apex:repeat value="{!viewerDue}" var="item">
+                                <apex:outputPanel layout="block" styleClass="actionBlock">
+                                    <apex:image style="margin-right:10px;" value="{!$Resource.fHCM2__FairsailIcon}/16x16/{!item.processLower}.gif" width="16" height="16" />
+                                    <apex:outputText value="{!item.futureText}" escape="false"/>
+                                    <apex:outputPanel style="color:#a0a0a0;"> {!item.actionTimeSpan}</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <apex:outputPanel layout="block" styleClass="actionBlock" rendered="{!!hasViewerDue}">{!$Label.fhcm2__Global_None}</apex:outputPanel>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Action_What_has_happened_recently}" columns="1" collapsible="false">
+                            <apex:repeat value="{!viewerDone}" var="item">
+                                <apex:outputPanel layout="block" styleClass="actionBlock">
+                                    <apex:image style="margin-right:10px;" value="{!$Resource.fHCM2__FairsailIcon}/16x16/{!item.processLower}.gif" width="16" height="16" />
+                                    <apex:outputText value="{!item.pastText}" escape="false"/>
+                                    <apex:outputPanel style="color:#a0a0a0;"> {!item.shortActionDate}</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <apex:outputPanel layout="block" styleClass="actionBlock" rendered="{!!hasViewerDone}">{!$Label.fhcm2__Global_None}</apex:outputPanel>
+                        </apex:pageBlockSection>
+                    </apex:tab>
+
+                    <apex:tab label="{!substitute($Label.fhcm2__Action_By_0,'{0}',viewer.teamMember.nameOrSelf)}" name="by" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:pageBlockSection title="{!substitute($Label.fhcm2__Action_What_needs_to_be_done_by_0,'{0}',viewer.teamMember.nameOrSelf)}" columns="1" collapsible="false">
+                            <apex:repeat value="{!byDue}" var="item">
+                                <apex:outputPanel layout="block" styleClass="actionBlock">
+                                    <apex:image style="margin-right:10px;" value="{!$Resource.fHCM2__FairsailIcon}/16x16/{!item.processLower}.gif" width="16" height="16" />
+                                    <apex:outputText value="{!item.futureText}" escape="false"/>
+                                    <apex:outputPanel style="color:#a0a0a0;"> {!item.actionTimeSpan}</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <apex:outputPanel layout="block" styleClass="actionBlock" rendered="{!!hasByDue}">{!$Label.fhcm2__Global_None}</apex:outputPanel>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Action_What_has_happened_recently}" columns="1" collapsible="false">
+                            <apex:repeat value="{!byDone}" var="item">
+                                <apex:outputPanel layout="block" styleClass="actionBlock">
+                                    <apex:image style="margin-right:10px;" value="{!$Resource.fHCM2__FairsailIcon}/16x16/{!item.processLower}.gif" width="16" height="16" />
+                                    <apex:outputText value="{!item.pastText}" escape="false"/>
+                                    <apex:outputPanel style="color:#a0a0a0;"> {!item.shortActionDate}</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <apex:outputPanel layout="block" styleClass="actionBlock" rendered="{!!hasByDone}">{!$Label.fhcm2__Global_None}</apex:outputPanel>
+                        </apex:pageBlockSection>
+                    </apex:tab>
+
+                    <apex:tab label="{!substitute($Label.fhcm2__Action_For_0,'{0}',viewer.teamMember.nameOrSelf)}" name="for" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:pageBlockSection title="{!substitute($Label.fhcm2__Action_What_needs_to_be_done_for_0,'{0}',viewer.teamMember.nameOrSelf)}" columns="1" collapsible="false">
+                            <apex:repeat value="{!forDue}" var="item">
+                                <apex:outputPanel layout="block" styleClass="actionBlock">
+                                    <apex:image style="margin-right:10px;" value="{!$Resource.fHCM2__FairsailIcon}/16x16/{!item.processLower}.gif" width="16" height="16" />
+                                    <apex:outputText value="{!item.futureText}" escape="false"/>
+                                    <apex:outputPanel style="color:#a0a0a0;"> {!item.actionTimeSpan}</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <apex:outputPanel layout="block" styleClass="actionBlock" rendered="{!!hasForDue}">{!$Label.fhcm2__Global_None}</apex:outputPanel>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="{!$Label.fhcm2__Action_What_has_happened_recently}" columns="1" collapsible="false">
+                            <apex:repeat value="{!forDone}" var="item">
+                                <apex:outputPanel layout="block" styleClass="actionBlock">
+                                    <apex:image style="margin-right:10px;" value="{!$Resource.fHCM2__FairsailIcon}/16x16/{!item.processLower}.gif" width="16" height="16" />
+                                    <apex:outputText value="{!item.pastText}" escape="false"/>
+                                    <apex:outputPanel style="color:#a0a0a0;"> {!item.shortActionDate}</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <apex:outputPanel layout="block" styleClass="actionBlock" rendered="{!!hasForDone}">{!$Label.fhcm2__Global_None}</apex:outputPanel>
+                        </apex:pageBlockSection>
+                    </apex:tab>
+                </apex:tabPanel>
+                <c:Notice viewer="{!viewer}" page="Actions" location="Footer"/>
+            </apex:pageBlock>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

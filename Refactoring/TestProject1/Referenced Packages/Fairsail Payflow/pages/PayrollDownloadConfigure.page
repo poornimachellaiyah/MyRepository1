@@ -1,0 +1,75 @@
+<apex:page standardController="fpay__Payroll_Service__c" extensions="fpay.PayrollServiceExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Payroll Download Configure">
+	
+	<apex:sectionHeader title="Payroll Download Configure" subtitle="{!fpay__Payroll_Service__c.Name}"/>
+	<br />
+	<apex:form >
+		<apex:pageBlock title="{!fpay__Payroll_Service__c.Name} Download Configure" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="Options" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Download_Record_Length__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Download_Record_Delimiter__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Download_Field_Delimiter__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Team Member Selection" columns="1">
+				<apex:pageBlockSectionItem id="renderArea">
+					<apex:outputLabel value="Team Member Select Field" />
+					<apex:selectList value="{!fpay__Payroll_Service__c.fpay__Team_Member_Select_Field__c}" size="1">
+						<apex:selectOptions value="{!HCMFieldOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Team_Member_Select_Value__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Team_Member_Select_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Salary_Select_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Team_Member_Include_Period_Back__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Bonus Selection" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Bonus_Select_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Bonus_Include_Period_Back__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Benefits Selection" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Benefit_Include_Period_Back__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Include_Post_Employment_Benefits__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Benefit_Select_Active__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Deduction_Select_Dates__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Absence Selection" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Absence_Select_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Absence_Include_Period_Back__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Absence_Include_Deleted__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Timesheets Selection" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Timesheet_Select_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Timesheet_Select_Approved_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Timesheet_Select_Paid_Dates__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Timesheet_Include_Period_Back__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Start Date and End Date of Period" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Payroll_Base_Date__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Payroll_Period__c}" />
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Or:" />
+					<apex:outputLabel value="" />
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Days_Back_For_Start_Date__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Days_Future_For_End_Date__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Automatic Processing" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Batch_Start_Cron__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Delete_Batch_After_Days__c}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="Managed File Transfer" columns="1">
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Outgoing_Emails__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Outgoing_Server__c}" />
+				<apex:inputField value="{!fpay__Payroll_Service__c.fpay__Outgoing_Path__c}" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

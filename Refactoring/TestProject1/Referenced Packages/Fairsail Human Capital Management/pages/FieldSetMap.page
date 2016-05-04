@@ -1,0 +1,48 @@
+<apex:page controller="fHCM2.FieldSetMapController">
+	<apex:sectionHeader title="Fieldset Map" subtitle="{!PolicyName}" help="/apex/Help" />
+	<apex:form >
+		<apex:actionFunction name="objectChanged" action="{!ChangeObject}" immediate="true"/>
+
+		<apex:pageBlock title="{!$Label.fhcm2__Global_Details}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+				<apex:commandButton action="{!cancel}" immediate="true" value="{!$Label.fhcm2__Button_Cancel}" />
+				<apex:commandButton action="{!remove}" rendered="{!!isblank(fieldsetMap.id)}" immediate="true" value="{!$Label.fhcm2__Button_Delete}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection title="Mapping" columns="1">
+				<apex:inputField id="name" value="{!fieldsetMap.Name}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Object" />
+					<apex:selectList id="objectname" value="{!fieldsetMap.fHCM2__Object__c}" size="1" onChange="objectChanged();" >
+						<apex:selectOptions value="{!objects}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Fieldset" />
+					<apex:selectList value="{!fieldsetMap.fHCM2__Fieldset__c}" size="1" required="true">
+						<apex:selectOptions value="{!packagefieldsets}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Replacement" />
+					<apex:selectList value="{!fieldsetMap.fHCM2__Replacement__c}" size="1" required="true">
+						<apex:selectOptions value="{!customfieldsets}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Policy" />
+					<apex:selectList id="policy" value="{!fieldsetMap.fHCM2__Policy__c}" size="1">
+						<apex:selectOptions value="{!policies}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fieldsetMap.fHCM2__Team_Member__c}"/>
+				<apex:inputField value="{!fieldsetMap.fHCM2__Manager__c}"/>
+				<apex:inputField value="{!fieldsetMap.fHCM2__Supervisor__c}"/>
+				<apex:inputField value="{!fieldsetMap.fHCM2__Mentor__c}"/>
+				<apex:inputField value="{!fieldsetMap.fHCM2__Project_Manager__c}"/>
+			</apex:pageBlockSection>
+			
+	</apex:pageBlock>
+	</apex:form>
+</apex:page>

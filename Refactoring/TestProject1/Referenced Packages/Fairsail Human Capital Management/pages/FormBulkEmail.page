@@ -1,0 +1,42 @@
+<apex:page standardController="fHCM2__Form__c" recordSetVar="apps" extensions="fHCM2.EmailFormExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Form__c.label}" subtitle="Send Email" />
+	<apex:form >
+		<apex:pageBlock title="Send Email" mode="detail">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+				<apex:commandButton action="{!send}" value="{!$Label.fhcm2__Button_Send}" disabled="{!size==0}"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Number to Email"/>
+					<apex:outputText value="{!size}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="Template" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!templateId}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!size>0}">
+					<apex:outputLabel value="From" />
+					<apex:selectList value="{!fromId}" size="1">
+						<apex:selectOptions value="{!currentOrgWideEmailAddress}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Copy to Manager"/>
+					<apex:inputCheckbox value="{!toManager}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Copy to Team Member"/>
+					<apex:inputCheckbox value="{!toTeamMember}"/>
+				</apex:pageBlockSectionItem>
+
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

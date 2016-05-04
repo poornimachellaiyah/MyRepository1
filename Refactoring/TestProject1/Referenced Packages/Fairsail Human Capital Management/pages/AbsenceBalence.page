@@ -1,0 +1,141 @@
+<apex:page standardController="fHCM2__Employment__c" extensions="fHCM2.AbsenceBalenceController" standardStylesheets="true" showHeader="true" sidebar="true" title="Absence Accrual Balences" tabStyle="fHCM2__Absence__c">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Employment__c.label}" subtitle="{!fHCM2__Employment__c.Team_Member__r.Name}" help="/apex/Help?obj=fHCM2__Employment__c" />
+
+		<apex:outputLink value="/{!fHCM2__Employment__c.Id}">Return to {!$ObjectType.fHCM2__Employment__c.label} for {!fHCM2__Employment__c.Team_Member__r.Name}</apex:outputLink>
+
+        <apex:pageBlock title="Absence Calculator" mode="view">
+            <apex:pageBlockButtons >
+             </apex:pageBlockButtons>
+
+   			<apex:form >
+			<apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+				<apex:actionFunction name="ChangeAbsenceType" action="{!ChangeAbsenceType}" immediate="true" status="loadStatusAbsenceType"/>
+				<apex:actionFunction name="ChangeReason" action="{!ChangeReason}" immediate="true" status="loadStatusReason"/>
+				<apex:outputField value="{!fHCM2__Employment__c.Team_Member__r.Name}" />
+				<apex:outputField value="{!fHCM2__Employment__c.fHCM2__Work_Days_Pattern__c}" rendered="{!!isblank(fHCM2__Employment__c.fHCM2__Work_Days_Pattern__c)}"/>
+				<apex:outputField value="{!fHCM2__Employment__c.Team_Member__r.Department__r.Policy__r.fHCM2__Work_Days_Pattern__c}" rendered="{!isblank(fHCM2__Employment__c.fHCM2__Work_Days_Pattern__c)}"/>
+				<apex:outputField value="{!fHCM2__Employment__c.fHCM2__Absence_Accrual_Pattern__c}" rendered="{!!isblank(fHCM2__Employment__c.fHCM2__Absence_Accrual_Pattern__c)}"/>
+				<apex:outputField value="{!fHCM2__Employment__c.Team_Member__r.Department__r.Policy__r.fHCM2__Absence_Accrual_Pattern__c}" rendered="{!isblank(fHCM2__Employment__c.fHCM2__Absence_Accrual_Pattern__c)}"/>
+				<apex:pageBlockSectionItem rendered="{!calculator.pattern!=null}">
+					<apex:outputLabel value="Absence Type"/>
+					<apex:actionStatus id="loadStatusAbsenceType">
+						<apex:facet name="start" >
+							<apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+						</apex:facet>
+						<apex:facet name="stop">
+							<apex:selectList id="absenceType" value="{!absenceType}" size="1" onchange="ChangeAbsenceType();">
+								<apex:selectOptions value="{!absenceTypes}"/>
+							</apex:selectList>
+						</apex:facet>
+					</apex:actionStatus>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!calculator.pattern!=null}">
+					<apex:outputLabel value="Reason"/>
+					<apex:actionStatus id="loadStatusReason">
+						<apex:facet name="start" >
+							<apex:image value="{!urlfor($Resource.fHCM2__PleaseWait)}"/>
+						</apex:facet>
+						<apex:facet name="stop">
+							<apex:selectList id="reason" value="{!reason}" size="1" onchange="ChangeReason();">
+								<apex:selectOptions value="{!reasons}"/>
+							</apex:selectList>
+						</apex:facet>
+					</apex:actionStatus>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			</apex:form>
+
+			<apex:pageBlockSection title="Current Totals" columns="1" rendered="{!calculator.pattern!=null}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Accrual"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!totals.accrual}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Carry Over"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!totals.carryOver}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Time In Lieu"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!totals.timeInLieu}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!totals.useNextAccrual}">
+					<apex:outputLabel value="Next Accrual"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!totals.nextAccrual}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection title="Year End Totals" columns="1" rendered="{!calculator.pattern!=null}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Accrual"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!yearEnd.accrual}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Carry Over"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!yearEnd.carryOver}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Time In Lieu"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!yearEnd.timeInLieu}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!totals.useNextAccrual}">
+					<apex:outputLabel value="Next Accrual"/>
+					<c:outputNumber decimalPlaces="2" fixed="false" value="{!yearEnd.nextAccrual}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection title="Absence Calculation" columns="1" rendered="{!calculator.pattern!=null}">
+                    <apex:pageBlockTable value="{!totals.log}" var="logItem">
+                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Date}">
+                            <c:outputDate dateValue="{!logItem.logDate}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Event}">
+                            <apex:outputText value="{!logItem.event}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Amount}">
+                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.amount}"/>
+                        </apex:column>
+                       <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Accrual}">
+                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.accrual}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Carry_Over}">
+                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.carryOver}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Process_Absence_Time_In_Lieu}">
+                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.timeInLieu}"/>
+                        </apex:column>
+                        <apex:column headerValue="Next Accrual" rendered="{!totals.useNextAccrual}">
+                            <c:outputNumber decimalPlaces="2" fixed="false" value="{!logItem.nextAccrual}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+			</apex:pageBlockSection>
+			
+			<apex:relatedList list="Absence_Adjustments__r" rendered="{!calculator.pattern!=null}"/>
+			<apex:relatedList list="Absence_Accruals__r" rendered="{!calculator.pattern!=null}"/>
+			
+			<apex:repeat value="{!absences}" var="absence">
+				<apex:pageBlockSection title="{!absence.fHCM2__Type__c}" columns="1" rendered="{!absence.RecordType.Name==absenceType && absence.fHCM2__Reason__c==reason}">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Name"/>
+						<apex:outputLink value="/{!absence.Id}">{!absence.Name}</apex:outputLink>
+					</apex:pageBlockSectionItem>
+					<apex:outputField value="{!absence.fHCM2__Start_Date__c}" />
+					<apex:outputField value="{!absence.fHCM2__Expected_Arrival_Date__c}" rendered="{!absence.fHCM2__Is_Parental_Leave__c==true}"/>
+					<apex:outputField value="{!absence.fHCM2__End_Date__c}" />
+					<apex:outputField value="{!absence.fHCM2__Days__c}" />
+					<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Absence_Manager}" var="f">
+						<apex:outputField value="{!absence[f]}" rendered="{!absence.RecordType.Name=='Absence' && absence.fHCM2__Is_Parental_Leave__c!=true && !contains(f,'Reason__c')}"/>
+					</apex:repeat>					
+					<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Vacation_Manager}" var="f">
+						<apex:outputField value="{!absence[f]}" rendered="{!absence.RecordType.Name=='Vacation' && absence.fHCM2__Is_Parental_Leave__c!=true && !contains(f,'Reason__c')}"/>
+					</apex:repeat>					
+					<apex:repeat value="{!$ObjectType.fHCM2__Absence__c.FieldSets.fHCM2__Parental_Manager}" var="f">
+						<apex:outputField value="{!absence[f]}" rendered="{!absence.fHCM2__Is_Parental_Leave__c==true && !contains(f,'Reason__c')}"/>
+					</apex:repeat>					
+					<apex:outputField value="{!absence.fHCM2__Confirmed_Date__c}" rendered="{!!isblank(absence.fHCM2__Confirmed_Date__c)}"/>
+					<apex:outputField value="{!absence.fHCM2__Rejected_Date__c}" rendered="{!!isblank(absence.fHCM2__Rejected_Date__c)}"/>
+					<apex:outputField value="{!absence.fHCM2__Approval_Date__c}" rendered="{!!isblank(absence.fHCM2__Approval_Date__c)}"/>
+				</apex:pageBlockSection>		
+			</apex:repeat>
+
+        </apex:pageBlock>
+</apex:page>

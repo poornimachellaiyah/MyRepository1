@@ -1,0 +1,26 @@
+<apex:page controller="testDineshDev">
+<apex:sectionheader title="Test" subtitle="My Page"/>
+
+<apex:form id="formData">
+    <apex:pageBlock title="My Data">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Printable View" action="{!printView}" />
+        </apex:pageBlockButtons>
+
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="My Data"/>
+                <apex:inputTextArea value="{!MyData}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    
+    <apex:outputLink value="/apex/MyPage2"  >
+    Click
+    <apex:param name="query" value="somevalue"/>
+</apex:outputLink>
+</apex:form>
+
+
+</apex:page>

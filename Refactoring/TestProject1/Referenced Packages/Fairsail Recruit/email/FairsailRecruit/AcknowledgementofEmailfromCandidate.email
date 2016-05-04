@@ -1,0 +1,10 @@
+Thank you for your email.  It will be looked at shortly and we will be in touch. 
+
+{!if(Candidate_Email__c.Has_Attachment__c,"We received your attached resume.","We did not detect an attached resume in either Word, Rich Text Format or Adobe PDF format.   If applying for a job you must attach one of these formats to the email.  Do not ZIP or compress the file first.  You may repeat the application with the correct file.")}
+
+{!if(Candidate_Email__c.Has_Application__c,"We successfully matched the reference you gave for the job vacancy.","We could not not match a correct job vacancy reference in the email subject line.  Please try once more after checking the reference is placed on its own on the subject line.  If it doesn't work a second time we will handle your application manually which may take slightly longer.")}
+
+Sincerely,
+{!User.FullName}
+{!Organization.Name}
+{!User.Email}

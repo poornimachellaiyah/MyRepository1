@@ -1,0 +1,144 @@
+<apex:page controller="fHCM2.ObjectiveTeamController" renderAs="{!blankvalue($CurrentPage.parameters.renderAs,'pdf')}" standardStylesheets="true" showHeader="false" sidebar="false" title="Objectives" rendered="{!teamMember.isUsing}">
+	<apex:composition template="fHCM2__fairsailTemplatePDF">
+
+    	<apex:define name="styleExtra">
+    		<style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+           <style>
+				@page {
+				    @top-left {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:10pt;
+				        content: "{!$Label.fhcm2__Process_Objectives}";
+				    }
+				    @top-right {
+				        font-family:'Arial Unicode MS','Helvetica',sans-serif;
+				        font-size:10pt;
+				        content: "{!viewer.TeamMember.Name}";
+				    }
+				}
+				.bPageBlock .detailList .data2Col {
+				    padding: 2px 2px 2px 10px;
+				    text-align: left;
+				    width: 600px;
+				}
+            </style>
+    	</apex:define>
+    
+		<apex:define name="widePanel">
+				<apex:pageBlock rendered="{!viewer.isTeamMemberOrManager}">
+					<apex:facet name="header">
+						<h2><apex:outputText value="{!$Label.Process_Objectives_Team_Objectives_For}">
+							<apex:param value="{!viewer.teamMember.name}"/>
+						</apex:outputText></h2>
+					</apex:facet>
+					<apex:facet name="footer">
+					</apex:facet>
+				<c:Notice viewer="{!viewer}" page="ObjectiveProfilePDF" location="Header"/>
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Current_Objectives}" columns="1" rendered="{!teamMember.working.size>0}">
+					<apex:outputPanel >
+						<apex:repeat value="{!teamMember.working}" var="tmobjective">
+								<c:DetailListHeader title="{!tmobjective.name}" style="border-bottom: 1px solid #e0e0e0;"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!tmobjective.description}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!tmobjective.measure}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" value="{!tmobjective.strategicObjective}" rendered="{!tmobjective.strategicObjective!=''}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!tmobjective.contributesTo}" rendered="{!tmobjective.contributesTo!=''}"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!tmobjective.priority}" rendered="{!tmobjective.priority!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmobjective.endDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$Label.fhcm2__Process_Objectives_Review_Of_Progress}" rendered="{!tmobjective.CommentsHistory.size>0 && viewer.isTeamMemberOrManager}">
+                                	
+                                	<table style="width:600px;">
+                                	<apex:repeat value="{!tmobjective.CommentsHistory}" var="item">
+                                	<tr>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;"><c:outputDate dateValue="{!item.theDate}"/></td>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;">{!item.who}</td>
+                                		<td style="font-size:10pt;width:300px;white-space:pre-wrap;vertical-align:top;">{!item.comments}</td>
+                                	</tr>
+                                	</apex:repeat> 
+                                	</table>
+                                	
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+			                   <apex:pageBlockTable value="{!tmobjective.milestones}" var="milestone" rendered="{!viewer.isTeamMemberOrManager && tmobjective.hasMilestones}">
+			                        <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}" value="{!milestone.name}"/>
+			                        <apex:column >
+			                            <apex:facet name="header">
+			                                <c:ChartPercentAxis width="150px" />
+			                            </apex:facet>
+			                            <c:chartBar percent="{!milestone.progress}" width="150px"/>
+			                        </apex:column>
+			                        <apex:column style="white-space:nowrap;" headerValue="End">
+			                            <c:outputDate dateValue="{!milestone.endDate}" />
+			                        </apex:column>
+			                    </apex:pageBlockTable>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+									<apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+								</c:DetailListItem>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!tmobjective.status}" />
+						</apex:repeat>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+
+				<apex:outputPanel layout="none" rendered="{!teamMember.working.size>0 && teamMember.recent.size>0}">
+				<apex:outputPanel layout="block" style="page-break-before: always;"/>
+				</apex:outputPanel>
+				
+				<apex:pageBlockSection title="{!$Label.fhcm2__Process_Objectives_Previous_Objectives}" columns="1" rendered="{!teamMember.recent.size>0}">
+					<apex:outputPanel >
+						<apex:repeat value="{!teamMember.recent}" var="tmobjective">
+								<c:DetailListHeader title="{!tmobjective.name}" style="border-bottom: 1px solid #e0e0e0;"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Description__c.label}" value="{!tmobjective.description}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Measure__c.label}" value="{!tmobjective.measure}" />
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Strategic_Objective__c.label}" value="{!tmobjective.strategicObjective}" rendered="{!tmobjective.strategicObjective!=''}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Contributes_To__c.label}" value="{!tmobjective.contributesTo}" rendered="{!tmobjective.contributesTo!=''}"/>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Priority__c.label}" value="{!tmobjective.priority}" rendered="{!tmobjective.priority!='' && viewer.isTeamMemberOrManager}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmobjective.endDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$Label.fhcm2__Process_Objectives_Review_Of_Progress}" rendered="{!tmobjective.CommentsHistory.size>0 && viewer.isTeamMemberOrManager}">
+                                	
+                                	<table style="width:600px;">
+                                	<apex:repeat value="{!tmobjective.CommentsHistory}" var="item">
+                                	<tr>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;"><c:outputDate dateValue="{!item.theDate}"/></td>
+                                		<td style="font-size:10pt;width:150px;vertical-align:top;">{!item.who}</td>
+                                		<td style="font-size:10pt;width:300px;white-space:pre-wrap;vertical-align:top;">{!item.comments}</td>
+                                	</tr>
+                                	</apex:repeat> 
+                                	</table>
+                                	
+                                </c:DetailListItem>
+	                            <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Achievement__c.label}" value="{!tmobjective.Achievement}" rendered="{!!isblank(tmobjective.Achievement) && viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:TrafficLight status="{!tmobjective.progressStatus}"/>
+                                     <apex:outputText value="{!tmobjective.progress}" />
+                                </c:DetailListItem>
+			                   <apex:pageBlockTable value="{!tmobjective.milestones}" var="milestone" rendered="{!viewer.isTeamMemberOrManager && tmobjective.hasMilestones}">
+			                        <apex:column headerValue="{!$Label.fhcm2__Process_Objectives_Milestones}" value="{!milestone.name}"/>
+			                        <apex:column >
+			                            <apex:facet name="header">
+			                                <c:ChartPercentAxis width="150px" />
+			                            </apex:facet>
+			                            <c:chartBar percent="{!milestone.progress}" width="150px"/>
+			                        </apex:column>
+			                        <apex:column style="white-space:nowrap;" headerValue="End">
+			                            <c:outputDate dateValue="{!milestone.endDate}" />
+			                        </apex:column>
+			                    </apex:pageBlockTable>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" rendered="{!and(tmobjective.hasAction,viewer.isTeamMemberOrManager)}">
+									<apex:outputText style="color:red;text-weight:normal;" value="{!tmobjective.action}" />
+								</c:DetailListItem>
+								<c:DetailListItem label="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!tmobjective.status}" />
+						</apex:repeat>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+				<c:Notice viewer="{!viewer}" page="ObjectiveProfilePDF" location="Footer"/>
+				</apex:pageBlock>
+		</apex:define>
+	</apex:composition>
+</apex:page>

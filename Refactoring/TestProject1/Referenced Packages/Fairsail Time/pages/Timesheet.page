@@ -1,0 +1,460 @@
+<apex:page controller="fta.TimesheetController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Timesheet">
+    <apex:composition template="fHCM2__FairsailTemplate">
+        <apex:define name="styleExtra">
+            <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.fta__TimePicker, '/timepicker/jquery.timepicker.css')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fta__TimePicker, '/timepicker/jquery.timepicker.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.fta__TimePicker, '/DatePair/dist/jquery.datepair.min.js')}"/>
+            <script type='text/javascript'>
+                jQuery.noConflict();
+                
+                
+                function doChangeSelect(obj) {
+                    var selected = [];
+                    var base = jQuery('.optionTree span input');
+                    while (true) {
+                        base = base.next();
+                        if (base.val()=='') {
+                            base.nextAll().remove();
+                            setCurrentSelection( selected );
+                            jQuery('.optionTree .inputsubmit').attr('disabled','disabled');
+                            return;
+                        }
+                        selected.push( base.val() );
+                        if (base[0]==obj) break;
+                    }
+                    base.nextAll().remove();
+                    setCurrentSelection( selected );
+                    getWorkOptions();
+                }
+                
+                function changeSelect() {
+                    doChangeSelect(this);
+                }
+                
+                function setTree( currentSelection, result ) {
+                    if (result!=null && result.length>0) {
+                        var insertPoint = jQuery('.optionTree span input');
+                        for (var i=0; i<currentSelection.length; i++)
+                            insertPoint = insertPoint.next();
+                        var html = '<select><option></option>';
+                        for (var i=0; i<result.length;i++) {
+                            html += '<option>'+result[i]+'</option>';
+                        }
+                        html += '</select>';
+                        insertPoint.after(html);
+                        insertPoint.next().change(changeSelect);
+                        if (result.length==1) {
+                            insertPoint.next().val(result[0]);
+                            doChangeSelect( insertPoint.next()[0] );
+                        }
+                        jQuery('.optionTree .inputsubmit').attr('disabled','disabled');
+                    } else {
+                        jQuery('.optionTree .inputsubmit').removeAttr('disabled');
+                    }
+                }
+
+                function getCurrentSelection() {
+                    var result = jQuery('.optionTree span input').val();
+                    return (result==null || result=='') ? [] : result.split(':'); 
+                }
+
+                function setCurrentSelection( value ) {
+                    jQuery('.optionTree span input').val( (value==null || value=='') ? '' : value.join(':'));
+                }
+
+                function getWorkOptions() {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.TimesheetController.getOptions}',
+                        getCurrentSelection(), '{!table.pattern.id}',
+                        function(result, event){
+                            if (event.status) {
+                                setTree( getCurrentSelection(), result );
+                            } else if (event.type === 'exception') {
+                                document.getElementById("responseErrors").innerHTML = 
+                                    event.message + "<br/>\n<pre>" + event.where + "</pre>";
+                            } else {
+                                document.getElementById("responseErrors").innerHTML = event.message;
+                            }
+                        }, 
+                        {escape: true}
+                    );
+                }
+
+                jQuery(document).ready(function() {
+                    getWorkOptions();
+                    jQuery('.fairsailTimePicker').timepicker({ 'timeFormat': 'H:i', 'step': {!table.pattern.StepTimeMinutes}, 'showDuration': true, 'forceRoundTime': {!if(table.pattern.SnapToStepTime,'true','false')},
+                    lang: {'decimal': '{!UserDecimalPlace}', 'mins':'{!$Label.Process_Timesheet_Minutes}', 'hr':'{!$Label.Process_Timesheet_Hour}', 'hrs':'{!$Label.Process_Timesheet_Hours}'} });
+                    jQuery('.fairsailTimePickerContainer').datepair({'defaultTimeDelta': null});
+                });
+            </script>
+            <script  type='text/javascript'>
+                
+                function doclick(sAction){
+                	if ({! viewer.WXIsActive}){
+	                  parent.postMessage(sAction,"*");
+                    }
+                }
+            </script>           
+        
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+            <style>
+                .timeSheet table {
+                    border-collapse:collapse;
+                    border-spacing: 0px;
+                }               
+                .timeSheet th {
+                    font-weight: bold;
+                    border:1px solid #a0a0a0;
+                }
+                .timeSheet td {
+                    border:1px solid #a0a0a0;
+                }
+                .leftLayout .timeSheet th, .leftLayout .timeSheet td {
+                    padding: 0px 5px;
+                    border-width: 0 0 1px;
+                }
+                .topLayout .timeSheet th, .topLayout .timeSheet td {
+                    padding: 5px 5px;
+                    border-width: 0 1px 0;
+                }
+                .timeSheet .blankRow th, .timeSheet .blankRow td {
+                    padding: 0px 0px;
+                    background-color: #c4d2e8;
+                }
+                .timeSheet th.Weekend {
+                    background-color: #a0a0a0;
+                    color: white;
+                }
+                .timeSheet th.Holiday {
+                    background-color: #ff8080;
+                    color: white;
+                }
+                .timeSheet th.Vacation {
+                    background-color: #5FC27B;
+                    color: white;
+                }
+                .timeSheet th.Absence {
+                    background-color: #55ADDF;
+                    color: white;
+                }
+                .timeSheet th.Vacation a {
+                    background-color: #5FC27B;
+                    color: white;
+                }
+                .timeSheet th.Absence a {
+                    background-color: #55ADDF;
+                    color: white;
+                }
+            </style>
+        </apex:define>
+
+         <apex:define name="bannerPanel">
+             <fHCM2:fairsailBanner viewer="{!viewer}" links="{!links}" rendered="{!!viewer.WXIsActive}"/>
+         </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$ObjectType.fHCM2__Timesheet__c.label}" rendered="{!viewer.isTeamMemberOrManager && !viewer.WXIsActive}">
+                <fHCM2:Notice viewer="{!viewer}" page="fta.Timesheet" location="Subheader"  />
+                <apex:pageBlockSection title="{!$Label.fHCM2__Global_History}" columns="1">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar" rendered="{!viewer.isEdit && !isblank(table.id)}">
+                        <apex:outputLink value="/apex/fta__Timesheet?teamMemberId={!viewer.teamMember.Id}" target="_top">{!$Label.fHCM2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block">
+                        <apex:repeat value="{!history}" var="other">
+                            <apex:outputPanel layout="block" style="padding:2pt 5px 2pt 5px;" >
+                                <apex:outputLink value="/apex/fta__Timesheet?id={!other.Id}">
+                                    <fHCM2:outputDate dateValue="{!other.fHCM2__Start_Date__c}"/>
+                                </apex:outputLink>
+                            </apex:outputPanel>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+                <fHCM2:Notice viewer="{!viewer}" page="fta.Timesheet" location="Subfooter" rendered="{!!viewer.WXIsActive}" />
+            </apex:pageBlock>
+        </apex:define>
+
+        <apex:define name="widePanel" >
+            <apex:form >
+            <apex:pageBlock title="{!$Label.Global_Hours_Worked}" rendered="{!viewer.isTeamMemberOrManager}">
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton action="{!recalculate}" rendered="{!(viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved)}" value="Recalculate" styleClass="inputsubmit" />
+                        <apex:commandButton action="{!save}"        rendered="{!(viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved)}" value="{!$Label.fHCM2__Button_Save}" styleClass="inputsubmit" /> 
+                        <apex:commandButton action="{!submit}"      rendered="{!(viewer.isTeamMember && !table.isSubmitted)}" value="{!$Label.fHCM2__Button_Submit}" styleClass="inputsubmit" /> 
+                        <apex:commandButton action="{!approve}"     rendered="{!viewer.isManager && !table.isApproved}" value="{!$Label.fHCM2__Button_Approve}" styleClass="inputsubmit" />
+                        <apex:commandButton action="{!reject}"      rendered="{!viewer.isManager && !table.isApproved && table.isSubmitted}" value="{!$Label.fHCM2__Button_Reject}" styleClass="inputsubmit" />
+                        <apex:commandButton action="{!cancel}"      immediate="true" value="{!$Label.fHCM2__Button_Cancel}" styleClass="inputsubmit" onclick="doclick('wxClose');"  />
+                    </apex:pageBlockButtons>
+                <apex:pageMessages />
+                <fHCM2:Notice viewer="{!viewer}" page="fta.Timesheet" location="Header" rendered="{!viewer.isTeamMemberOrManager}" />
+
+
+                <apex:outputPanel layout="block" rendered="{!isblank(table.id)}" style="padding:2pt 5px 2pt 5px;">
+                    <apex:outputLink value="/apex/fta__Timesheet?teamMemberId={!viewer.teamMember.id}&period={!period-1}">&lt;&lt;&nbsp;{!$Label.Global_Previous_Period}</apex:outputLink>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputLink value="/apex/fta__Timesheet?teamMemberId={!viewer.teamMember.id}&period={!period+1}">{!$Label.Global_Next_Period}&nbsp;>></apex:outputLink>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!table.pattern.Layout=='Left'}" styleClass="leftLayout">
+                <apex:outputPanel styleClass="optionTree" layout="block" rendered="{!table.hasWorkAllocationOptions && !table.isSubmitted}">
+                    <span>
+                        <apex:inputHidden value="{!workAllocationSelection}" />
+                    </span>
+                    &nbsp;&nbsp;<apex:commandButton action="{!addWorkLocation}" value="{!$Label.Button_Add_To_Timesheet}" styleClass="inputsubmit" />
+                </apex:outputPanel>
+                <table class="timeSheet" width="100%" cellspacing="0">
+                <tr>
+                    <th colspan="2">Date</th>
+                    <apex:repeat value="{!table.workAllocationIds}" var="workAllocationId">
+                        <th style="text-align:right;">{!table.workAllocations[workAllocationId].Name}</th>
+                    </apex:repeat>
+                    <apex:outputPanel layout="none" rendered="{!table.enterRowTotal && !table.EnterStartEndTimes}"><th style="text-align:right;">{!$Label.fHCM2__Global_Total}</th></apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!table.enterRowTotal && table.EnterStartEndTimes}"><th style="text-align:right;"><apex:repeat value="{!table.rows}" var="row" rows="1"><apex:repeat value="{!row.total.periods}" var="t"><div>{!$Label.Global_Start}</div><div>{!$Label.Global_End}</div></apex:repeat></apex:repeat></th></apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!table.showOvertimeCalculations}">
+                    <apex:repeat value="{!table.codes}" var="code">
+                        <th style="text-align:right;">{!table.payCodes[code].Name}</th>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!table.showRowTotal}"><th style="text-align:right;">{!$Label.fHCM2__Global_Total}</th></apex:outputPanel>
+                </tr>
+                <tr>
+                    <th colspan="2"><fHCM2:outputDate dateValue="{!table.startDate}" format="MMMM yyyy"/></th>
+                    <apex:repeat value="{!table.workAllocationIds}" var="workAllocationId">
+                        <th style="text-align:right;">&nbsp;</th>
+                    </apex:repeat>
+                    <apex:outputPanel layout="none" rendered="{!table.enterRowTotal}"><th style="text-align:right;">&nbsp;</th></apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!table.showOvertimeCalculations}">
+                    <apex:repeat value="{!table.codes}" var="code">
+                        <th style="text-align:right;">x&nbsp;{!table.payCodes[code].rate}</th>
+                    </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!table.showRowTotal}"><th>&nbsp;</th></apex:outputPanel>
+                </tr>
+                <apex:repeat value="{!table.rows}" var="row">
+                    <tr>
+                        <th class="{!row.dayItem.class}" title="{!row.dayItem.reason}">
+                            <apex:outputPanel layout="none" rendered="{!isblank(row.dayItem.link)}">
+                                <fHCM2:outputDate dateValue="{!row.reportDate}" format="dd"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!isblank(row.dayItem.link)}">
+                                <apex:outputLink value="{!row.dayItem.link}"><fHCM2:outputDate dateValue="{!row.reportDate}" format="dd"/></apex:outputLink>
+                            </apex:outputPanel>
+                        </th>
+                        <th class="{!row.dayItem.class}" title="{!row.dayItem.reason}">
+                            <apex:outputPanel layout="none" rendered="{!isblank(row.dayItem.link)}">
+                                <fHCM2:outputDate dateValue="{!row.reportDate}" format="EEE"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!isblank(row.dayItem.link)}">
+                                <apex:outputLink value="{!row.dayItem.link}"><fHCM2:outputDate dateValue="{!row.reportDate}" format="EEE"/></apex:outputLink>
+                            </apex:outputPanel>
+                        </th>
+                        <apex:repeat value="{!table.workAllocationIds}" var="workAllocationId">
+                            <td style="text-align:right;">
+                                <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.workAllocationReports[workAllocationId].fHCM2__Duration__c}" rendered="{!!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}"/>
+                                <apex:inputText value="{!row.workAllocationReports[workAllocationId].fHCM2__Duration__c}" style="width:40px;text-align:right;" rendered="{!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}" />
+                            </td>
+                        </apex:repeat>
+                        <apex:outputPanel layout="none" rendered="{!table.enterRowTotal}">
+                            <td style="text-align:right;">
+                                <apex:outputPanel layout="none" rendered="{!!table.enterStartEndTimes}">
+                                    <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.total.duration}" rendered="{!!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}"/>
+                                    <apex:inputText value="{!row.total.duration}" style="width:40px;text-align:right;" rendered="{!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}" />
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!table.enterStartEndTimes}">
+                                    <apex:outputPanel layout="none" rendered="{!!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}">
+                                        <apex:repeat value="{!row.total.periods}" var="t">
+                                            <div>{!t.startTime}-{!t.endTime}</div>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}">
+                                        <apex:repeat value="{!row.total.periods}" var="t">
+                                        <div class="fairsailTimePickerContainer">
+                                            <div>
+                                                <apex:inputText value="{!t.startTime}" style="width:40px;" styleClass="fairsailTimePicker time start"/>
+                                            </div>
+                                            <div>
+                                                <apex:inputText value="{!t.endTime}" style="width:40px;" styleClass="fairsailTimePicker time end"/>
+                                            </div>
+                                        </div>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </td>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!table.showOvertimeCalculations}">
+                        <apex:repeat value="{!table.codes}" var="code">
+                            <td style="text-align:right;">
+                                <apex:outputPanel layout="none" rendered="{!row.codeUsage[code]}">
+                                    <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.reports[code].fHCM2__Duration__c}" rendered="{!!(!table.enterRowTotal && !table.enterWorkAllocations && ((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved)))}"/>
+                                    <apex:inputField value="{!row.reports[code].fHCM2__Duration__c}" rendered="{!(!table.enterRowTotal && !table.enterWorkAllocations && ((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved)))}" style="width:40px;text-align:right;"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!!row.codeUsage[code]}">
+                                    -
+                                </apex:outputPanel>
+                            </td>
+                        </apex:repeat>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!table.showRowTotal}">
+                            <td style="text-align:right;">
+                                <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.total.duration}"/>
+                            </td>
+                        </apex:outputPanel>
+                    </tr>
+                </apex:repeat>
+                <tr>
+                    <th colspan="2">{!$Label.fHCM2__Global_Total}</th>
+                    <apex:repeat value="{!table.workAllocationIds}" var="workAllocationId">
+                        <td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.workAllocationTotals[workAllocationId].duration}"/></td>
+                    </apex:repeat>
+                    <apex:outputPanel layout="none" rendered="{!table.enterRowTotal}"><td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.total}"/></td></apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!table.showOvertimeCalculations}">
+                    <apex:repeat value="{!table.codes}" var="code">
+                        <td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.totals[code].duration}"/></td>
+                    </apex:repeat>
+                    <apex:outputPanel layout="none" rendered="{!table.showRowTotal}"><td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.total}"/></td></apex:outputPanel>
+                    </apex:outputPanel>
+                </tr>
+                </table>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!table.pattern.Layout=='Top'}" styleClass="topLayout">
+                <table class="timeSheet" width="100%" cellspacing="0">
+                <tr>
+                    <th><fHCM2:outputDate dateValue="{!table.startDate}" format="MMMM yyyy"/></th>
+                    <apex:repeat value="{!table.rows}" var="row">
+                        <th class="{!row.dayItem.class}" title="{!row.dayItem.reason}" style="text-align:right;">
+                            <apex:outputPanel layout="none" rendered="{!isblank(row.dayItem.link)}">
+                                <div><fHCM2:outputDate dateValue="{!row.reportDate}" format="EEE"/></div>
+                                <div><fHCM2:outputDate dateValue="{!row.reportDate}" format="dd"/></div>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!isblank(row.dayItem.link)}">
+                                <apex:outputLink value="{!row.dayItem.link}">
+                                    <div><fHCM2:outputDate dateValue="{!row.reportDate}" format="EEE"/></div>
+                                    <div><fHCM2:outputDate dateValue="{!row.reportDate}" format="dd"/></div>
+                                </apex:outputLink>
+                            </apex:outputPanel>
+                        </th>
+                    </apex:repeat>
+                    <th style="text-align:right;">{!$Label.fHCM2__Global_Total}</th>
+                </tr>
+                <tr class="blankRow"><td colspan="{!table.rows.size+2}">
+                    &nbsp;
+                </td></tr>
+                <apex:repeat value="{!table.workAllocationIds}" var="workAllocationId">
+                    <tr>
+                        <th>{!table.workAllocations[workAllocationId].Name}</th>
+                        <apex:repeat value="{!table.rows}" var="row">
+                            <td style="text-align:right;">
+                                <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.workAllocationReports[workAllocationId].fHCM2__Duration__c}" rendered="{!!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}"/>
+                                <apex:inputText value="{!row.workAllocationReports[workAllocationId].fHCM2__Duration__c}" style="width:40px;text-align:right;" rendered="{!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}" />
+                            </td>
+                        </apex:repeat>
+                        <td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.workAllocationTotals[workAllocationId].duration}"/></td>
+                    </tr>
+                </apex:repeat>
+
+
+                <apex:outputPanel layout="none" rendered="{!table.hasWorkAllocationOptions && !table.isSubmitted}">
+                    <tr><td colspan="{!table.rows.size+2}">
+                        <apex:outputPanel styleClass="optionTree" layout="block">
+                            <span>
+                                <apex:inputHidden value="{!workAllocationSelection}" />
+                            </span>
+                            &nbsp;&nbsp;<apex:commandButton action="{!addWorkLocation}" value="{!$Label.Button_Add_To_Timesheet}" styleClass="inputsubmit" />
+                        </apex:outputPanel>
+                    </td></tr>
+                </apex:outputPanel>
+
+                <apex:outputPanel styleClass="optionTree" layout="none" rendered="{!!isblank(table.workAllocationIds)}">
+                    <tr class="blankRow"><td colspan="{!table.rows.size+2}">
+                        &nbsp;
+                    </td></tr>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!table.enterRowTotal}">
+                    <tr>
+                        <apex:outputPanel layout="none" rendered="{!!table.EnterStartEndTimes}"><th>{!$Label.fHCM2__Global_Total}</th></apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!table.EnterStartEndTimes}"><th><apex:repeat value="{!table.rows}" var="row" rows="1"><apex:repeat value="{!table.rows}" var="row" rows="1"><apex:repeat value="{!row.total.periods}" var="t"><div>{!$Label.Global_Start}</div><div>{!$Label.Global_End}</div></apex:repeat></apex:repeat></apex:repeat></th></apex:outputPanel>
+                        <apex:repeat value="{!table.rows}" var="row">
+                            <td style="text-align:right;">
+                                <apex:outputPanel layout="none" rendered="{!!table.enterStartEndTimes}">
+                                    <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.total.duration}" rendered="{!!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}"/>
+                                    <apex:inputText value="{!row.total.duration}" style="width:40px;text-align:right;" rendered="{!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}" />
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!table.enterStartEndTimes}">
+                                    <apex:outputPanel layout="none" rendered="{!!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}">
+                                        <apex:repeat value="{!row.total.periods}" var="t">
+                                            <div>{!t.startTime}-{!t.endTime}</div>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved))}">
+                                        <apex:repeat value="{!row.total.periods}" var="t">
+                                        <div class="fairsailTimePickerContainer">
+                                            <div>
+                                                <apex:inputText value="{!t.startTime}" style="width:40px;" styleClass="fairsailTimePicker time start"/>
+                                            </div>
+                                            <div>
+                                                <apex:inputText value="{!t.endTime}" style="width:40px;" styleClass="fairsailTimePicker time end"/>
+                                            </div>
+                                        </div>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </td>
+                        </apex:repeat>
+                        <td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.total}"/></td>
+                    </tr>
+                    <tr class="blankRow"><td colspan="{!table.rows.size+2}">
+                        &nbsp;
+                    </td></tr>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!table.showOvertimeCalculations}">
+                <apex:repeat value="{!table.codes}" var="code">
+                    <tr>
+                        <th>
+                            {!table.payCodes[code].Name} x{!table.payCodes[code].rate}
+                        </th>
+                        <apex:repeat value="{!table.rows}" var="row">
+                            <td style="text-align:right;">
+                                <apex:outputPanel layout="none" rendered="{!row.codeUsage[code]}">
+                                    <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.reports[code].fHCM2__Duration__c}" rendered="{!!(!table.enterRowTotal && !table.enterWorkAllocations && ((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved)))}"/>
+                                    <apex:inputField value="{!row.reports[code].fHCM2__Duration__c}" rendered="{!(!table.enterRowTotal && !table.enterWorkAllocations && ((viewer.isTeamMember && !table.isSubmitted) || (viewer.isManager && !table.isApproved)))}" style="width:40px;text-align:right;"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!!row.codeUsage[code]}">
+                                    -
+                                </apex:outputPanel>
+                            </td>
+                        </apex:repeat>
+                        <td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.totals[code].duration}"/></td>
+                    </tr>
+                </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!table.showRowTotal}">
+                    <tr class="blankRow"><td colspan="{!table.rows.size+2}">
+                        &nbsp;
+                    </td></tr>
+                    <tr>
+                        <th>{!$Label.fHCM2__Global_Total}</th>
+                        <apex:repeat value="{!table.rows}" var="row">
+                            <td style="text-align:right;">
+                                <fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!row.total.duration}"/>
+                            </td>
+                        </apex:repeat>
+                        <td style="text-align:right;"><fHCM2:outputNumber decimalPlaces="2" fixed="false" value="{!table.total}"/></td>
+                    </tr>
+                </apex:outputPanel>
+                
+                </table>
+                </apex:outputPanel>
+
+                    <fHCM2:Notice viewer="{!viewer}" page="fta.Timesheet" location="Footer"   rendered="{!!viewer.WXIsActive}"/>
+           </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+    
+    <script type='text/javascript'>
+		if ({! viewer.WXIsActive}){
+			document.getElementsByClassName('thinPanelTD')[0].style.display='none';
+			document.getElementsByClassName('gapPanelTD')[0].style.display='none';
+		}
+    </script>
+</apex:page>

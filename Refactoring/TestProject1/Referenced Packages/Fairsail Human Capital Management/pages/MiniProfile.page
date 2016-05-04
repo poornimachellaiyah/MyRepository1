@@ -1,0 +1,46 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false" title="Team Member Profile">
+        <style>
+            .thinButtonBar {padding:3px 0px; width:100%;}
+            .thinButtonBar a:hover {text-decoration: none;}
+        </style>
+        <div style="width: 300px;">
+        <apex:pageBlock >
+        <apex:outputPanel layout="block" styleClass="thinButtonBar">
+            <apex:outputLink value="/apex/{!links.FairsailProfile}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Profile}</apex:outputLink>
+            <apex:outputLink value="/apex/{!links.FairsailTeam}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Team}</apex:outputLink>
+            <apex:outputLink value="/apex/{!links.Actions}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_Actions}</apex:outputLink>
+        </apex:outputPanel>
+                <apex:pageBlockSection columns="1" >
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.team != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Team__c.label}" for="team" />
+                        <apex:outputText value="{!viewer.teamMember.team}" id="team" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.location != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Location__c.label}" for="location" />
+                        <apex:outputText value="{!viewer.teamMember.location}" id="location" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.jobTitle != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Job_Title__c.label}" for="jobTitle" />
+                        <apex:outputText value="{!viewer.teamMember.jobTitle}" id="jobTitle" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.email != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Email__c.label}" for="email" />
+                        <apex:outputText value="{!viewer.teamMember.email}" id="email" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.phoneNumber != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Phone_Number__c.label}" for="phoneNumber" />
+                        <apex:outputText value="{!viewer.teamMember.phoneNumber}" id="phoneNumber" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.phoneExtension != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Phone_Extension__c.label}" for="phoneExtension" />
+                        <apex:outputText value="{!viewer.teamMember.phoneNumber}" id="phoneExtension" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!viewer.teamMember.mobileNumber != null}">
+                        <apex:outputLabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Mobile_Number__c.label}" for="mobileNumber" />
+                        <apex:outputText value="{!viewer.teamMember.mobileNumber}" id="mobileNumber" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+           </apex:pageBlock>
+        </div>
+
+</apex:page>

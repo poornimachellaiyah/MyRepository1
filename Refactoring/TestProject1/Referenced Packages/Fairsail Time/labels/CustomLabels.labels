@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Button_Add_To_Timesheet</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add To Timesheet</shortDescription>
+        <value>Add To Timesheet</value>
+    </labels>
+    <labels>
+        <fullName>Global_End</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global End</shortDescription>
+        <value>End</value>
+    </labels>
+    <labels>
+        <fullName>Global_Hours_Worked</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global Hours Worked</shortDescription>
+        <value>Hours Worked</value>
+    </labels>
+    <labels>
+        <fullName>Global_Next_Period</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global Next Period</shortDescription>
+        <value>Next Period</value>
+    </labels>
+    <labels>
+        <fullName>Global_Previous_Period</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Global Previous Period</shortDescription>
+        <value>Previous Period</value>
+    </labels>
+    <labels>
+        <fullName>Global_Start</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global Start</shortDescription>
+        <value>Start</value>
+    </labels>
+    <labels>
+        <fullName>Process_Timesheet_Hour</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Timesheet Hour (short)</shortDescription>
+        <value>hr</value>
+    </labels>
+    <labels>
+        <fullName>Process_Timesheet_Hours</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Timesheet Hours (short)</shortDescription>
+        <value>hrs</value>
+    </labels>
+    <labels>
+        <fullName>Process_Timesheet_Minutes</fullName>
+        <categories>Process</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process Timesheet Minutes (short)</shortDescription>
+        <value>mins</value>
+    </labels>
+    <labels>
+        <fullName>Time_ProcessVerb_Approved_Date</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time ProcessVerb Approved Date</shortDescription>
+        <value>Approved Date</value>
+    </labels>
+    <labels>
+        <fullName>Time_ProcessVerb_Not_Submitted</fullName>
+        <categories>ProcessVerb</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time ProcessVerb Not Submitted</shortDescription>
+        <value>Not Submitted</value>
+    </labels>
+    <labels>
+        <fullName>Time_ProcessVerb_Submitted_Date</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time ProcessVerb Submitted Date</shortDescription>
+        <value>Submitted Date</value>
+    </labels>
+    <labels>
+        <fullName>Time_ProcessVerb_Timesheet</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time ProcessVerb Timesheet</shortDescription>
+        <value>Timesheet</value>
+    </labels>
+</CustomLabels>

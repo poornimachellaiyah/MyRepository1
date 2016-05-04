@@ -1,0 +1,102 @@
+<apex:page standardController="fHCM2__Milestone__c" extensions="fHCM2.MilestoneControllerExtension" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.objectives.isUsing}">
+
+    <apex:stylesheet value="{!URLFOR($Resource.fHCM2__jqueryUI, '/css/overcast/jquery-ui-1.10.3.custom.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-1.8.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.fHCM2__jqueryUI, '/js/autoresize.jquery.js')}"/>
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="Objective" mode="view">
+            	<c:Notice viewer="{!viewer}" page="Milestone" location="Subheader"/>
+                <apex:pageBlockSection title="Other Milestones" columns="1">
+                    <apex:outputPanel layout="block" styleClass="thinButtonBar" rendered="{!and(!isNew,viewer.isEdit)}">
+                        <apex:outputLink value="/apex/{!links.Milestone}?objectiveId={!fHCM2__Milestone__c.fHCM2__Objective__c}" target="_top">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:repeat value="{!objective.Milestones__r}" var="other" rendered="{!viewer.isTeamMemberOrManager}">
+                        <c:DetailListBar title="{!other.Name}" value="/apex/{!links.Milestone}?id={!other.Id}" rendered="{!other.id!=fHCM2__Milestone__c.Id}">
+                            <c:DetailListItem label="Start"><c:outputDate dateValue="{!other.fHCM2__Start_Date__c}"/></c:DetailListItem>
+                            <c:DetailListItem label="End"><c:outputDate dateValue="{!other.fHCM2__End_Date__c}"/></c:DetailListItem>
+                            <c:DetailListItem label="Progress"><c:outputNumber value="{!other.fHCM2__Progress__c}" />%</c:DetailListItem>
+                        </c:DetailListBar>
+                    </apex:repeat>
+        
+             </apex:pageBlockSection>
+             <c:Notice viewer="{!viewer}" page="Milestone" location="Subfooter"/>
+        </apex:pageBlock>
+            
+        </apex:define>
+
+        <apex:define name="widePanel">
+        
+            <apex:form rendered="{!viewer.isTeamMemberOrManager}">
+                <apex:pageBlock title="{!fHCM2__Milestone__c.Objective__r.Name}" mode="view" id="entireForm">
+	                <apex:pageMessages rendered="{!hasUpserted}"/>
+                	<c:Notice viewer="{!viewer}" page="Milestone" location="Header"/>
+                    <apex:outputPanel >
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+                                <apex:inputField required="true" value="{!fHCM2__Milestone__c.Name}"/>
+                                <apex:inputField value="{!fHCM2__Milestone__c.fHCM2__Description__c}"/>
+                            </apex:pageBlockSection>
+                            <apex:pageBlockSection title="Dates" columns="1">
+                                <apex:inputField required="true" value="{!fHCM2__Milestone__c.fHCM2__Start_Date__c}"/>
+                                <apex:inputField required="true" value="{!fHCM2__Milestone__c.fHCM2__End_Date__c}"/>
+                            </apex:pageBlockSection>
+                            <apex:pageBlockSection title="Status" columns="1">
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="{!$ObjectType.Milestone__c.fields.Progress__c.label }" />
+                                    <apex:outputPanel >
+                                        <div id="amount" style="display: inline-block;"><apex:inputText style="width: 30px;" value="{!fHCM2__Milestone__c.fHCM2__Progress__c}"/>%</div>
+                                        
+                                        <script type="text/javascript">
+                                            jQuery.noConflict();
+                                            jQuery(function() {
+                                                jQuery("#slider").slider({
+                                                    value: {!progress},
+                                                    min: 0,
+                                                    max: 100,
+                                                    step: 1,
+                                                    slide: function(event, ui) {
+                                                        jQuery("#amount input").val('' + ui.value);
+                                                    }
+                                                });
+                                                jQuery("#amount input").val('' + jQuery("#slider").slider("value"));
+                                            });
+                                            
+                                            jQuery(document).ready(function(){
+                                                jQuery("#amount input").bind('keyup', function(){
+                                                    jQuery("#slider").slider("value", parseInt(jQuery("#amount input").val()));
+                                                });
+                                            });
+                                        </script>
+                                        <div style="display: inline-block; width: 350px; padding: 4px 0 0 16px;"><div id="slider"></div></div>
+                                        
+                                        
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <c:Notice viewer="{!viewer}" page="Milestone" location="Footer"/>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton immediate="true" action="{!delete}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!!isNew}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!saveAndNew}" value="Save and New" rendered="{!isNew}"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}"/>
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!fHCM2__Milestone__c}" page="{!links.FairsailProfile}" rendered="{!viewer.isManager}"/>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

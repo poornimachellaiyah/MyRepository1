@@ -1,0 +1,342 @@
+<apex:page controller="fHCM2.ConfigureController">
+<apex:includeScript value="{!URLFOR($Resource.fHCM2__jscolor_1_4_0, 'jscolor/jscolor.js')}" />
+    <apex:sectionHeader title="Configure" subTitle="Fairsail HCM" help="/apex/Help" />
+    <apex:form >
+        <apex:pageBlock title="{!$Label.fhcm2__Global_Details}" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Setup" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Password Reset From Address" />
+                    <apex:selectList value="{!globalConfiguration.fHCM2__Password_Reset_From_Address__c}" size="1">
+                        <apex:selectOptions value="{!currentOrgWideEmailAddress}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fairsail Digest From Address" />
+                    <apex:selectList value="{!globalConfiguration.fHCM2__Digest_From_Address__c}" size="1">
+                        <apex:selectOptions value="{!currentOrgWideEmailAddress}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fairsail Action Creation Time" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!actionTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doAction}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fairsail Digest Send Time" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!digestTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doDigest}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Action Emails Send Batch Time" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!actionEmailTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doActionEmail}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Sites_URL__c}" style="width:400px;"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="HR Request Finalize Time" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!HRRequestTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doHRRequest}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Stock Option Vesting Time" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!StockOptionVestingTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doStockOptionVesting}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Team Member to User Synchronization" />
+                    <apex:selectList value="{!globalConfiguration.fHCM2__User_Synchronization__c}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="None"/>
+                        <apex:selectOption itemValue="Changes" itemLabel="Changes"/>
+                        <apex:selectOption itemValue="All" itemLabel="All"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:inputField value="{!globalConfiguration.fHCM2__Use_Future_Dated_Salary__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Use_Job_History__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Handle Future Dating" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!futureDateTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doFutureDate}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+
+                <apex:inputField value="{!globalConfiguration.fHCM2__Salary_Pot_Field__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Bonus_Pot_Field__c}" style="width:200px;"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Available_Languages__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Colleagues_With_No_Manager__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Delete_Indicator_Responses__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Username_Domain__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__User_Federation_ID__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Show_Salesforce_Header__c}"/>
+                <apex:inputField value="{!configuration.fHCM2__Stylesheet__c}" style="width:400px;"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="WX Setup" columns="1">
+                <apex:inputField styleClass="color {hash:true}" value="{!setting.fHCM2__Wx_Base_Colour__c}"/>              
+                <apex:inputField value="{!globalConfiguration.fHCM2__Company_Logo__c}"/>              
+                <apex:inputField value="{!globalConfiguration.fHCM2__Minimize_Network_Traffic__c}"/>              
+                <apex:inputField value="{!globalConfiguration.fHCM2__Use_Cache__c}"/> 
+<!--
+                <apex:inputField value="{!globalConfiguration.Save_Translations_In_Static_Resource__c}"/>
+-->
+                <apex:inputField value="{!globalConfiguration.fHCM2__iOS_Push_App__c}"/>             
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Leavers" columns="1">
+                <apex:inputField value="{!configuration.fHCM2__Has_Left__c}"/>
+                <apex:inputField value="{!configuration.fHCM2__Is_On_Leave__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Set_Leaver_Employment_Status__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Clear_Leaver_Manager__c}"/>
+                <apex:inputField value="{!globalConfiguration.fHCM2__Deactivate_Users__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Handle Leavers Time" />
+                    <apex:outputPanel >
+                    <apex:selectList value="{!HandleLeaversTime}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Not active"/>
+                        <apex:selectOption itemValue="0" itemLabel="00:00"/>
+                        <apex:selectOption itemValue="1" itemLabel="01:00"/>
+                        <apex:selectOption itemValue="2" itemLabel="02:00"/>
+                        <apex:selectOption itemValue="3" itemLabel="03:00"/>
+                        <apex:selectOption itemValue="4" itemLabel="04:00"/>
+                        <apex:selectOption itemValue="5" itemLabel="05:00"/>
+                        <apex:selectOption itemValue="6" itemLabel="06:00"/>
+                        <apex:selectOption itemValue="7" itemLabel="07:00"/>
+                        <apex:selectOption itemValue="8" itemLabel="08:00"/>
+                        <apex:selectOption itemValue="9" itemLabel="09:00"/>
+                        <apex:selectOption itemValue="10" itemLabel="10:00"/>
+                        <apex:selectOption itemValue="11" itemLabel="11:00"/>
+                        <apex:selectOption itemValue="12" itemLabel="12:00"/>
+                        <apex:selectOption itemValue="13" itemLabel="13:00"/>
+                        <apex:selectOption itemValue="14" itemLabel="14:00"/>
+                        <apex:selectOption itemValue="15" itemLabel="15:00"/>
+                        <apex:selectOption itemValue="16" itemLabel="16:00"/>
+                        <apex:selectOption itemValue="17" itemLabel="17:00"/>
+                        <apex:selectOption itemValue="18" itemLabel="18:00"/>
+                        <apex:selectOption itemValue="19" itemLabel="19:00"/>
+                        <apex:selectOption itemValue="20" itemLabel="20:00"/>
+                        <apex:selectOption itemValue="21" itemLabel="21:00"/>
+                        <apex:selectOption itemValue="22" itemLabel="22:00"/>
+                        <apex:selectOption itemValue="23" itemLabel="23:00"/>
+                    </apex:selectList>
+                    <apex:commandButton action="{!doHandleLeavers}" value="Run Now"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockTable title="Process Visibility" value="{!processNames}" var="name">
+                <apex:column headervalue="Process">{!processes[name].Set__c+': '+name}</apex:column>
+                <apex:column headervalue="Team Member"><apex:inputField value="{!processes[name].Show_Team_Member__c}"/></apex:column>
+                <apex:column headervalue="Managers"><apex:inputField value="{!processes[name].Show_Manager__c}"/></apex:column>
+                <apex:column headervalue="HR"><apex:inputField value="{!processes[name].Show_HR__c}"/></apex:column>
+                <apex:column headervalue="Supervisor"><apex:inputField value="{!processes[name].Show_Supervisor__c}"/></apex:column>
+                <apex:column headervalue="Mentor"><apex:inputField value="{!processes[name].Show_Mentor__c}"/></apex:column>
+                <apex:column headervalue="Project Manager"><apex:inputField value="{!processes[name].Show_Project_Manager__c}"/></apex:column>
+                <apex:column headervalue="Others"><apex:inputField value="{!processes[name].Show_Others__c}"/></apex:column>
+            </apex:pageBlockTable>
+
+            <apex:pageBlockTable title="Process Control" value="{!processNames}" var="name">
+                <apex:column headervalue="Process">{!processes[name].Set__c+': '+name}</apex:column>
+                <apex:column headervalue="Set"><apex:inputField value="{!processes[name].Set__c}"/></apex:column>
+                <apex:column headervalue="Order"><apex:inputField value="{!processes[name].Order__c}" style="width:100px;"/></apex:column>
+                <apex:column headervalue="Profile Page"><apex:inputField value="{!processes[name].Profile_Page__c}" style="width:400px;"/></apex:column>
+<!--            <apex:column headervalue="Team Page"><apex:inputField value="{!processes[name].Team_Page__c}"/></apex:column> -->   
+            </apex:pageBlockTable>
+
+            <apex:pageBlockTable title="Page Links" value="{!pageNames}" var="name">
+                <apex:column headervalue="Page">{!name}</apex:column>
+                <apex:column headervalue="Link"><apex:inputField value="{!pageLinks[name].Link__c}" style="width:400px;"/></apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+ 
+        <apex:pageBlock title="Fieldset Mapping" mode="view">
+            <apex:pageBlockButtons >
+                <c:LinkButton url="/apex/FieldSetMap" label="{!$Label.fhcm2__Button_New}"/>
+            </apex:pageBlockButtons>
+                <apex:pageBlockTable value="{!fieldsetMapping}" var="row">
+                    <apex:column headerValue="Name"><apex:outputLink value="/apex/FieldSetMap?name={!urlencode(row.Name)}">{!row.Name}</apex:outputLink></apex:column>
+                    <apex:column headerValue="Object">{!row.fHCM2__Object__c}</apex:column>
+                    <apex:column headerValue="Fieldset">{!row.fHCM2__Fieldset__c}</apex:column>
+                    <apex:column headerValue="Replacement">{!row.fHCM2__Replacement__c}</apex:column>
+                    <apex:column headerValue="Policy">{!if(isblank(row.fHCM2__Policy__c),'-All-',policyMap[row.fHCM2__Policy__c].Name)}</apex:column>
+                    <apex:column headerValue="Team Member"><c:outputCheckbox value="{!row.fHCM2__Team_Member__c}"/></apex:column>
+                    <apex:column headerValue="Manager"><c:outputCheckbox value="{!row.fHCM2__Manager__c}"/></apex:column>
+                    <apex:column headerValue="Supervisor"><c:outputCheckbox value="{!row.fHCM2__Supervisor__c}"/></apex:column>
+                    <apex:column headerValue="Mentor"><c:outputCheckbox value="{!row.fHCM2__Mentor__c}"/></apex:column>
+                    <apex:column headerValue="Project Manager"><c:outputCheckbox value="{!row.fHCM2__Project_Manager__c}"/></apex:column>
+                </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

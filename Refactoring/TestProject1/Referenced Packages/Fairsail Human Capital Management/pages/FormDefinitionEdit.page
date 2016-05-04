@@ -1,0 +1,59 @@
+<apex:page standardController="fHCM2__Form_Definition__c" Extensions="fHCM2.FormDefinitionEditExtensionController">
+    <apex:sectionHeader title="{!$ObjectType.fHCM2__Form_Definition__c.label}" subtitle="{!fHCM2__Form_Definition__c.Name}" help="/apex/Help?obj=fHCM2__Form_Definition__c" />
+    <apex:form >
+        <apex:pageBlock title="{!$ObjectType.fHCM2__Form_Definition__c.label}" mode="edit">
+            <apex:pageBlockButtons >
+<!--                 <apex:commandButton action="{!saveDefinition}" value="{!$Label.Button_Save}" /> -->
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Form Definition Details" columns="2">
+                <apex:inputField value="{!fHCM2__Form_Definition__c.Name}" />
+                <apex:inputField value="{!fHCM2__Form_Definition__c.fHCM2__EncodeId__c}" />
+<!--                 <apex:inputField value="{!Form_Definition__c.Permit_New_Forms__c}" /> -->
+                <apex:inputField value="{!fHCM2__Form_Definition__c.fHCM2__Permit_New_Object__c}" />
+                
+<!--                <apex:inputField value="{!fHCM2__Form_Definition__c.fHCM2__Object_Name__c}" /> -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Object"/>
+                    <apex:selectList value="{!fHCM2__Form_Definition__c.fHCM2__Object_Name__c}" size="1">
+                        <apex:selectOptions value="{!currentObjects}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:inputField value="{!fHCM2__Form_Definition__c.fHCM2__Request_Prefix__c}" />
+               <apex:inputField value="{!fHCM2__Form_Definition__c.fHCM2__VisualForce_Page__c}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Form Text" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Form title"/>
+					<apex:inputText value="{!definition.title}"/>
+				</apex:pageBlockSectionItem>           	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Form subtitle"/>
+					<apex:inputText value="{!definition.subTitle}"/>
+				</apex:pageBlockSectionItem>           	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Text at the top of all pages"/>
+					<apex:inputTextarea value="{!definition.preText}"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Text at the bottom of all pages"/>
+					<apex:inputTextarea value="{!definition.postText}"/>
+				</apex:pageBlockSectionItem>           	
+             </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Form Styles" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Extra Stylesheet"/>
+					<apex:inputText value="{!definition.stylesheet}"/>
+				</apex:pageBlockSectionItem>           	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Inline Style"/>
+					<apex:inputTextarea value="{!definition.style}"/>
+				</apex:pageBlockSectionItem>           	
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

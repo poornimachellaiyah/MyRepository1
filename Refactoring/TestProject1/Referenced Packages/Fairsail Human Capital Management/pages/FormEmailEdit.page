@@ -1,0 +1,49 @@
+<apex:page standardController="fHCM2__Form_Email__c" extensions="fHCM2.FormEmailExtensionController">
+	<apex:sectionHeader title="{!$ObjectType.fHCM2__Form_Email__c.label}" subtitle="{!fHCM2__Form_Email__c.Name}" help="/apex/Help?obj=fHCM2__Form_Email__c" />
+	<apex:form >
+		<apex:pageBlock title="{!$ObjectType.fHCM2__Form_Email__c.label}" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+				<apex:commandButton action="{!xDelete}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!fHCM2__Form_Email__c.Id!=null}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Form Email Details" columns="1">
+				<apex:inputHidden value="{!fHCM2__Form_Email__c.fHCM2__Form_Definition__c}" />
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="When Sent" />
+					<apex:selectList value="{!fHCM2__Form_Email__c.Name}" size="1" required="true">
+						<apex:selectOption itemValue="" itemLabel="- Select one -"/>
+						<apex:selectOption itemValue="Start" itemLabel="Start"/>
+						<apex:selectOption itemValue="Reminder" itemLabel="Reminder"/>
+						<apex:selectOption itemValue="First Complete" itemLabel="First Complete"/>
+						<apex:selectOption itemValue="Complete" itemLabel="Complete"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+
+				<apex:inputField value="{!fHCM2__Form_Email__c.fHCM2__Reminder_Days__c}" />
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Template" />
+					<c:InputEmailTemplate >
+						<apex:inputHidden value="{!fHCM2__Form_Email__c.fHCM2__Email_Template_ID__c}"/>
+					</c:InputEmailTemplate>
+				</apex:pageBlockSectionItem>
+
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Send email to (if none are checked below the email will go to the form actor):" columns="1">
+				<apex:inputField value="{!fHCM2__Form_Email__c.fHCM2__To_Team_Member__c}" />
+				<apex:inputField value="{!fHCM2__Form_Email__c.fHCM2__To_Team_Member_Home__c}" />
+				<apex:inputField value="{!fHCM2__Form_Email__c.fHCM2__To_Manager__c}" />
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="Send email from:" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="From" />
+					<apex:selectList value="{!fHCM2__Form_Email__c.fHCM2__From_ID__c}" size="1">
+						<apex:selectOptions value="{!currentOrgWideEmailAddress}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!fHCM2__Form_Email__c.fHCM2__Reply_To__c}" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

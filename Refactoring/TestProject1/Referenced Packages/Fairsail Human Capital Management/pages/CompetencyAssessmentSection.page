@@ -1,0 +1,89 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!subject.currentCompetencyAssessment.isUsing && viewer.isTeamMemberOrManager}">
+                    <apex:facet name="header">
+                        <h3 class="process-competency-assessment">{!$Label.fhcm2__Process_Competency_Assessment}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!or(viewer.isTeamMember,viewer.isEdit,viewer.isManager)}">
+                        <apex:outputLink value="/apex/{!links.CompetencyAssessment}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(or(!subject.currentCompetencyAssessment.has,subject.currentCompetencyAssessment.hasCompleted),viewer.isEdit,subject.currentCompetencyAssessment.newPermitted)}">{!$Label.fhcm2__Button_New}</apex:outputLink>&nbsp;&nbsp;
+                        <apex:outputLink value="/apex/{!links.CompetencyAssessment}?id={!subject.currentCompetencyAssessment.id}" target="_top" rendered="{!subject.currentCompetencyAssessment.has}">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+
+                    <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.competencies}" var="competency" rendered="{!and(subject.currentCompetencyAssessment.has,subject.currentCompetencyAssessment.hasCompleted,subject.currentCompetencyAssessment.hasScores)}">
+                        <apex:column headerValue="{!$Label.fhcm2__ProcessItem_Competency}">
+                            <apex:outputLink value="/apex/{!links.Competency}?id={!subject.currentCompetencyAssessment.Id}&competencyId={!competency.competencyLibraryItemId}">{!competency.Name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Self}" rendered="{!subject.currentCompetencyAssessment.hasSelf}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.selfScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Manager}" rendered="{!subject.currentCompetencyAssessment.hasManager}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.managerScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Mentor}" rendered="{!subject.currentCompetencyAssessment.hasMentor}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.mentorScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Direct_Report}" rendered="{!subject.currentCompetencyAssessment.hasDirectReport}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.directReportScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Colleague}" rendered="{!subject.currentCompetencyAssessment.hasColleague}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.colleagueScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Customer}" rendered="{!subject.currentCompetencyAssessment.hasCustomer}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.customerScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Other}" rendered="{!subject.currentCompetencyAssessment.hasOther}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.otherScore}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Global_Average}" rendered="{!subject.currentCompetencyAssessment.hasAverage}">
+                            <c:outputNumber decimalPlaces="1" value="{!competency.averageScore}"/>
+                        </apex:column>
+                        <apex:column style="white-space: nowrap;">
+                            <apex:facet name="header">
+                                <c:ChartPercentAxis width="150px" />
+                            </apex:facet>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasSelf}" percent="{!competency.selfPercentage}" color="SelfColor" width="150px"/>
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasManager}" percent="{!competency.managerPercentage}" color="ManagerColor" width="150px" />
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasMentor}" percent="{!competency.mentorPercentage}" color="MentorColor" width="150px" />
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasDirectReport}" percent="{!competency.directReportPercentage}" color="DirectReportColor" width="150px" />
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasColleague}" percent="{!competency.colleaguePercentage}" color="ColleagueColor" width="150px" />
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasCustomer}" percent="{!competency.customerPercentage}" color="CustomerColor" width="150px" />
+                                <c:chartBar rendered="{!subject.currentCompetencyAssessment.hasOther}" percent="{!competency.otherPercentage}" color="OtherColor" width="150px" />
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Competency__c.Fields.fHCM2__Average_Frequency__c.label}" style="white-space: nowrap;" rendered="{!competency.hasScores && subject.currentCompetencyAssessment.has360}">
+                            <apex:outputText value="{!competency.frequency}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+
+					<apex:pageBlockTable value="{!subject.currentCompetencyAssessment.AllComments}" var="comment" rendered="{!and(subject.currentCompetencyAssessment.has,subject.currentCompetencyAssessment.hasCompleted,!subject.currentCompetencyAssessment.hasScores)}">
+						<apex:column headerValue="{!$Label.fhcm2__ProcessItem_Competency}">
+							<apex:outputLink value="/apex/{!links.Competency}?id={!subject.currentCompetencyAssessment.Id}&competencyId={!comment.indicator.competency.id}"><apex:outputText value="{!comment.name}"/></apex:outputLink>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Reporting_Relationship__c.label}" rendered="{!subject.currentCompetencyAssessment.assessors.size>1}">
+							<apex:outputText value="{!comment.reportingRelationship}"/>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Strength__c.label}" rendered="{!subject.currentCompetencyAssessment.commentsHasStrength}">
+							<apex:outputText value="{!comment.strength}"/>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Development_Need__c.label}" rendered="{!subject.currentCompetencyAssessment.commentsHasDevelopmentNeed}">
+							<apex:outputText value="{!comment.developmentNeed}"/>
+						</apex:column>
+						<apex:column headerValue="{!$ObjectType.fHCM2__Indicator_Comment__c.fields.fHCM2__Comment__c.label}" rendered="{!subject.currentCompetencyAssessment.commentsHasComment}">
+							<apex:outputText value="{!comment.comment}"/>
+						</apex:column>
+					</apex:pageBlockTable>
+
+                    <apex:pageBlockTable value="{!subject.currentCompetencyAssessment.assessors}" var="assessor" rendered="{!and(subject.currentCompetencyAssessment.has,!subject.currentCompetencyAssessment.hasCompleted)}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Assessment__c.Fields.fHCM2__Assessor__c.label}" value="{!assessor.name}" rendered="{!viewer.departmentPolicy.fHCM2__Competency_Assessment_Hide_Assessors__c!=true}"/>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Assessment__c.Fields.fHCM2__Reporting_Relationship__c.label}" value="{!assessor.reportingRelationship}" />
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Assessment__c.Fields.fHCM2__Status__c.label}">
+							{!assessor.status}
+                        </apex:column>
+                        <apex:column headerValue="{!$Label.fhcm2__Button_Actions}">
+                            <c:LinkButton url="/apex/{!links.Assessment}?id={!assessor.id}" label="{!$Label.fhcm2__Button_Assess}" rendered="{!assessor.isActive && assessor.isViewer}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

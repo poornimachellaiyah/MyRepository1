@@ -1,0 +1,132 @@
+<apex:page controller="fHCM2.VacationTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Fairsail Team">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <c:TeamNavigationPanel viewer="{!viewer}" links="{!links}" page="{!links.VacationTeam}" extra="&levels={!levels}&year={!year}&month={!month}" title="{!$Label.fhcm2__Process_Vacations}" hidePicture="true" noticePage="VacationTeam"/>
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <style>
+.bPageBlock .detailList .dataCol1 {
+    width: 27%;
+    margin-right: 2%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .detailList .dataCol {
+    width: 37%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .labelCol {
+    padding: 0px 0px 0px 2px;
+}
+.person-section-right {
+    width: 100%;
+}
+.team{
+}
+.year{
+    padding-top: 4px;
+}
+    .pbBody td.calendarTableDay.weekend {
+        background-color: #a0a0a0;
+    }
+    .pbBody td.calendarTableDay.holiday {
+        background-color: #ff8080;
+    }
+    .pbBody td.calendarTableDay.even {
+        background-color: #eeeeee;
+    }
+    .pbBody td.calendarTableDay.cell{
+    	border-right: 1px solid #F0F0F0;
+        height: 7px;
+    }
+    div.calendarMark {
+        border: 1px solid white;
+        margin: 1px;
+        height: 4px;
+        overflow: hidden;
+    }
+    div.calendarMark * {display: none;}
+    .calendarTable {
+    	width:100%;
+    	border: 1px solid #c0c0c0;
+    }
+    .pbBody .calendarTableDay {
+    	border-top: 1px solid #c0c0c0;
+    }
+</style>
+
+        <apex:pageBlock title="{!$Label.fhcm2__Process_Vacations}" mode="view" rendered="{!subject.absences.isUsingVacation}">
+                    <apex:pageBlockButtons location="top">
+                        <apex:outputPanel >
+                        	<select id="levelsSelect" onChange="document.location='/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&year={!year}&month={!month}&levels='+options[selectedIndex].value">
+                        		<option value="1">1 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="2">2 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="3">3 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="4">4 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="5">5 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="6">6 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="7">7 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="8">8 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="9">9 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        		<option value="10">10 {!$Label.fhcm2__Process_Org_Chart_Levels}</option>
+                        	</select>
+	                        <a href="/apex/{!links.VacationTeamPDF}?id={!viewer.teamMember.Id}&levels={!levels}&year={!year}&month={!month}" target="_blank"><image border="0" src="{!$Resource.fHCM2__FairsailIcon}/16x16/pdf.png" title="{!$Label.fhcm2__Global_Create_PDF}"/></a>
+                        </apex:outputPanel>
+                    </apex:pageBlockButtons>
+        	<c:Notice viewer="{!viewer}" page="VactionTeam" location="Header"  />
+            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Team_Member}" columns="1" rendered="{!isblank(month)}">
+            <apex:outputPanel >
+            <apex:repeat value="{!teamMembers}" var="teamMember">
+                <div style="display: inline-block;width:62px;">
+                	<c:PersonIcon name="{!teamMember.name}" page="{!links.AbsenceProfile}" value="{!teamMember.id}" picture="{!teamMember.pictureUrl}"/>
+                    <div><c:KeyBlock color="{!teamMemberColorMap[teamMember.id]}" width="62px"/></div>
+                </div>
+            </apex:repeat>
+			</apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="" columns="1" rendered="{!isblank(month)}">
+            <apex:outputPanel >
+                <div class="year">
+                    <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&year={!Year - 1}" style="margin-left: 100px;">{!$Label.fhcm2__Process_Absence_Previous_Year}</apex:outputLink>
+                    <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&year={!Year + 1}" style="float: right; margin-right: 120px;">{!$Label.fhcm2__Process_Absence_Next_Year}</apex:outputLink>
+                    <apex:variable var="monthcount" value="0"/>
+                    <apex:repeat value="{!monthsLoop}" var="monthDate">
+                        <c:CalendarLinearComponent monthlink="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!year}&month={!monthcount}" colors="{!teamMemberColors}" links="{!links}" viewer="{!viewer}" previews="{!absencePreviews}" browse="false" specMonth="{!monthDate}"/>
+						<apex:variable var="monthcount" value="{!value(monthcount)+1}"/>
+                    </apex:repeat>
+                </div>
+                    <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&year={!Year - 1}" style="margin-left: 100px;">{!$Label.fhcm2__Process_Absence_Previous_Year}</apex:outputLink>
+                    <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&year={!Year + 1}" style="float: right; margin-right: 120px;">{!$Label.fhcm2__Process_Absence_Next_Year}</apex:outputLink>
+            </apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="" columns="1" rendered="{!!isblank(month)}"  collapsible="false">
+            <apex:outputPanel >
+            <div><h1><c:outputDate dateValue="{!SelectedMonth}" format="MMMM yyyy"/></h1></div>
+				<apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!if(month==0,year-1,year)}&month={!if(month==0,11,month-1)}" style="margin-left: 100px;">Previous Month</apex:outputLink>
+				<apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!year}" style="margin-left: 100px;">Year</apex:outputLink>
+                <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!if(month==11,year+1,year)}&month={!if(month==11,0,month+1)}" style="float: right; margin-right: 120px;">Next Month</apex:outputLink>
+            	<c:CalendarMonthComponent teamMembers="{!persons}" workDays="{!workDays}" links="{!links}" previews="{!absencePreviews}" specMonth="{!SelectedMonth}"/>
+				<apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!if(month==0,year-1,year)}&month={!if(month==0,11,month-1)}" style="margin-left: 100px;">Previous Month</apex:outputLink>
+				<apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!year}" style="margin-left: 100px;">Year</apex:outputLink>
+                <apex:outputLink value="/apex/{!links.VacationTeam}?id={!viewer.teamMember.Id}&levels={!levels}&year={!if(month==11,year+1,year)}&month={!if(month==11,0,month+1)}" style="float: right; margin-right: 120px;">Next Month</apex:outputLink>
+            </apex:outputPanel>
+            </apex:pageBlockSection>
+            <c:Notice viewer="{!viewer}" page="VactionTeam" location="Footer"  />
+        </apex:pageBlock>
+        <script type="text/javascript">
+        	jQuery("#levelsSelect").val("{!levels}");
+        </script>
+        </apex:define>
+    </apex:composition>
+</apex:page>

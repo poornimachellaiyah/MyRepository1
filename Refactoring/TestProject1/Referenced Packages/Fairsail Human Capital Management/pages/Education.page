@@ -1,0 +1,102 @@
+<apex:page controller="fHCM2.EducationController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Team Member Profile" rendered="{!subject.education.isUsing}" action="{!selectUI}">
+
+    <apex:composition template="fHCM2__FairsailTemplate">
+    
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Education_History}" mode="view">
+            	<c:Notice viewer="{!viewer}" page="Education" location="Subheader"/>
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_History}" columns="1">
+        
+            
+            <apex:repeat value="{!subject.education.current}" var="Education">
+                <c:DetailListBar title="{!substitute(substitute($Label.fhcm2__Global_A_at_B, '{0}', Education.Degree), '{1}', Education.InstitutionName)}" value="/apex/{!links.Education}?TeamMemberId={!viewer.teamMember.Id}&id={!Education.Id}">
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Education__c.Fields.fHCM2__Institution_Name__c.label}" value="{!Education.InstitutionName}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Education__c.Fields.fHCM2__Degree__c.label}" value="{!Education.Degree}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Education__c.Fields.fHCM2__Fields_of_Study__c.label}" value="{!Education.FieldsOfStudy}" />
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Education__c.Fields.fHCM2__Start_Date__c.label}">
+                        <apex:outputText value="{0,date,MM'/'yyyy}">
+                            <apex:param value="{!Education.StartDate}" />
+                        </apex:outputText>
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Education__c.Fields.fHCM2__End_Date__c.label}">
+                        <apex:outputText value="{0,date,MM'/'yyyy}">
+                            <apex:param value="{!Education.EndDate}" />
+                        </apex:outputText>
+                    </c:DetailListItem>
+                    <c:DetailListItem label="{!$ObjectType.fHCM2__Education__c.Fields.fHCM2__Additional_Notes__c.label}" value="{!Education.AdditionalNotes}" />
+                </c:DetailListBar>
+            </apex:repeat>
+            <c:Notice viewer="{!viewer}" page="Education" location="Subfooter"/>
+             </apex:pageBlockSection>
+        </apex:pageBlock>
+            
+        </apex:define>
+
+        <apex:define name="widePanel">
+        
+            <apex:form rendered="{!viewer.isTeamMemberOrManager && subject.education.editPermitted}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!If(EducationObject.Id == null, $Label.fhcm2__Process_Education_History_New_Education, EducationObject.fHCM2__Institution_Name__c)}" mode="view" id="entireForm">
+                	<c:Notice viewer="{!viewer}" page="Education" location="Header"/>
+                    <apex:outputPanel id="EducationSection">
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Education__c.FieldSets.fHCM2__Education_Details}" var="f">
+									<apex:pageBlockSectionItem >
+										<c:FieldLabel value="{!$ObjectType.fHCM2__Education__c.fields[f]}" label="{!$ObjectType.fHCM2__Education__c.fields[f].label}" help="{!$ObjectType.fHCM2__Education__c.fields[f].InlineHelpText}"/>
+				                        <apex:inputField value="{!EducationObject[f]}" />
+			                        </apex:pageBlockSectionItem>
+			                    </apex:repeat>
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}"/>
+                        <apex:commandButton action="{!saveAndNew}" value="{!$Label.fhcm2__Button_Save_And_New}" rendered="{!EducationObject.Id == null}"/>
+                        <apex:commandButton immediate="true" action="{!remove}" value="{!$Label.fhcm2__Button_Delete}" rendered="{!EducationObject.Id != null}" onclick="return confirm('{!$Label.fhcm2__Global_Are_You_Sure}');"/>
+                        <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true"/>
+                    </apex:pageBlockButtons>
+                    <c:Notice viewer="{!viewer}" page="Education" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+            <apex:form rendered="{!!viewer.isTeamMemberOrManager || !subject.education.editPermitted}">
+                <apex:pageMessages />
+                <apex:pageBlock title="{!If(EducationObject.Id == null, 'New Education', EducationObject.fHCM2__Institution_Name__c)}" mode="view" id="entireForm">
+                	<c:Notice viewer="{!viewer}" page="Education" location="Header"/>
+                    <apex:outputPanel id="EducationSection">
+                            <apex:pageBlockSection title="{!$Label.fhcm2__Global_Details}" columns="1">
+		 						<apex:repeat value="{!$ObjectType.fHCM2__Education__c.FieldSets.fHCM2__Education_Details}" var="f">
+			                        <apex:outputField value="{!EducationObject[f]}" />
+			                    </apex:repeat>
+                            </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <c:Notice viewer="{!viewer}" page="Education" location="Footer"/>
+                </apex:pageBlock>
+            </apex:form>
+			<c:GenericHistoryComponent recordLimit="50" myObject="{!EducationObject}" page="{!links.FairsailProfile}" rendered="{!viewer.isManager}"/>
+             <script type="text/javascript">
+                  
+                    function changeYears() {     
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-80; i < now.getFullYear();i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+                     window.onload = changeYears;
+             </script>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

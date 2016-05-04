@@ -1,0 +1,33 @@
+<apex:page standardController="fpay__Upload_Map__c" extensions="fpay.UploadMapExtensionController" standardStylesheets="true" showHeader="true" sidebar="true" title="Upload Map Configure">
+	<apex:sectionHeader title="Map Upload File to Payroll Lines" subtitle="{!fpay__Upload_Map__c.Payroll_Service__r.Name}"/>
+	<br />
+	<apex:form >
+		<apex:pageBlock title="{!fpay__Upload_Map__c.Payroll_Service__r.Name} Configure" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+				<apex:commandButton action="{!save}" value="Save" />
+				<apex:commandButton action="{!xdelete}" value="Delete" rendered="{!fpay__Upload_Map__c.Id!=null}"/>
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection title="The value in Input File column:" columns="1">
+				<apex:inputField required="true" value="{!fpay__Upload_Map__c.Name}" />
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="is copied into:" columns="1">
+				<apex:inputhidden value="{!fpay__Upload_Map__c.fpay__Payroll_Service__c}"/>
+				<apex:pageBlockSectionItem id="renderArea">
+					<apex:outputLabel value="Payroll Line Field" />
+					<apex:selectList required="true" value="{!fpay__Upload_Map__c.fpay__Payroll_Line_Field__c}" size="1">
+						<apex:selectOptions value="{!PayrollLineFieldOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="with options:" columns="1">
+				<apex:inputField required="true" value="{!fpay__Upload_Map__c.fpay__Type__c}" />
+				<apex:inputField value="{!fpay__Upload_Map__c.fpay__Format__c}" />
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+
+	</apex:form>
+</apex:page>

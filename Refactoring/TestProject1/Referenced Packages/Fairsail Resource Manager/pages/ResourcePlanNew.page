@@ -1,0 +1,26 @@
+<apex:page standardController="fResource__Resource_Plan__c" extensions="fResource.ResourcePlanController" tabStyle="fResource__Resource_Need__c">
+	<apex:sectionHeader title="{!$ObjectType.fResource__Resource_Plan__c.label}" subtitle="New" />
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="New {!$ObjectType.fResource__Resource_Plan__c.label}" mode="edit"> 
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+				<apex:commandButton action="{!save}" value="New Empty Plan"/>
+				<apex:commandButton action="{!build}" value="Build Plan from Current Organisation"/>
+				<apex:commandButton action="{!clonePlan}" value="Clone Plan"/>
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection title="Details" columns="1">
+				<apex:inputField value="{!fResource__Resource_Plan__c.Name}"/>
+				<apex:inputField value="{!fResource__Resource_Plan__c.fResource__Active__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Clone From"/>
+					<apex:selectList value="{!cloneFrom}" multiselect="false" size="1">
+						<apex:selectOptions value="{!currentList}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,29 @@
+<apex:page controller="fta.TimesheetSectionController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!viewer.IsTeamMemberOrManager}">
+                    <apex:facet name="header">
+                        <h3 class="process-checkin">Timesheets</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="none">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/fta__TimeSheet?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!viewer.isEdit}">{!$Label.fHCM2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" rendered="{!records.size>0}">
+                    <apex:pageBlockTable value="{!records}" var="value">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Timesheet__c.fields.Name.label}">
+                            <apex:outputLink value="/apex/fta__Timesheet?id={!value.id}" style="font-weight:bold;text-decoration: none;">
+                                <fHCM2:outputDate dateValue="{!value.fHCM2__Start_Date__c}"/>&nbsp;-&nbsp;<fHCM2:outputDate dateValue="{!value.fHCM2__End_Date__c}"/>
+                            </apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Timesheet__c.fields.fHCM2__Submitted_Date__c.label}">
+                            <fHCM2:outputDate dateValue="{!value.fHCM2__Submitted_Date__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Timesheet__c.fields.fHCM2__Approved_Date__c.label}">
+                            <fHCM2:outputDate dateValue="{!value.fHCM2__Approved_Date__c}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

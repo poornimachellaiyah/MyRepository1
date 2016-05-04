@@ -1,0 +1,142 @@
+<apex:page controller="fHCM2.DevelopmentNeedTeamController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Development Need Profile">
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+        </apex:define>
+    
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+            <style>
+.bPageBlock .detailList .dataCol1 {
+    width: 27%;
+    margin-right: 2%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .detailList .dataCol {
+    width: 37%;
+    padding: 0px 10px 0px 2px;
+}
+
+.bPageBlock .labelCol {
+    padding: 0px 0px 0px 2px;
+}
+.person-section-right {
+    width: 100%;
+}
+</style>
+            <apex:form >
+            <apex:pageBlock title="{!$Label.fhcm2__Process_Development_Needs}" rendered="{!and(subject.developmentNeeds.isUsing,viewer.isTeamMemberOrManager)}">
+				<c:Notice viewer="{!viewer}" page="DevelopmentNeedProfile" location="Header"/>
+                <p>&nbsp;</p>
+
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_Team_Member}" columns="1">
+					<c:PersonSection page="{!links.FairsailProfile}" name="{!viewer.teamMember.name}" value="{!viewer.teamMember.id}" picture="{!viewer.teamMember.pictureUrl}"/>
+                </apex:pageBlockSection>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!subject.currentCompetencyAssessment.isUsing}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Current} - {!$Label.fhcm2__Process_Development_Need_Competency}</h2>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.Competency}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(viewer.isEdit,viewer.isManager)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.CurrentCompetencyNeed}" var="tmDevelopmentNeed">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Action__c.label}" value="{!tmDevelopmentNeed.action}" rendered="{!!isblank(tmDevelopmentNeed.action)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.targetDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}"/>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!subject.skills.isUsing}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Current} - {!$Label.fhcm2__Process_Development_Need_Skill}</h2>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+	                        <apex:outputLink value="/apex/{!links.Skill}?teamMemberId={!viewer.teamMember.Id}" target="_top" rendered="{!and(viewer.isEdit,viewer.isManager)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.CurrentSkillNeed}" var="tmDevelopmentNeed">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Action__c.label}" value="{!tmDevelopmentNeed.action}" rendered="{!!isblank(tmDevelopmentNeed.action)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.targetDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}"/>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!viewer.departmentPolicy.fHCM2__Use_Development_Objectives__c}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Current} - {!$Label.fhcm2__Process_Development_Need_Objective}</h2>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.DevelopmentNeed}?teamMemberId={!viewer.teamMember.id}" target="_top" rendered="{!subject.developmentNeeds.newDevelopmentObjectivePermitted}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.CurrentDevelopmentObjective}" var="tmDevelopmentNeed">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Action__c.label}" value="{!tmDevelopmentNeed.action}" rendered="{!!isblank(tmDevelopmentNeed.action)}"/>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.targetDate}"/>
+                                </c:DetailListItem>
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}"/>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="pageSubBlock" rendered="{!subject.DevelopmentNeeds.recent.size>0}">
+                    <apex:outputPanel layout="block" styleClass="pageSubBlockHeader">
+                        <h2 class="psbTitle">{!$Label.fhcm2__Process_Development_Needs_Recent}</h2>
+                    </apex:outputPanel>
+                        <apex:repeat value="{!subject.DevelopmentNeeds.recent}" var="tmDevelopmentNeed">
+                            <c:TwinSectionA >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                            </c:TwinSectionA>
+                            <c:TwinSectionB >
+                                <c:DetailListHeader title="{!tmDevelopmentNeed.name}" value="/apex/{!links.DevelopmentNeed}?id={!tmDevelopmentNeed.id}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Agreed_Action__c.label}" value="{!tmDevelopmentNeed.agreedAction}" rendered="{!!isblank(tmDevelopmentNeed.agreedAction)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Responsibilities__c.label}" value="{!tmDevelopmentNeed.responsibilities}" rendered="{!!isblank(tmDevelopmentNeed.responsibilities)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Develop_By__c.label}" rendered="{!viewer.isTeamMemberOrManager}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Progress__c.label}" value="{!tmDevelopmentNeed.progress}" rendered="{!!isblank(tmDevelopmentNeed.progress)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Outcome__c.label}" value="{!tmDevelopmentNeed.outcome}" rendered="{!!isblank(tmDevelopmentNeed.outcome)}" />
+                                <c:DetailListItem label="{!$ObjectType.fHCM2__Development_Need__c.Fields.fHCM2__Close_Date__c.label}" rendered="{!viewer.isTeamMemberOrManager}">
+                                     <c:outputDate dateValue="{!tmDevelopmentNeed.closeDate}"/>
+                                </c:DetailListItem>
+                            </c:TwinSectionB>
+                        </apex:repeat>
+                </apex:outputPanel>
+				<c:Notice viewer="{!viewer}" page="DevelopmentNeedProfile" location="Footer"/>
+           </apex:pageBlock>
+        </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,102 @@
+<apex:page standardController="Country__c" showHeader="true" sidebar="false">
+    <apex:form id="myForm">
+          
+       <apex:pageBlock id="pgBlock" mode="display" >
+            <apex:outputPanel layout="block" >     
+                <apex:pageBlockSection id="pgBlockSectionAddressInfo" collapsible="false" columns="2" >
+             
+          <!--  <apex:facet name="header">
+                    <span class="pbSubExtra">
+                        <span class="bodySmall">
+                            <a href="javascript:copyAddress();">Copy Office Address to Postal Address</a>
+                        </span>
+                    </span>
+                    <h3><span class="titleSeparatingColon">:</span></h3>
+            </apex:facet> -->
+            <apex:pageBlockSectionItem id="pgOAdd1">
+                <apex:outputLabel >Office Address 1</apex:outputLabel>
+            <!--    <apex:inputField id="OffAddress1" value="{!Country__c.Office_Address_1__c}"  taborderhint="1"/> -->
+                <apex:outputField id="OffAddress1" value="{!Country__c.Office_Address_1__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAdd1">
+                <apex:outputLabel >Postal Address 1</apex:outputLabel>
+                <apex:outputField id="PostAddress1" value="{!Country__c.Postal_Address_1__c}"  />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pgOAdd2">
+                <apex:outputLabel >Office Address 2</apex:outputLabel>
+                <apex:outputField id="OffAddress2" value="{!Country__c.Office_Address_2__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAdd2">
+                <apex:outputLabel >Postal Address 2</apex:outputLabel>
+                <apex:outputField id="PostAddress2" value="{!Country__c.Postal_Address_1__c}" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pgOAdd3">
+                <apex:outputLabel >Office Address 3</apex:outputLabel>
+                <apex:outputField id="OffAddress3" value="{!Country__c.Office_Address_3__c}"  />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAdd3">
+                <apex:outputLabel >Postal Address 3</apex:outputLabel>
+                <apex:outputField id="PostAddress3" value="{!Country__c.Postal_Address_3__c}" />
+            </apex:pageBlockSectionItem>           
+            
+            <apex:pageBlockSectionItem id="pgOAddCity">
+                <apex:outputLabel >Office Address City</apex:outputLabel>
+                <apex:outputField id="OffCity" value="{!Country__c.Office_Address_City__c}"  />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAddCity">
+                <apex:outputLabel >Postal Address City</apex:outputLabel>
+                <apex:outputField id="PostCity" value="{!Country__c.Postal_Address_City__c}" />
+            </apex:pageBlockSectionItem>    
+            
+              <apex:pageBlockSectionItem id="pgOAddPsCode">
+                <apex:outputLabel >Office Address Postal Code</apex:outputLabel>
+                <apex:outputField id="OffPcode" value="{!Country__c.Office_Address_Postal_Code__c}" />
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem id="pgPAddPsCode">
+                <apex:outputLabel >Postal Address Postal Code</apex:outputLabel>
+                <apex:outputField id="OffPPcode" value="{!Country__c.Postal_Address_Postal_Code__c}"  />
+             </apex:pageBlockSectionItem> 
+            
+          <apex:pageBlockSectionItem id="pgOAddCtry">
+                <apex:outputLabel >Office Address Country</apex:outputLabel>
+                <apex:outputField id="OffCountry" value="{!Country__c.Office_Address_Country__c}"  />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="pgPAddCtry">
+                <apex:outputLabel >Postal Address Country</apex:outputLabel>
+                <apex:outputField id="PostCountry" value="{!Country__c.Postal_Address_Country__c}"  /> 
+            </apex:pageBlockSectionItem> 
+            
+            <apex:pageBlockSectionItem id="pgPhone">
+                <apex:outputLabel >Phone</apex:outputLabel>
+                <apex:outputField id="phone" value="{!Country__c.Phone__c}" />
+            </apex:pageBlockSectionItem>            
+            
+        </apex:pageBlockSection>
+      </apex:outputPanel>  
+    </apex:pageBlock>
+    </apex:form>
+        <script>
+            function copyAddress() {
+                var OffAdd1=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAdd1.OffAddress1}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAdd1.PostAddress1}').value=OffAdd1; 
+                
+                var OffAdd2=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAdd2.OffAddress2}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAdd2.PostAddress2}').value=OffAdd2;                
+                
+                var OffAdd3=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAdd3.OffAddress3}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAdd3.PostAddress3}').value=OffAdd3;
+                
+                var OffCity=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAddCity.OffCity}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAddCity.PostCity}').value=OffCity;    
+                            
+                var OffCoun1=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAddPsCode.OffPcode}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAddPsCode.OffPPcode}').value=OffCoun1;                                 
+                            
+                var OffCountry=document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgOAddCtry.OffCountry}').value;
+                            document.getElementById('{!$Component.myform.pgBlock.pgBlockSectionAddressInfo.pgPAddCtry.PostCountry}').value=OffCountry;            
+
+            }
+        </script>    
+</apex:page>

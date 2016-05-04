@@ -1,0 +1,59 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="true" showHeader="{!viewer.showSalesforceBanner}" sidebar="false" title="Internal Portal">
+    <script type="text/javascript">
+
+
+// Compatible event handler / IE8
+		var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+		var eventMethodRemove = window.removeEventListener ? "removeEventListener" : "detachEvent";
+		var eventer = window[eventMethod];
+		var removeEventer = window[eventMethodRemove];
+		var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+		var messageRemove = eventMethodRemove == "detachEvent" ? "onmessage" : "message";
+		
+		var listener = function (e) {
+			var postMessage = e.data;
+		
+			var res  = postMessage.split("-");
+			if(res[0] == "ResizeHeight"){
+				var iFrameId = document.getElementById("internalIframe");
+				iFrameId.height = '';
+				iFrameId.height = res[1];
+			}			
+		}
+		// Listen to message from child window
+		eventer(messageEvent, listener, false);
+
+	
+</script>
+    
+    <apex:composition template="fHCM2__FairsailTemplate">
+
+        <apex:define name="styleExtra">
+            <style><apex:outputText value="{!viewer.departmentPolicy.fHCM2__Style__c}" /></style>
+		    <style>
+			   .thinPanelTD{
+			       display:none;
+			   }
+			   .gapPanelTD{
+			       display:none;
+			   }
+			   .widePanelTD{
+			       width:800px;
+			   }
+		    </style>
+        </apex:define>
+        
+
+        <apex:define name="bannerPanel">
+            <c:fairsailBanner viewer="{!viewer}" links="{!links}"/>
+        </apex:define>
+
+        <apex:define name="thinPanel">
+        </apex:define>
+
+        <apex:define name="widePanel">
+        	<iframe  width="800px" height="1px" src="/apex/fRecruit__InternalJob?vacancyNo={!$CurrentPage.parameters.vacancyNo}" scrolling="no" id="internalIframe"></iframe>
+        </apex:define>
+   
+    </apex:composition>
+</apex:page>

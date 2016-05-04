@@ -1,0 +1,182 @@
+<apex:page controller="fHCM2.TeamMemberEditControllerExtension" standardStylesheets="true" showHeader="true" sidebar="true" title="Team Member">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="{!$Label.fhcm2__Team_Member_Terminate}" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Team_Member_Details}" columns="1">
+               <apex:repeat value="{!FieldsetTeamMemberTerminate}" var="f">
+                    <apex:inputField value="{!teamMember[f]}"  rendered="{!f!='fHCM2__First_Name__c' && f!='fHCM2__Surname__c' && !contains(FieldsetTeamMemberComboFieldsString,f) && !contains(FieldsetTeamMemberPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+
+                    <apex:inputField value="{!teamMember.fHCM2__First_Name__c}" rendered="{!f=='fHCM2__First_Name__c'}" required="true"/>
+                    <apex:inputField value="{!teamMember.fHCM2__Surname__c}" rendered="{!f=='fHCM2__Surname__c'}" required="true"/>
+
+					<!-- fHCM2__Current_Competency_Assessment__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Current_Competency_Assessment__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Current_Competency_Assessment__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					
+					<!-- fHCM2__Current_Employment__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Current_Employment__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Current_Employment__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					<!-- fHCM2__Current_Job_Description__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Current_Job_Description__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Current_Job_Description__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					
+					<!-- fHCM2__Current_Performance_Review__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Current_Performance_Review__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Current_Performance_Review__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					<!-- fHCM2__Current_Talent_Plan__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Current_Talent_Plan__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Current_Talent_Plan__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					<!-- fHCM2__Department__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Department__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Department__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>			
+					
+					<!-- fHCM2__Job_Profile__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Job_Profile__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Job_Profile__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					<!-- fHCM2__Manager__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Manager__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Manager__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>	
+		
+					<!--  fHCM2__Manager_User__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Manager_User__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Manager_User__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+					
+					<!--  fHCM2__Policy__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__Policy__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__Policy__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+	
+					<!--  fHCM2__User__c -->
+					<apex:pageBlockSectionItem rendered="{! (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f)) && f=='fHCM2__User__c'}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="fHCM2__User__c" extensible="{!$User.Closed_ComboBox__c!=true || if(contains(FieldsetTeamMemberPicklistFieldsString,f), false , true)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>				
+					
+					<apex:pageBlockSectionItem rendered="{! If(contains(refrenceFieldsTMString,f), false, true) && (contains(FieldsetTeamMemberComboFieldsString,f) || contains(FieldsetTeamMemberPicklistFieldsString,f))}">
+						<c:FieldLabel value="{!$ObjectType.fHCM2__Team_Member__c.fields[f]}" />
+						<c:FieldInput object="{!TeamMember}" name="{!f}" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetTeamMemberPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+					</apex:pageBlockSectionItem>
+
+               </apex:repeat>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.fhcm2__Employment_Details}" columns="1" rendered="{!Employment!=null}">
+               <apex:repeat value="{!FieldsetEmploymentTerminate}" var="f">
+                    <apex:inputField value="{!Employment[f]}" rendered="{!!contains(FieldsetEmploymentComboFieldsString,f) && !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+
+					<!-- fHCM2__Absence_Accrual_Pattern__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Absence_Accrual_Pattern__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Absence_Accrual_Pattern__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                   	<!-- fHCM2__Current_Check_In__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Current_Check_In__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Current_Check_In__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                   	<!-- fHCM2__Current_Salary__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Current_Salary__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Current_Salary__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                   <!-- fHCM2__Job_Library_Item__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Job_Library_Item__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Job_Library_Item__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                   <!-- fHCM2__Manager_User__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Manager_User__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Manager_User__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                                          
+
+                   <!-- fHCM2__Salary_Band__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Salary_Band__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Salary_Band__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!-- fHCM2__Salary_Projection__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Salary_Projection__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Salary_Projection__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!-- fHCM2__Team_Member__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Team_Member__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Team_Member__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!-- fHCM2__Work_Days_Pattern__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Work_Days_Pattern__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Work_Days_Pattern__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>                    
+
+                    <!-- fHCM2__Work_Location__c -->
+                    <apex:pageBlockSectionItem rendered="{! (contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)) && f=='fHCM2__Work_Location__c'}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="fHCM2__Work_Location__c" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>     
+
+                    <apex:pageBlockSectionItem rendered="{! If(contains(refrenceFieldsEMPString,f), false, true) && ((contains(FieldsetEmploymentComboFieldsString,f) || contains(FieldsetEmploymentPicklistFieldsString,f)))}">
+                        <c:FieldLabel value="{!$ObjectType.fHCM2__Employment__c.fields[f]}" />
+                        <c:FieldInput object="{!Employment}" name="{!f}" extensible="{!$User.Closed_ComboBox__c!=true || !contains(FieldsetEmploymentPicklistFieldsString,f)}" required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:pageBlockSectionItem>
+
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+             <script>
+               jQuery.noConflict();
+               jQuery(document).ready(function(){
+                         var yearselect = document.getElementById('calYearPicker');
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-100; i < now.getFullYear()+20;i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     });
+             </script>
+</apex:page>

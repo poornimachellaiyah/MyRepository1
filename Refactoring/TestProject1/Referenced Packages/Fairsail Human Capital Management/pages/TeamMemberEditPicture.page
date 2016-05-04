@@ -1,0 +1,22 @@
+<apex:page standardController="fHCM2__Team_Member__c" extensions="fHCM2.TeamMemberPictureControllerExtension" standardStylesheets="true" showHeader="true" sidebar="true" title="{!$Label.fhcm2__Team_Member}">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="{!$Label.fhcm2__Team_Member_Picture}" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" immediate="true" />
+                <apex:commandButton action="{!save}" value="{!$Label.fhcm2__Button_Save}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="{!$Label.fhcm2__Team_Member_Picture}" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.fhcm2__Picture}" for="picture" />
+                    <apex:outputPanel >
+                        <apex:selectList value="{!fHCM2__Team_Member__c.fHCM2__Picture__c}" id="picture" size="1">
+                            <apex:selectOptions value="{!currentAttachments}" />
+                        </apex:selectList>
+                        {!$Label.fhcm2__Or_Upload_New_Picture} <apex:inputFile value="{!picture}" filename="{!filename}" contentType="{!contentType}" accept="gif,jpg,png"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>        
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

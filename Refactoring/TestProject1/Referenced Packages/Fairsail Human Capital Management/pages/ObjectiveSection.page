@@ -1,0 +1,51 @@
+<apex:page controller="fHCM2.TeamMemberProfileController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection columns="1" rendered="{!and(subject.objectives.isUsing,viewer.isTeamMemberOrManager)}">
+                    <apex:facet name="header">
+                        <h3 class="process-objective">{!$Label.fhcm2__Process_Objectives}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar">
+                        <apex:outputLink value="/apex/{!links.Objective}?teamMemberId={!viewer.teamMember.id}" target="_top" rendered="{!or(viewer.isTeamMember,viewer.isEdit)}">{!$Label.fhcm2__Button_New}</apex:outputLink>
+                        <apex:outputLink value="/apex/{!links.ObjectiveProfile}?id={!viewer.teamMember.Id}" target="_top">{!$Label.fhcm2__Button_View}</apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!subject.objectives.working}" var="objective" rendered="{!subject.objectives.hasWorking}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.Name.label}">
+                            <apex:outputLink value="/apex/{!links.Objective}?id={!objective.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!objective.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!objective.status}" />
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Action__c.label}" style="color:red;text-weight:bold;" value="{!objective.action}" />
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Progress__c.label}">
+                            <apex:outputPanel >
+                            <c:TrafficLight status="{!objective.progressStatus}"/>
+                            <apex:outputText value="{!objective.progress}" />
+                            </apex:outputPanel>
+                        </apex:column>
+                        <apex:column style="white-space:nowrap;" headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Next_Review_Date__c.label}">
+                            <c:outputDate dateValue="{!objective.nextReviewDate}" />
+                        </apex:column>
+                        <apex:column style="white-space:nowrap;" headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__End_Date__c.label}">
+                            <c:outputDate dateValue="{!objective.endDate}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" rendered="{!and(subject.objectives.isUsing,!viewer.isTeamMemberOrManager)}">
+                    <apex:facet name="header">
+                        <h3 class="process-objective">{!$Label.fhcm2__Process_Objectives}</h3>
+                    </apex:facet>
+                    <apex:outputPanel layout="block">
+                    <apex:pageBlockTable value="{!subject.objectives.active}" var="objective" rendered="{!subject.objectives.hasActive}">
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.Name.label}">
+                            <apex:outputLink value="/apex/{!links.Objective}?id={!objective.id}" target="_top" style="font-weight:bold;text-decoration: none;color: #0e52a1">{!objective.name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column headerValue="{!$ObjectType.fHCM2__Objective__c.Fields.fHCM2__Status__c.label}" value="{!objective.status}" />
+                        <apex:column style="white-space:nowrap;" headerValue="End">
+                            <c:outputDate dateValue="{!objective.endDate}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

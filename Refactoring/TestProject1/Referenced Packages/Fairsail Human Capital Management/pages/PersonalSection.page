@@ -1,0 +1,50 @@
+<apex:page controller="fHCM2.TeamMemberDetailsController" standardStylesheets="false" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+                <apex:pageBlockSection title="{!$Label.fhcm2__Global_Personal_Details}" columns="1" rendered="{!viewer.isTeamMember || (viewer.IsManager && viewer.departmentPolicy.fHCM2__Manager_View_Personal_Details__c==true)}">
+                    <apex:outputPanel layout="block" styleClass="wideButtonBar" rendered="{!viewer.isTeamMemberOrManager}">
+                        <apex:outputLink value="/apex/{!links.PersonalDetails}?id={!viewer.teamMember.Id}&retURL=%2fapex%2f{!links.PersonalProfile}" target="_top" rendered="{!and(viewer.departmentPolicy.fHCM2__Modify_Home_Address__c, viewer.isTeamMember)}">{!$Label.fhcm2__Button_Edit}</apex:outputLink>
+                    </apex:outputPanel>
+
+						<apex:repeat value="{!FieldsetTeamMemberPersonalDetails}" var="f">
+	                        <apex:outputField value="{!Member[f]}" rendered="{!f!='fHCM2__Social_Security_Number__c' && f.type!='date'}"/>
+	                        <apex:pageBlockSectionItem rendered="{!f.type=='date'}">
+	                        	<apex:outputlabel value="{!f.label}"/>
+	                        	<c:outputDate dateValue="{!Member[f]}" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!f=='fHCM2__Social_Security_Number__c'}">
+	                        	<apex:outputlabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Social_Security_Number__c.label}"/>
+	                        	<apex:outputText value="***************{!right(Member.fHCM2__Social_Security_Number__c,4)}" />
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>                    
+
+						<apex:repeat value="{!FieldsetTeamMemberPersonalDetailsGated}" var="f">
+	                        <apex:outputField value="{!Member[f]}" rendered="{!f!='fHCM2__Social_Security_Number__c' && f.type!='date'}"/>
+	                        <apex:pageBlockSectionItem rendered="{!f.type=='date'}">
+	                        	<apex:outputlabel value="{!f.label}"/>
+	                        	<c:outputDate dateValue="{!Member[f]}" />
+	                        </apex:pageBlockSectionItem>
+	                        <apex:pageBlockSectionItem rendered="{!f=='fHCM2__Social_Security_Number__c'}">
+	                        	<apex:outputlabel value="{!$ObjectType.fHCM2__Team_Member__c.Fields.fHCM2__Social_Security_Number__c.label}"/>
+	                        	<apex:outputText value="***************{!right(Member.fHCM2__Social_Security_Number__c,4)}" />
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>                    
+
+						<apex:repeat value="{!FieldsetEmploymentPersonalDetails}" var="f">
+	                        <apex:outputField value="{!Employment[f]}" rendered="{!f.type!='date'}"/>
+	                        <apex:pageBlockSectionItem rendered="{!f.type=='date'}">
+	                        	<apex:outputlabel value="{!f.label}"/>
+	                        	<c:outputDate dateValue="{!Employment[f]}" />
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>                    
+
+						<apex:repeat value="{!FieldsetEmploymentPersonalDetailsGated}" var="f">
+	                        <apex:outputField value="{!Employment[f]}" rendered="{!f.type!='date'}"/>
+	                        <apex:pageBlockSectionItem rendered="{!f.type=='date'}">
+	                        	<apex:outputlabel value="{!f.label}"/>
+	                        	<c:outputDate dateValue="{!Employment[f]}" />
+	                        </apex:pageBlockSectionItem>
+						</apex:repeat>                    
+
+                </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

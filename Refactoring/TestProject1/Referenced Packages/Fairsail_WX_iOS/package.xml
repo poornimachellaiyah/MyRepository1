@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fairsail_WX_iOS</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>fHCM2</namespacePrefix>
+    <types>
+        <members>Fairsail_WX_iOS</members>
+        <name>Application</name>
+    </types>
+    <version>36.0</version>
+</Package>

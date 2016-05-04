@@ -1,0 +1,61 @@
+<apex:page controller="fRecruit.VacancyListController" showHeader="false" standardStylesheets="false">
+
+<style>
+.mainPageDiv {
+	margin: 0pt auto; 
+	width: 800px; 
+	position: relative;
+}
+body {
+	background-color:#FFFFFF;
+	font-family:'Arial','Helvetica',sans-serif;
+	font-size:75%;
+	margin:0;
+}
+.vacancy {
+	border-bottom: 1px solid #b0b0b0;
+	margin-top: 15px;
+	font-size:90%;
+}
+.vacancyName a {
+	font-size:120%;
+	color:#4F9241;
+	font-weight:bold;
+	margin-bottom: 3px;
+}
+.description {
+	color:#808080;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family:'Arial','Helvetica',sans-serif;
+	font-size:100%;
+}
+h1 {
+	font-size:140%;
+}
+h2 {
+	font-size:120%;
+}
+</style>
+
+    <div class="mainPageDiv">
+	<h1>{!$Organization.Name} - Vacancy List</h1>
+	<h2>Current Vacancies</h2>
+	<p>Click on any vacancy to see full details and to apply</p>
+	<apex:repeat value="{!vacancyList}" var="row">
+	    <div class="vacancy">
+			<div class="vacancyName">
+				<apex:outputLink value="ShowVacancy?id={!row.Id}" title="Click to view details or apply">{!row.Name}</apex:outputLink>
+			</div>
+			<div class="companyName">
+				<b><apex:outputLabel value="{!row.company}" /></b> <apex:outputLabel value="{!row.locationCity}" /> <apex:outputLabel value="{!row.locationCity}" />
+			</div>
+			<div class="description">
+				<apex:outputLabel value="{!row.description}" />
+			</div>
+		</div>
+	</apex:repeat>
+
+    </div>
+
+</apex:page>

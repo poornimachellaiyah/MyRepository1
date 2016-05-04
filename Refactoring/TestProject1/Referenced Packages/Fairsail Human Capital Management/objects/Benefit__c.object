@@ -1,0 +1,3744 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>Help</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Benefit that is part of the total compensation package for an employee</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Team_Member_Details</fullName>
+        <availableFields>
+            <field>Active__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>CO2__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Color__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Cost_Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>CreatedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Currency_Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Currency__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Deduction_Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Deduction_End_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Deduction_Start_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Effective_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Employee_Reporting__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Employer_Contribution_Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Employer_Contribution_Percentage__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Employer_Cost_Reporting__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Employer_Cost__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Employment__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>End_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Engine_Size__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>First_Registered_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Fuel__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Group_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Insurance_End_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Insurance_Start_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>LastModifiedById</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>LastModifiedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Last_Currency_Recalculation__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Life_Cover_Additional__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Life_Cover__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Linked_Benefit__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Loan_Amount_Reporting__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Loan_Amount__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Make__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Maturity_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Model__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>PHI_Benefit__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Percent_Contribution__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Policy_Coverage__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Policy_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Price__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Reason__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Registration_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Serial_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Start_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Use_Salary_Sacrifice__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Value_Reporting__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Value__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>When the team member views their benefits in the personal details page</description>
+        <displayedFields>
+            <field>Provider__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Plan__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Coverage__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employee__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Team Member Details</label>
+    </fieldSets>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether this record is included in the summary calculation on Employment</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CO2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>CO2</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Code__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Provider code for this plan</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Provider code for this plan</inlineHelpText>
+        <label>Code</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Color__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Color</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Cost Code</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coverage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Brief description of coverage</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Brief description of coverage</inlineHelpText>
+        <label>Coverage Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>text( Currency__r.Currency_Code__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Currency Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Currency</label>
+        <referenceTo>Exchange_Rate__c</referenceTo>
+        <relationshipLabel>Benefits</relationshipLabel>
+        <relationshipName>Benefits</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Deduction_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Deduction code for this benefit to be passed through to payroll</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Deduction code for this benefit to be passed through to payroll</inlineHelpText>
+        <label>Deduction Code</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Deduction_End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter only if deduction dates are different to benefit dates</inlineHelpText>
+        <label>Deduction End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deduction_Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter only if deduction dates are different to benefit dates</inlineHelpText>
+        <label>Deduction Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deductions_In_Year__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deductions In Year</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Benefit enrollment effective date at the time this benefit was selected</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Benefit enrollment effective date at the time this benefit was selected</inlineHelpText>
+        <label>Effective Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Employee_Deduction_In_Year_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isblank(Employee_Reporting__c), null, Employee_Reporting__c *  blankvalue(Deductions_In_Year__c,1) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Employee Deduction In Year Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employee_Deduction_In_Year__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if ( isblank(Employee__c), null, Employee__c *  blankvalue(Deductions_In_Year__c,1) )</formula>
+        <label>Employee Deduction In Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employee_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employee Deduction Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employee__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Amount deducted from employee salary each pay period</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount deducted from employee salary each pay period</inlineHelpText>
+        <label>Employee Deduction</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employer_Contribution_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employer Contribution Code</label>
+        <picklist>
+            <picklistValues>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Employer_Contribution_Percentage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Percentage of salary contributed by employer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of salary contributed by employer</inlineHelpText>
+        <label>Employer Contribution Percentage</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Employer_Cost_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employer Cost Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employer_Cost__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Cost to the employer per pay period</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Annual cost to the employer</inlineHelpText>
+        <label>Employer Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employment__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Employment Record</label>
+        <referenceTo>Employment__c</referenceTo>
+        <relationshipLabel>Benefits</relationshipLabel>
+        <relationshipName>Benefits</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>End_Date_Entered_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the end date was first entered</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the end date was first entered</inlineHelpText>
+        <label>End Date Entered Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Engine_Size__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Engine Size</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enrollment_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(  Start_Date__c&lt;=today(),  
+if( isblank(End_Date__c) || End_Date__c&gt;=today(), &apos;Current&apos;, &apos;History&apos;),
+if(  isblank(Employment__r.Benefit_Enrollment_Signed_Date__c), &apos;Pending&apos;, &apos;Submitted&apos; ))</formula>
+        <label>Enrollment Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Registered_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>First Registered Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fuel__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Fuel</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Group_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Group Number</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Insurance_End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Insurance End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Insurance_Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Insurance Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Currency_Recalculation__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Last date and time that the benefit was recalculated from Exchange Rates</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last date and time that the benefit was recalculated from Exchange Rates</inlineHelpText>
+        <label>Last Currency Recalculation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Life_Cover_Additional__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Amount of life insurance cover beyond the pre-approved level</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount of life insurance cover beyond the pre-approved level</inlineHelpText>
+        <label>Life Cover (Additional)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Life_Cover__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Amount of life insurance cover</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount of life insurance cover</inlineHelpText>
+        <label>Life Cover</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Linked_Benefit__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Benefit that this benefit is related to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Benefit that this benefit is related to.</inlineHelpText>
+        <label>Linked Benefit</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Employment__c</field>
+                <operation>equals</operation>
+                <valueField>Benefit__c.Employment__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Benefit__c</referenceTo>
+        <relationshipLabel>Related Benefits</relationshipLabel>
+        <relationshipName>Linked_Benefits</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Amount_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Loan Amount in reporting currency</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Loan Amount in reporting currency</inlineHelpText>
+        <label>Loan Amount Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loan_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Original amount of loan/starting balance being reduced by regular deductions.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Original amount of loan/starting balance being reduced by regular deductions.</inlineHelpText>
+        <label>Loan Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Make__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Make</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maturity_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Maturity Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Model__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Model</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PHI_Benefit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>PHI Benefit</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>People_Covered__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deprecated</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Percent_Contribution__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Contribution of team member as percentage of salary</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Contribution of team member as percentage of salary</inlineHelpText>
+        <label>Percent Contribution</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Plan__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Plan</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vision Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dental Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disability Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Insurance Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee + Family Cover</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Group Pension Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Policy_Coverage__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Policy Coverage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Policy_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Policy Number</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Price per share</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Price per share</inlineHelpText>
+        <label>Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Provider__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Provider</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Car Insuance Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dental Insurance Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disability Insurance Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Insurance Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vision Insurance Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal &amp; General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Scottish Widows</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SONARWA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Liberty Life</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Madison Pension Scheme</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ZB Bank</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Reason</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Registration_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Registration Number</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Serial_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Serial Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Date_Entered_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Date that the start date was first entered</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the start date was first entered</inlineHelpText>
+        <label>Start Date Entered Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Team_Member__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/&apos;+ Employment__r.Team_Member__c ,  Employment__r.Team_Member__r.Name, &apos;_top&apos; )</formula>
+        <label>Team Member</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Trigger_Currency_Recalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Trigger recalculation of benefit from the Exchange Rate</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Trigger recalculation of benefit from the Exchange Rate</inlineHelpText>
+        <label>Trigger Currency Recalculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$RecordType.Name</formula>
+        <label>Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_Salary_Sacrifice__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This benefit deduction will utilize salary sacrifice.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This benefit deduction will utilize salary sacrifice.</inlineHelpText>
+        <label>Use Salary Sacrifice</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Value_Reporting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Value Reporting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Benefit</label>
+    <nameField>
+        <displayFormat>{YYYY}.{MM} #{0}</displayFormat>
+        <label>Benefit #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Benefits</pluralLabel>
+    <recordTypes>
+        <fullName>Car</fullName>
+        <active>false</active>
+        <description>Company car</description>
+        <label>Car</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Car Insuance Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Car_Allowance</fullName>
+        <active>false</active>
+        <description>Cash allowance as a equivalent to a car</description>
+        <label>Car Allowance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Car_Parking</fullName>
+        <active>false</active>
+        <description>Parking charges for a car</description>
+        <label>Car Parking</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Child_Care</fullName>
+        <active>false</active>
+        <description>Assistance with childcare costs</description>
+        <label>Child Care</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Computer</fullName>
+        <active>false</active>
+        <description>Home computer or laptop</description>
+        <label>Computer</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Dental_Insurance</fullName>
+        <active>true</active>
+        <description>Dental Insurance for employee and possibly dependants</description>
+        <label>Dental Insurance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Dental Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee %2B Family Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dental Insurance Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Disability_Insurance</fullName>
+        <active>false</active>
+        <description>Disability, short or long term sickness insurance for employee and possibly dependants</description>
+        <label>Disability Insurance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Disability Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Disability Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Education</fullName>
+        <active>false</active>
+        <description>Education allowance or paid course</description>
+        <label>Education</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Other Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Other Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Health_Insurance</fullName>
+        <active>false</active>
+        <description>Medical insurance for employee and possibly dependants</description>
+        <label>Medical Insurance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Employee %2B Family Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Health_Savings_Account</fullName>
+        <active>false</active>
+        <description>Health Savings accounts and plans</description>
+        <label>Health Savings Account</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Life_Insurance</fullName>
+        <active>false</active>
+        <description>Life and AD&amp;D insurance for employees and possibly dependants</description>
+        <label>Life Insurance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Employee %2B Family Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Mobile_Phone</fullName>
+        <active>false</active>
+        <description>Mobile phone</description>
+        <label>Mobile Phone</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Other_Benefit</fullName>
+        <active>true</active>
+        <description>Any other benefit</description>
+        <label>Other Benefit</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Employee %2B Family Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Other_Insurance</fullName>
+        <active>false</active>
+        <description>Any other type of insurance for employee or dependants</description>
+        <label>Other Insurance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Employee %2B Family Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Pension</fullName>
+        <active>true</active>
+        <description>Pension for the employee</description>
+        <label>Pension</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Group Pension Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Liberty Life</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Madison Pension Scheme</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SONARWA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scottish Widows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ZB Bank</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Private_Fuel</fullName>
+        <active>false</active>
+        <description>Allowance to buy or use fuel for private travel</description>
+        <label>Private Fuel</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Stock_Option</fullName>
+        <active>false</active>
+        <description>Stock options in company for employee</description>
+        <label>Stock Option</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Transportation_Allowance</fullName>
+        <active>false</active>
+        <description>Assistance with various transportation costs</description>
+        <label>Transportation Allowance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Health Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Insurance Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Employee and extended family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee and immediate family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Health Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Vision_Insurance</fullName>
+        <active>false</active>
+        <description>Vision insurance for employee and possibly dependants</description>
+        <label>Vision Insurance</label>
+        <picklistValues>
+            <picklist>Deduction_Code__c</picklist>
+            <values>
+                <fullName>DC1</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Employer_Contribution_Code__c</picklist>
+            <values>
+                <fullName>AAA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fuel__c</picklist>
+            <values>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>People_Covered__c</picklist>
+            <values>
+                <fullName>All Children</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Plan__c</picklist>
+            <values>
+                <fullName>Employee %2B Family Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Cover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vision Plan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Policy_Coverage__c</picklist>
+            <values>
+                <fullName>Waived</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Provider__c</picklist>
+            <values>
+                <fullName>Aviva</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Axa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 General</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vision Insurance Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason__c</picklist>
+            <values>
+                <fullName>Adoption of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Birth of Child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Hire</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open Period</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Provider__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Plan__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Start_Date__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

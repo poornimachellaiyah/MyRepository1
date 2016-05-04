@@ -1,0 +1,12 @@
+<apex:page showHeader="false" sidebar="false">
+
+	<link href="{!$Resource.FairsailIcon}/Icon/fairsail.ico" rel="shortcut icon"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    <div class="container text-center ">
+    	<div class="page-header alert alert-success">
+    		<h1>{!$Label.Global_Form_Submitted_Successfully}</h1>
+    	</div>
+    	<p class="lead"> {!$Label.Please_close_your_browser_tab}. </p>
+    </div>
+</apex:page>

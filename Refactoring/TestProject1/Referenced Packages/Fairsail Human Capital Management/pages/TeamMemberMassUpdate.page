@@ -1,0 +1,125 @@
+<apex:page standardController="fHCM2__Team_Member__c" recordSetvar="unused" extensions="fHCM2.MassUpdateSimpleController" id="page">
+  
+	<script type="Text/Javascript">
+		function setDateRange() {
+                     var yearselect = document.getElementById('calYearPicker');
+                     if (yearselect!=null) {
+                         yearselect.options.length = 0;
+                         
+                         var now = new Date();
+                         for(var i=now.getFullYear()-100; i < now.getFullYear()+20;i++) {
+                         var elOptNew = document.createElement('option');
+                            elOptNew.text = i;
+                            elOptNew.value = i;
+                            yearselect.add(elOptNew, null);
+                         }
+                     }
+		}
+		function confirmCancel() {
+           var isCancel = confirm("Are you sure you wish to cancel?");
+           if (isCancel) return true;       
+           return false;
+        }
+        function setFocusOnLoad() {}
+  </script>
+  
+  <apex:form id="wizard">
+  <apex:outputPanel id="main">
+  <apex:sectionHeader title="Mass Update Wizard" subtitle="{!IF(step != '5', 'Step ' + step + ' of 4', 'Result')}"/>
+
+      <apex:pageBlock id="step1" title="Step 1. Confirm records to be updated" mode="edit" rendered="{!step='1'}">
+            <!--<apex:pagemessages escape="false"></apex:pagemessages>-->
+            <apex:pageBlockSection >
+            <apex:pageBlockTable var="a" value="{!selected}" rendered="{!hasEmployments}">
+                <apex:column value="{!a.Name}"/>
+                <apex:column rendered="{!hasEmployments}" value="{!a.fHCM2__Current_Employment__c}"/>
+                <apex:column rendered="{!hasSalaries}" value="{!a.Current_Employment__r.fHCM2__Current_Salary__c}"/>
+            </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:panelGrid columns="2">
+            </apex:panelGrid>
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!cancel}"  value="{!$Label.fhcm2__Button_Previous}"/>
+              <apex:commandButton action="{!step2}"  value="Update Team Members"/>
+              <apex:commandButton rendered="{!sType = 'fHCM2__Team_Member__c' && switchToEmploymentsEnabled}" action="{!switchToEmployments}"  value="Update Employment Records"/>
+              <apex:commandButton rendered="{!sType = 'fHCM2__Team_Member__c' && switchToSalariesEnabled}" action="{!switchToSalaries}"  value="Update Salary Records"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock> 
+  
+      <apex:pageBlock id="field" title="Step 2. Specify the field(s) to be updated" mode="edit" rendered="{!step='2'}">
+          <!--<apex:pagemessages escape="false"></apex:pagemessages>-->
+		  <apex:pageBlockSection columns="1">
+			<apex:pageBlockSectionItem rendered="{!useSalaries}">
+			  <apex:outputLabel value="Indexation increase"/>
+			  <apex:inputCheckbox value="{!newRecord}"/>
+			</apex:pageBlockSectionItem>
+			<apex:pageBlockSectionItem rendered="{!useSalaries}">
+			  <apex:outputLabel value="or"/>
+			  <apex:outputLabel value=" "/>
+			</apex:pageBlockSectionItem>			
+		  <apex:pageBlockSectionItem >
+		  <apex:outputLabel value="Field"/>
+          <apex:selectList id="pickList" size="1" value="{!fieldName}" required="{!!useSalaries}">
+              <apex:selectOptions value="{!fieldTypeOptions}"/>
+          </apex:selectList>
+          </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!step3}" value="Next" />
+              <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" onclick="return confirmCancel()" immediate="true" style="margin-left: 2em"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock> 
+  
+      <apex:pageBlock id="step3" title="Step 3. Specify the new value for field - {!fieldLabel}" mode="edit" rendered="{!step='3'}">
+      
+         <!--<apex:pagemessages escape="false"></apex:pagemessages>-->
+         <apex:pageBlockSection columns="1">
+         <apex:inputField rendered="{!!useEmployments && !useSalaries}" value="{!TMObject[fieldName]}" onClick="if (this.value!=null) setDateRange();"/>
+         <apex:inputField rendered="{!useEmployments}" value="{!EmploymentObject[fieldName]}" onClick="if (this.value!=null) setDateRange();"/>
+         <apex:inputField rendered="{!useSalaries && !newRecord}" value="{!SalaryObject[fieldName]}" onClick="if (this.value!=null) setDateRange();"/>\
+			<apex:pageBlockSectionItem rendered="{!useSalaries && newRecord}">
+			  <apex:outputLabel value="Percentage Increase"/>
+			  <apex:inputText value="{!percentage}" required="true"/>
+			</apex:pageBlockSectionItem>
+			<apex:inputField value="{!SalaryObject.fHCM2__Start_Date__c}" rendered="{!useSalaries && newRecord}" required="true"/>
+			<apex:inputField value="{!SalaryObject.fHCM2__Change_Reason__c}" rendered="{!useSalaries && newRecord}" required="true"/>
+         </apex:pageBlockSection>
+             <apex:pageBlockButtons >
+              <apex:commandButton action="{!step2}"  value="{!$Label.fhcm2__Button_Previous}"/>
+              <apex:commandButton action="{!step4}"  value="Next"/>
+              <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" onclick="return confirmCancel()" immediate="true" style="margin-left: 2em"/>
+             </apex:pageBlockButtons>
+		     <script type="Text/Javascript">setDateRange();</script>
+      </apex:pageBlock> 
+      
+      <apex:pageBlock id="step4" title="Step 4. Confirmation" mode="edit" rendered="{!step='4'}">
+          <!--<apex:pagemessages escape="false"></apex:pagemessages>-->
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!step3}"  value="{!$Label.fhcm2__Button_Previous}"/>
+              <apex:commandButton action="{!step5}"  value="Update"/>
+              <apex:commandButton action="{!cancel}" value="{!$Label.fhcm2__Button_Cancel}" onclick="return confirmCancel()" immediate="true" style="margin-left: 2em"/>
+          </apex:pageBlockButtons>
+          <p>Please review your selections before clicking Update (the changes will apply immediately):</p>
+          <p>Records Selected: {!recordSize}</p>
+          <apex:outputPanel layout="none" rendered="{!!newRecord}">
+          <p>Field To Be Updated: {!fieldLabel} ({!fieldName})</p>
+          <p>New Value:&nbsp;<apex:outputField rendered="{!!useEmployments && !useSalaries}" value="{!TMObject[fieldName]}"/><apex:outputField rendered="{!useEmployments}" value="{!EmploymentObject[fieldName]}"/><apex:outputField rendered="{!useSalaries}" value="{!SalaryObject[fieldName]}"/></p>
+          </apex:outputPanel>
+          <apex:outputPanel layout="none" rendered="{!newRecord}">
+          <p>Indexation increase:</p>
+          <p>Increase: {!percentage}%</p>
+          <p>{!$Label.fhcm2__Start_Date}: <c:outputDate dateValue="{!salaryObject.fHCM2__Start_Date__c}"/></p>
+          <p>Reason: {!salaryObject.fHCM2__Change_Reason__c}</p>
+          </apex:outputPanel>
+      </apex:pageBlock> 
+      
+      
+      <apex:pageBlock id="step5" title="" mode="edit" rendered="{!step='5'}">
+          <apex:pagemessages escape="false"></apex:pagemessages>
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!cancel}" value="Done"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock> 
+  </apex:outputPanel>
+  </apex:form>
+</apex:page>
